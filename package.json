@@ -2,14 +2,18 @@
   "name": "club-portal-frontend",
   "version": "0.0.1",
   "description": "Frontend Implementation of 'club-portal'",
-  "repository": "git@github.com:lc-tut/club-portal-frontend.git",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lc-tut/club-portal-frontend.git"
+  },
   "author": "LinuxClub <linuxclub.tut@gmail.com>",
   "license": "MIT",
   "scripts": {
     "dev": "cross-env TS_NODE_PROJECT='tsconfig.webpack.json' webpack serve",
     "build": "cross-env TS_NODE_PROJECT='tsconfig.webpack.json' webpack",
     "build:prod": "cross-env TS_NODE_PROJECT='tsconfig.webpack.json' NODE_ENV=production webpack",
-    "analyze": "cross-env TS_NODE_PROJECT='tsconfig.webpack.json' NODE_ENV=production webpack --analyze"
+    "analyze": "cross-env TS_NODE_PROJECT='tsconfig.webpack.json' NODE_ENV=production webpack --analyze",
+    "lint:prettier": "prettier --check 'src/**/*.{js,ts,tsx}"
   },
   "browserslist": [
     "defaults"
@@ -34,6 +38,7 @@
     "cross-env": "^7.0.3",
     "fork-ts-checker-webpack-plugin": "^6.2.1",
     "html-webpack-plugin": "^5.3.1",
+    "prettier": "^2.2.1",
     "ts-loader": "^8.1.0",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.4",
