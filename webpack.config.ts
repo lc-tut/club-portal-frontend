@@ -4,6 +4,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 import { CleanWebpackPlugin } from 'clean-webpack-plugin'
 import TerserWebpackPlugin from 'terser-webpack-plugin'
+import { Configuration } from 'webpack-dev-server'
 
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -17,6 +18,17 @@ const commonPlugins: webpack.WebpackPluginInstance[] = [
 const plugins: webpack.WebpackPluginInstance[] = isProduction
   ? [...commonPlugins, new CleanWebpackPlugin()]
   : [...commonPlugins]
+
+const devServer: Configuration = {
+  contentBase: path.resolve(__dirname, '/dist'),
+  historyApiFallback: true,
+  open: true,
+  port: 8000,
+  hot: true,
+  proxy: {
+    '/api': 'http://localhost:8080',
+  },
+}
 
 const config: webpack.Configuration = {
   mode: isProduction ? 'production' : 'development',
@@ -84,6 +96,8 @@ const config: webpack.Configuration = {
       config: [__filename],
     },
   },
+
+  devServer: devServer,
 }
 
 export default config
