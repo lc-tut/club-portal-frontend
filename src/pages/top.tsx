@@ -1,12 +1,15 @@
+import { Box } from "@chakra-ui/react"
 import { motion } from "framer-motion"
 import React from "react"
-import { Link } from "react-router-dom"
 import { useSession } from "../hooks/useSession"
 
 const AnimatedTop: React.VFC<{}> = () => {
   const { session } = useSession()
 
-  return <motion.div></motion.div>
+  return (
+    <Box>
+    </Box>
+  )
 }
 
 export const Top: React.VFC<{}> = () => {
