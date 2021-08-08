@@ -38,7 +38,7 @@ const config: webpack.Configuration = {
   output: {
     path: path.resolve(__dirname + '/dist'),
     filename: 'index.js',
-    assetModuleFilename: 'assets/[hash][ext]',
+    assetModuleFilename: 'assets/[hash].[ext]',
   },
 
   plugins: plugins,
@@ -67,9 +67,35 @@ const config: webpack.Configuration = {
         ],
       },
       {
-        test: /\.(png|jpe?g|gif|svg)$/,
+        test: /\.(png|jpe?g|gif)$/,
         type: 'asset/resource',
       },
+      {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: '@svgr/webpack',
+            options: {
+              prettier: false,
+              svgo: isProduction,
+              svgoConfig: {
+                plugins: [{ removeViewBox: false }],
+              },
+              titleProp: true,
+              ref: true,
+            },
+          },
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'assets/[hash].[ext]',
+            },
+          },
+        ],
+        issuer: {
+          and: [/\.(ts|tsx|js|jsx|md|mdx)$/],
+        },
+      }
     ],
   },
 
