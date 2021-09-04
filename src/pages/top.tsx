@@ -6,10 +6,7 @@ import { useSession } from "../hooks/useSession"
 const AnimatedTop: React.VFC<{}> = () => {
   const { session } = useSession()
 
-  return (
-    <Box>
-    </Box>
-  )
+  return <Box></Box>
 }
 
 export const Top: React.VFC<{}> = () => {
