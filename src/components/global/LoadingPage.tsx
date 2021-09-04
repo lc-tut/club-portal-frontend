@@ -4,7 +4,7 @@ import { MinFullHeight } from "./Utils"
 
 export const Loading: React.VFC<{}> = () => {
   return (
-    <motion.div exit={{opacity: 0}}>
+    <motion.div exit={{ opacity: 0 }}>
       <MinFullHeight>
         <Container maxW="2xl" height="100vh">
           <Flex

@@ -4,7 +4,5 @@ import type { PropsWithChildren } from "react"
 import { ReactComponent as Logo } from "../../static/Logo.svg"
 
 export const PortalLogo: React.VFC<PropsWithChildren<IconProps>> = (props) => {
-  return (
-    <Icon as={Logo} {...props} />
-  )
+  return <Icon as={Logo} {...props} />
 }
