@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38">
+  <g id="default_user_icon" transform="translate(-592 -203)">
+    <g id="frame" transform="translate(592 203)" fill="#888" stroke="#888" stroke-width="1">
+      <circle cx="19" cy="19" r="19" stroke="none"/>
+      <circle cx="19" cy="19" r="18.5" fill="none"/>
+    </g>
+    <path id="person-fill" d="M3.749,22.991A1.713,1.713,0,0,1,2,21.242c0-1.749,1.749-7,10.5-7s10.5,5.248,10.5,7a1.713,1.713,0,0,1-1.749,1.749ZM12.5,12.5A5.248,5.248,0,1,0,7.248,7.248,5.248,5.248,0,0,0,12.5,12.5Z" transform="translate(598.504 209.504)" fill="#fff"/>
+  </g>
+</svg>

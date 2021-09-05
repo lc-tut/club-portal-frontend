@@ -1,7 +1,7 @@
 import { BellIcon, HamburgerIcon } from "@chakra-ui/icons"
 import { Avatar, Box, Center, Flex, Heading, Spacer } from "@chakra-ui/react"
 import { stat } from "fs"
-import { PortalLogo } from "../common/Logo"
+import { DefaultUserIcon } from "../common/DefaultUserIcon"
 
 export const Header: React.VFC<{}> = () => {
   const headerHeight: number = 52
@@ -16,7 +16,7 @@ export const Header: React.VFC<{}> = () => {
         <BellIcon boxSize="2em" mx="3" />
       </Center>
       <Center>
-        <Avatar icon={<PortalLogo />} size="sm" />
+        <DefaultUserIcon boxSize="2em" />
       </Center>
     </Flex>
   )
