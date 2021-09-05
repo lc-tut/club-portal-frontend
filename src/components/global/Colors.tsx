@@ -4,7 +4,8 @@ const theme = extendTheme({
     colors: {
         text: {
             "main": "#626262",
-            "sub": "#A0A0A0"
+            "sub": "#A0A0A0",
+            "test": "#ff0000"
         }
     }
 })
