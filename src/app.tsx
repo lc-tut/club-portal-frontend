@@ -4,7 +4,7 @@ import { PortalTheme } from "./components/global/Colors"
 
 const App: React.VFC<{}> = () => {
   return (
-    <ChakraProvider theme={ PortalTheme }>
+    <ChakraProvider theme={PortalTheme}>
       <PortalRouter />
     </ChakraProvider>
   )

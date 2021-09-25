@@ -8,9 +8,7 @@ const AnimatedTop: React.VFC<{}> = () => {
 
   return (
     <Box>
-      <Text color="text.test">
-        This is TEXT.
-      </Text>
+      <Text color="text.test">This is TEXT.</Text>
     </Box>
   )
 }
