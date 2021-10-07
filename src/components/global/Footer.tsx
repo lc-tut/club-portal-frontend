@@ -1,18 +1,11 @@
-import {
-  Center,
-  CloseButton,
-  Flex,
-  HStack,
-  Spacer,
-  Text,
-} from "@chakra-ui/react"
+import { Center, Flex, HStack, Spacer, Text } from "@chakra-ui/react"
 import { PortalLogo } from "../common/Logo"
 
 export const Footer: React.VFC<{}> = () => {
-  const footerHeight: number = 198
+  const footerHeight = 198
 
   return (
-    <Center h={footerHeight + "px"} backgroundColor="green.500">
+    <Center h={`${footerHeight}px`} backgroundColor="green.500">
       <Flex direction="column">
         <Center>
           <PortalLogo boxSize="3em" mr="5" />

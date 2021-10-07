@@ -1,13 +1,12 @@
 import { BellIcon, HamburgerIcon } from "@chakra-ui/icons"
-import { Avatar, Box, Center, Flex, Heading, Spacer } from "@chakra-ui/react"
-import { stat } from "fs"
+import { Center, Flex, Spacer } from "@chakra-ui/react"
 import { DefaultUserIcon } from "../common/DefaultUserIcon"
 
 export const Header: React.VFC<{}> = () => {
-  const headerHeight: number = 52
+  const headerHeight = 52
 
   return (
-    <Flex px="15" h={headerHeight + "px"} w="100%" backgroundColor="green.200">
+    <Flex px="15" h={`${headerHeight}px`} w="100%" backgroundColor="green.200">
       <Center>
         <HamburgerIcon boxSize="2em" />
       </Center>
