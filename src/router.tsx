@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "framer-motion"
+import { AnimatePresence } from "framer-motion"
 import { Route, Switch, BrowserRouter, useLocation } from "react-router-dom"
 import { useSession } from "./hooks/useSession"
 import * as page from "./pages"
