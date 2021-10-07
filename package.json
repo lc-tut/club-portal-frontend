@@ -13,11 +13,11 @@
     "build": "cross-env TS_NODE_PROJECT='tsconfig.webpack.json' webpack",
     "build:prod": "cross-env TS_NODE_PROJECT='tsconfig.webpack.json' NODE_ENV=production webpack",
     "analyze": "cross-env TS_NODE_PROJECT='tsconfig.webpack.json' NODE_ENV=production webpack --analyze",
-    "lint:prettier": "prettier --check 'src/**/*.{js,ts,tsx}'",
-    "lint:eslint": "eslint 'src/**/*.{js,ts,tsx}'",
+    "lint:prettier": "prettier --check \"src/**/*.{js,ts,tsx}\"",
+    "lint:eslint": "eslint \"src/**/*.{js,ts,tsx}\"",
     "lint": "run-p lint:prettier lint:eslint",
-    "format:prettier": "prettier --write 'src/**/*.{js,ts,tsx}'",
-    "format:eslint": "eslint 'src/**/*.{js,ts,tsx}' --fix"
+    "format:prettier": "prettier --write \"src/**/*.{js,ts,tsx}\"",
+    "format:eslint": "eslint \"src/**/*.{js,ts,tsx}\" --fix"
   },
   "browserslist": [
     "defaults"
