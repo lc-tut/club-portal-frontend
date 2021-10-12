@@ -28,9 +28,9 @@ const AnimatedRouter: React.VFC<{}> = () => {
   }
 
   return (
-    <Flex h="100vh" direction="column">
+    <Flex direction="column">
       <Header />
-      <Container flex="1">
+      <Container minW="100%" p="0" flex="1">
         <AnimatePresence exitBeforeEnter initial={false}>
           <Switch location={location} key={location.pathname}>
             <Route exact path="/" component={page.Top}></Route>
