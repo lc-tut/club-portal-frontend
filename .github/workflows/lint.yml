@@ -5,7 +5,11 @@ on:
     branches:
       - master
       - dev
+    paths:
+      - "src/**"
   pull_request:
+    paths:
+      - "src/**"
 
 jobs:
   eslint:
