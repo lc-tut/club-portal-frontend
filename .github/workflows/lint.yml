@@ -7,9 +7,11 @@ on:
       - dev
     paths:
       - "src/**"
+      - "package.json"
   pull_request:
     paths:
       - "src/**"
+      - "package.json"
 
 jobs:
   eslint:
@@ -36,3 +38,15 @@ jobs:
       - uses: bahmutov/npm-install@v1
       - name: lint - Prettier
         run: yarn run lint:prettier
+
+  transpile:
+    name: transpile
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - uses: bahmutov/npm-install@v1
+      - name: tsc - noEmit
+        run: yarn run tsc --noEmit
