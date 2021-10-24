@@ -9,7 +9,8 @@ const axiosFetcher = async <T = AxiosRequestConfig | undefined>(
   args: T
 ) => {
   const axiosConfig: AxiosRequestConfig = args ? args : { url: url }
-  const { data } = await client.request(axiosConfig)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data } = await client.request<any>(axiosConfig)
   return data
 }
 
