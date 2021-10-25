@@ -42,7 +42,7 @@
     "@emotion/babel-preset-css-prop": "11.2.0",
     "@svgr/webpack": "5.5.0",
     "@types/node": "14.17.29",
-    "@types/react": "17.0.31",
+    "@types/react": "17.0.32",
     "@types/react-dom": "17.0.10",
     "@types/react-router-dom": "5.3.1",
     "@types/webpack-dev-server": "4.3.1",
