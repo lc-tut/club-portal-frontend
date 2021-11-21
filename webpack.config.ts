@@ -4,7 +4,11 @@ import HtmlWebpackPlugin from "html-webpack-plugin"
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin"
 import { CleanWebpackPlugin } from "clean-webpack-plugin"
 import TerserWebpackPlugin from "terser-webpack-plugin"
-import { Configuration } from "webpack-dev-server"
+import { Configuration as WebpackDevServerConfigration } from "webpack-dev-server"
+
+interface Configuration extends webpack.Configuration {
+  devServer?: WebpackDevServerConfigration
+}
 
 const isProduction = process.env.NODE_ENV === "production"
 
@@ -19,7 +23,7 @@ const plugins: webpack.WebpackPluginInstance[] = isProduction
   ? [...commonPlugins, new CleanWebpackPlugin()]
   : [...commonPlugins]
 
-const devServer: Configuration = {
+const devServer: WebpackDevServerConfigration = {
   static: {
     directory: path.resolve(__dirname, "/dist"),
   },
@@ -32,7 +36,7 @@ const devServer: Configuration = {
   },
 }
 
-const config: webpack.Configuration = {
+const config: webpack.Configuration | Configuration = {
   mode: isProduction ? "production" : "development",
   entry: "./src/index.tsx",
   devtool: isProduction ? false : "inline-source-map",
