@@ -1,11 +1,11 @@
-import { Button, Center, Container, Flex, Grid, GridItem, Heading, VStack } from "@chakra-ui/react"
+import { Button, Center, Flex, Grid, GridItem, Heading, VStack } from "@chakra-ui/react"
 import React from "react"
 import { PortalLogo } from "../components/common/Logo";
 
 const AnimatedTop: React.VFC<{}> = () => {
   return (
-    <Container m="0" p="0" minW="100%" bgGradient="radial(#ffffff, green.100)">
-      <VStack>
+    <Flex flex="1" bgGradient="radial(#ffffff, green.100)">
+      <VStack flex="1">
         <Heading
           pt="80px"
           fontFamily="futura-pt-bold" fontSize="70px"
@@ -30,13 +30,13 @@ const AnimatedTop: React.VFC<{}> = () => {
                 </Center>
               </GridItem>
               <GridItem rowSpan={1}>
-                <Container
+                <Flex
                   w="360px" p="0" m="0"
                   fontSize="16px/18"
                   color="text.main"
                   textAlign="center">
                   TUT Club Portalは東京工科大学のサークル情報を掲載する大学公認Webサイトです。
-                </Container>
+                </Flex>
               </GridItem>
             </Grid>
           </GridItem>
@@ -55,7 +55,7 @@ const AnimatedTop: React.VFC<{}> = () => {
           </GridItem>
         </Grid>
       </VStack>
-    </Container>
+    </Flex>
   );
 }
 

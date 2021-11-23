@@ -7,7 +7,7 @@ import { Header } from "./components/global/Header"
 import { Footer } from "./components/global/Footer"
 import axios from "axios"
 import { ErrorPage } from "./pages/error"
-import { Container, Flex } from "@chakra-ui/react"
+import { Flex } from "@chakra-ui/react"
 
 const AnimatedRouter: React.VFC<{}> = () => {
   const location = useLocation()
@@ -28,9 +28,9 @@ const AnimatedRouter: React.VFC<{}> = () => {
   }
 
   return (
-    <Flex direction="column">
+    <Flex direction="column" minH="100vh">
       <Header />
-      <Container minW="100%" p="0" flex="1">
+      <Flex p="0" flex="1">
         <AnimatePresence exitBeforeEnter initial={false}>
           <Switch location={location} key={location.pathname}>
             <Route exact path="/" component={page.Top}></Route>
@@ -39,7 +39,7 @@ const AnimatedRouter: React.VFC<{}> = () => {
             <Route path="*" component={page.NotFound}></Route>
           </Switch>
         </AnimatePresence>
-      </Container>
+      </Flex>
       <Footer />
     </Flex>
   )
