@@ -1,11 +1,31 @@
 import { Button, Center, Flex, Grid, GridItem, Heading, VStack } from "@chakra-ui/react"
 import React from "react"
 import { PortalLogo } from "../components/common/Logo";
+import { PortalButton } from "../components/common/Button";
+import { Search } from "react-bootstrap-icons";
 
 const AnimatedTop: React.VFC<{}> = () => {
   return (
     <Flex flex="1" bgGradient="radial(#ffffff, green.100)">
       <VStack flex="1">
+
+        <PortalButton>
+          normal
+        </PortalButton>
+        <PortalButton buttonSize="large" buttonColor="orange" leftIcon={<p>(icon)</p>}>
+          large
+        </PortalButton>
+        <PortalButton buttonStyle="round-fill" buttonColor="yellow" leftIcon={<Search/>}>
+          round
+        </PortalButton>
+        <PortalButton buttonStyle="round-solid" buttonColor="yellow" leftIcon={<Search/>}>
+          round-solid
+        </PortalButton>
+        <PortalButton buttonSize="large" buttonStyle="solid" leftIcon={<Search/>}>
+          large solid
+        </PortalButton>
+        <Button leftIcon={<p>adf</p>}>a</Button>
+
         <Heading
           pt="80px"
           fontFamily="futura-pt-bold" fontSize="70px"
@@ -18,7 +38,7 @@ const AnimatedTop: React.VFC<{}> = () => {
           templateRows="repeat(3, 1fr)"
           templateColumns="repeat(2, 1fr)"
         >
-          {/* ----- right content ----- */}
+          {/* ----- left content ----- */}
           <GridItem rowSpan={3}>
             <Grid
               templateRows="repeat(3, 1fr)"
@@ -40,7 +60,7 @@ const AnimatedTop: React.VFC<{}> = () => {
               </GridItem>
             </Grid>
           </GridItem>
-          {/* ----- left content ----- */}
+          {/* ----- right content ----- */}
           <GridItem>
             <Button>サークルを探す</Button>
           </GridItem>
