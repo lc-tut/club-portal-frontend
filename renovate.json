@@ -1,0 +1,23 @@
+{
+  "extends": [
+    "config:base"
+  ],
+  "pin": {
+    "automerge": true
+  },
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["^@types/"],
+      "automerge": true,
+      "major": {
+        "automerge": false
+      }
+    },
+    {
+      "groupName": "linters",
+      "extends": ["packages:linters"],
+      "matchPackageNames": ["prettier"],
+      "matchPackagePatterns": ["^@typescript-eslint/"]
+    }
+  ]
+}
