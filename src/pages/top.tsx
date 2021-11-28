@@ -1,38 +1,42 @@
-import { Center, Flex, Grid, GridItem, Heading, Spacer, VStack } from "@chakra-ui/react"
+import {
+  Center,
+  Flex,
+  Grid,
+  GridItem,
+  Heading,
+  Spacer,
+  VStack,
+} from "@chakra-ui/react"
 import React from "react"
-import { PortalLogo } from "../components/common/Logo";
-import { PortalButton, PortalButtonProps } from "../components/common/PortalButton";
-import { Search, Megaphone, ClockHistory, Star } from "react-bootstrap-icons";
+import { PortalLogo } from "../components/common/Logo"
+import {
+  PortalButton,
+  PortalButtonProps,
+} from "../components/common/PortalButton"
+import { Search, Megaphone, ClockHistory, Star } from "react-bootstrap-icons"
 
-const MenuButton: React.VFC<React.PropsWithChildren<PortalButtonProps> & {mbtype?: "main" | "sub"}> = (
-  props
-) => {
-  let type: "main" | "sub" = "main";
+const MenuButton: React.VFC<
+  React.PropsWithChildren<PortalButtonProps> & { mbtype?: "main" | "sub" }
+> = (props) => {
+  let type: "main" | "sub" = "main"
   if (!props.mbtype) {
-    type = "main";
-  }
-  else {
-    type = props.mbtype;
+    type = "main"
+  } else {
+    type = props.mbtype
   }
 
-  let height: string = "";
+  let height: string = ""
   if (type == "main") {
-    height = "67px";
-  }
-  else if (type == "sub") {
-    height = "50px";
+    height = "67px"
+  } else if (type == "sub") {
+    height = "50px"
   }
 
   return (
-    <PortalButton
-      width="340px"
-      height={height}
-      fontSize="20px"
-      {...props}
-    >
+    <PortalButton width="340px" height={height} fontSize="20px" {...props}>
       {props.children}
     </PortalButton>
-  );
+  )
 }
 
 const AnimatedTop: React.VFC<{}> = () => {
@@ -41,9 +45,11 @@ const AnimatedTop: React.VFC<{}> = () => {
       <VStack flex="1" spacing="66px">
         <Heading
           pt="80px"
-          fontFamily="futura-pt-bold" fontSize="70px"
+          fontFamily="futura-pt-bold"
+          fontSize="70px"
           color="green.900"
-          textAlign="justify">
+          textAlign="justify"
+        >
           TUT Club Portal
         </Heading>
 
@@ -51,7 +57,6 @@ const AnimatedTop: React.VFC<{}> = () => {
           templateRows="repeat(3, 1fr)"
           templateColumns="repeat(2, 1fr)"
           columnGap="40px"
-
         >
           {/* ----- left content ----- */}
           <GridItem rowSpan={3}>
@@ -61,44 +66,58 @@ const AnimatedTop: React.VFC<{}> = () => {
             >
               <GridItem rowSpan={2}>
                 <Center>
-                  <PortalLogo h="181px" w="auto"/>
+                  <PortalLogo h="181px" w="auto" />
                 </Center>
               </GridItem>
               <GridItem rowSpan={1}>
                 <Flex
-                  w="360px" p="0" m="0"
+                  w="360px"
+                  p="0"
+                  m="0"
                   fontSize="16px/18"
                   color="text.main"
-                  textAlign="center">
-                  TUT Club Portalは東京工科大学のサークル情報を掲載する大学公認Webサイトです。
+                  textAlign="center"
+                >
+                  TUT Club
+                  Portalは東京工科大学のサークル情報を掲載する大学公認Webサイトです。
                 </Flex>
               </GridItem>
             </Grid>
           </GridItem>
           {/* ----- right content ----- */}
           <GridItem>
-            <MenuButton leftIcon={<Search/>}>サークルを探す</MenuButton>
+            <MenuButton leftIcon={<Search />}>サークルを探す</MenuButton>
           </GridItem>
           <GridItem>
-            <MenuButton pbstyle="solid" leftIcon={<Megaphone/>}>お知らせ</MenuButton>
+            <MenuButton pbstyle="solid" leftIcon={<Megaphone />}>
+              お知らせ
+            </MenuButton>
           </GridItem>
           <GridItem>
             <Flex width="340px">
               <MenuButton
-                flex="4" mbtype="sub" pbstyle="solid"
-                leftIcon={<ClockHistory/>}
-              >履歴</MenuButton>
-              <Spacer width="25px"/>
+                flex="4"
+                mbtype="sub"
+                pbstyle="solid"
+                leftIcon={<ClockHistory />}
+              >
+                履歴
+              </MenuButton>
+              <Spacer width="25px" />
               <MenuButton
-                flex="6" mbtype="sub" pbstyle="solid"
-                leftIcon={<Star/>}
-              >お気に入り</MenuButton>
+                flex="6"
+                mbtype="sub"
+                pbstyle="solid"
+                leftIcon={<Star />}
+              >
+                お気に入り
+              </MenuButton>
             </Flex>
           </GridItem>
         </Grid>
       </VStack>
     </Flex>
-  );
+  )
 }
 
 export const Top: React.VFC<{}> = () => {
