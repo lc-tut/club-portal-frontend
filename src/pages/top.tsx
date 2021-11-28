@@ -8,24 +8,6 @@ const AnimatedTop: React.VFC<{}> = () => {
   return (
     <Flex flex="1" bgGradient="radial(#ffffff, green.100)">
       <VStack flex="1">
-
-        <PortalButton>
-          normal
-        </PortalButton>
-        <PortalButton buttonSize="large" buttonColor="orange" leftIcon={<p>(icon)</p>}>
-          large
-        </PortalButton>
-        <PortalButton buttonStyle="round-fill" buttonColor="yellow" leftIcon={<Search/>}>
-          round
-        </PortalButton>
-        <PortalButton buttonStyle="round-solid" buttonColor="yellow" leftIcon={<Search/>}>
-          round-solid
-        </PortalButton>
-        <PortalButton buttonSize="large" buttonStyle="solid" leftIcon={<Search/>}>
-          large solid
-        </PortalButton>
-        <Button leftIcon={<p>adf</p>}>a</Button>
-
         <Heading
           pt="80px"
           fontFamily="futura-pt-bold" fontSize="70px"
@@ -62,10 +44,10 @@ const AnimatedTop: React.VFC<{}> = () => {
           </GridItem>
           {/* ----- right content ----- */}
           <GridItem>
-            <Button>サークルを探す</Button>
+            <PortalButton>サークルを探す</PortalButton>
           </GridItem>
           <GridItem>
-            <Button>お知らせ</Button>
+            <PortalButton>お知らせ</PortalButton>
           </GridItem>
           <GridItem>
             <Flex>
