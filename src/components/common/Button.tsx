@@ -6,10 +6,10 @@ type ButtonStyle = "fill" | "solid" | "round-fill" | "round-solid"
 type ButtonColor = "green" | "orange" | "yellow"
 
 interface PortalButtonProps extends ButtonProps {
-    buttonSize?: ButtonSize
-    buttonStyle?: ButtonStyle
-    buttonColor?: ButtonColor
-    buttonIcon?: Icon
+    pbsize?: ButtonSize     // specify template width of button (default is 'normal')
+    pbstyle?: ButtonStyle   // specify style like rounded or square, filled or solid (default is 'fill')
+    pbcolor?: ButtonColor   // specify color theme (default is 'green')
+    pbicon?: Icon           // specify left icon (default is undefined)
 }
 
 function isSolid(style: ButtonStyle): boolean {
@@ -34,55 +34,55 @@ export const PortalButton: React.VFC<React.PropsWithChildren<PortalButtonProps>>
     }
 
     // default size prop
-    let buttonSize: ButtonSize = "normal";
-    if (props.buttonSize) {
-        buttonSize = props.buttonSize;
+    let size: ButtonSize = "normal";
+    if (props.pbsize) {
+        size = props.pbsize;
     }
 
     // default height and width
     let width: number | undefined;
     let height: number | undefined;
     if (!props.width) {
-        width = sizeMap[buttonSize];
+        width = sizeMap[size];
     }
     if (!props.height) {
         height = 41
     }
 
     // default style prop
-    let buttonStyle: ButtonStyle = "fill";
-    if (props.buttonStyle) {
-        buttonStyle = props.buttonStyle;
+    let style: ButtonStyle = "fill";
+    if (props.pbstyle) {
+        style = props.pbstyle;
     }
 
     // default color prop
-    let buttonColor: ButtonColor = "green";
-    if (props.buttonColor) {
-        buttonColor = props.buttonColor;
+    let color: ButtonColor = "green";
+    if (props.pbcolor) {
+        color = props.pbcolor;
     }
 
     // define border-radius
     let borderRadius: "full" | undefined;
-    if (isRound(buttonStyle)) {
+    if (isRound(style)) {
         borderRadius = "full";
     }
 
     // define FG color
-    let color: string = "#ffffff";
-    if (isSolid(buttonStyle)) {
-        color = colorMap[buttonColor];
+    let fgColor: string = "#ffffff";
+    if (isSolid(style)) {
+        fgColor = colorMap[color];
     }
 
     // define BG color
-    let backgroundColor: string = colorMap[buttonColor];
-    if (isSolid(buttonStyle)) {
-        backgroundColor = "transparent";
+    let bgColor: string = colorMap[color];
+    if (isSolid(style)) {
+        bgColor = "transparent";
     }
 
     // define border-color
     let borderColor: string = "transparent";
-    if (isSolid(buttonStyle)) {
-        borderColor = color;
+    if (isSolid(style)) {
+        borderColor = fgColor;
     }
 
     return (
@@ -90,10 +90,10 @@ export const PortalButton: React.VFC<React.PropsWithChildren<PortalButtonProps>>
             width={width + "px"}
             height={height + "px"}
             borderRadius={borderRadius}
-            color={color}
+            color={fgColor}
             borderColor={borderColor}
             borderWidth="1px"
-            backgroundColor={backgroundColor}
+            backgroundColor={bgColor}
             {...props}
         >
             {props.children}
