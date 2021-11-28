@@ -1,7 +1,7 @@
-import { Button, Center, Flex, Grid, GridItem, Heading, Spacer, VStack } from "@chakra-ui/react"
+import { Center, Flex, Grid, GridItem, Heading, Spacer, VStack } from "@chakra-ui/react"
 import React from "react"
 import { PortalLogo } from "../components/common/Logo";
-import { PortalButton, PortalButtonProps } from "../components/common/Button";
+import { PortalButton, PortalButtonProps } from "../components/common/PortalButton";
 import { Search, Megaphone, ClockHistory, Star } from "react-bootstrap-icons";
 
 const MenuButton: React.VFC<React.PropsWithChildren<PortalButtonProps> & {mbtype?: "main" | "sub"}> = (
