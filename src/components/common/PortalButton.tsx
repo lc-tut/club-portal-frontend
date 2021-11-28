@@ -67,7 +67,7 @@ export const PortalButton: React.VFC<
   }
 
   // define FG color
-  let fgColor: string = "#ffffff"
+  let fgColor = "#ffffff"
   if (isSolid(style)) {
     fgColor = colorMap[color]
   }
@@ -79,7 +79,7 @@ export const PortalButton: React.VFC<
   }
 
   // define border-color
-  let borderColor: string = "transparent"
+  let borderColor = "transparent"
   if (isSolid(style)) {
     borderColor = fgColor
   }

@@ -25,7 +25,7 @@ const MenuButton: React.VFC<
     type = props.mbtype
   }
 
-  let height: string = ""
+  let height = "";
   if (type == "main") {
     height = "67px"
   } else if (type == "sub") {
