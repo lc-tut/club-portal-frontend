@@ -1,13 +1,44 @@
-import { Button, Center, Flex, Grid, GridItem, Heading, VStack } from "@chakra-ui/react"
+import { Button, Center, Flex, Grid, GridItem, Heading, Spacer, VStack } from "@chakra-ui/react"
 import React from "react"
 import { PortalLogo } from "../components/common/Logo";
-import { PortalButton } from "../components/common/Button";
-import { Search } from "react-bootstrap-icons";
+import { PortalButton, PortalButtonProps } from "../components/common/Button";
+import { Search, Megaphone, ClockHistory, Star } from "react-bootstrap-icons";
+
+const MenuButton: React.VFC<React.PropsWithChildren<PortalButtonProps> & {mbtype?: "main" | "sub"}> = (
+  props
+) => {
+  let type: "main" | "sub" = "main";
+  if (!props.mbtype) {
+    type = "main";
+  }
+  else {
+    type = props.mbtype;
+  }
+
+  let height: string = "";
+  if (type == "main") {
+    height = "67px";
+  }
+  else if (type == "sub") {
+    height = "50px";
+  }
+
+  return (
+    <PortalButton
+      width="340px"
+      height={height}
+      fontSize="20px"
+      {...props}
+    >
+      {props.children}
+    </PortalButton>
+  );
+}
 
 const AnimatedTop: React.VFC<{}> = () => {
   return (
     <Flex flex="1" bgGradient="radial(#ffffff, green.100)">
-      <VStack flex="1">
+      <VStack flex="1" spacing="66px">
         <Heading
           pt="80px"
           fontFamily="futura-pt-bold" fontSize="70px"
@@ -19,6 +50,8 @@ const AnimatedTop: React.VFC<{}> = () => {
         <Grid
           templateRows="repeat(3, 1fr)"
           templateColumns="repeat(2, 1fr)"
+          columnGap="40px"
+
         >
           {/* ----- left content ----- */}
           <GridItem rowSpan={3}>
@@ -44,15 +77,22 @@ const AnimatedTop: React.VFC<{}> = () => {
           </GridItem>
           {/* ----- right content ----- */}
           <GridItem>
-            <PortalButton>サークルを探す</PortalButton>
+            <MenuButton leftIcon={<Search/>}>サークルを探す</MenuButton>
           </GridItem>
           <GridItem>
-            <PortalButton>お知らせ</PortalButton>
+            <MenuButton pbstyle="solid" leftIcon={<Megaphone/>}>お知らせ</MenuButton>
           </GridItem>
           <GridItem>
-            <Flex>
-              <Button>履歴</Button>
-              <Button>お気に入り</Button>
+            <Flex width="340px">
+              <MenuButton
+                flex="4" mbtype="sub" pbstyle="solid"
+                leftIcon={<ClockHistory/>}
+              >履歴</MenuButton>
+              <Spacer width="25px"/>
+              <MenuButton
+                flex="6" mbtype="sub" pbstyle="solid"
+                leftIcon={<Star/>}
+              >お気に入り</MenuButton>
             </Flex>
           </GridItem>
         </Grid>
