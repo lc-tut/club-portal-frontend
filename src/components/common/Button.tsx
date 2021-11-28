@@ -1,15 +1,13 @@
-import { border, Button, ButtonProps } from "@chakra-ui/react"
-import { Icon } from "react-bootstrap-icons"
+import { Button, ButtonProps, CSSObject } from "@chakra-ui/react"
 
-type ButtonSize = "normal" | "large"
+type ButtonSize = "normal" | "large" | "100%"
 type ButtonStyle = "fill" | "solid" | "round-fill" | "round-solid"
 type ButtonColor = "green" | "orange" | "yellow"
 
-interface PortalButtonProps extends ButtonProps {
+export interface PortalButtonProps extends ButtonProps {
     pbsize?: ButtonSize     // specify template width of button (default is 'normal')
     pbstyle?: ButtonStyle   // specify style like rounded or square, filled or solid (default is 'fill')
     pbcolor?: ButtonColor   // specify color theme (default is 'green')
-    pbicon?: Icon           // specify left icon (default is undefined)
 }
 
 function isSolid(style: ButtonStyle): boolean {
@@ -23,9 +21,10 @@ function isRound(style: ButtonStyle): boolean {
 export const PortalButton: React.VFC<React.PropsWithChildren<PortalButtonProps>> =(
     props
 ) => {
-    const sizeMap: { [key in ButtonSize]: number } = {
-        "normal": 157,
-        "large" : 253,
+    const sizeMap: { [key in ButtonSize]: string } = {
+        "normal": "157px",
+        "large" : "253px",
+        "100%"  : "100%"
     }
     const colorMap: { [key in ButtonColor]: string } = {
         "green": "green.600",
@@ -40,13 +39,13 @@ export const PortalButton: React.VFC<React.PropsWithChildren<PortalButtonProps>>
     }
 
     // default height and width
-    let width: number | undefined;
-    let height: number | undefined;
+    let width: string | undefined;
+    let height: string | undefined;
     if (!props.width) {
         width = sizeMap[size];
     }
     if (!props.height) {
-        height = 41
+        height = "41px"
     }
 
     // default style prop
@@ -85,15 +84,31 @@ export const PortalButton: React.VFC<React.PropsWithChildren<PortalButtonProps>>
         borderColor = fgColor;
     }
 
+    // define hover style
+    let hoverStyle: CSSObject = {};
+    if (isSolid(style)) {
+        hoverStyle = {
+            bg: "#fff",
+            opacity: 0.8,
+        }
+    }
+    else {
+        hoverStyle = {
+            opacity: 0.8
+        }
+    }
+
     return (
         <Button
-            width={width + "px"}
-            height={height + "px"}
+            width={width}
+            height={height}
             borderRadius={borderRadius}
             color={fgColor}
             borderColor={borderColor}
             borderWidth="1px"
             backgroundColor={bgColor}
+            _hover={hoverStyle}
+            _focus={{}}
             {...props}
         >
             {props.children}
