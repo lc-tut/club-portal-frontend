@@ -13,7 +13,7 @@ import {
   PortalButton,
   PortalButtonProps,
 } from "../components/common/PortalButton"
-import { Search, Megaphone, ClockHistory, Star } from "react-bootstrap-icons"
+import { BsSearch, BsMegaphone, BsClockHistory, BsStar } from "react-icons/bs"
 
 const MenuButton: React.VFC<
   React.PropsWithChildren<PortalButtonProps> & { mbtype?: "main" | "sub" }
@@ -86,10 +86,10 @@ const AnimatedTop: React.VFC<{}> = () => {
           </GridItem>
           {/* ----- right content ----- */}
           <GridItem>
-            <MenuButton leftIcon={<Search />}>サークルを探す</MenuButton>
+            <MenuButton leftIcon={<BsSearch />}>サークルを探す</MenuButton>
           </GridItem>
           <GridItem>
-            <MenuButton pbstyle="solid" leftIcon={<Megaphone />}>
+            <MenuButton pbstyle="solid" leftIcon={<BsMegaphone />}>
               お知らせ
             </MenuButton>
           </GridItem>
@@ -99,7 +99,7 @@ const AnimatedTop: React.VFC<{}> = () => {
                 flex="4"
                 mbtype="sub"
                 pbstyle="solid"
-                leftIcon={<ClockHistory />}
+                leftIcon={<BsClockHistory />}
               >
                 履歴
               </MenuButton>
@@ -108,7 +108,7 @@ const AnimatedTop: React.VFC<{}> = () => {
                 flex="6"
                 mbtype="sub"
                 pbstyle="solid"
-                leftIcon={<Star />}
+                leftIcon={<BsStar />}
               >
                 お気に入り
               </MenuButton>
