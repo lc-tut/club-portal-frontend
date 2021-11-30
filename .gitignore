@@ -171,3 +171,5 @@ $RECYCLE.BIN/
 .idea/
 .vscode/
 .env
+
+package-lock.json
