@@ -36,6 +36,7 @@ const AnimatedRouter: React.VFC<{}> = () => {
             <Route exact path="/" component={page.Top}></Route>
             <Route path="/clubs/:slug"></Route>
             <Route path="/users/:uuid"></Route>
+            <Route path="/clubs" component={page.Clubs}></Route>
             <Route path="*" component={page.NotFound}></Route>
           </Switch>
         </AnimatePresence>

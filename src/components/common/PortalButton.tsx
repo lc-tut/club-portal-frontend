@@ -8,6 +8,7 @@ export interface PortalButtonProps extends ButtonProps {
   pbsize?: ButtonSize // specify template width of button (default is 'normal')
   pbstyle?: ButtonStyle // specify style like rounded or square, filled or solid (default is 'fill')
   pbcolor?: ButtonColor // specify color theme (default is 'green')
+  href?: string // URL to jump
 }
 
 function isSolid(style: ButtonStyle): boolean {
@@ -108,6 +109,7 @@ export const PortalButton: React.VFC<
       backgroundColor={bgColor}
       _hover={hoverStyle}
       _focus={{}}
+      as="a"
       {...props}
     >
       {props.children}
