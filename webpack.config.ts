@@ -74,6 +74,7 @@ const config: webpack.Configuration = {
       },
       {
         test: /\.svg$/,
+        issuer: /\.[jt]sx?$/,
         use: [
           {
             loader: "@svgr/webpack",
@@ -81,22 +82,18 @@ const config: webpack.Configuration = {
               prettier: false,
               svgo: isProduction,
               svgoConfig: {
-                plugins: [{ removeViewBox: false }],
+                plugins: [
+                  {
+                    name: "preset-default",
+                    params: { overrides: { removeViewBox: false } },
+                  },
+                ],
               },
               titleProp: true,
               ref: true,
             },
           },
-          {
-            loader: "file-loader",
-            options: {
-              name: "assets/[hash].[ext]",
-            },
-          },
         ],
-        issuer: {
-          and: [/\.(ts|tsx|js|jsx|md|mdx)$/],
-        },
       },
     ],
   },
