@@ -1,4 +1,5 @@
 import { ChakraProvider } from "@chakra-ui/react"
+import type { Story } from "@storybook/react"
 
 import { PortalTheme } from "../src/components/global/Colors"
 
@@ -13,9 +14,9 @@ export const parameters = {
 }
 
 export const decorators = [
-  (Story) => {
+  (Story: Story) => (
     <ChakraProvider theme={PortalTheme}>
       <Story />
     </ChakraProvider>
-  }
+  )
 ]
