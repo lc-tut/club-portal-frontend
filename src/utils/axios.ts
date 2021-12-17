@@ -8,7 +8,7 @@ const axiosFetcher = async <T = AxiosRequestConfig | undefined>(
   url: string,
   args: T
 ) => {
-  const axiosConfig: AxiosRequestConfig = args ? args : { url: url }
+  const axiosConfig: AxiosRequestConfig = args ?? { url: url }
   const { data } = await client.request(axiosConfig)
   return data
 }
