@@ -34,7 +34,7 @@ export const PortalButton: React.VFC<
 
   // default height and width
   const width = props.width ?? sizeMap[size]
-  const height = props.height ?? "41px"
+  const height = props.height ?? "2.5rem"
 
   // default style prop
   const style = props.pbstyle ?? "fill"
