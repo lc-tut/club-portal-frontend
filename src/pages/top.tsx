@@ -1,4 +1,5 @@
 import {
+  Button,
   Center,
   Flex,
   Grid,
@@ -9,17 +10,17 @@ import {
 } from "@chakra-ui/react"
 import React from "react"
 import { PortalLogo } from "../components/common/Logo"
-import { MenuButton } from "../components/common/Button"
+import { MenuButton, PortalButton } from "../components/common/Button"
 import { BsSearch, BsMegaphone, BsClockHistory, BsStar } from "react-icons/bs"
 
 const AnimatedTop: React.VFC<{}> = () => {
   return (
     <Flex flex="1" bgGradient="radial(#ffffff, green.100)">
-      <VStack flex="1" spacing="66px">
+      <VStack flex="1" spacing="4rem">
         <Heading
-          pt="80px"
+          pt="5rem"
           fontFamily="futura-pt-bold"
-          fontSize="70px"
+          fontSize="4.5rem"
           color="green.900"
           textAlign="justify"
         >
@@ -29,7 +30,7 @@ const AnimatedTop: React.VFC<{}> = () => {
         <Grid
           templateRows="repeat(3, 1fr)"
           templateColumns="repeat(2, 1fr)"
-          columnGap="40px"
+          columnGap="2.5rem"
         >
           {/* ----- left content ----- */}
           <GridItem rowSpan={3}>
@@ -88,6 +89,10 @@ const AnimatedTop: React.VFC<{}> = () => {
             </Flex>
           </GridItem>
         </Grid>
+        <VStack>
+          <PortalButton> normal </PortalButton>
+          <PortalButton pbsize="large"> large </PortalButton>
+        </VStack>
       </VStack>
     </Flex>
   )

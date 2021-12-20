@@ -15,8 +15,8 @@ const isRound = (style: ButtonStyle): style is ButtonRoundStyle =>
   style === "round-fill" || style === "round-solid"
 
 const sizeMap: { [key in ButtonSize]: string } = {
-  normal: "157px",
-  large: "253px",
+  normal: "10rem",
+  large: "16rem",
   "100%": "100%",
 }
 
