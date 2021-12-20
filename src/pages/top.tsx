@@ -1,16 +1,15 @@
 import {
-  Box,
   Flex,
   Grid,
   GridItem,
   Heading,
   Spacer,
   VStack,
-  Center
+  Center,
 } from "@chakra-ui/react"
 import React from "react"
 import { PortalLogo } from "../components/common/Logo"
-import { MenuButton, PortalButton } from "../components/common/Button"
+import { MenuButton } from "../components/common/Button"
 import { BsSearch, BsMegaphone, BsClockHistory, BsStar } from "react-icons/bs"
 
 const AnimatedTop: React.VFC<{}> = () => {
@@ -32,7 +31,7 @@ const AnimatedTop: React.VFC<{}> = () => {
           templateColumns="repeat(2, 1fr)"
           columnGap="2.5rem"
           rowGap="1rem"
-      >
+        >
           {/* ----- left content ----- */}
           <GridItem rowSpan={3}>
             <Grid
@@ -55,7 +54,8 @@ const AnimatedTop: React.VFC<{}> = () => {
                   color="text.main"
                   textAlign="center"
                 >
-                  TUT Club Portalは東京工科大学のサークル情報を掲載する大学公認Webサイトです。
+                  TUT Club
+                  Portalは東京工科大学のサークル情報を掲載する大学公認Webサイトです。
                 </Flex>
               </GridItem>
             </Grid>
