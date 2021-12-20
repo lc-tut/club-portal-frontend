@@ -1,4 +1,4 @@
-import { Button, CSSObject } from "@chakra-ui/react"
+import { Button, Link, CSSObject } from "@chakra-ui/react"
 import type {
   ButtonColor,
   ButtonRoundStyle,
@@ -61,19 +61,21 @@ export const PortalButton: React.VFC<
   }
 
   return (
-    <Button
-      width={width}
-      height={height}
-      borderRadius={borderRadius}
-      color={fgColor}
-      borderColor={borderColor}
-      borderWidth="1px"
-      backgroundColor={bgColor}
-      _hover={hoverStyle}
-      _focus={{}}
-      {...props}
-    >
-      {props.children}
-    </Button>
+    <Link _hover={{}} href={props.href} {...props}>
+      <Button
+        width={width}
+        height={height}
+        borderRadius={borderRadius}
+        color={fgColor}
+        borderColor={borderColor}
+        borderWidth="1px"
+        backgroundColor={bgColor}
+        _hover={hoverStyle}
+        _focus={{}}
+        {...props}
+      >
+        {props.children}
+      </Button>
+    </Link>
   )
 }
