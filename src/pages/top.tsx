@@ -9,35 +9,8 @@ import {
 } from "@chakra-ui/react"
 import React from "react"
 import { PortalLogo } from "../components/common/Logo"
-import {
-  PortalButton,
-  PortalButtonProps,
-} from "../components/common/PortalButton"
+import { MenuButton } from "../components/common/Button"
 import { BsSearch, BsMegaphone, BsClockHistory, BsStar } from "react-icons/bs"
-
-const MenuButton: React.VFC<
-  React.PropsWithChildren<PortalButtonProps> & { mbtype?: "main" | "sub" }
-> = (props) => {
-  let type: "main" | "sub" = "main"
-  if (!props.mbtype) {
-    type = "main"
-  } else {
-    type = props.mbtype
-  }
-
-  let height = ""
-  if (type == "main") {
-    height = "67px"
-  } else if (type == "sub") {
-    height = "50px"
-  }
-
-  return (
-    <PortalButton width="340px" height={height} fontSize="20px" {...props}>
-      {props.children}
-    </PortalButton>
-  )
-}
 
 const AnimatedTop: React.VFC<{}> = () => {
   return (
