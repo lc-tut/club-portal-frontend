@@ -1,11 +1,11 @@
 import {
-  Center,
   Flex,
   Grid,
   GridItem,
   Heading,
   Spacer,
   VStack,
+  Center,
 } from "@chakra-ui/react"
 import React from "react"
 import { PortalLogo } from "../components/common/Logo"
@@ -15,11 +15,11 @@ import { BsSearch, BsMegaphone, BsClockHistory, BsStar } from "react-icons/bs"
 const AnimatedTop: React.VFC<{}> = () => {
   return (
     <Flex flex="1" bgGradient="radial(#ffffff, green.100)">
-      <VStack flex="1" spacing="66px">
+      <VStack flex="1" spacing="4rem">
         <Heading
-          pt="80px"
+          pt="5rem"
           fontFamily="futura-pt-bold"
-          fontSize="70px"
+          fontSize="4.5rem"
           color="green.900"
           textAlign="justify"
         >
@@ -29,25 +29,28 @@ const AnimatedTop: React.VFC<{}> = () => {
         <Grid
           templateRows="repeat(3, 1fr)"
           templateColumns="repeat(2, 1fr)"
-          columnGap="40px"
+          columnGap="2.5rem"
+          rowGap="1rem"
         >
           {/* ----- left content ----- */}
           <GridItem rowSpan={3}>
             <Grid
               templateRows="repeat(3, 1fr)"
               templateColumns="repeat(1, 1fr)"
+              h="100%"
+              rowGap="1rem"
             >
               <GridItem rowSpan={2}>
-                <Center>
-                  <PortalLogo h="181px" w="auto" />
+                <Center h="100%">
+                  <PortalLogo minH="100%" w="auto" />
                 </Center>
               </GridItem>
               <GridItem rowSpan={1}>
                 <Flex
-                  w="360px"
+                  w="20rem"
                   p="0"
                   m="0"
-                  fontSize="16px/18"
+                  fontSize="1rem/18"
                   color="text.main"
                   textAlign="center"
                 >
@@ -67,7 +70,7 @@ const AnimatedTop: React.VFC<{}> = () => {
             </MenuButton>
           </GridItem>
           <GridItem>
-            <Flex width="340px">
+            <Flex width="20rem">
               <MenuButton
                 flex="4"
                 mbtype="sub"
@@ -76,7 +79,7 @@ const AnimatedTop: React.VFC<{}> = () => {
               >
                 履歴
               </MenuButton>
-              <Spacer width="25px" />
+              <Spacer width="1.5rem" />
               <MenuButton
                 flex="6"
                 mbtype="sub"
