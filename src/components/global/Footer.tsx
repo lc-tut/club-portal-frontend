@@ -3,10 +3,8 @@ import { PortalLogo } from "../common/Logo"
 
 // TODO: サイトページの説明用のページ/コンポーネントを作成する
 export const Footer: React.VFC<{}> = () => {
-  const footerHeight = 198
-
   return (
-    <Center h={`${footerHeight}px`} backgroundColor="green.500">
+    <Center h="12rem" backgroundColor="green.500">
       <Flex direction="column">
         <Center>
           <PortalLogo boxSize="3em" mr="5" />

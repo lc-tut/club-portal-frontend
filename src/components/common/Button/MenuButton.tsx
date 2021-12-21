@@ -9,11 +9,10 @@ export const MenuButton: React.VFC<
   React.PropsWithChildren<PortalButtonProps & mbprops>
 > = (props) => {
   const type = props.mbtype ?? "main"
-  const width = type === "main" ? "340px" : "100%";
-  const height = type === "main" ? "67px" : "50px"
+  const height = type === "main" ? "4.25rem" : "3rem"
 
   return (
-    <PortalButton width={width} height={height} fontSize="20px" {...props}>
+    <PortalButton width="20rem" height={height} fontSize="1.25rem" {...props}>
       {props.children}
     </PortalButton>
   )

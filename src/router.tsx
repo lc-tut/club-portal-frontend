@@ -1,5 +1,5 @@
 import { AnimatePresence } from "framer-motion"
-import { Route, Switch, BrowserRouter, useLocation } from "react-router-dom"
+import { Route, Routes, BrowserRouter, useLocation } from "react-router-dom"
 import { useSession } from "./hooks/useSession"
 import * as page from "./pages"
 import { Loading } from "./components/global/LoadingPage"
@@ -32,13 +32,12 @@ const AnimatedRouter: React.VFC<{}> = () => {
       <Header />
       <Flex p="0" flex="1">
         <AnimatePresence exitBeforeEnter initial={false}>
-          <Switch location={location} key={location.pathname}>
-            <Route exact path="/" component={page.Top}></Route>
+          <Routes location={location} key={location.pathname}>
+            <Route path="/" element={<page.Top />}></Route>
             <Route path="/clubs/:slug"></Route>
             <Route path="/users/:uuid"></Route>
-            <Route path="/clubs" component={page.Clubs}></Route>
-            <Route path="*" component={page.NotFound}></Route>
-          </Switch>
+            <Route path="*" element={<page.NotFound />}></Route>
+          </Routes>
         </AnimatePresence>
       </Flex>
       <Footer />
