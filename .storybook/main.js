@@ -15,6 +15,9 @@ module.exports = {
   typescript: {
     reactDocgen: false,
   },
+  core: {
+    builder: "webpack5",
+  },
   webpackFinal: async (config) => {
     return {
       ...config,
