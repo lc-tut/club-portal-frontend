@@ -61,10 +61,16 @@ export const PortalButton: React.VFC<
   }
 
   return (
-    <Link _hover={{}} href={props.href} {...props}>
+    <Link
+      width={width}
+      height={height}
+      _hover={{}}
+      href={props.href}
+      {...props}
+    >
       <Button
-        width={width}
-        height={height}
+        width="100%"
+        height="100%"
         borderRadius={borderRadius}
         color={fgColor}
         borderColor={borderColor}
