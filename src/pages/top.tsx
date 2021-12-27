@@ -8,7 +8,7 @@ import {
   Center,
 } from "@chakra-ui/react"
 import React from "react"
-import { PortalLogo } from "../components/common/Logo"
+import { PortalLogo } from "../components/common/Icon"
 import { MenuButton } from "../components/common/Button"
 import { BsSearch, BsMegaphone, BsClockHistory, BsStar } from "react-icons/bs"
 

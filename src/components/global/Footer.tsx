@@ -1,5 +1,5 @@
 import { Center, Flex, HStack, Spacer, Text } from "@chakra-ui/react"
-import { PortalLogo } from "../common/Logo"
+import { PortalLogo } from "../common/Icon"
 
 // TODO: サイトページの説明用のページ/コンポーネントを作成する
 export const Footer: React.VFC<{}> = () => {

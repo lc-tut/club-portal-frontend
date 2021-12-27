@@ -1,6 +1,6 @@
 import { BsBellFill, BsList } from "react-icons/bs"
 import { Center, Flex, Spacer, Icon } from "@chakra-ui/react"
-import { DefaultUserIcon } from "../common/DefaultUserIcon"
+import { DefaultUserIcon } from "../common/Icon"
 
 export const Header: React.VFC<{}> = () => {
   return (
