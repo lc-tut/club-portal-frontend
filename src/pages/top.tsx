@@ -62,7 +62,9 @@ const AnimatedTop: React.VFC<{}> = () => {
           </GridItem>
           {/* ----- right content ----- */}
           <GridItem>
-            <MenuButton href="/clubs" leftIcon={<BsSearch />}>サークルを探す</MenuButton>
+            <MenuButton href="/clubs" leftIcon={<BsSearch />}>
+              サークルを探す
+            </MenuButton>
           </GridItem>
           <GridItem>
             <MenuButton pbstyle="solid" leftIcon={<BsMegaphone />}>
