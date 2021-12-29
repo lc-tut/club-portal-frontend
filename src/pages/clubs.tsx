@@ -3,7 +3,11 @@ import { TitleArea } from "../components/global/TitleArea"
 
 const AnimatedClubs: React.VFC<{}> = () => {
   return (
-    <Flex flex="1" backgroundColor="background.main">
+    <Flex
+      flex="1"
+      alignItems="start"
+      backgroundColor="background.main"
+    >
       <TitleArea>
         サークル一覧
       </TitleArea>
