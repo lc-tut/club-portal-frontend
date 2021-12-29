@@ -8,7 +8,6 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
-  Box,
 } from "@chakra-ui/react"
 import { PropsWithChildren } from "react"
 import { PortalBanner } from "../common/PortalBanner"
@@ -54,7 +53,7 @@ const WebGlobalMenu: React.VFC<PropsWithChildren<WebGlobalMenuProps>> = (
 
 export const TitleArea: React.VFC<PropsWithChildren<{}>> = (props) => {
   return (
-    <HStack width="100%" mt="2rem" justifyContent="center" mx="3rem">
+    <HStack mt="2rem" px="3rem" justifyContent="center" width="100%">
       <VStack spacing="1rem">
         <PortalBanner alignSelf="center" />
         <Breadcrumb
