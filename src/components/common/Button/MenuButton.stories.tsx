@@ -8,15 +8,15 @@ export default {
   argTypes: {
     mbtype: {
       options: ["main", "sub"],
-      control: {type: "radio"}
+      control: { type: "radio" },
     },
     height: {
-      control: { type: "text" }
+      control: { type: "text" },
     },
     children: {
-      control: { type: "text" }
-    }
-  }
+      control: { type: "text" },
+    },
+  },
 } as ComponentMeta<typeof MenuButton>
 
 const Template: ComponentStory<typeof MenuButton> = (args) => (

@@ -1,2 +1,2 @@
-export {DefaultUserIcon} from "./DefaultUserIcon"
-export {PortalLogo} from "./Logo"
+export { DefaultUserIcon } from "./DefaultUserIcon"
+export { PortalLogo } from "./Logo"

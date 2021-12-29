@@ -1,4 +1,4 @@
-import { DefaultUserIcon } from ".";
+import { DefaultUserIcon } from "."
 
 import type { ComponentStory, ComponentMeta } from "@storybook/react"
 
@@ -7,7 +7,7 @@ export default {
   component: DefaultUserIcon,
 } as ComponentMeta<typeof DefaultUserIcon>
 
-const Template: ComponentStory<typeof DefaultUserIcon> = args => (
+const Template: ComponentStory<typeof DefaultUserIcon> = (args) => (
   //@ts-ignore
   <DefaultUserIcon {...args} />
 )

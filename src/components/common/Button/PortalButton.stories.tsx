@@ -1,4 +1,4 @@
-import { PortalButton } from ".";
+import { PortalButton } from "."
 
 import type { ComponentStory, ComponentMeta } from "@storybook/react"
 
@@ -8,26 +8,26 @@ export default {
   argTypes: {
     pbsize: {
       options: ["normal", "large", "100%"],
-      control: { type: "radio" }
+      control: { type: "radio" },
     },
     pbstyle: {
       options: ["fill", "solid", "round-fill", "round-solid"],
-      control: { type: "radio" }
+      control: { type: "radio" },
     },
     pbcolor: {
       options: ["green", "orange", "yellow"],
-      control: { type: "radio" }
+      control: { type: "radio" },
     },
     width: {
-      control: { type: "text" }
+      control: { type: "text" },
     },
     height: {
-      control: { type: "text" }
-    }
-  }
+      control: { type: "text" },
+    },
+  },
 } as ComponentMeta<typeof PortalButton>
 
-const Template: ComponentStory<typeof PortalButton> = args => (
+const Template: ComponentStory<typeof PortalButton> = (args) => (
   <PortalButton {...args} />
 )
 

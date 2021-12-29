@@ -1,4 +1,4 @@
-import { PortalLogo } from ".";
+import { PortalLogo } from "."
 
 import type { ComponentStory, ComponentMeta } from "@storybook/react"
 
@@ -7,7 +7,7 @@ export default {
   component: PortalLogo,
 } as ComponentMeta<typeof PortalLogo>
 
-const Template: ComponentStory<typeof PortalLogo> = args => (
+const Template: ComponentStory<typeof PortalLogo> = (args) => (
   //@ts-ignore
   <PortalLogo {...args} />
 )
