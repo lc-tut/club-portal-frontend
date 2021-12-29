@@ -8,6 +8,7 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
+  Box,
 } from "@chakra-ui/react"
 import { PropsWithChildren } from "react"
 import { PortalBanner } from "../common/PortalBanner"
@@ -53,7 +54,7 @@ const WebGlobalMenu: React.VFC<PropsWithChildren<WebGlobalMenuProps>> = (
 
 export const TitleArea: React.VFC<PropsWithChildren<{}>> = (props) => {
   return (
-    <Flex flex="1" mt="2rem" justifyContent="center" mx="3rem">
+    <HStack width="100%" mt="2rem" justifyContent="center" mx="3rem">
       <VStack spacing="1rem">
         <PortalBanner alignSelf="center" />
         <Breadcrumb
@@ -77,12 +78,12 @@ export const TitleArea: React.VFC<PropsWithChildren<{}>> = (props) => {
         justifySelf="center"
         alignSelf="center"
         fontSize="2.5rem"
-        flex="1"
         textAlign="center"
+        flex="1"
       >
         {props.children}
       </Heading>
-      <HStack spacing="0">
+      <Flex alignItems="center">
         <WebGlobalMenu
           icon={BsSearch}
           label={
@@ -96,7 +97,7 @@ export const TitleArea: React.VFC<PropsWithChildren<{}>> = (props) => {
         <WebGlobalMenu icon={BsMegaphone} label="お知らせ" />
         <WebGlobalMenu icon={BsStar} label="お気に入り" />
         <WebGlobalMenu icon={BsClockHistory} label="履歴" islast={true} />
-      </HStack>
-    </Flex>
+      </Flex>
+    </HStack>
   )
 }

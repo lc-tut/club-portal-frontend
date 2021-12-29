@@ -1,11 +1,21 @@
-import { Flex } from "@chakra-ui/react"
+import { Box, VStack } from "@chakra-ui/react"
 import { TitleArea } from "../components/global/TitleArea"
+
+const ClubCard: React.VFC<{}> = (props) => {
+  return (
+    <Box>this is card</Box>
+  )
+}
 
 const AnimatedClubs: React.VFC<{}> = () => {
   return (
-    <Flex flex="1" alignItems="start" backgroundColor="background.main">
+    <VStack alignItems="start" backgroundColor="background.main">
+      {/* TODO: ここはHeaderに含めたい */}
       <TitleArea>サークル一覧</TitleArea>
-    </Flex>
+      <Box flex="1">
+        <ClubCard></ClubCard>
+      </Box>
+    </VStack>
   )
 }
 
