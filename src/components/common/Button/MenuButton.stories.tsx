@@ -3,16 +3,30 @@ import { MenuButton } from "."
 import type { ComponentStory, ComponentMeta } from "@storybook/react"
 
 export default {
-  title: "MenuButton",
+  title: "Club Portal/Button/MenuButton",
   component: MenuButton,
+  argTypes: {
+    mbtype: {
+      options: ["main", "sub"],
+      control: {type: "radio"}
+    },
+    height: {
+      control: { type: "text" }
+    },
+    children: {
+      control: { type: "text" }
+    }
+  }
 } as ComponentMeta<typeof MenuButton>
 
 const Template: ComponentStory<typeof MenuButton> = (args) => (
   <MenuButton {...args} />
 )
 
-export const MenuButtonStory = Template.bind({})
+export const Default = Template.bind({})
 
-MenuButtonStory.args = {
+Default.args = {
+  mbtype: "main",
+  height: "4.25rem",
   children: "foo",
 }

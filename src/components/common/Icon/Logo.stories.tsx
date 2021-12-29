@@ -3,7 +3,7 @@ import { PortalLogo } from ".";
 import type { ComponentStory, ComponentMeta } from "@storybook/react"
 
 export default {
-  title: "PortalLogo",
+  title: "Club Portal/Icon/PortalLogo",
   component: PortalLogo,
 } as ComponentMeta<typeof PortalLogo>
 
@@ -12,4 +12,4 @@ const Template: ComponentStory<typeof PortalLogo> = args => (
   <PortalLogo {...args} />
 )
 
-export const PortalLogoStory = Template.bind({})
+export const Default = Template.bind({})
