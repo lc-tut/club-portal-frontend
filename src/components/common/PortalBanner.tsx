@@ -1,15 +1,17 @@
 import { Center, Flex, Text, BoxProps } from "@chakra-ui/react"
 import React from "react"
-import { PortalLogo } from "./Logo";
+import { PortalLogo } from "./Logo"
 
 type BannerProps = BoxProps & {
   maincolor?: string
   subcolor?: string
 }
 
-export const PortalBanner: React.VFC<React.PropsWithChildren<BannerProps>> = (props) => {
-  const mainColor = props.maincolor ? props.maincolor : "text.title.sub";
-  const subColor = props.subcolor ? props.subcolor : "text.main";
+export const PortalBanner: React.VFC<React.PropsWithChildren<BannerProps>> = (
+  props
+) => {
+  const mainColor = props.maincolor ? props.maincolor : "text.title.sub"
+  const subColor = props.subcolor ? props.subcolor : "text.main"
 
   return (
     <Flex direction="column" {...props}>
@@ -23,5 +25,5 @@ export const PortalBanner: React.VFC<React.PropsWithChildren<BannerProps>> = (pr
         東京工科大学サークルホームページ
       </Text>
     </Flex>
-  );
+  )
 }
