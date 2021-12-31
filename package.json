@@ -39,7 +39,7 @@
     "swr": "1.1.1"
   },
   "devDependencies": {
-    "@babel/core": "7.16.5",
+    "@babel/core": "7.16.7",
     "@emotion/babel-plugin": "11.7.2",
     "@emotion/babel-preset-css-prop": "11.2.0",
     "@storybook/addon-actions": "6.4.9",
