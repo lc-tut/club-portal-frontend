@@ -9,7 +9,7 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
 } from "@chakra-ui/react"
-import { PropsWithChildren } from "react"
+import React from "react"
 import { PortalBanner } from "../common/PortalBanner"
 import {
   BsChevronRight,
@@ -26,7 +26,7 @@ type WebGlobalMenuProps = {
   islast?: boolean
 }
 
-const WebGlobalMenu: React.VFC<PropsWithChildren<WebGlobalMenuProps>> = (
+const WebGlobalMenu: React.VFC<React.PropsWithChildren<WebGlobalMenuProps>> = (
   props
 ) => {
   const borderRight = props.islast ? "1px" : "0"
@@ -51,7 +51,7 @@ const WebGlobalMenu: React.VFC<PropsWithChildren<WebGlobalMenuProps>> = (
   )
 }
 
-export const TitleArea: React.VFC<PropsWithChildren<{}>> = (props) => {
+export const TitleArea: React.VFC<React.PropsWithChildren<{}>> = (props) => {
   return (
     <HStack mt="2rem" px="3rem" justifyContent="center" width="100%">
       <VStack spacing="1rem">
