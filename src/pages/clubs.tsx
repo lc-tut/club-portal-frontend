@@ -5,13 +5,15 @@ import {
   FormControl,
   FormLabel,
   Grid,
-  GridItem, HStack,
+  GridItem,
+  HStack,
   Image,
   Input,
-  Select, Stack,
+  Select,
+  Stack,
   Switch,
   Text,
-  VStack
+  VStack,
 } from "@chakra-ui/react"
 import React from "react"
 import { ClubTypeBadge } from "../components/common/ClubTypeBadge"
@@ -41,11 +43,7 @@ const FilterArea: React.VFC<BoxProps> = (props) => {
         <FormLabel width="8rem" fontSize="1.25rem" mb="0">
           {props.label}
         </FormLabel>
-        <Switch
-          colorScheme="green"
-          id={props.id}
-          size="lg"
-        />
+        <Switch colorScheme="green" id={props.id} size="lg" />
       </FormControl>
     )
   }

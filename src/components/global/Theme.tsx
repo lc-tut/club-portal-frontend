@@ -12,27 +12,27 @@ const variantOutlined = () => ({
   field: {
     _focus: {
       borderColor: "var(--chakra-colors-green-500)",
-      boxShadow: "0 0 0 1px var(--chakra-colors-green-500)"
-    }
-  }
+      boxShadow: "0 0 0 1px var(--chakra-colors-green-500)",
+    },
+  },
 })
 
 const variantFilled = () => ({
   field: {
     _focus: {
       borderColor: "var(--chakra-colors-green-500)",
-      boxShadow: "0 0 0 1px var(--chakra-colors-green-500)"
-    }
-  }
+      boxShadow: "0 0 0 1px var(--chakra-colors-green-500)",
+    },
+  },
 })
 
 const variantFlushed = () => ({
   field: {
     _focus: {
       borderColor: "var(--chakra-colors-green-500)",
-      boxShadow: "0 1px 0 0 var(--chakra-colors-green-500)"
-    }
-  }
+      boxShadow: "0 1px 0 0 var(--chakra-colors-green-500)",
+    },
+  },
 })
 
 const theme = extendTheme({
@@ -77,30 +77,30 @@ const theme = extendTheme({
     separator: "#DEDEDE",
   },
   shadows: {
-    outline: "0 0 0 1px var(--chakra-colors-green-500)"
+    outline: "0 0 0 1px var(--chakra-colors-green-500)",
   },
   components: {
     Input: {
       variants: {
         outline: variantOutlined,
         filled: variantFilled,
-        flushed: variantFlushed
-      }
+        flushed: variantFlushed,
+      },
     },
     Select: {
       variants: {
         outline: variantOutlined,
         filled: variantFilled,
-        flushed: variantFlushed
-      }
+        flushed: variantFlushed,
+      },
     },
     Textarea: {
       variants: {
         outline: () => variantOutlined().field,
         filled: () => variantFilled().field,
-        flushed: () => variantFlushed().field
-      }
-    }
+        flushed: () => variantFlushed().field,
+      },
+    },
   },
   breakpoints,
 })
