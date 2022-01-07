@@ -15,7 +15,6 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react"
-import React from "react"
 import { ClubTypeBadge } from "../components/common/ClubTypeBadge"
 import { TitleArea } from "../components/global/TitleArea"
 import type { BadgeActivity, BadgeCampus } from "../types/badge"
