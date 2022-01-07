@@ -11,6 +11,7 @@ import React from "react"
 import { PortalLogo } from "../components/common/Icon"
 import { MenuButton } from "../components/common/Button"
 import { BsSearch, BsMegaphone, BsClockHistory, BsStar } from "react-icons/bs"
+import { Link } from "react-router-dom"
 
 const AnimatedTop: React.VFC<{}> = () => {
   return (
@@ -62,7 +63,9 @@ const AnimatedTop: React.VFC<{}> = () => {
           </GridItem>
           {/* ----- right content ----- */}
           <GridItem>
-            <MenuButton leftIcon={<BsSearch />}>サークルを探す</MenuButton>
+            <Link to="/clubs">
+              <MenuButton leftIcon={<BsSearch />}>サークルを探す</MenuButton>
+            </Link>
           </GridItem>
           <GridItem>
             <MenuButton pbstyle="solid" leftIcon={<BsMegaphone />}>

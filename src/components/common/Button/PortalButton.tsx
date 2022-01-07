@@ -71,7 +71,6 @@ export const PortalButton: React.VFC<
       backgroundColor={bgColor}
       _hover={hoverStyle}
       _focus={{}}
-      {...props}
     >
       {props.children}
     </Button>
