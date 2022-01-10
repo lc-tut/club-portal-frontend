@@ -39,7 +39,7 @@ const config: webpack.Configuration = {
 
   output: {
     path: path.resolve(__dirname + "/dist"),
-    filename: "index.js",
+    filename: "[name].bundle.js",
     assetModuleFilename: "assets/[hash].[ext]",
   },
 
@@ -113,6 +113,9 @@ const config: webpack.Configuration = {
         },
       }),
     ],
+    splitChunks: {
+      chunks: "all"
+    }
   },
 
   cache: {
