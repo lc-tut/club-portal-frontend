@@ -94,6 +94,7 @@ const AnimatedTop: React.VFC<{}> = () => {
             </Flex>
           </GridItem>
         </Grid>
+        <Link to="/club-description-test"> サークル紹介ページのテスト Link </Link>
       </VStack>
     </Flex>
   )
