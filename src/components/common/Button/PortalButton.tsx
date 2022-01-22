@@ -69,6 +69,9 @@ export const PortalButton: React.VFC<
       borderColor={borderColor}
       borderWidth="1px"
       backgroundColor={bgColor}
+      leftIcon={props.leftIcon}
+      flex={props.flex}
+      fontSize={props.fontSize}
       _hover={hoverStyle}
       _focus={{}}
     >

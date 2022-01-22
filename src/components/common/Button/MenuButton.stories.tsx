@@ -27,6 +27,5 @@ export const Default = Template.bind({})
 
 Default.args = {
   mbtype: "main",
-  height: "4.25rem",
   children: "foo",
 }
