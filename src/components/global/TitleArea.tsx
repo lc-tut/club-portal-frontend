@@ -50,7 +50,7 @@ const WebGlobalMenu: React.VFC<React.PropsWithChildren<WebGlobalMenuProps>> = (
   )
 }
 
-export const TitleArea: React.VFC<React.PropsWithChildren<{}>> = (props) => {
+export const TitleArea: React.VFC<React.PropsWithChildren<{subtitle?: string}>> = (props) => {
   return (
     <HStack mt="2rem" px="3rem" justifyContent="center" width="100%">
       <VStack spacing="1rem">
@@ -72,16 +72,23 @@ export const TitleArea: React.VFC<React.PropsWithChildren<{}>> = (props) => {
           </BreadcrumbItem>
         </Breadcrumb>
       </VStack>
-      <Heading
-        justifySelf="center"
-        alignSelf="center"
-        fontSize="2.5rem"
-        textAlign="center"
-        textColor="green.900"
-        flex="1"
-      >
-        {props.children}
-      </Heading>
+      <VStack flex="1">
+        <Heading
+          justifySelf="center"
+          alignSelf="center"
+          fontSize="2.5rem"
+          textAlign="center"
+          textColor="green.900"
+        >
+          {props.children}
+        </Heading>
+        <Text
+          height="1rem"
+          textColor="text.title.sub"
+        >
+          {props.subtitle}
+        </Text>
+      </VStack>
       <Flex alignItems="center">
         <WebGlobalMenu
           icon={BsSearch}
