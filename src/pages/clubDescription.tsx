@@ -3,6 +3,7 @@ import { TitleArea } from "../components/global/TitleArea"
 import { ClubTypeBadge } from "../components/common/ClubTypeBadge"
 import { BsClock, BsStar } from "react-icons/bs"
 import { PortalButton } from "../components/common/Button"
+import { FavoriteButton } from "../components/common/Button"
 
 const AnimatedClubDescription: React.VFC<{}> = () => {
   return <VStack flex="1">
@@ -16,9 +17,7 @@ const AnimatedClubDescription: React.VFC<{}> = () => {
         <Icon as={BsClock} mr="5px" />
         最終更新: 2022 1/30
       </Flex>
-      <PortalButton pbcolor="yellow" leftIcon={<BsStar/>}>
-        お気に入り
-      </PortalButton>
+      <FavoriteButton />
     </HStack>
   </VStack>
 }
