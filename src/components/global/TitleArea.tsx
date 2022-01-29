@@ -77,6 +77,7 @@ export const TitleArea: React.VFC<React.PropsWithChildren<{}>> = (props) => {
         alignSelf="center"
         fontSize="2.5rem"
         textAlign="center"
+        textColor="green.900"
         flex="1"
       >
         {props.children}
