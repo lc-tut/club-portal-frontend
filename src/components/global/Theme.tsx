@@ -55,6 +55,10 @@ const theme = extendTheme({
     button: {
       yellow: "#EDBD17",
       orange: "#ED8131",
+      gray  : "#E8E8E8",
+      text: {
+        gray: "#707070"
+      },
     },
     form: {
       frame: "#C1C1C1",
