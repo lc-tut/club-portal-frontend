@@ -30,12 +30,15 @@
     "@emotion/styled": "11.6.0",
     "axios": "0.25.0",
     "axios-case-converter": "0.9.0",
+    "css-loader": "^6.5.1",
     "framer-motion": "5.5.5",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-hook-form": "7.25.1",
     "react-icons": "4.3.1",
     "react-router-dom": "6.2.1",
+    "style-loader": "^3.3.1",
+    "swiper": "^7.4.1",
     "swr": "1.2.0"
   },
   "devDependencies": {

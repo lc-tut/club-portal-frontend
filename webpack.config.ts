@@ -95,6 +95,20 @@ const config: webpack.Configuration = {
           },
         ],
       },
+      {
+        // node_module内のcss
+        test: /node_modules\/(.+)\.css$/,
+        use: [
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+            options: { url: false },
+          },
+        ],
+        sideEffects: true, // production modeでもswiper-bundle.cssが使えるように
+      }
     ],
   },
 
