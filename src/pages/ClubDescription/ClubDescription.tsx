@@ -57,8 +57,12 @@ const AnimatedClubDescription: React.VFC<{}> = () => {
             "活動内容はああああああああああああです",
             "いいいいいという活動も行っています"
           ]}
-          date={["水曜日", "金曜日"]}
-          time={["19:30~20:00", "20:00~21:00"]}
+          // date={["水曜日", "金曜日"]}
+          // time={["19:30~20:00", "20:00~21:00"]}
+          datetime={{
+            "水曜日": "19:30~20:00",
+            "金曜日": "20:00~21:00"
+          }}
           place={["サークル棟000"]}
           mail={["account@mail.example.com"]}
           website={["https://example.co.jp/introduce/this/club"]}

@@ -14,8 +14,7 @@ export type DescriptionProps = {
 
 export type DetailInformationProps = {
 	activity?: string[]
-	date?: string[]
-	time?: string[]
+	datetime?: {[key: string]: string}
 	place?: string[]
 	mail?: string[]
 	website?: string[]
