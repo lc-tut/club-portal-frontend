@@ -13,17 +13,17 @@ function getSnsId(label: string): SnsId {
 const fgColorMap: { [key in SnsId]: string } = {
   twitter: "#fff",
   instagram: "#fff",
-  other: "button.text.gray"
+  other: "button.text.gray",
 }
 const bgColorMap: { [key in SnsId]: string } = {
   twitter: "#2E94DA",
   instagram: "#D35CCA",
-  other: "button.gray"
+  other: "button.gray",
 }
 const iconMap: { [key in SnsId]: IconType } = {
   twitter: BsTwitter,
   instagram: BsInstagram,
-  other: BsLink
+  other: BsLink,
 }
 
 export const DescriptionText: React.VFC<DescriptionProps> = (props) => {
@@ -36,34 +36,28 @@ export const DescriptionText: React.VFC<DescriptionProps> = (props) => {
           このサークルについて
         </Text>
         <Text color="text.main" px="1rem">
-          { props.content }
+          {props.content}
         </Text>
         <HStack alignSelf="start" px="1rem">
-          {
-            snsLinks.map((link)=>{
-              const snsId = getSnsId(link[0])
-              const LeftIcon = iconMap[snsId]
-              return (
-                <Link
-                  href={link[1]}
-                  key={link[1]}
-                  hover={{}}
+          {snsLinks.map((link) => {
+            const snsId = getSnsId(link[0])
+            const LeftIcon = iconMap[snsId]
+            return (
+              <Link href={link[1]} key={link[1]} hover={{}}>
+                <Button
+                  color={fgColorMap[snsId]}
+                  backgroundColor={bgColorMap[snsId]}
+                  leftIcon={<LeftIcon />}
+                  fontSize="0.75rem"
+                  borderRadius="2px"
+                  height="2rem"
+                  minWidth="6rem"
                 >
-                  <Button
-                    color={fgColorMap[snsId]}
-                    backgroundColor={bgColorMap[snsId]}
-                    leftIcon={<LeftIcon />}
-                    fontSize="0.75rem"
-                    borderRadius="2px"
-                    height="2rem"
-                    minWidth="6rem"
-                  >
-                    {link[0]}
-                  </Button>
-                </Link>
-              )
-            })
-          }
+                  {link[0]}
+                </Button>
+              </Link>
+            )
+          })}
         </HStack>
       </VStack>
     </GridItem>

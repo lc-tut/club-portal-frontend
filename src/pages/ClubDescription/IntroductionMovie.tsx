@@ -8,7 +8,7 @@ export const IntroductionMovie: React.VFC<IntroductionMovieProps> = (props) => {
         <Text fontSize="1.5rem" color="text.main">
           紹介動画
         </Text>
-        <AspectRatio ratio={16/9} width="100%">
+        <AspectRatio ratio={16 / 9} width="100%">
           <iframe
             width="100%"
             height="100%"

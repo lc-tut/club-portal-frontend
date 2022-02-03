@@ -13,11 +13,8 @@ export const CarouselGallery: React.VFC<CarouselGalleryProps> = (props) => {
   for (let i = 0; i < 5; i++) {
     slides.push(
       <SwiperSlide key={i}>
-        <AspectRatio ratio={16/9}>
-          <Image
-            src={props.images[i]}
-            maxHeight="15rem"
-          />
+        <AspectRatio ratio={16 / 9}>
+          <Image src={props.images[i]} maxHeight="15rem" />
         </AspectRatio>
       </SwiperSlide>
     )

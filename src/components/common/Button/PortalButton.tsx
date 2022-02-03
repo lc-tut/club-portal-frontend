@@ -21,7 +21,7 @@ const sizeMap: { [key in ButtonSize]: string } = {
 }
 
 const colorMap: { [key in ButtonColor]: string } = {
-  green : "green.600",
+  green: "green.600",
   orange: "button.orange",
   yellow: "button.yellow",
 }

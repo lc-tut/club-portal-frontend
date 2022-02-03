@@ -1,6 +1,6 @@
-import React from "react";
-import { Grid, GridItem, HStack, VStack, Box, Text, propNames, Center, Flex } from "@chakra-ui/react";
-import { AnnualPlanProps } from "../../types/description";
+import { Flex, Grid, GridItem, HStack, Text, VStack } from "@chakra-ui/react"
+import React from "react"
+import { AnnualPlanProps } from "../../types/description"
 
 export const AnnualPlan: React.VFC<AnnualPlanProps> = (props) => {
   const monthList = [4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3]
@@ -13,20 +13,17 @@ export const AnnualPlan: React.VFC<AnnualPlanProps> = (props) => {
         </Text>
         <Grid
           width="100%"
-          templateRows={{base: "repeat(12, 1fr)", md: "repeat(6, 1fr)"}}
+          templateRows={{ base: "repeat(12, 1fr)", md: "repeat(6, 1fr)" }}
           gridAutoFlow="column"
           borderTopWidth="1px"
           borderTopColor="text.sub"
           borderBottomWidth="1px"
           borderBottomColor="text.sub"
-        >{
-          monthList.map((month) => {
-            const even = month%2==0
+        >
+          {monthList.map((month) => {
+            const even = month % 2 == 0
             return (
-              <GridItem
-                key={month}
-                backgroundColor={even ? "#F8FFFA" : "#fff"}
-              >
+              <GridItem key={month} backgroundColor={even ? "#F8FFFA" : "#fff"}>
                 <HStack height="2.5rem">
                   <Flex
                     height="100%"
@@ -39,14 +36,12 @@ export const AnnualPlan: React.VFC<AnnualPlanProps> = (props) => {
                   >
                     {month}月
                   </Flex>
-                  <Text color="text.main">
-                    {props.schedules[month]}
-                  </Text>
+                  <Text color="text.main">{props.schedules[month]}</Text>
                 </HStack>
               </GridItem>
             )
-          })
-        }</Grid>
+          })}
+        </Grid>
       </VStack>
     </GridItem>
   )

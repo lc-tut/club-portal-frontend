@@ -50,7 +50,9 @@ const WebGlobalMenu: React.VFC<React.PropsWithChildren<WebGlobalMenuProps>> = (
   )
 }
 
-export const TitleArea: React.VFC<React.PropsWithChildren<{subtitle?: string}>> = (props) => {
+export const TitleArea: React.VFC<
+  React.PropsWithChildren<{ subtitle?: string }>
+> = (props) => {
   return (
     <HStack mt="2rem" px="3rem" justifyContent="center" width="100%">
       <VStack spacing="1rem">
@@ -82,10 +84,7 @@ export const TitleArea: React.VFC<React.PropsWithChildren<{subtitle?: string}>> 
         >
           {props.children}
         </Heading>
-        <Text
-          height="1rem"
-          textColor="text.title.sub"
-        >
+        <Text height="1rem" textColor="text.title.sub">
           {props.subtitle}
         </Text>
       </VStack>
