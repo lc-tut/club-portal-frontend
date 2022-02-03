@@ -14,9 +14,7 @@ import { AnnualPlan } from "./AnnualPlan"
 const AnimatedClubDescription: React.VFC<{}> = () => {
   return (
     <VStack flex="1">
-      <TitleArea subtitle="サークルの簡単な説明">
-        サークル名
-      </TitleArea>
+      <TitleArea subtitle="サークルの簡単な説明">サークル名</TitleArea>
       <HStack spacing="2rem" pb="3rem">
         <Flex gap="10px" width="12rem" justifyContent="end">
           <ClubTypeBadge content="hachioji" badgetype="page" />
@@ -37,15 +35,34 @@ const AnimatedClubDescription: React.VFC<{}> = () => {
         alignItems="center"
       >
         <IntroductionMovie youtubeurl="https://www.youtube.com/embed/dy90tA3TT1c" />
-        <CarouselGallery />
+        <CarouselGallery
+          images={[
+            "https://placekitten.com/g/640/360",
+            "https://placehold.jp/400x400.png",
+            "https://loremflickr.com/400/400",
+            "https://placehold.jp/640x360.png",
+            "https://www.fillmurray.com/400/400",
+            "https://baconmockup.com/640/360",
+          ]}
+        />
         <DescriptionText
           snslinks={[
             ["twitter", "https://twitter.com/lc_tut"],
-            ["instagram", "https://www.instagram.com/instagram/"]
+            ["instagram", "https://www.instagram.com/instagram/"],
           ]}
           content="サークル説明サークル説明サークル説明サークル説明サークル説明 サークル説明サークル説明サークル説明サークル説明サークル説明 サークル説明サークル説明サークル説明サークル説明サークル説明 サークル説明サークル説明サークル説明サークル説明サークル説明 サークル説明サークル説明サークル説明サークル説明サークル説明 サークル説明サークル説明サークル説明サークル説明サークル説明 サークル説明サークル説明サークル説明"
         />
-        <DetailInformation />
+        <DetailInformation
+          activity={[
+            "活動内容はああああああああああああです",
+            "いいいいいという活動も行っています"
+          ]}
+          date={["水曜日", "金曜日"]}
+          time={["19:30~20:00", "20:00~21:00"]}
+          place={["サークル棟000"]}
+          mail={["account@mail.example.com"]}
+          website={["https://example.co.jp/introduce/this/club"]}
+        />
         <AnnualPlan />
       </Grid>
     </VStack>

@@ -67,6 +67,7 @@ const theme = extendTheme({
     background: {
       main: "#FFFFFC",
       cards: "#F7F1E5",
+      remark: "#F8F8F8",
     },
     badge: {
       text: {

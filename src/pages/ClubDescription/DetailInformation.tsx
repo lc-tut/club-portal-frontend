@@ -1,28 +1,62 @@
-import { GridItem, HStack, ListItem, Stack, Text, UnorderedList, VStack } from "@chakra-ui/react";
+import { GridItem, HStack, ListItem, Stack, Text, UnorderedList, VStack, Box, List } from "@chakra-ui/react";
 import React from "react";
 import { BsCalendarCheck, BsClock, BsEnvelope, BsLink45Deg, BsPinMap, BsQuestionCircle } from "react-icons/bs";
 import { IconType } from "react-icons/lib";
+import { Link } from "react-router-dom";
 import { DetailInformationProps } from "../../types/description";
 
 type RowProps = {
   icon: IconType
   label: string
   content: string[]
+  type?: "text" | "list" | "link"
 	islast?: boolean
 }
 
 const InformationRow: React.VFC<RowProps> = (props) => {
   const isLast = props.islast || false
+  const type = props.type ?? "text"
+  let content = <></>
 
-  let content = <Text color="text.main">{props.content}</Text>
-  if (props.content.length > 1) {
-    content = <UnorderedList stylePosition="inside" color="text.main"> {
-      props.content.map((item) => {
-        return (
-          <ListItem key={item}> {item} </ListItem>
-        )
-      })
-    }</UnorderedList>
+  switch (type) {
+    case "text":
+      content = <List textColor="text.main">{
+        props.content.map((item) => {
+          return (
+            <ListItem key={item}>
+              {item}
+            </ListItem>
+          )
+        })
+      }</List>
+      break;
+  
+    case "list":
+      content = <UnorderedList stylePosition="inside" color="text.main"> {
+        props.content?.map((item) => {
+          return (
+            <ListItem key={item}> {item} </ListItem>
+          )
+        })
+      }</UnorderedList>
+      break;
+
+    case "link":
+      content = <List> {
+        props.content.map((item) => {
+          return (
+            <ListItem key={item} textColor="green.600">
+              <Link to={item}>
+                {item}
+              </Link>
+            </ListItem>
+          )
+        })
+      }</List>
+      break;
+
+    default:
+      break;
   }
 
   return (
@@ -33,8 +67,8 @@ const InformationRow: React.VFC<RowProps> = (props) => {
       borderBottomColor="text.sub"
       py="0.8rem"
     >
-      <HStack minWidth="7rem" color="text.sub">
-        <props.icon />
+      <HStack minWidth="7rem" pl="0.2rem" color="text.sub">
+        <props.icon size="1.1rem" />
         <Text>
           {props.label}
         </Text>
@@ -44,7 +78,7 @@ const InformationRow: React.VFC<RowProps> = (props) => {
   )
 }
 
-export const DetailInformation: React.VFC<DetailInformationProps> = () => {
+export const DetailInformation: React.VFC<DetailInformationProps> = (props) => {
   return (
     <GridItem colSpan={{ base: 12, md: 6 }}>
       <VStack spacing="1rem">
@@ -55,38 +89,51 @@ export const DetailInformation: React.VFC<DetailInformationProps> = () => {
           <InformationRow
             icon={BsQuestionCircle}
             label="活動内容"
-            content={[
-              "これはテストです",
-              "活動内容はああああああああです"
-            ]}
+            content={props.activity ?? []}
+            type="list"
           />
           <InformationRow
             icon={BsCalendarCheck}
             label="活動日"
-            content={["毎週水曜日"]}
+            content={props.date ?? []}
           />
           <InformationRow
             icon={BsClock}
             label="時間"
-            content={["19:30 ~ 20:00"]}
+            content={props.time ?? []}
           />
           <InformationRow
             icon={BsPinMap}
             label="場所"
-            content={["サークル棟000"]}
+            content={props.place ?? []}
           />
           <InformationRow
             icon={BsEnvelope}
             label="メール"
-            content={["account@mail.example.com"]}
+            content={props.mail ?? []}
           />
           <InformationRow
             icon={BsLink45Deg}
             label="HP"
-            content={["https://example.co.jp/introduce/this/club"]}
+            content={props.website ?? []}
             islast={true}
+            type="link"
           />
         </Stack>
+        { props.remark &&
+          <Box
+            width="100%"
+            p="1rem"
+            backgroundColor="background.remark"
+            textColor="text.modal.sub"
+            borderLeftWidth="1rem"
+            borderLeftColor="green.200"
+          >
+            <Text>
+              {props.remark}
+            </Text>
+          </Box>
+        }
       </VStack>
     </GridItem>
   )

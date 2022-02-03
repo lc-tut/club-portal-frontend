@@ -1,3 +1,7 @@
+export type CarouselGalleryProps = {
+	images: string[]
+}
+
 export type IntroductionMovieProps = {
 	youtubeurl: string
 }
@@ -9,13 +13,13 @@ export type DescriptionProps = {
 }
 
 export type DetailInformationProps = {
-	activity?: string
-	date?: string
-	time?: string
-	place?: string
-	mail?: string
-	website?: string
-	remark?: string
+	activity?: string[]
+	date?: string[]
+	time?: string[]
+	place?: string[]
+	mail?: string[]
+	website?: string[]
+	remark?: string[]
 }
 
 export const snsList = ["twitter", "instagram"] as const
