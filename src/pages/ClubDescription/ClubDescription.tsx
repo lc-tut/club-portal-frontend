@@ -28,9 +28,9 @@ const AnimatedClubDescription: React.VFC<{}> = () => {
       </HStack>
       <Grid
         templateColumns="repeat(12, 1fr)"
-        width={{ base: "95%", xl: "60%", lg: "80%" }}
+        width={{ base: "80%", xl: "60%", lg: "80%" }}
         columnGap="1rem"
-        rowGap="2rem"
+        rowGap="3rem"
         pb="6rem"
         alignItems="center"
       >
@@ -67,7 +67,15 @@ const AnimatedClubDescription: React.VFC<{}> = () => {
           mail={["account@mail.example.com"]}
           website={["https://example.co.jp/introduce/this/club"]}
         />
-        <AnnualPlan />
+        <AnnualPlan
+          schedules={{
+            2: "何かしらのイベント",
+            4: "新入生歓迎会",
+            8: "夏合宿",
+            10: "ああああああああ大会",
+            12: "クリスマスパーティ",
+          }}
+        />
       </Grid>
     </VStack>
   )

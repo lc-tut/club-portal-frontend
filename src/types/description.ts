@@ -21,6 +21,10 @@ export type DetailInformationProps = {
 	remark?: string[]
 }
 
+export type AnnualPlanProps = {
+	schedules: {[key: number]: string}
+}
+
 export const snsList = ["twitter", "instagram"] as const
 
 export type SnsId = (typeof snsList[number]) | "other"

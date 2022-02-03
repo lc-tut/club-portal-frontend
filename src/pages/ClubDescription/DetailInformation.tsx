@@ -1,6 +1,6 @@
 import { Grid, GridItem, HStack, ListItem, Stack, Text, UnorderedList, VStack, Box, List } from "@chakra-ui/react";
 import React from "react";
-import { BsCalendarCheck, BsClock, BsEnvelope, BsLink45Deg, BsPinMap, BsQuestionCircle } from "react-icons/bs";
+import { BsClock, BsEnvelope, BsLink45Deg, BsPinMap, BsQuestionCircle } from "react-icons/bs";
 import { IconType } from "react-icons/lib";
 import { Link } from "react-router-dom";
 import { DetailInformationProps } from "../../types/description";
