@@ -1,8 +1,53 @@
-import { Center, Drawer, DrawerBody, DrawerContent, DrawerHeader, Flex, Icon, Spacer, Text, useDisclosure, useMediaQuery } from "@chakra-ui/react"
+import {
+  Center,
+  Drawer,
+  DrawerBody,
+  DrawerContent,
+  DrawerHeader,
+  Flex,
+  Icon,
+  Popover,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTrigger,
+  Spacer,
+  Text,
+  useDisclosure,
+  useMediaQuery
+} from "@chakra-ui/react"
 import { BsBellFill, BsList } from "react-icons/bs"
 import { DefaultUserIcon } from "../common/Icon"
 
 const headerHeight = "3rem"
+
+const HamburgerIcon: React.VFC<{}> = () => {
+  return (
+    <Icon as={BsList} boxSize="2em" color="text.title.main"/>
+  )
+}
+
+const BrowserHamburgerMenu: React.VFC<{}> = () => {
+  return (
+    <>
+      <Popover>
+        <PopoverTrigger>
+          <Center>
+            <HamburgerIcon />
+          </Center>
+        </PopoverTrigger>
+        <PopoverContent>
+          <PopoverCloseButton />
+          <PopoverHeader> Menu </PopoverHeader>
+          <PopoverBody>
+            this is popover
+          </PopoverBody>
+        </PopoverContent>
+      </Popover>
+    </>
+  )
+}
 
 const MobileHamburgerMenu: React.VFC<{}> = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -10,7 +55,7 @@ const MobileHamburgerMenu: React.VFC<{}> = () => {
   return (
     <>
       <Center as="button" onClick={onOpen}>
-        <Icon as={BsList} boxSize="2em" color="text.title.main"/>
+        <HamburgerIcon />
       </Center>
       <Drawer
         placement="left"
@@ -32,11 +77,12 @@ const MobileHamburgerMenu: React.VFC<{}> = () => {
 }
 
 export const Header: React.VFC<{}> = () => {
-  const [isMobile] = useMediaQuery("(min-width: 500px)")
+  const [isMobile] = useMediaQuery("(max-width: 500px)")
 
   return (
     <Flex px="1rem" h={headerHeight} w="100%" backgroundColor="green.200">
-      { !isMobile && <MobileHamburgerMenu /> }
+      {  isMobile && <MobileHamburgerMenu /> /* for mobile */ }
+      { !isMobile && <BrowserHamburgerMenu /> /* for browser */ }
       <Spacer />
       <Center mr="1rem">
         <Icon as={BsBellFill} boxSize="2em" color="text.title.sub" />
