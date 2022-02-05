@@ -1,17 +1,15 @@
 import {
-  Flex,
+  Center, Flex,
   Grid,
   GridItem,
   Heading,
-  Spacer,
-  VStack,
-  Center,
+  Spacer, Text, VStack
 } from "@chakra-ui/react"
 import React from "react"
-import { PortalLogo } from "../components/common/Icon"
-import { MenuButton } from "../components/common/Button"
-import { BsSearch, BsMegaphone, BsClockHistory, BsStar } from "react-icons/bs"
+import { BsClockHistory, BsMegaphone, BsSearch, BsStar } from "react-icons/bs"
 import { Link } from "react-router-dom"
+import { MenuButton } from "../components/common/Button"
+import { PortalLogo } from "../components/common/Icon"
 
 const AnimatedTop: React.VFC<{}> = () => {
   return (
@@ -94,6 +92,9 @@ const AnimatedTop: React.VFC<{}> = () => {
             </Flex>
           </GridItem>
         </Grid>
+        <Text>
+          編集者の方はこちら
+        </Text>
       </VStack>
     </Flex>
   )
