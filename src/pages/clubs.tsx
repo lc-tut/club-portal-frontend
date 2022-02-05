@@ -13,8 +13,9 @@ import {
   Stack,
   Switch,
   Text,
-  VStack,
+  VStack
 } from "@chakra-ui/react"
+import axios from "axios"
 import { ClubTypeBadge } from "../components/common/ClubTypeBadge"
 import { TitleArea } from "../components/global/TitleArea"
 import type { BadgeActivity, BadgeCampus } from "../types/badge"
@@ -130,6 +131,10 @@ const TestCards: React.VFC<{}> = () => {
 }
 
 const AnimatedClubs: React.VFC<{}> = () => {
+  axios.get("/api/v1/clubs")
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err))
+
   return (
     <VStack
       flex="1"

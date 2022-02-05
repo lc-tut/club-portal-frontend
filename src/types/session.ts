@@ -4,4 +4,5 @@ export type Session = {
   email: string
   name: string
   role: string
+  avatar: string
 } | null

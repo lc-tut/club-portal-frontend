@@ -6,12 +6,14 @@ import {
   Spacer,
   VStack,
   Center,
+  Button,
 } from "@chakra-ui/react"
 import React from "react"
 import { PortalLogo } from "../components/common/Icon"
 import { MenuButton } from "../components/common/Button"
-import { BsSearch, BsMegaphone, BsClockHistory, BsStar } from "react-icons/bs"
+import { BsSearch, BsMegaphone, BsClockHistory, BsStar, BsTwitter } from "react-icons/bs"
 import { Link } from "react-router-dom"
+import axios from "axios"
 
 const AnimatedTop: React.VFC<{}> = () => {
   return (
@@ -94,8 +96,69 @@ const AnimatedTop: React.VFC<{}> = () => {
             </Flex>
           </GridItem>
         </Grid>
+        <PostTest />
       </VStack>
     </Flex>
+  )
+}
+
+const PostTest: React.VFC<{}> = () => {
+  const postClub = () => {
+    const data = {
+      name: "test",
+      description: "これはtestのdescriptionです",
+      short_description: "this is test",
+      campus: 1,
+      club_type: 1,
+      contents: [
+        {
+          content: "テストを行う"
+        },
+        {
+          content: "めっちゃテストを行う"
+        }
+      ],
+      links: [
+        {
+          label: "twitter",
+          url: "https://twitter.com/Caffeine0coffee"
+        }
+      ],
+      schedules: [
+        {
+          month: 5,
+          schedule: "５月のスケジュール"
+        }
+      ],
+      achievements: [{}],
+      images: [{}],
+      videos: [{}],
+      activity_details: [{}]
+    }
+    axios.post("/api/v1/clubs", data)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err))
+  }
+
+  const postUser = () => {
+    const data = {
+      email: "c0119304bd@edu.teu.ac.jp",
+      name: "caffeine TUT"
+    }
+    axios.post("/api/v1/users", data)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err))
+  }
+
+  return (
+    <>
+      <Button onClick={postClub}>
+        new club POST
+      </Button>
+      <Button onClick={postUser}>
+        new user POST
+      </Button>
+    </>
   )
 }
 

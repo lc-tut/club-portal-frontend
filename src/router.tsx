@@ -1,5 +1,5 @@
 import { AnimatePresence } from "framer-motion"
-import { Route, Routes, BrowserRouter, useLocation } from "react-router-dom"
+import { Route, Routes, BrowserRouter, useLocation, Navigate } from "react-router-dom"
 import { useSession } from "./hooks/useSession"
 import * as page from "./pages"
 import { Loading } from "./components/global/LoadingPage"
@@ -11,7 +11,7 @@ import { Flex } from "@chakra-ui/react"
 
 const AnimatedRouter: React.VFC<{}> = () => {
   const location = useLocation()
-  const { isLoading, isError } = useSession()
+  const { session, isLoading, isError } = useSession()
 
   if (isError) {
     if (axios.isAxiosError(isError)) {
