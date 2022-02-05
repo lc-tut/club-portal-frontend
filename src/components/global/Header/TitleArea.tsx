@@ -9,7 +9,7 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
 } from "@chakra-ui/react"
-import { PortalBanner } from "../common/PortalBanner"
+import { PortalBanner } from "../../common/PortalBanner"
 import {
   BsChevronRight,
   BsClockHistory,
