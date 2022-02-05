@@ -1,10 +1,13 @@
 import {
-  Button, Center,
+  Button,
+  Center,
   Drawer,
   DrawerBody,
   DrawerContent,
   DrawerHeader,
-  Stack, Text, useDisclosure
+  Stack,
+  Text,
+  useDisclosure,
 } from "@chakra-ui/react"
 import { BsChevronRight } from "react-icons/bs"
 import { Link } from "react-router-dom"
@@ -19,10 +22,7 @@ export const MobileHamburgerMenu: React.VFC<{}> = () => {
   const stackContent = []
   for (const key in menuItems) {
     stackContent.push(
-      <Link
-        to={menuItems[key]}
-        key={key}
-      >
+      <Link to={menuItems[key]} key={key}>
         <Button
           w="100%"
           h="4rem"
@@ -38,7 +38,7 @@ export const MobileHamburgerMenu: React.VFC<{}> = () => {
           borderRadius="0"
           onClick={onClose}
           _hover={{
-            opacity: "0.6"
+            opacity: "0.6",
           }}
         >
           <Text>{key}</Text>
@@ -53,25 +53,11 @@ export const MobileHamburgerMenu: React.VFC<{}> = () => {
       <Center as="button" onClick={onOpen}>
         <HamburgerIcon />
       </Center>
-      <Drawer
-        placement="left"
-        onClose={onClose}
-        isOpen={isOpen}
-        size="full"
-      >
-        <DrawerContent
-          mt={headerHeight}
-          backgroundColor="green.500"
-        >
-          <DrawerHeader
-            textColor={textColor}
-          >
-            Menu
-          </DrawerHeader>
+      <Drawer placement="left" onClose={onClose} isOpen={isOpen} size="full">
+        <DrawerContent mt={headerHeight} backgroundColor="green.500">
+          <DrawerHeader textColor={textColor}>Menu</DrawerHeader>
           <DrawerBody p="0">
-            <Stack spacing="0">
-              {stackContent}
-            </Stack>
+            <Stack spacing="0">{stackContent}</Stack>
           </DrawerBody>
         </DrawerContent>
       </Drawer>

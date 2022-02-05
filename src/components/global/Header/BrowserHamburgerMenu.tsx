@@ -1,11 +1,20 @@
-import { Button, Popover, PopoverTrigger, PopoverContent, PopoverCloseButton, PopoverHeader, PopoverBody, Stack } from "@chakra-ui/react"
+import {
+  Button,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverCloseButton,
+  PopoverHeader,
+  PopoverBody,
+  Stack,
+} from "@chakra-ui/react"
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import { HamburgerIcon, menuItems } from "./HamburgerMenu"
 
 export const BrowserHamburgerMenu: React.VFC<{}> = () => {
   const [isOpen, setIsOpen] = useState(false)
-  const open  = () => setIsOpen(true)
+  const open = () => setIsOpen(true)
   const close = () => setIsOpen(false)
 
   const stackItems = []
@@ -31,22 +40,18 @@ export const BrowserHamburgerMenu: React.VFC<{}> = () => {
 
   return (
     <>
-      <Popover
-        isOpen={isOpen}
-        onOpen={open}
-        onClose={close}
-      >
+      <Popover isOpen={isOpen} onOpen={open} onClose={close}>
         <PopoverTrigger>
           <Button
             h="100%"
             p="0"
             backgroundColor="transparent"
             _hover={{
-              backgroundColor: "transparent"
+              backgroundColor: "transparent",
             }}
             _focus={{}}
             _active={{
-              color: "text.sub"
+              color: "text.sub",
             }}
           >
             <HamburgerIcon />
@@ -56,9 +61,7 @@ export const BrowserHamburgerMenu: React.VFC<{}> = () => {
           <PopoverCloseButton />
           <PopoverHeader> Menu </PopoverHeader>
           <PopoverBody p="0">
-            <Stack spacing="0">
-              {stackItems}
-            </Stack>
+            <Stack spacing="0">{stackItems}</Stack>
           </PopoverBody>
         </PopoverContent>
       </Popover>

@@ -4,22 +4,20 @@ import { MobileHamburgerMenu } from "./MobileHamburgerMenu"
 import { BrowserHamburgerMenu } from "./BrowserHamburgerMenu"
 
 // label: url
-export const menuItems: {[key: string]: string} = {
-  TOP:            "/",
-  サークル検索:   "/clubs",
-//  お知らせ:       "",
-//  履歴:           "",
-  お気に入り:     "",
-//  通知:           "",
-//  プロフィール:   "",
-//  設定:           "",
+export const menuItems: { [key: string]: string } = {
+  TOP: "/",
+  サークル検索: "/clubs",
+  //  お知らせ:       "",
+  //  履歴:           "",
+  お気に入り: "",
+  //  通知:           "",
+  //  プロフィール:   "",
+  //  設定:           "",
   編集者用ページ: "",
 }
 
 export const HamburgerIcon: React.VFC<{}> = () => {
-  return (
-    <Icon as={BsList} boxSize="2em" color="text.title.main"/>
-  )
+  return <Icon as={BsList} boxSize="2em" color="text.title.main" />
 }
 
 export const HamburgerMenu: React.VFC<{}> = () => {
@@ -28,8 +26,8 @@ export const HamburgerMenu: React.VFC<{}> = () => {
 
   return (
     <>
-      {  isMobile && <MobileHamburgerMenu /> }
-      { !isMobile && <BrowserHamburgerMenu /> }
+      {isMobile && <MobileHamburgerMenu />}
+      {!isMobile && <BrowserHamburgerMenu />}
     </>
   )
 }
