@@ -55,6 +55,10 @@ const theme = extendTheme({
     button: {
       yellow: "#EDBD17",
       orange: "#ED8131",
+      gray: "#E8E8E8",
+      text: {
+        gray: "#707070",
+      },
     },
     form: {
       frame: "#C1C1C1",
@@ -63,6 +67,7 @@ const theme = extendTheme({
     background: {
       main: "#FFFFFC",
       cards: "#F7F1E5",
+      remark: "#F8F8F8",
     },
     badge: {
       text: {
