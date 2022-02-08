@@ -8,7 +8,7 @@ export const AnnualPlan: React.VFC<AnnualPlanProps> = (props) => {
   return (
     <GridItem colSpan={12}>
       <VStack>
-        <Text fontSize="1.5rem" spacing="1rem">
+        <Text fontSize="1.5rem">
           年間予定
         </Text>
         <Grid

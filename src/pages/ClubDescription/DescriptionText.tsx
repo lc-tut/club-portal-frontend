@@ -43,7 +43,7 @@ export const DescriptionText: React.VFC<DescriptionProps> = (props) => {
             const snsId = getSnsId(link[0])
             const LeftIcon = iconMap[snsId]
             return (
-              <Link href={link[1]} key={link[1]} hover={{}}>
+              <Link href={link[1]} key={link[1]}>
                 <Button
                   color={fgColorMap[snsId]}
                   backgroundColor={bgColorMap[snsId]}
