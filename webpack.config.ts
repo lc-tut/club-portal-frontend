@@ -105,6 +105,7 @@ const config: webpack.Configuration = {
   optimization: {
     minimize: isProduction,
     minimizer: [
+      //@ts-ignore
       new TerserWebpackPlugin({
         extractComments: {
           condition: /^\**!|@preserve|@license|@cc_on/i,
