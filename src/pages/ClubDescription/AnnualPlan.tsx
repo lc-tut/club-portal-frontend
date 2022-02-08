@@ -8,9 +8,7 @@ export const AnnualPlan: React.VFC<AnnualPlanProps> = (props) => {
   return (
     <GridItem colSpan={12}>
       <VStack>
-        <Text fontSize="1.5rem">
-          年間予定
-        </Text>
+        <Text fontSize="1.5rem">年間予定</Text>
         <Grid
           width="100%"
           templateRows={{ base: "repeat(12, 1fr)", md: "repeat(6, 1fr)" }}
