@@ -1,15 +1,11 @@
-import { Flex, Grid, GridItem, Text, Textarea, VStack } from "@chakra-ui/react"
+import { Grid, GridItem, Text, Textarea, VStack } from "@chakra-ui/react"
 import { useState } from "react"
 import { EditorBase } from "../../../../components/common/Editor/EditorBase"
 import { TitleArea } from "../../../../components/global/TitleArea"
+import { PADDING_BEFORE_FOOTER } from "../../../../static/consts"
 import { ActivityEditor } from "./ActivityEditor"
 
-const forms = [
-  "活動場所",
-  "連絡先のメールアドレス",
-  "HPのURL",
-  "備考"
-]
+const forms = ["活動場所", "連絡先のメールアドレス", "HPのURL", "備考"]
 
 export const DetailInformationEditor: React.VFC<{}> = () => {
   const activityDummy = [
@@ -17,28 +13,20 @@ export const DetailInformationEditor: React.VFC<{}> = () => {
     "活動内容その2です",
     "他にも何か色々やってます",
   ]
-  const [ activities, setActivities ] = useState(activityDummy)
+  const [activities, setActivities] = useState(activityDummy)
 
   return (
-    <VStack flex="1">
-      <TitleArea>
-        詳細情報の編集
-      </TitleArea>
-      <EditorBase>
-        <Grid
-          templateColumns="repeat(2, 1fr)"
-          columnGap="1rem"
-          rowGap="2rem"
-        >
-          <GridItem colSpan={2}>
-            <ActivityEditor items={activities} setItems={setActivities} />
-          </GridItem>
-          {
-            forms.map((item) => {
+    <>
+      <VStack flex="1" pb={PADDING_BEFORE_FOOTER}>
+        <TitleArea>詳細情報の編集</TitleArea>
+        <EditorBase>
+          <Grid templateColumns="repeat(2, 1fr)" columnGap="1rem" rowGap="2rem">
+            <GridItem colSpan={2}>
+              <ActivityEditor items={activities} setItems={setActivities} />
+            </GridItem>
+            {forms.map((item) => {
               return (
-                <GridItem
-                  key={item}
-                >
+                <GridItem key={item}>
                   <Text color="text.sub" pl="0.2rem">
                     {item}
                   </Text>
@@ -50,10 +38,10 @@ export const DetailInformationEditor: React.VFC<{}> = () => {
                   />
                 </GridItem>
               )
-            })
-          }
-        </Grid>
-      </EditorBase>
-    </VStack>
+            })}
+          </Grid>
+        </EditorBase>
+      </VStack>
+    </>
   )
 }
