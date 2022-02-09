@@ -15,6 +15,11 @@ export type EditorMenuButtonProps = {
   remark?: string
 }
 
+export type EditorButtonProps = {
+  icon: "add" | "remove",
+  onClick: ()=>void
+}
+
 export type ActivityEditorProps = {
   items: string[]
   setItems: Dispatch<SetStateAction<string[]>>

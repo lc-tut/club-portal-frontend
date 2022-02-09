@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react"
 import { createRef, useState } from "react"
 import { BsPlusCircle, BsTrash } from "react-icons/bs"
+import { EditorButton } from "../../../../components/common/Editor/EditorButton"
 import { DatetimeEditorProps, DatetimeItem } from "../../../../types/editor"
 
 const dateDisplayNameMap: { [key in string]: string } = {
@@ -50,9 +51,10 @@ export const DatetimeEditor: React.VFC<DatetimeEditorProps> = (props) => {
         活動日時
       </Text>
       <HStack alignItems="end">
-        <Button backgroundColor="#fff" p="0" onClick={() => onAdd(inputData)}>
-          <Icon as={BsPlusCircle} color="text.main" />
-        </Button>
+        <EditorButton
+          icon="add"
+          onClick={()=>onAdd(inputData)}
+        />
         <Stack spacing="0">
           <Text color="text.sub" fontSize="0.8rem">
             {" "}
@@ -102,14 +104,10 @@ export const DatetimeEditor: React.VFC<DatetimeEditorProps> = (props) => {
         {props.items.map((item, index) => {
           return (
             <HStack key={index} textColor="text.main">
-              <Button
-                h="2rem"
-                p="0"
-                backgroundColor="#fff"
-                onClick={() => onRemove(index)}
-              >
-                <Icon as={BsTrash} color="text.main" />
-              </Button>
+              <EditorButton
+                icon="remove"
+                onClick={()=>onRemove(index)}
+              />
               <Text>{dateDisplayNameMap[item.date] + " - "}</Text>
               <Text>{item.time}</Text>
             </HStack>

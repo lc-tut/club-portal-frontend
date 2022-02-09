@@ -1,6 +1,7 @@
 import { Button, HStack, Icon, Input, Stack, Text } from "@chakra-ui/react"
 import { createRef, useState } from "react"
 import { BsPlusCircle, BsTrash } from "react-icons/bs"
+import { EditorButton } from "../../../../components/common/Editor/EditorButton"
 import { ActivityEditorProps } from "../../../../types/editor"
 
 export const ActivityEditor: React.VFC<ActivityEditorProps> = (props) => {
@@ -25,9 +26,10 @@ export const ActivityEditor: React.VFC<ActivityEditorProps> = (props) => {
         活動内容
       </Text>
       <HStack>
-        <Button backgroundColor="#fff" p="0" onClick={() => onAdd(inputData)}>
-          <Icon as={BsPlusCircle} color="text.main" />
-        </Button>
+        <EditorButton
+          icon="add"
+          onClick={()=>onAdd(inputData)}
+        />
         <Input
           backgroundColor="#fff"
           placeholder="活動内容を1つ入力して下さい"
@@ -40,14 +42,10 @@ export const ActivityEditor: React.VFC<ActivityEditorProps> = (props) => {
         {props.items.map((item, index) => {
           return (
             <HStack key={index} textColor="text.main">
-              <Button
-                h="2rem"
-                p="0"
-                backgroundColor="#fff"
-                onClick={onRemove.bind(this, index)}
-              >
-                <Icon as={BsTrash} color="text.main" />
-              </Button>
+              <EditorButton
+                icon="remove"
+                onClick={()=>onRemove(index)}
+              />
               <Text> {item} </Text>
             </HStack>
           )
