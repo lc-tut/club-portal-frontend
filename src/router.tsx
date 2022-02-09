@@ -39,8 +39,14 @@ const AnimatedRouter: React.VFC<{}> = () => {
 
             <Route path="/edit" element={<page.Editors />} />
             <Route path="/edit/:page" element={<page.EditorRouter />} />
-            <Route path="/edit/description" element={<page.DescriptionEditors />} />
-            <Route path="/edit/description/:page" element={<page.DescriptionEditorRouter />} />
+            <Route
+              path="/edit/description"
+              element={<page.DescriptionEditors />}
+            />
+            <Route
+              path="/edit/description/:page"
+              element={<page.DescriptionEditorRouter />}
+            />
 
             <Route path="/clubs" element={<page.Clubs />} />
             <Route path="*" element={<page.NotFound />} />

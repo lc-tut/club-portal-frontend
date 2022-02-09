@@ -1,5 +1,5 @@
-import { VStack } from "@chakra-ui/react";
-import React from "react";
+import { VStack } from "@chakra-ui/react"
+import React from "react"
 
 export const EditorBase: React.VFC<React.PropsWithChildren<{}>> = (props) => {
   return (

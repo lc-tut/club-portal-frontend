@@ -9,32 +9,35 @@ import { ActivityEditor } from "./ActivityEditor"
 import { DatetimeEditor } from "./DatetimeEditor"
 
 type GeneralInputAreaProps = {
-  label: string,
-  item: string,
-  setItem: Dispatch<SetStateAction<string>>,
+  label: string
+  item: string
+  setItem: Dispatch<SetStateAction<string>>
   type: "textarea" | "input"
 }
 
-const GeneralInputArea:React.VFC<GeneralInputAreaProps> = (props) => {
+const GeneralInputArea: React.VFC<GeneralInputAreaProps> = (props) => {
   let inputElement = <></>
   if (props.type === "input") {
-    inputElement = <Input
-      placeholder={props.label + "を入力して下さい"}
-      w="20rem"
-      backgroundColor="#fff"
-      value={props.item}
-      onChange={(e)=>props.setItem(e.target.value)}
-    />
-  }
-  else if (props.type === "textarea") {
-    inputElement = <Textarea
-      placeholder={props.label + "を入力して下さい"}
-      w="20rem"
-      h="4rem"
-      backgroundColor="#fff"
-      value={props.item}
-      onChange={(e)=>props.setItem(e.target.value)}
-    />
+    inputElement = (
+      <Input
+        placeholder={props.label + "を入力して下さい"}
+        w="20rem"
+        backgroundColor="#fff"
+        value={props.item}
+        onChange={(e) => props.setItem(e.target.value)}
+      />
+    )
+  } else if (props.type === "textarea") {
+    inputElement = (
+      <Textarea
+        placeholder={props.label + "を入力して下さい"}
+        w="20rem"
+        h="4rem"
+        backgroundColor="#fff"
+        value={props.item}
+        onChange={(e) => props.setItem(e.target.value)}
+      />
+    )
   }
 
   return (
@@ -53,22 +56,22 @@ export const DetailInformationEditor: React.VFC<{}> = () => {
     "活動内容その2です",
     "他にも何か色々やってます",
   ]
-  const [ activities, setActivities ] = useState(activityDummy)
+  const [activities, setActivities] = useState(activityDummy)
   const datetimeDummy: DatetimeItem[] = [
     {
       date: "mon",
-      time: "19:00 ~ 21:00"
+      time: "19:00 ~ 21:00",
     },
     {
       date: "wed",
-      time: "19:30 ~ 20:30"
-    }
+      time: "19:30 ~ 20:30",
+    },
   ]
-  const [ datetimes, setDatetimes ] = useState(datetimeDummy)
-  const [ place, setPlace ] = useState("")
-  const [ mail, setMail ] = useState("")
-  const [ hp, setHp ] = useState("")
-  const [ remark, setRemark ] = useState("")
+  const [datetimes, setDatetimes] = useState(datetimeDummy)
+  const [place, setPlace] = useState("")
+  const [mail, setMail] = useState("")
+  const [hp, setHp] = useState("")
+  const [remark, setRemark] = useState("")
 
   return (
     <>

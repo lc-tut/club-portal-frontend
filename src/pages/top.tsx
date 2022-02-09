@@ -1,9 +1,13 @@
 import {
-  Center, Flex,
+  Center,
+  Flex,
   Grid,
   GridItem,
   Heading,
-  Spacer, Text, VStack, Wrap
+  Spacer,
+  Text,
+  VStack,
+  Wrap,
 } from "@chakra-ui/react"
 import React from "react"
 import { BsClockHistory, BsMegaphone, BsSearch, BsStar } from "react-icons/bs"
@@ -95,11 +99,7 @@ const AnimatedTop: React.VFC<{}> = () => {
         </Grid>
         <Wrap pt="2rem">
           <Link to="/edit">
-            <Text
-              as="u"
-              fontSize="1.2rem"
-              textColor="green.700"
-            >
+            <Text as="u" fontSize="1.2rem" textColor="green.700">
               編集者の方はこちら
             </Text>
           </Link>

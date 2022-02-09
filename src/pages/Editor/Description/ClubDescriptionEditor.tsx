@@ -6,9 +6,7 @@ import { TitleArea } from "../../../components/global/TitleArea"
 export const ClubDescriptionEditor: React.VFC<{}> = () => {
   return (
     <VStack flex="1">
-      <TitleArea>
-        サークル説明文の編集
-      </TitleArea>
+      <TitleArea>サークル説明文の編集</TitleArea>
       <EditorBase>
         <Textarea
           backgroundColor="#fff"
