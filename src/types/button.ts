@@ -27,7 +27,3 @@ export type PortalButtonProps = CommonProps & PortalButtonInternalProps
 
 export type ButtonSolidStyle = "solid" | "round-solid"
 export type ButtonRoundStyle = "round-fill" | "round-solid"
-
-export type EditorMenuButtonType = {
-  isNotAvailable?: boolean
-}
