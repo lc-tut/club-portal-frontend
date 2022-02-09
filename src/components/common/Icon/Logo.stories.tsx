@@ -8,7 +8,6 @@ export default {
 } as ComponentMeta<typeof PortalLogo>
 
 const Template: ComponentStory<typeof PortalLogo> = (args) => (
-  //@ts-ignore
   <PortalLogo {...args} />
 )
 
