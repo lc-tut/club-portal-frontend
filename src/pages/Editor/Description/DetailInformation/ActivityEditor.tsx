@@ -1,4 +1,4 @@
-import { Stack, HStack, Tooltip, Button, Icon, Input, Text } from "@chakra-ui/react"
+import { Button, HStack, Icon, Input, Stack, Text } from "@chakra-ui/react"
 import { createRef, Dispatch, SetStateAction, useState } from "react"
 import { BsPlusCircle, BsTrash } from "react-icons/bs"
 
