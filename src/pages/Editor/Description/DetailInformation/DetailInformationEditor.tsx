@@ -1,4 +1,4 @@
-import { Grid, GridItem, Text, Textarea, VStack } from "@chakra-ui/react"
+import { Flex, Grid, GridItem, Text, Textarea, VStack } from "@chakra-ui/react"
 import { useState } from "react"
 import { EditorBase } from "../../../../components/common/Editor/EditorBase"
 import { TitleArea } from "../../../../components/global/TitleArea"
@@ -15,7 +15,7 @@ export const DetailInformationEditor: React.VFC<{}> = () => {
   const activityDummy = [
     "活動内容その1",
     "活動内容その2です",
-    "他にも何か色々やってます"
+    "他にも何か色々やってます",
   ]
   const [ activities, setActivities ] = useState(activityDummy)
 

@@ -1,5 +1,5 @@
 import { Stack, HStack, Tooltip, Button, Icon, Input, Text } from "@chakra-ui/react"
-import { Dispatch, SetStateAction, useState } from "react"
+import { createRef, Dispatch, SetStateAction, useState } from "react"
 import { BsPlusCircle, BsTrash } from "react-icons/bs"
 
 type ActivityEditorProps = {
@@ -10,12 +10,14 @@ type ActivityEditorProps = {
 export const ActivityEditor: React.VFC<ActivityEditorProps> = (props) => {
   const { items, setItems } = props
   const [ inputData, setInputData ] = useState("")
+  const inputRef = createRef<HTMLInputElement>()
   const onAdd = (item: string) => {
     setItems([...items, item])
     setInputData("")
+    inputRef.current?.focus()
   }
   const onRemove = (index: number) => {
-    const newItems = [...items]
+    const newItems = [...props.items]
     newItems.splice(index, 1)
     setItems(newItems)
   }
@@ -26,37 +28,34 @@ export const ActivityEditor: React.VFC<ActivityEditorProps> = (props) => {
         活動内容
       </Text>
       <HStack>
-        <Tooltip label="追加" placement="left" openDelay={500}>
-          <Button
-            backgroundColor="#fff"
-            p="0"
-            onClick={() => onAdd(inputData)}
-          >
-            <Icon as={BsPlusCircle} color="text.main" />
-          </Button>
-        </Tooltip>
+        <Button
+          backgroundColor="#fff"
+          p="0"
+          onClick={() => onAdd(inputData)}
+        >
+          <Icon as={BsPlusCircle} color="text.main" />
+        </Button>
         <Input
           backgroundColor="#fff"
           placeholder="活動内容を1つ入力して下さい"
           onChange={(e) => setInputData(e.target.value)}
           value={inputData}
+          ref={inputRef}
         />
       </HStack>
       <Stack>
         {
-          items.map((item, index) => {
+          props.items.map((item, index) => {
             return (
-              <HStack key={item}>
-                <Tooltip label="削除" placement="left" openDelay={500}>
-                  <Button
-                    h="2rem"
-                    p="0"
-                    backgroundColor="#fff"
-                    onClick={() => onRemove(index)}
-                    >
-                    <Icon as={BsTrash} color="text.main" />
-                  </Button>
-                </Tooltip>
+              <HStack key={index}>
+                <Button
+                  h="2rem"
+                  p="0"
+                  backgroundColor="#fff"
+                  onClick={onRemove.bind(this, index)}
+                >
+                  <Icon as={BsTrash} color="text.main" />
+                </Button>
                 <Text color="text.main"> {item} </Text>
               </HStack>
             )
