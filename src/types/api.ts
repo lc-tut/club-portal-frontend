@@ -141,3 +141,18 @@ export type UpdateClubPayload = {
   videos: Array<Video>
   activityDetails: Array<ActivityDetail>
 }
+
+export type APIPayload =
+  | CreateGeneralUserPayload
+  | ChangeUserPayload
+  | RegisterFavoriteClubPayload
+  | UnregisterFavoriteClubPayload
+  | CreateClubPayload
+  | UpdateClubPayload
+
+export type APIResponse =
+  | UserInfo
+  | ClubPageExternal
+  | ClubPageInternal
+  | (Image & { path: string })
+  | Thumbnail
