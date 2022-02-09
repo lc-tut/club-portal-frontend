@@ -18,11 +18,11 @@ export const DescriptionEditors: React.VFC<{}> = () => {
           },
           {
             content: "詳細情報の編集",
-            to: ""
+            to: "detail-information"
           },
           {
             content: "年間予定の編集",
-            to: ""
+            to: "annual-plan"
           },
           {
             content: "よくある質問の編集",
@@ -31,15 +31,15 @@ export const DescriptionEditors: React.VFC<{}> = () => {
           },
           {
             content: "SNSリンクの編集",
-            to: ""
+            to: "links"
           },
           {
             content: "動画の掲載・変更",
-            to: ""
+            to: "video"
           },
           {
             content: "写真の掲載・変更",
-            to: ""
+            to: "pictures"
           },
         ]}
       />
