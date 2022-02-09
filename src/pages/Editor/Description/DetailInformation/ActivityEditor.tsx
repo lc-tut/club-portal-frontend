@@ -1,16 +1,13 @@
 import { Button, HStack, Icon, Input, Stack, Text } from "@chakra-ui/react"
 import { createRef, Dispatch, SetStateAction, useState } from "react"
 import { BsPlusCircle, BsTrash } from "react-icons/bs"
-
-type ActivityEditorProps = {
-  items: string[],
-  setItems: Dispatch<SetStateAction<string[]>>
-}
+import { ActivityEditorProps } from "../../../../types/editor"
 
 export const ActivityEditor: React.VFC<ActivityEditorProps> = (props) => {
   const { items, setItems } = props
   const [ inputData, setInputData ] = useState("")
   const inputRef = createRef<HTMLInputElement>()
+
   const onAdd = (item: string) => {
     setItems([...items, item])
     setInputData("")
@@ -24,7 +21,7 @@ export const ActivityEditor: React.VFC<ActivityEditorProps> = (props) => {
 
   return (
     <Stack spacing="0.5rem">
-      <Text color="text.sub">
+      <Text color="text.sub" fontSize="1.2rem">
         活動内容
       </Text>
       <HStack>
@@ -47,7 +44,7 @@ export const ActivityEditor: React.VFC<ActivityEditorProps> = (props) => {
         {
           props.items.map((item, index) => {
             return (
-              <HStack key={index}>
+              <HStack key={index} textColor="text.main">
                 <Button
                   h="2rem"
                   p="0"
@@ -56,7 +53,7 @@ export const ActivityEditor: React.VFC<ActivityEditorProps> = (props) => {
                 >
                   <Icon as={BsTrash} color="text.main" />
                 </Button>
-                <Text color="text.main"> {item} </Text>
+                <Text> {item} </Text>
               </HStack>
             )
           })
