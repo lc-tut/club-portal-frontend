@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom"
 import { NotFound } from "../../notfound"
 import { ClubDescriptionEditor } from "./ClubDescriptionEditor"
-import { DetailInformationEditor } from "./DetailInformationEditor"
+import { DetailInformationEditor } from "./DetailInformation/DetailInformationEditor"
 
 const pageMap: {[key in string]: JSX.Element} = {
   "club-description": <ClubDescriptionEditor />,
