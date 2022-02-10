@@ -10,7 +10,13 @@ const iconMap: {[key in string]: IconType} = {
 
 export const EditorButton: React.VFC<EditorButtonProps> = (props) => {
   return (
-    <Button backgroundColor="#fff" p="0" onClick={props.onClick}>
+    <Button
+      backgroundColor="#fff"
+      border="1px"
+      borderColor="gray.200"
+      p="0"
+      onClick={props.onClick}
+    >
       <Icon as={iconMap[props.icon]} color="text.main" />
     </Button>
   )

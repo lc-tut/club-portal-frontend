@@ -42,7 +42,7 @@ const GeneralInputArea: React.VFC<GeneralInputAreaProps> = (props) => {
 
   return (
     <>
-      <Text color="text.sub" pl="0.2rem">
+      <Text color="text.main" pl="0.2rem">
         {props.label}
       </Text>
       {inputElement}

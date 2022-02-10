@@ -1,6 +1,5 @@
-import { Button, HStack, Icon, Input, Stack, Text } from "@chakra-ui/react"
+import { HStack, Input, Stack, Text } from "@chakra-ui/react"
 import { createRef, useState } from "react"
-import { BsPlusCircle, BsTrash } from "react-icons/bs"
 import { EditorButton } from "../../../../components/common/Editor/EditorButton"
 import { ActivityEditorProps } from "../../../../types/editor"
 
@@ -22,7 +21,7 @@ export const ActivityEditor: React.VFC<ActivityEditorProps> = (props) => {
 
   return (
     <Stack spacing="0.5rem">
-      <Text color="text.sub" fontSize="1.2rem">
+      <Text color="text.main" fontSize="1.2rem">
         活動内容
       </Text>
       <HStack>

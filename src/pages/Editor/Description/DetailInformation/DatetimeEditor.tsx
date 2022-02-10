@@ -1,14 +1,10 @@
 import {
-  Button,
-  HStack,
-  Icon,
-  Input,
+  HStack, Input,
   Select,
   Stack,
-  Text,
+  Text
 } from "@chakra-ui/react"
 import { createRef, useState } from "react"
-import { BsPlusCircle, BsTrash } from "react-icons/bs"
 import { EditorButton } from "../../../../components/common/Editor/EditorButton"
 import { DatetimeEditorProps, DatetimeItem } from "../../../../types/editor"
 
@@ -47,7 +43,7 @@ export const DatetimeEditor: React.VFC<DatetimeEditorProps> = (props) => {
 
   return (
     <Stack spacing="0.5rem">
-      <Text color="text.sub" fontSize="1.2rem">
+      <Text color="text.main" fontSize="1.2rem">
         活動日時
       </Text>
       <HStack alignItems="end">

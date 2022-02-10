@@ -18,12 +18,13 @@ type MonthInputAreaProps = {
 const MonthInputArea: React.VFC<MonthInputAreaProps> = (props) => {
   return (
     <Stack>
-      <Text pl="0.2rem">
+      <Text pl="0.2rem" color="text.main">
         {props.month.toString() + "月"}
       </Text>
       <Textarea
         w="20rem"
         h="4rem"
+        textColor="text.main"
         backgroundColor="#fff"
         value={props.inputData[props.month]}
         onChange={(e)=>{

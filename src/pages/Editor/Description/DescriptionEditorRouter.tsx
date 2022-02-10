@@ -3,13 +3,15 @@ import { NotFound } from "../../notfound"
 import { AnualPlanEditor } from "./AnnualPlanEditor"
 import { ClubDescriptionEditor } from "./ClubDescriptionEditor"
 import { DetailInformationEditor } from "./DetailInformation/DetailInformationEditor"
+import { IntroductionVideoEditor } from "./IntroductionVideoEditor"
+import { SnsLinkEditor } from "./SnsLinkEditor"
 
 const pageMap: { [key in string]: JSX.Element } = {
   "club-description": <ClubDescriptionEditor />,
   "detail-information": <DetailInformationEditor />,
   "annual-plan": <AnualPlanEditor />,
-  links: <></>,
-  video: <></>,
+  links: <SnsLinkEditor />,
+  video: <IntroductionVideoEditor />,
   pictures: <></>,
 }
 
