@@ -28,9 +28,20 @@ export type ActivityEditorProps = {
 export type DatetimeItem = {
   date: string
   time: string
+  remarks?: string
 }
 
 export type DatetimeEditorProps = {
   items: DatetimeItem[]
   setItems: Dispatch<SetStateAction<DatetimeItem[]>>
+}
+
+export type PlaceItem = {
+  place: string
+  remarks?: string
+}
+
+export type PlaceEditorProps = {
+  items: PlaceItem[]
+  setItems: Dispatch<SetStateAction<PlaceItem[]>>
 }

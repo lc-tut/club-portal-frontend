@@ -2,7 +2,8 @@ import {
   HStack, Input,
   Select,
   Stack,
-  Text
+  Text,
+  Wrap
 } from "@chakra-ui/react"
 import { createRef, useState } from "react"
 import { EditorButton } from "../../../../components/common/Editor/EditorButton"
@@ -33,6 +34,11 @@ export const DatetimeEditor: React.VFC<DatetimeEditorProps> = (props) => {
     }
 
     setItems([...items, item])
+    setInputData({
+      date: "",
+      time: "",
+      remarks: ""
+    })
     selectRef.current?.focus()
   }
   const onRemove = (index: number) => {
@@ -46,56 +52,79 @@ export const DatetimeEditor: React.VFC<DatetimeEditorProps> = (props) => {
       <Text color="text.main" fontSize="1.2rem">
         活動日時
       </Text>
-      <HStack alignItems="end">
-        <EditorButton
-          icon="add"
-          onClick={()=>onAdd(inputData)}
-        />
-        <Stack spacing="0">
-          <Text color="text.sub" fontSize="0.8rem">
-            {" "}
-            曜日{" "}
-          </Text>
-          <Select
-            textColor="text.main"
-            backgroundColor="#fff"
-            ref={selectRef}
-            value={inputData?.date}
-            onChange={(e) =>
-              setInputData({
-                date: e.target.value,
-                time: inputData.time,
-              })
-            }
-          >
-            <option value=""> - </option>
-            <option value="mon"> {dateDisplayNameMap["mon"]} </option>
-            <option value="tue"> {dateDisplayNameMap["tue"]} </option>
-            <option value="wed"> {dateDisplayNameMap["wed"]} </option>
-            <option value="thu"> {dateDisplayNameMap["thu"]} </option>
-            <option value="fri"> {dateDisplayNameMap["fri"]} </option>
-            <option value="sat"> {dateDisplayNameMap["sat"]} </option>
-            <option value="sun"> {dateDisplayNameMap["sun"]} </option>
-          </Select>
-        </Stack>
-        <Stack flex="1" spacing="0">
-          <Text color="text.sub" fontSize="0.8rem">
-            {" "}
-            曜日{" "}
-          </Text>
-          <Input
-            placeholder="例 19:00~21:00"
-            backgroundColor="#fff"
-            value={inputData.time}
-            onChange={(e) =>
-              setInputData({
-                date: inputData.date,
-                time: e.target.value,
-              })
-            }
+      <HStack alignItems="start">
+        <Wrap pt="1.2rem" m="0">
+          <EditorButton
+            icon="add"
+            onClick={()=>onAdd(inputData)}
           />
+        </Wrap>
+        <Stack w="100%">
+          <HStack>
+            <Stack spacing="0">
+              <Text color="text.sub" fontSize="0.8rem" h="1.2rem">
+                曜日
+              </Text>
+              <Select
+                textColor="text.main"
+                backgroundColor="#fff"
+                ref={selectRef}
+                value={inputData?.date}
+                onChange={(e) =>
+                  setInputData({
+                    date: e.target.value,
+                    time: inputData.time,
+                    remarks: inputData.remarks
+                  })
+                }
+              >
+                <option value=""> - </option>
+                <option value="mon"> {dateDisplayNameMap["mon"]} </option>
+                <option value="tue"> {dateDisplayNameMap["tue"]} </option>
+                <option value="wed"> {dateDisplayNameMap["wed"]} </option>
+                <option value="thu"> {dateDisplayNameMap["thu"]} </option>
+                <option value="fri"> {dateDisplayNameMap["fri"]} </option>
+                <option value="sat"> {dateDisplayNameMap["sat"]} </option>
+                <option value="sun"> {dateDisplayNameMap["sun"]} </option>
+              </Select>
+            </Stack>
+            <Stack flex="1" spacing="0">
+              <Text color="text.sub" fontSize="0.8rem" h="1.2rem">
+                時間
+              </Text>
+              <Input
+                placeholder="例 19:00~21:00"
+                backgroundColor="#fff"
+                value={inputData.time}
+                onChange={(e) =>
+                  setInputData({
+                    date: inputData.date,
+                    time: e.target.value,
+                    remarks: inputData.remarks
+                  })
+                }
+              />
+            </Stack>
+          </HStack>
+          <Stack spacing="0">
+            <Text fontSize="0.8rem" color="text.sub">
+              備考(任意)
+            </Text>
+            <Input
+              backgroundColor="#fff"
+              placeholder="備考があれば入力して下さい"
+              value={inputData.remarks}
+              onChange={(e)=>{
+                setInputData({
+                  date: inputData.date,
+                  time: inputData.time,
+                  remarks: e.target.value
+                })
+              }}
+            />
+          </Stack>
         </Stack>
-      </HStack>
+        </HStack>
       <Stack>
         {props.items.map((item, index) => {
           return (
@@ -106,6 +135,10 @@ export const DatetimeEditor: React.VFC<DatetimeEditorProps> = (props) => {
               />
               <Text>{dateDisplayNameMap[item.date] + " - "}</Text>
               <Text>{item.time}</Text>
+              <Text>{item.remarks
+                      ? (" - " + item.remarks)
+                      : ""
+              }</Text>
             </HStack>
           )
         })}

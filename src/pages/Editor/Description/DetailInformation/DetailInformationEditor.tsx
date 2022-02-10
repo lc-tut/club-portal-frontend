@@ -4,9 +4,10 @@ import { PortalButton } from "../../../../components/common/Button"
 import { EditorBase } from "../../../../components/common/Editor/EditorBase"
 import { TitleArea } from "../../../../components/global/TitleArea"
 import { PADDING_BEFORE_FOOTER } from "../../../../static/consts"
-import { DatetimeItem } from "../../../../types/editor"
+import { DatetimeItem, PlaceItem } from "../../../../types/editor"
 import { ActivityEditor } from "./ActivityEditor"
 import { DatetimeEditor } from "./DatetimeEditor"
+import { PlaceEditor } from "./PlaceEditor"
 
 type GeneralInputAreaProps = {
   label: string
@@ -68,10 +69,9 @@ export const DetailInformationEditor: React.VFC<{}> = () => {
     },
   ]
   const [datetimes, setDatetimes] = useState(datetimeDummy)
-  const [place, setPlace] = useState("")
+  const [places, setPlaces] = useState<PlaceItem[]>([])
   const [mail, setMail] = useState("")
   const [hp, setHp] = useState("")
-  const [remark, setRemark] = useState("")
 
   return (
     <>
@@ -79,23 +79,21 @@ export const DetailInformationEditor: React.VFC<{}> = () => {
         <TitleArea>詳細情報の編集</TitleArea>
         <EditorBase>
           <Grid
-            templateColumns="repeat(2, 1fr)"
+            templateColumns={{base: "repeat(1, 1fr)", md: "repeat(2, 1fr)"}}
             columnGap="1rem"
             rowGap="3rem"
             pb="2rem"
           >
-            <GridItem colSpan={2}>
+            <GridItem colSpan={{base: 1, md: 2}}>
               <ActivityEditor items={activities} setItems={setActivities} />
             </GridItem>
-            <GridItem colSpan={2}>
+            <GridItem colSpan={{base: 1, md: 2}}>
               <DatetimeEditor items={datetimes} setItems={setDatetimes} />
             </GridItem>
-            <GridItem>
-              <GeneralInputArea
-                label="活動場所"
-                item={place}
-                setItem={setPlace}
-                type="textarea"
+            <GridItem colSpan={{base: 1, md: 2}}>
+              <PlaceEditor
+                items={places}
+                setItems={setPlaces}
               />
             </GridItem>
             <GridItem>
@@ -112,14 +110,6 @@ export const DetailInformationEditor: React.VFC<{}> = () => {
                 item={hp}
                 setItem={setHp}
                 type="input"
-              />
-            </GridItem>
-            <GridItem>
-              <GeneralInputArea
-                label="備考"
-                item={remark}
-                setItem={setRemark}
-                type="textarea"
               />
             </GridItem>
           </Grid>
