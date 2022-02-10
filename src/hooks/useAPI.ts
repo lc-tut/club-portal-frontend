@@ -3,7 +3,10 @@ import useSWR from "swr"
 import type { APIPayload, APIResponse } from "../types/api"
 import { axiosFetcher } from "../utils/axios"
 
-export const useAPI = <R extends APIResponse, D extends APIPayload | undefined>(
+export const useAPI = <
+  R extends APIResponse | {},
+  D = unknown extends APIPayload ? APIPayload : undefined
+>(
   endpoint: string,
   method: "get" | "post" | "put" | "patch" | "delete",
   payload?: D
