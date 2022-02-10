@@ -10,7 +10,7 @@ export const useSession = () => {
   )
 
   return {
-    session: data as Session,
+    session: data,
     isLoading: !error && data === undefined,
     isError: error,
   }

@@ -19,7 +19,7 @@ export const useAPI = <R extends APIResponse, D extends APIPayload | undefined>(
   )
 
   return {
-    data: data as R,
+    data: data,
     isLoading: !error && data === undefined,
     isError: error,
   }
