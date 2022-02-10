@@ -84,6 +84,10 @@ const HelpModal = () => {
 }
 
 export const IntroductionVideoEditor: React.VFC<{}> = () => {
+  // データベースには動画IDを保存したい
+  // 既に動画IDが保存されていた場合、inputDataの初期値は
+  //    https://youtu.be/<videoId>
+  // にしたい
   const [ videoId, setVideoId ] = useState("")
   const [ inputData, setInputData ] = useState("")
   const [ error, setError ] = useState("")
@@ -143,7 +147,19 @@ export const IntroductionVideoEditor: React.VFC<{}> = () => {
             />
           </AspectRatio>
         </VStack>
-        <PortalButton> 保存 </PortalButton>
+        <PortalButton
+          isDisabled={error !== ""}
+        >
+          保存
+        </PortalButton>
+        <VStack textColor="text.main">
+          <Text>
+            以下の内容で保存します
+          </Text>
+          <Text>
+            動画ID: {videoId !== "" ? videoId : "(未入力)"}
+          </Text>
+        </VStack>
       </EditorBase>
     </VStack>
   )

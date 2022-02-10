@@ -69,7 +69,15 @@ export const DetailInformationEditor: React.VFC<{}> = () => {
     },
   ]
   const [datetimes, setDatetimes] = useState(datetimeDummy)
-  const [places, setPlaces] = useState<PlaceItem[]>([])
+  const [places, setPlaces] = useState<PlaceItem[]>([
+    {
+      place: "サークル棟000"
+    },
+    {
+      place: "講義実験棟111",
+      remarks: "たまに使用します"
+    }
+  ])
   const [mail, setMail] = useState("")
   const [hp, setHp] = useState("")
 
