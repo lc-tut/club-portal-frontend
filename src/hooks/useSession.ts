@@ -1,6 +1,6 @@
 import type { AxiosError } from "axios"
 import useSWR from "swr"
-import type { Session } from "../types/session"
+import type { Session } from "../types/api"
 import { axiosFetcher } from "../utils/axios"
 
 export const useSession = () => {
@@ -10,7 +10,7 @@ export const useSession = () => {
   )
 
   return {
-    session: data as Session,
+    session: data,
     isLoading: !error && data === undefined,
     isError: error,
   }

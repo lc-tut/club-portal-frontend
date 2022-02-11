@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react"
+import { Center } from "@chakra-ui/react"
 import type {
   ClubTypeBadgeProp,
   BadgeSize,
@@ -65,15 +65,14 @@ export const ClubTypeBadge: React.VFC<ClubTypeBadgeProp> = (props) => {
   const color = colorMap[isCampusContent(props.content) ? "campus" : "activity"]
 
   return (
-    <Box
+    <Center
       height={size["height"]}
       width={size["width"]}
       fontSize={size["fontSize"]}
-      textAlign="center"
       color={color["foreground"]}
       backgroundColor={color["background"]}
     >
       {content}
-    </Box>
+    </Center>
   )
 }
