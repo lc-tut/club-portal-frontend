@@ -1,13 +1,17 @@
-import {
-  HStack, Input,
-  Select,
-  Stack,
-  Text,
-  Wrap
-} from "@chakra-ui/react"
-import { createRef, useState } from "react"
+import { HStack, Input, Select, Stack, Text, Wrap } from "@chakra-ui/react"
+import { createRef, Dispatch, SetStateAction, useState } from "react"
 import { EditorButton } from "../../../../components/common/Editor/EditorButton"
-import { DatetimeEditorProps, DatetimeItem } from "../../../../types/editor"
+
+export type DatetimeItem = {
+  date: string
+  time: string
+  remarks?: string
+}
+
+export type DatetimeEditorProps = {
+  items: DatetimeItem[]
+  setItems: Dispatch<SetStateAction<DatetimeItem[]>>
+}
 
 const dateDisplayNameMap: { [key in string]: string } = {
   mon: "月",
@@ -37,7 +41,7 @@ export const DatetimeEditor: React.VFC<DatetimeEditorProps> = (props) => {
     setInputData({
       date: "",
       time: "",
-      remarks: ""
+      remarks: "",
     })
     selectRef.current?.focus()
   }
@@ -54,10 +58,7 @@ export const DatetimeEditor: React.VFC<DatetimeEditorProps> = (props) => {
       </Text>
       <HStack alignItems="start">
         <Wrap pt="1.2rem" m="0">
-          <EditorButton
-            icon="add"
-            onClick={()=>onAdd(inputData)}
-          />
+          <EditorButton icon="add" onClick={() => onAdd(inputData)} />
         </Wrap>
         <Stack w="100%">
           <HStack>
@@ -74,7 +75,7 @@ export const DatetimeEditor: React.VFC<DatetimeEditorProps> = (props) => {
                   setInputData({
                     date: e.target.value,
                     time: inputData.time,
-                    remarks: inputData.remarks
+                    remarks: inputData.remarks,
                   })
                 }
               >
@@ -100,7 +101,7 @@ export const DatetimeEditor: React.VFC<DatetimeEditorProps> = (props) => {
                   setInputData({
                     date: inputData.date,
                     time: e.target.value,
-                    remarks: inputData.remarks
+                    remarks: inputData.remarks,
                   })
                 }
               />
@@ -114,31 +115,25 @@ export const DatetimeEditor: React.VFC<DatetimeEditorProps> = (props) => {
               backgroundColor="#fff"
               placeholder="備考があれば入力して下さい"
               value={inputData.remarks}
-              onChange={(e)=>{
+              onChange={(e) => {
                 setInputData({
                   date: inputData.date,
                   time: inputData.time,
-                  remarks: e.target.value
+                  remarks: e.target.value,
                 })
               }}
             />
           </Stack>
         </Stack>
-        </HStack>
+      </HStack>
       <Stack>
         {props.items.map((item, index) => {
           return (
             <HStack key={index} textColor="text.main">
-              <EditorButton
-                icon="remove"
-                onClick={()=>onRemove(index)}
-              />
+              <EditorButton icon="remove" onClick={() => onRemove(index)} />
               <Text>{dateDisplayNameMap[item.date] + " - "}</Text>
               <Text>{item.time}</Text>
-              <Text>{item.remarks
-                      ? (" - " + item.remarks)
-                      : ""
-              }</Text>
+              <Text>{item.remarks ? " - " + item.remarks : ""}</Text>
             </HStack>
           )
         })}

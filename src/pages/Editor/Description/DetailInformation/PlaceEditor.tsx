@@ -1,7 +1,16 @@
 import { HStack, Input, Stack, Text, Wrap } from "@chakra-ui/react"
-import { createRef, useState } from "react"
+import { createRef, Dispatch, SetStateAction, useState } from "react"
 import { EditorButton } from "../../../../components/common/Editor/EditorButton"
-import { PlaceEditorProps, PlaceItem } from "../../../../types/editor"
+
+export type PlaceItem = {
+  place: string
+  remarks?: string
+}
+
+export type PlaceEditorProps = {
+  items: PlaceItem[]
+  setItems: Dispatch<SetStateAction<PlaceItem[]>>
+}
 
 export const PlaceEditor: React.VFC<PlaceEditorProps> = (props) => {
   const { items, setItems } = props

@@ -1,10 +1,27 @@
-import { AspectRatio, Input, VStack, Text, Stack, HStack, Icon, useDisclosure, Modal, ModalContent, ModalHeader, ModalCloseButton, ModalOverlay, ModalBody, UnorderedList, ListItem } from "@chakra-ui/react"
+import {
+  AspectRatio,
+  HStack,
+  Icon,
+  Input,
+  ListItem,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
+  Stack,
+  Text,
+  UnorderedList,
+  useDisclosure,
+  VStack,
+} from "@chakra-ui/react"
 import { Dispatch, SetStateAction, useState } from "react"
+import { BsQuestionCircle } from "react-icons/bs"
 import { PortalButton } from "../../../components/common/Button"
 import { EditorBase } from "../../../components/common/Editor/EditorBase"
 import { TitleArea } from "../../../components/global/Header/TitleArea"
 import { PADDING_BEFORE_FOOTER } from "../../../static/consts"
-import { BsQuestionCircle } from "react-icons/bs"
 
 function parseVideoId(
   input: string,
@@ -19,13 +36,11 @@ function parseVideoId(
   let url: URL
   try {
     url = new URL(input)
-  }
-  catch (e) {
+  } catch (e) {
     if (e instanceof TypeError) {
       setError("URLの形式が正しくありません")
       return
-    }
-    else {
+    } else {
       throw e
     }
   }
@@ -40,10 +55,9 @@ function parseVideoId(
       setError("URLに動画IDが含まれていません")
       return
     }
-    console.log("set: " + vParam);
+    console.log("set: " + vParam)
     setVideoId(vParam)
-  }
-  else if (url.hostname === "youtu.be") {
+  } else if (url.hostname === "youtu.be") {
     setVideoId(url.pathname.replace("/", ""))
   }
 
@@ -55,10 +69,7 @@ const HelpModal = () => {
 
   return (
     <>
-      <Icon
-        as={BsQuestionCircle}
-        onClick={onOpen}
-      />
+      <Icon as={BsQuestionCircle} onClick={onOpen} />
       <Modal isOpen={isOpen} onClose={onClose} size="xl">
         <ModalOverlay />
         <ModalContent>
@@ -73,8 +84,14 @@ const HelpModal = () => {
             </UnorderedList>
             <Text pt="1rem"> これらのURLは以下の方法で取得できます </Text>
             <UnorderedList pt="0.5rem">
-              <ListItem> ブラウザで動画視聴画面を開き、上部アドレスバーのURLをコピーする </ListItem>
-              <ListItem> ブラウザ・アプリの動画視聴画面の「共有」ボタンからリンクを取得する </ListItem>
+              <ListItem>
+                {" "}
+                ブラウザで動画視聴画面を開き、上部アドレスバーのURLをコピーする{" "}
+              </ListItem>
+              <ListItem>
+                {" "}
+                ブラウザ・アプリの動画視聴画面の「共有」ボタンからリンクを取得する{" "}
+              </ListItem>
             </UnorderedList>
           </ModalBody>
         </ModalContent>
@@ -84,16 +101,12 @@ const HelpModal = () => {
 }
 
 export const IntroductionVideoEditor: React.VFC<{}> = () => {
-  // データベースには動画IDを保存したい
-  // 既に動画IDが保存されていた場合、inputDataの初期値は
-  //    https://youtu.be/<videoId>
-  // にしたい
-  const [ videoId, setVideoId ] = useState("")
-  const [ inputData, setInputData ] = useState("")
-  const [ error, setError ] = useState("")
+  const [videoId, setVideoId] = useState("")
+  const [inputData, setInputData] = useState("")
+  const [error, setError] = useState("")
   const onConfirm = () => {
     parseVideoId(inputData, setError, setVideoId)
-    console.log("video id is: " + videoId);
+    console.log("video id is: " + videoId)
   }
 
   return (
@@ -112,19 +125,16 @@ export const IntroductionVideoEditor: React.VFC<{}> = () => {
             textColor="text.main"
             backgroundColor="#fff"
             errorBorderColor="red.300"
-            isInvalid={error!==""}
+            isInvalid={error !== ""}
             placeholder="URLを入力して下さい"
             value={inputData}
-            onChange={(e)=>setInputData(e.target.value)}
+            onChange={(e) => setInputData(e.target.value)}
           />
           <Text fontSize="0.8rem" color="red.500">
             {error}
           </Text>
         </Stack>
-        <PortalButton
-          pbstyle="solid"
-          onClick={()=>onConfirm()}
-        >
+        <PortalButton pbstyle="solid" onClick={() => onConfirm()}>
           確認
         </PortalButton>
         <VStack>
@@ -147,16 +157,11 @@ export const IntroductionVideoEditor: React.VFC<{}> = () => {
             />
           </AspectRatio>
         </VStack>
-        <PortalButton
-          isDisabled={error !== ""}
-        >
-          保存
-        </PortalButton>
         <VStack textColor="text.main">
+          <PortalButton>保存</PortalButton>
           <Text>
             以下の内容で保存します
-          </Text>
-          <Text>
+            <br />
             動画ID: {videoId !== "" ? videoId : "(未入力)"}
           </Text>
         </VStack>

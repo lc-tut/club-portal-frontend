@@ -1,7 +1,11 @@
 import { HStack, Input, Stack, Text } from "@chakra-ui/react"
-import { createRef, useState } from "react"
+import { createRef, Dispatch, SetStateAction, useState } from "react"
 import { EditorButton } from "../../../../components/common/Editor/EditorButton"
-import { ActivityEditorProps } from "../../../../types/editor"
+
+type ActivityEditorProps = {
+  items: string[]
+  setItems: Dispatch<SetStateAction<string[]>>
+}
 
 export const ActivityEditor: React.VFC<ActivityEditorProps> = (props) => {
   const { items, setItems } = props
@@ -25,10 +29,7 @@ export const ActivityEditor: React.VFC<ActivityEditorProps> = (props) => {
         活動内容
       </Text>
       <HStack>
-        <EditorButton
-          icon="add"
-          onClick={()=>onAdd(inputData)}
-        />
+        <EditorButton icon="add" onClick={() => onAdd(inputData)} />
         <Input
           backgroundColor="#fff"
           placeholder="活動内容を1つ入力して下さい"
@@ -41,10 +42,7 @@ export const ActivityEditor: React.VFC<ActivityEditorProps> = (props) => {
         {props.items.map((item, index) => {
           return (
             <HStack key={index} textColor="text.main">
-              <EditorButton
-                icon="remove"
-                onClick={()=>onRemove(index)}
-              />
+              <EditorButton icon="remove" onClick={() => onRemove(index)} />
               <Text> {item} </Text>
             </HStack>
           )

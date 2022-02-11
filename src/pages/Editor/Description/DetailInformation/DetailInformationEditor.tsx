@@ -4,10 +4,9 @@ import { PortalButton } from "../../../../components/common/Button"
 import { EditorBase } from "../../../../components/common/Editor/EditorBase"
 import { TitleArea } from "../../../../components/global/Header/TitleArea"
 import { PADDING_BEFORE_FOOTER } from "../../../../static/consts"
-import { DatetimeItem, PlaceItem } from "../../../../types/editor"
 import { ActivityEditor } from "./ActivityEditor"
-import { DatetimeEditor } from "./DatetimeEditor"
-import { PlaceEditor } from "./PlaceEditor"
+import { DatetimeEditor, DatetimeItem } from "./DatetimeEditor"
+import { PlaceEditor, PlaceItem } from "./PlaceEditor"
 
 type GeneralInputAreaProps = {
   label: string
@@ -71,12 +70,12 @@ export const DetailInformationEditor: React.VFC<{}> = () => {
   const [datetimes, setDatetimes] = useState(datetimeDummy)
   const [places, setPlaces] = useState<PlaceItem[]>([
     {
-      place: "サークル棟000"
+      place: "サークル棟000",
     },
     {
       place: "講義実験棟111",
-      remarks: "たまに使用します"
-    }
+      remarks: "たまに使用します",
+    },
   ])
   const [mail, setMail] = useState("")
   const [hp, setHp] = useState("")
@@ -87,22 +86,18 @@ export const DetailInformationEditor: React.VFC<{}> = () => {
         <TitleArea>詳細情報の編集</TitleArea>
         <EditorBase>
           <Grid
-            templateColumns={{base: "repeat(1, 1fr)", md: "repeat(2, 1fr)"}}
+            templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)" }}
             columnGap="1rem"
             rowGap="3rem"
-            pb="2rem"
           >
-            <GridItem colSpan={{base: 1, md: 2}}>
+            <GridItem colSpan={{ base: 1, md: 2 }}>
               <ActivityEditor items={activities} setItems={setActivities} />
             </GridItem>
-            <GridItem colSpan={{base: 1, md: 2}}>
+            <GridItem colSpan={{ base: 1, md: 2 }}>
               <DatetimeEditor items={datetimes} setItems={setDatetimes} />
             </GridItem>
-            <GridItem colSpan={{base: 1, md: 2}}>
-              <PlaceEditor
-                items={places}
-                setItems={setPlaces}
-              />
+            <GridItem colSpan={{ base: 1, md: 2 }}>
+              <PlaceEditor items={places} setItems={setPlaces} />
             </GridItem>
             <GridItem>
               <GeneralInputArea
