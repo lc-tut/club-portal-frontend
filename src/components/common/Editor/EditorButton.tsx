@@ -3,9 +3,9 @@ import { IconType } from "react-icons"
 import { BsPlusCircle, BsTrash } from "react-icons/bs"
 import { EditorButtonProps } from "../../../types/editor"
 
-const iconMap: {[key in string]: IconType} = {
-  "add": BsPlusCircle,
-  "remove": BsTrash
+const iconMap: { [key in string]: IconType } = {
+  add: BsPlusCircle,
+  remove: BsTrash,
 }
 
 export const EditorButton: React.VFC<EditorButtonProps> = (props) => {

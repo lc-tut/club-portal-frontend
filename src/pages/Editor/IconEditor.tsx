@@ -60,32 +60,6 @@ const ResizeModal: React.VFC<ResizeModalProps> = (props) => {
     canvas.height = 400
     const scaleX = props.image.naturalWidth / props.image.width
     const scaleY = props.image.naturalHeight / props.image.height
-
-    console.log(
-      "natural: " +
-      props.image.naturalWidth.toString() +
-      ", " +
-      props.image.naturalHeight.toString()
-    )
-    console.log(
-      "display: " +
-      props.image.width.toString() +
-      ", " +
-      props.image.height.toString()
-    )
-    console.log(
-      "crop: position(" +
-      props.crop.x.toString() +
-      ", " + 
-      props.crop.y.toString() +
-      ") size(" +
-      props.crop.width.toString() +
-      ", " +
-      props.crop.height.toString() +
-      ")"
-    )
-    console.log(window.devicePixelRatio)
-
     const ctx = canvas.getContext("2d")
     ctx?.drawImage(
       props.image,
@@ -113,9 +87,7 @@ const ResizeModal: React.VFC<ResizeModalProps> = (props) => {
           </ModalHeader>
           <ModalBody>
             <VStack>
-              <Text>
-                画像は400x400[px]に圧縮されます
-              </Text>
+              <Text>画像は400x400[px]に圧縮されます</Text>
               <ReactCrop
                 src={props.image.src}
                 crop={props.crop}
@@ -202,17 +174,15 @@ export const IconEditor: React.VFC<{}> = () => {
         setIcon={setIcon}
       />
       <EditorBase>
-        {
-          icon !== ""
-            ? <ChakraImage src={icon} w="10rem" h="auto" />
-            : <PortalLogo boxSize="10rem" />
-        }
+        {icon !== "" ? (
+          <ChakraImage src={icon} w="10rem" h="auto" />
+        ) : (
+          <PortalLogo boxSize="10rem" />
+        )}
         <PortalButton pbstyle="solid" onClick={() => inputRef.current?.click()}>
           画像をアップロード
         </PortalButton>
-        <PortalButton>
-          保存
-        </PortalButton>
+        <PortalButton>保存</PortalButton>
       </EditorBase>
     </VStack>
   )

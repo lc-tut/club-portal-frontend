@@ -14,9 +14,9 @@ export type PlaceEditorProps = {
 
 export const PlaceEditor: React.VFC<PlaceEditorProps> = (props) => {
   const { items, setItems } = props
-  const [ inputData, setInputData ] = useState<PlaceItem>({
+  const [inputData, setInputData] = useState<PlaceItem>({
     place: "",
-    remarks: ""
+    remarks: "",
   })
   const inputRef = createRef<HTMLInputElement>()
   const onAdd = () => {
@@ -27,7 +27,7 @@ export const PlaceEditor: React.VFC<PlaceEditorProps> = (props) => {
     setItems([...items, inputData])
     setInputData({
       place: "",
-      remarks: ""
+      remarks: "",
     })
     inputRef.current?.focus()
   }
@@ -44,10 +44,7 @@ export const PlaceEditor: React.VFC<PlaceEditorProps> = (props) => {
       </Text>
       <HStack alignItems="start">
         <Wrap pt="1.2rem">
-          <EditorButton
-            icon="add"
-            onClick={()=>onAdd()}
-          />
+          <EditorButton icon="add" onClick={() => onAdd()} />
         </Wrap>
         <Stack w="100%">
           <Stack spacing="0" w="100%">
@@ -59,10 +56,10 @@ export const PlaceEditor: React.VFC<PlaceEditorProps> = (props) => {
               placeholder="活動場所を入力して下さい"
               ref={inputRef}
               value={inputData.place}
-              onChange={(e)=>{
+              onChange={(e) => {
                 setInputData({
                   place: e.target.value,
-                  remarks: inputData.remarks
+                  remarks: inputData.remarks,
                 })
               }}
             />
@@ -75,28 +72,22 @@ export const PlaceEditor: React.VFC<PlaceEditorProps> = (props) => {
               backgroundColor="#fff"
               placeholder="備考があれば入力して下さい"
               value={inputData.remarks}
-              onChange={(e)=>{
+              onChange={(e) => {
                 setInputData({
                   place: inputData.place,
-                  remarks: e.target.value
+                  remarks: e.target.value,
                 })
               }}
             />
           </Stack>
         </Stack>
       </HStack>
-      {props.items.map((item, index)=>{
+      {props.items.map((item, index) => {
         return (
           <HStack key={index} textColor="text.main">
-            <EditorButton
-              icon="remove"
-              onClick={()=>onRemove(index)}
-            />
+            <EditorButton icon="remove" onClick={() => onRemove(index)} />
             <Text> {item.place} </Text>
-            <Text>{item.remarks
-              ? (" - " + item.remarks)
-              : ""
-            }</Text>
+            <Text>{item.remarks ? " - " + item.remarks : ""}</Text>
           </HStack>
         )
       })}

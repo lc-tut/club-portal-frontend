@@ -14,6 +14,6 @@ export type EditorMenuButtonProps = {
 }
 
 export type EditorButtonProps = {
-  icon: "add" | "remove",
-  onClick: ()=>void
+  icon: "add" | "remove"
+  onClick: () => void
 }
