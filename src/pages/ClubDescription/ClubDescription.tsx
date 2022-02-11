@@ -3,7 +3,7 @@ import React from "react"
 import { BsClock } from "react-icons/bs"
 import { FavoriteButton } from "../../components/common/Button"
 import { ClubTypeBadge } from "../../components/common/ClubTypeBadge"
-import { TitleArea } from "../../components/global/TitleArea"
+import { TitleArea } from "../../components/global/Header/TitleArea"
 
 import { IntroductionMovie } from "./IntroductionMovie"
 import { DescriptionText } from "./DescriptionText"
