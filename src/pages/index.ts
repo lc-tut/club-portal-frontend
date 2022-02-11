@@ -1,6 +1,7 @@
 export { Top } from "./top"
 export { NotFound } from "./notfound"
 export { Clubs } from "./clubs"
+export { ClubDescription } from "./ClubDescription/ClubDescription"
 export { Editors } from "./Editor/Editors"
 export { EditorRouter } from "./Editor/EditorRouter"
 export { DescriptionEditors } from "./Editor/Description/DescriptionEditors"

@@ -5,6 +5,8 @@ import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin"
 import { CleanWebpackPlugin } from "clean-webpack-plugin"
 import TerserWebpackPlugin from "terser-webpack-plugin"
 import { Configuration } from "webpack-dev-server"
+import MiniCssExtractPlugin from "mini-css-extract-plugin"
+import CssMinimizerPlugin from "css-minimizer-webpack-plugin"
 
 const isProduction = process.env.NODE_ENV === "production"
 
@@ -16,7 +18,7 @@ const commonPlugins: webpack.WebpackPluginInstance[] = [
 ]
 
 const plugins: webpack.WebpackPluginInstance[] = isProduction
-  ? [...commonPlugins, new CleanWebpackPlugin()]
+  ? [...commonPlugins, new CleanWebpackPlugin(), new MiniCssExtractPlugin()]
   : [...commonPlugins]
 
 const devServer: Configuration = {
@@ -96,6 +98,13 @@ const config: webpack.Configuration = {
           },
         ],
       },
+      {
+        test: /\.css$/,
+        use: [
+          isProduction ? MiniCssExtractPlugin.loader : "style-loader",
+          "css-loader"
+        ],
+      }
     ],
   },
 
@@ -106,7 +115,6 @@ const config: webpack.Configuration = {
   optimization: {
     minimize: isProduction,
     minimizer: [
-      //@ts-ignore
       new TerserWebpackPlugin({
         extractComments: {
           condition: /^\**!|@preserve|@license|@cc_on/i,
@@ -114,6 +122,16 @@ const config: webpack.Configuration = {
           banner: false,
         },
       }),
+      new CssMinimizerPlugin({
+        minimizerOptions: {
+          preset: [
+            "default",
+            {
+              discardComments: { removeAll: true },
+            },
+          ],
+        },
+      })
     ],
     splitChunks: {
       chunks: "all"
