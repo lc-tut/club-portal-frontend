@@ -18,6 +18,7 @@
     "lint": "run-p lint:prettier lint:eslint",
     "format:prettier": "prettier --write \"src/**/*.{js,ts,tsx}\"",
     "format:eslint": "eslint \"src/**/*.{js,ts,tsx}\" --fix",
+    "typecheck": "tsc --noEmit",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },

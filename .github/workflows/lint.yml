@@ -49,4 +49,4 @@ jobs:
           node-version: '14'
       - uses: bahmutov/npm-install@v1
       - name: tsc - noEmit
-        run: yarn run tsc --noEmit
+        run: yarn run typecheck
