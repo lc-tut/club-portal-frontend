@@ -1,7 +1,7 @@
 import { VStack } from "@chakra-ui/react"
 import React from "react"
 import { EditorMenu } from "../../components/common/Editor/EditorMenu"
-import { TitleArea } from "../../components/global/TitleArea"
+import { TitleArea } from "../../components/global/Header/TitleArea"
 
 export const Editors: React.VFC<{}> = () => {
   return (

@@ -1,7 +1,7 @@
 import { Button, Input, VStack, Text } from "@chakra-ui/react"
 import { createRef, useState } from "react"
 import { EditorBase } from "../../../components/common/Editor/EditorBase"
-import { TitleArea } from "../../../components/global/TitleArea"
+import { TitleArea } from "../../../components/global/Header/TitleArea"
 
 export const ImagesEditor: React.VFC<{}> = () => {
   const [ inputData, setInputData ] = useState<File>()

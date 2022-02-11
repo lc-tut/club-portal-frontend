@@ -2,7 +2,7 @@ import { HStack, Input, Select, Stack, VStack, Text } from "@chakra-ui/react"
 import { createRef, useState } from "react"
 import { EditorBase } from "../../../components/common/Editor/EditorBase"
 import { EditorButton } from "../../../components/common/Editor/EditorButton"
-import { TitleArea } from "../../../components/global/TitleArea"
+import { TitleArea } from "../../../components/global/Header/TitleArea"
 import { PADDING_BEFORE_FOOTER, VALID_SNS_LIST } from "../../../static/consts"
 
 type InputData = {

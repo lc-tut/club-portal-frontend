@@ -2,7 +2,7 @@ import { VStack, Text, Grid, Stack, Textarea, GridItem } from "@chakra-ui/react"
 import { Dispatch, SetStateAction, useState } from "react"
 import { PortalButton } from "../../../components/common/Button"
 import { EditorBase } from "../../../components/common/Editor/EditorBase"
-import { TitleArea } from "../../../components/global/TitleArea"
+import { TitleArea } from "../../../components/global/Header/TitleArea"
 import { PADDING_BEFORE_FOOTER } from "../../../static/consts"
 
 const months = [

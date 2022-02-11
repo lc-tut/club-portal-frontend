@@ -1,7 +1,7 @@
 import { Input, Text, Textarea, VStack } from "@chakra-ui/react"
 import { PortalButton } from "../../../components/common/Button"
 import { EditorBase } from "../../../components/common/Editor/EditorBase"
-import { TitleArea } from "../../../components/global/TitleArea"
+import { TitleArea } from "../../../components/global/Header/TitleArea"
 
 export const ClubDescriptionEditor: React.VFC<{}> = () => {
   return (
