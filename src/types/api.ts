@@ -13,6 +13,7 @@ export type UserInfo = {
   email: string
   name: string
   role: Role
+  clubUUID?: string
 }
 
 export type Thumbnail = {
