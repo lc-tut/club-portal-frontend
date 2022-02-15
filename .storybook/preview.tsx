@@ -1,7 +1,7 @@
 import { ChakraProvider } from "@chakra-ui/react"
 import type { Story } from "@storybook/react"
 
-import { PortalTheme } from "../src/components/global/Colors"
+import { PortalTheme } from "../src/components/global/Theme"
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },

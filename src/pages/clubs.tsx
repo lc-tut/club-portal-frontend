@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react"
 import axios from "axios"
 import { ClubTypeBadge } from "../components/common/ClubTypeBadge"
-import { TitleArea } from "../components/global/TitleArea"
+import { TitleArea } from "../components/global/Header/TitleArea"
 import type { BadgeActivity, BadgeCampus } from "../types/badge"
 
 type ClubCardProps = {

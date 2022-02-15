@@ -3,7 +3,7 @@ import { Route, Routes, BrowserRouter, useLocation, Navigate } from "react-route
 import { useSession } from "./hooks/useSession"
 import * as page from "./pages"
 import { Loading } from "./components/global/LoadingPage"
-import { Header } from "./components/global/Header"
+import { Header } from "./components/global/Header/Header"
 import { Footer } from "./components/global/Footer"
 import axios from "axios"
 import { ErrorPage } from "./pages/error"
@@ -35,6 +35,10 @@ const AnimatedRouter: React.VFC<{}> = () => {
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<page.Top />}></Route>
             <Route path="/clubs/:slug"></Route>
+            <Route
+              path="/club-description-test"
+              element={<page.ClubDescription />}
+            ></Route>
             <Route path="/users/:uuid"></Route>
             <Route path="/clubs" element={<page.Clubs />}></Route>
             <Route path="*" element={<page.NotFound />}></Route>

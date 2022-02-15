@@ -8,7 +8,6 @@ export default {
 } as ComponentMeta<typeof DefaultUserIcon>
 
 const Template: ComponentStory<typeof DefaultUserIcon> = (args) => (
-  //@ts-ignore
   <DefaultUserIcon {...args} />
 )
 
