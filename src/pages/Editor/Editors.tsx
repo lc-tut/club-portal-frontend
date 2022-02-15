@@ -2,10 +2,11 @@ import { VStack } from "@chakra-ui/react"
 import React from "react"
 import { EditorMenu } from "../../components/common/Editor/EditorMenu"
 import { TitleArea } from "../../components/global/Header/TitleArea"
+import { PADDING_BEFORE_FOOTER } from "../../static/consts"
 
 export const Editors: React.VFC<{}> = () => {
   return (
-    <VStack flex="1">
+    <VStack flex="1" pb={PADDING_BEFORE_FOOTER}>
       <TitleArea>編集者メニュー</TitleArea>
       <EditorMenu
         items={[
