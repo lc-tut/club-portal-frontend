@@ -83,14 +83,16 @@ const AnimatedTop: React.VFC<{}> = () => {
                 履歴
               </MenuButton>
               <Spacer width="1.5rem" />
-              <MenuButton
-                flex="6"
-                mbtype="sub"
-                pbstyle="solid"
-                leftIcon={<BsStar />}
-              >
-                お気に入り
-              </MenuButton>
+              <Link to="/favorites">
+                <MenuButton
+                  flex="6"
+                  mbtype="sub"
+                  pbstyle="solid"
+                  leftIcon={<BsStar />}
+                >
+                  お気に入り
+                </MenuButton>
+              </Link>
             </Flex>
           </GridItem>
         </Grid>

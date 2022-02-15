@@ -1,13 +1,11 @@
 import {
   Box,
   BoxProps,
-  Flex,
   FormControl,
   FormLabel,
   Grid,
   GridItem,
   HStack,
-  Image,
   Input,
   Select,
   Stack,
@@ -15,17 +13,9 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react"
-import { ClubTypeBadge } from "../components/common/ClubTypeBadge"
+import { ClubCard } from "../components/common/Clubs/ClubCard"
+import { ClubCardSortOptionSelect } from "../components/common/Clubs/ClubCardSortOptionSelect"
 import { TitleArea } from "../components/global/Header/TitleArea"
-import type { BadgeActivity, BadgeCampus } from "../types/badge"
-
-type ClubCardProps = {
-  thumbnail: string
-  name: string
-  brief: string
-  campus: BadgeCampus
-  activity: BadgeActivity
-}
 
 const FilterArea: React.VFC<BoxProps> = (props) => {
   const FilterCategory = (props: { text: string }): JSX.Element => {
@@ -78,33 +68,6 @@ const FilterArea: React.VFC<BoxProps> = (props) => {
   )
 }
 
-const ClubCard: React.VFC<ClubCardProps> = (props) => {
-  return (
-    <Flex
-      height="7rem"
-      boxShadow="md"
-      backgroundColor="#fff"
-      borderRadius="3px"
-    >
-      <HStack spacing="1rem">
-        <Image src={props.thumbnail} height="4rem" ml="1.5rem" />
-        <VStack alignSelf="start" pt="1rem" alignItems="start" spacing="0">
-          <HStack spacing="10px">
-            <ClubTypeBadge content="hachioji" />
-            <ClubTypeBadge content="culture" />
-          </HStack>
-          <Text fontSize="1.2rem" color="text.card.main" pt="0.5rem">
-            {props.name}
-          </Text>
-          <Text fontSize="0.8rem" color="text.card.sub" pt="0.2rem">
-            {props.brief}
-          </Text>
-        </VStack>
-      </HStack>
-    </Flex>
-  )
-}
-
 const TestCards: React.VFC<{}> = () => {
   const cards: Array<JSX.Element> = []
 
@@ -150,18 +113,7 @@ const AnimatedClubs: React.VFC<{}> = () => {
           backgroundColor="background.cards"
         >
           <Stack spacing="3rem">
-            <Select
-              width="9rem"
-              backgroundColor="#fff"
-              color="text.main"
-              borderColor="text.card.main"
-              iconColor="text.card.main"
-            >
-              <option value="name-asc">名前順</option>
-              <option value="opt-01">Option 01</option>
-              <option value="opt-02">Option 02</option>
-              <option value="opt-03">Option 03</option>
-            </Select>
+            <ClubCardSortOptionSelect />
             <TestCards />
           </Stack>
         </Box>
