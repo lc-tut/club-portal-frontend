@@ -1,12 +1,4 @@
-import {
-  Flex,
-  Text,
-  VStack,
-  Grid,
-  GridItem,
-  useMediaQuery,
-  Wrap,
-} from "@chakra-ui/react"
+import { Flex, Grid, GridItem, useMediaQuery, VStack } from "@chakra-ui/react"
 import { ClubCard } from "../components/common/Clubs/ClubCard"
 import { ClubCardSortOptionSelect } from "../components/common/Clubs/ClubCardSortOptionSelect"
 import { TitleArea } from "../components/global/Header/TitleArea"

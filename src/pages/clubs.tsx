@@ -7,7 +7,6 @@ import {
   GridItem,
   HStack,
   Input,
-  Select,
   Stack,
   Switch,
   Text,
