@@ -1,4 +1,4 @@
-import { VStack, Text, Grid, Stack, Textarea, GridItem } from "@chakra-ui/react"
+import { Grid, GridItem, Stack, Text, Textarea, VStack } from "@chakra-ui/react"
 import { Dispatch, SetStateAction, useState } from "react"
 import { PortalButton } from "../../../components/common/Button"
 import { EditorBase } from "../../../components/common/Editor/EditorBase"
