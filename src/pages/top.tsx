@@ -14,6 +14,7 @@ import { MenuButton } from "../components/common/Button"
 import { BsSearch, BsMegaphone, BsClockHistory, BsStar, BsTwitter } from "react-icons/bs"
 import { Link } from "react-router-dom"
 import axios from "axios"
+import { CreateClubPayload } from "../types/api"
 
 const AnimatedTop: React.VFC<{}> = () => {
   return (
@@ -108,7 +109,7 @@ const AnimatedTop: React.VFC<{}> = () => {
 
 const PostTest: React.VFC<{}> = () => {
   const postClub = () => {
-    const data = {
+    const data: CreateClubPayload = {
       name: "test",
       description: "これはtestのdescriptionです",
       short_description: "this is test",
