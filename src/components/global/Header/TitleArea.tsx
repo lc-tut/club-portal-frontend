@@ -1,4 +1,12 @@
-import { Center, Flex, Heading, HStack, Stack, Text, VStack } from "@chakra-ui/react"
+import {
+  Center,
+  Flex,
+  Heading,
+  HStack,
+  Stack,
+  Text,
+  VStack,
+} from "@chakra-ui/react"
 import { IconType } from "react-icons"
 import { BsClockHistory, BsMegaphone, BsSearch, BsStar } from "react-icons/bs"
 import { PortalBanner } from "../../common/PortalBanner"
