@@ -1,24 +1,8 @@
-import {
-  Flex,
-  Heading,
-  HStack,
-  Center,
-  Text,
-  VStack,
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-} from "@chakra-ui/react"
-import { PortalBanner } from "../../common/PortalBanner"
-import {
-  BsChevronRight,
-  BsClockHistory,
-  BsMegaphone,
-  BsSearch,
-  BsStar,
-} from "react-icons/bs"
+import { Center, Flex, Heading, HStack, Text, VStack } from "@chakra-ui/react"
 import { IconType } from "react-icons"
-import { PortalBreadcrumbList } from "./BreadcrumbList"
+import { BsClockHistory, BsMegaphone, BsSearch, BsStar } from "react-icons/bs"
+import { PortalBanner } from "../../common/PortalBanner"
+import { PortalBreadcrumbList } from "./PortalBreadcrumbList"
 
 type WebGlobalMenuProps = {
   icon: IconType
@@ -58,7 +42,7 @@ export const TitleArea: React.VFC<
     <HStack mt="2rem" px="3rem" justifyContent="center" width="100%">
       <VStack spacing="1rem">
         <PortalBanner alignSelf="center" />
-        <PortalBreadcrumbList />
+        <PortalBreadcrumbList title={props.children?.toString() ?? ""} />
       </VStack>
       <VStack flex="1">
         <Heading
