@@ -41,6 +41,7 @@ const AnimatedRouter: React.VFC<{}> = () => {
             ></Route>
             <Route path="/users/:uuid"></Route>
             <Route path="/clubs" element={<page.Clubs />}></Route>
+            <Route path="/favorites" element={<page.Favorites />} />
             <Route path="*" element={<page.NotFound />}></Route>
           </Routes>
         </AnimatePresence>
