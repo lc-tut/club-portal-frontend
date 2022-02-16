@@ -1,5 +1,4 @@
-import { Center, Flex, Icon, Spacer } from "@chakra-ui/react"
-import { BsBellFill } from "react-icons/bs"
+import { Center, Flex, Spacer } from "@chakra-ui/react"
 import { HamburgerMenu } from "./HamburgerMenu"
 import { UserMenu } from "./UserMenu"
 
