@@ -6,17 +6,17 @@ type PortalBreadcrumbListProps = {
   title: string
 }
 
-type breadcrumbNode = {
+type BreadcrumbNode = {
   label?: string
   // TitleAreaのprops.childrenをlabelとして使う
   useTitleAsLabel?: boolean
   // path: Node
-  childNodes?: { [key in string]: breadcrumbNode }
+  childNodes?: { [key in string]: BreadcrumbNode }
   // /path/:uuid みたいな動的pathの場合の子Node
-  dynamicChildNode?: breadcrumbNode
+  dynamicChildNode?: BreadcrumbNode
 }
 
-const breadcrumbTree: breadcrumbNode = {
+const breadcrumbTree: BreadcrumbNode = {
   label: "Home",
   childNodes: {
     clubs: {
