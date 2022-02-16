@@ -40,6 +40,7 @@ const config: webpack.Configuration = {
   devtool: isProduction ? false : "inline-source-map",
 
   output: {
+    publicPath: "/",
     path: path.resolve(__dirname + "/dist"),
     filename: "[name].bundle.js",
     assetModuleFilename: "assets/[hash].[ext]",
