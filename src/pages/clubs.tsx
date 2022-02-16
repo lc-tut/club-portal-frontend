@@ -79,9 +79,7 @@ const FilterArea: React.VFC<FilterAreaProps> = (props) => {
     newFilterInput.flags[flagKey] = e.target.checked
     props.setFilterInput(newFilterInput)
   }
-  const onKeywordChange = (
-    e: ChangeEvent<HTMLInputElement>,
-  ) => {
+  const onKeywordChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newFilterInput = { ...props.filterInput }
     newFilterInput.keyword = e.target.value
     props.setFilterInput(newFilterInput)
@@ -133,9 +131,7 @@ const FilterArea: React.VFC<FilterAreaProps> = (props) => {
           リセット
         </PortalButton>
         <Spacer flex="1" />
-        <PortalButton width="7rem">
-          検索
-        </PortalButton>
+        <PortalButton width="7rem">検索</PortalButton>
       </HStack>
     </VStack>
   )
