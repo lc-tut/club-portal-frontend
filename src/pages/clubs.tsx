@@ -17,6 +17,7 @@ import { ClubCardSortOptionSelect } from "../components/common/Clubs/ClubCardSor
 import { ChangeEvent, Dispatch, SetStateAction, useState } from "react"
 import { TitleArea } from "../components/global/Header/TitleArea"
 import { PortalButton } from "../components/common/Button/PortalButton"
+import { PADDING_BEFORE_FOOTER } from "../static/consts"
 
 type FilterItemProps = {
   label: string
@@ -70,15 +71,20 @@ const FilterItem: React.VFC<FilterItemProps> = (props) => {
 }
 
 const FilterArea: React.VFC<FilterAreaProps> = (props) => {
-  const onChange = (
+  const onFlagChange = (
     e: ChangeEvent<HTMLInputElement>,
     flagKey: FilterFlagKey
   ) => {
     const newFilterInput = { ...props.filterInput }
     newFilterInput.flags[flagKey] = e.target.checked
-    props.setFilterInput({
-      ...props.filterInput,
-    })
+    props.setFilterInput(newFilterInput)
+  }
+  const onKeywordChange = (
+    e: ChangeEvent<HTMLInputElement>,
+  ) => {
+    const newFilterInput = { ...props.filterInput }
+    newFilterInput.keyword = e.target.value
+    props.setFilterInput(newFilterInput)
   }
   const filterItemWrapper = (label: string, flagKey: FilterFlagKey) => {
     return (
@@ -87,7 +93,7 @@ const FilterArea: React.VFC<FilterAreaProps> = (props) => {
         flagKey={flagKey}
         filterInput={props.filterInput}
         isChecked={props.filterInput.flags[flagKey]}
-        onChange={(e) => onChange(e, flagKey)}
+        onChange={(e) => onFlagChange(e, flagKey)}
       />
     )
   }
@@ -96,7 +102,8 @@ const FilterArea: React.VFC<FilterAreaProps> = (props) => {
     <VStack
       width="20rem"
       height="100%"
-      py="2rem"
+      pt="2rem"
+      pb={PADDING_BEFORE_FOOTER}
       backgroundColor="form.background"
     >
       <Input
@@ -104,6 +111,8 @@ const FilterArea: React.VFC<FilterAreaProps> = (props) => {
         backgroundColor="#fff"
         borderColor="form.frame"
         placeholder="検索キーワード"
+        value={props.filterInput.keyword}
+        onChange={onKeywordChange}
         _placeholder={{
           color: "text.sub",
         }}
@@ -120,11 +129,11 @@ const FilterArea: React.VFC<FilterAreaProps> = (props) => {
       </Stack>
       <Spacer h="1.5rem" />
       <HStack w="80%">
-        <PortalButton pbstyle="solid" width="8rem">
+        <PortalButton pbstyle="solid" width="7rem">
           リセット
         </PortalButton>
         <Spacer flex="1" />
-        <PortalButton width="6rem">
+        <PortalButton width="7rem">
           検索
         </PortalButton>
       </HStack>
@@ -182,6 +191,7 @@ const AnimatedClubs: React.VFC<{}> = () => {
         <Box
           py="2rem"
           px="3rem"
+          pb={PADDING_BEFORE_FOOTER}
           flex="1"
           height="100%"
           alignItems="start"
