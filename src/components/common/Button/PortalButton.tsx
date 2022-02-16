@@ -74,6 +74,7 @@ export const PortalButton: React.VFC<
           leftIcon={props.leftIcon}
           fontSize={props.fontSize}
           isDisabled={props.isDisabled}
+          onClick={props.onClick}
           _hover={hoverStyle}
           _focus={{}}
         >
