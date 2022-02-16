@@ -1,6 +1,5 @@
 import {
   Box,
-  BoxProps,
   FormControl,
   FormLabel,
   Grid,
@@ -20,7 +19,8 @@ import { TitleArea } from "../components/global/Header/TitleArea"
 type FilterItemProps = {
   label: string
   flagKey: FilterFlagKey
-  value: boolean
+  filterInput: FilterInput
+  isChecked: boolean
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
@@ -43,17 +43,6 @@ type FilterInput = {
   flags: { [key in FilterFlagKey]: boolean }
 }
 
-const FilterItem: React.VFC<FilterItemProps> = (props) => {
-  return (
-    <FormControl display="flex" pl="1rem">
-      <FormLabel width="8rem" fontSize="1.25rem" mb="0">
-        {props.label}
-      </FormLabel>
-      <Switch colorScheme="green" size="lg" />
-    </FormControl>
-  )
-}
-
 const FilterCategoryLabel: React.VFC<React.PropsWithChildren<{}>> = (props) => {
   return (
     <Text color="text.modal.sub" pb="0.5rem" pt="1rem">
@@ -62,14 +51,46 @@ const FilterCategoryLabel: React.VFC<React.PropsWithChildren<{}>> = (props) => {
   )
 }
 
+const FilterItem: React.VFC<FilterItemProps> = (props) => {
+  return (
+    <FormControl display="flex" pl="1rem">
+      <FormLabel width="8rem" fontSize="1.25rem" mb="0">
+        {props.label}
+      </FormLabel>
+      <Switch
+        colorScheme="green"
+        size="lg"
+        isChecked={props.isChecked}
+        onChange={(e) => props.onChange(e)}
+      />
+    </FormControl>
+  )
+}
+
 const FilterArea: React.VFC<FilterAreaProps> = (props) => {
-  const onChange = (e: ChangeEvent<HTMLInputElement>, id: FilterFlagKey) => {
+  const onChange = (
+    e: ChangeEvent<HTMLInputElement>,
+    flagKey: FilterFlagKey
+  ) => {
     const newFilterInput = { ...props.filterInput }
-    newFilterInput.flags[id] = e.target.value === "true"
+    newFilterInput.flags[flagKey] = e.target.checked
     props.setFilterInput({
       ...props.filterInput,
     })
   }
+  const filterItemWrapper = (label: string, flagKey: FilterFlagKey) => {
+    return (
+      <FilterItem
+        label={label}
+        flagKey={flagKey}
+        filterInput={props.filterInput}
+        isChecked={props.filterInput.flags[flagKey]}
+        onChange={(e) => onChange(e, flagKey)}
+      />
+    )
+  }
+
+  console.log(props.filterInput)
 
   return (
     <VStack
@@ -91,26 +112,12 @@ const FilterArea: React.VFC<FilterAreaProps> = (props) => {
 
       <Stack alignSelf="start" spacing="0.5rem" pt="1rem" pl="3rem">
         <FilterCategoryLabel>キャンパス</FilterCategoryLabel>
-        <FilterItem
-          label="八王子"
-          flagKey="inHachioji"
-          value={props.filterInput.flags.inHachioji}
-          onChange={(e) => {
-            onChange(e, "inHachioji")
-          }}
-        />
-        <FilterItem
-          label="蒲田"
-          flagKey="inKamata"
-          value={props.filterInput.flags.inKamata}
-          onChange={(e) => {
-            onChange(e, "inKamata")
-          }}
-        />
+        {filterItemWrapper("八王子", "inHachioji")}
+        {filterItemWrapper("蒲田", "inKamata")}
         <FilterCategoryLabel>分類</FilterCategoryLabel>
-        <FilterItem label="文化系" flagKey="isCulture" />
-        <FilterItem label="体育系" flagKey="isSports" />
-        <FilterItem label="実行委員会" flagKey="isCommittee" />
+        {filterItemWrapper("文化系", "isCulture")}
+        {filterItemWrapper("体育系", "isSports")}
+        {filterItemWrapper("実行委員会", "isCommittee")}
       </Stack>
     </VStack>
   )
