@@ -1,4 +1,4 @@
-import { Button, CSSObject } from "@chakra-ui/react"
+import { Button, CSSObject, Tooltip, Wrap } from "@chakra-ui/react"
 import type {
   ButtonColor,
   ButtonRoundStyle,
@@ -61,21 +61,25 @@ export const PortalButton: React.VFC<
   }
 
   return (
-    <Button
-      width={width}
-      height={height}
-      borderRadius={borderRadius}
-      color={fgColor}
-      borderColor={borderColor}
-      borderWidth="1px"
-      backgroundColor={bgColor}
-      leftIcon={props.leftIcon}
-      flex={props.flex}
-      fontSize={props.fontSize}
-      _hover={hoverStyle}
-      _focus={{}}
-    >
-      {props.children}
-    </Button>
+    <Tooltip label={props.isDisabled ? "準備中です" : undefined}>
+      <Wrap flex={props.flex}>
+        <Button
+          width={width}
+          height={height}
+          borderRadius={borderRadius}
+          color={fgColor}
+          borderColor={borderColor}
+          borderWidth="1px"
+          backgroundColor={bgColor}
+          leftIcon={props.leftIcon}
+          fontSize={props.fontSize}
+          isDisabled={props.isDisabled}
+          _hover={hoverStyle}
+          _focus={{}}
+        >
+          {props.children}
+        </Button>
+      </Wrap>
+    </Tooltip>
   )
 }

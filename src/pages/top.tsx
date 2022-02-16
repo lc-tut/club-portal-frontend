@@ -68,7 +68,7 @@ const AnimatedTop: React.VFC<{}> = () => {
             </Link>
           </GridItem>
           <GridItem>
-            <MenuButton pbstyle="solid" leftIcon={<BsMegaphone />}>
+            <MenuButton pbstyle="solid" leftIcon={<BsMegaphone />} isDisabled>
               お知らせ
             </MenuButton>
           </GridItem>
@@ -79,6 +79,7 @@ const AnimatedTop: React.VFC<{}> = () => {
                 mbtype="sub"
                 pbstyle="solid"
                 leftIcon={<BsClockHistory />}
+                isDisabled
               >
                 履歴
               </MenuButton>
