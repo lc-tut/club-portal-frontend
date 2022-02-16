@@ -89,23 +89,6 @@ export const PortalBreadcrumbList: React.VFC<PortalBreadcrumbListProps> = (
     }
   }
 
-  // const testBreadcrumbItems: JSX.Element[] = [
-  //   <BreadcrumbItem key="first">
-  //     <Text>
-  //       う
-  //     </Text>
-  //   </BreadcrumbItem>
-  // ]
-  // for (let i=0; i<10; i++) {
-  //   testBreadcrumbItems.push(
-  //     <BreadcrumbItem key={i}>
-  //       <Text>
-  //         お
-  //       </Text>
-  //     </BreadcrumbItem>
-  //   )
-  // }
-
   return (
     <Breadcrumb
       separator={<BsChevronRight />}
@@ -114,7 +97,6 @@ export const PortalBreadcrumbList: React.VFC<PortalBreadcrumbListProps> = (
       alignSelf="start"
     >
       {breadcrumbItems}
-      {/* { testBreadcrumbItems } */}
     </Breadcrumb>
   )
 }
