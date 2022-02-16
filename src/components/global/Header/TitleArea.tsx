@@ -1,23 +1,16 @@
 import {
+  Center,
   Flex,
   Heading,
   HStack,
-  Center,
+  Stack,
   Text,
   VStack,
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
 } from "@chakra-ui/react"
-import { PortalBanner } from "../../common/PortalBanner"
-import {
-  BsChevronRight,
-  BsClockHistory,
-  BsMegaphone,
-  BsSearch,
-  BsStar,
-} from "react-icons/bs"
 import { IconType } from "react-icons"
+import { BsClockHistory, BsMegaphone, BsSearch, BsStar } from "react-icons/bs"
+import { PortalBanner } from "../../common/PortalBanner"
+import { PortalBreadcrumbList } from "./PortalBreadcrumbList"
 
 type WebGlobalMenuProps = {
   icon: IconType
@@ -55,25 +48,10 @@ export const TitleArea: React.VFC<
 > = (props) => {
   return (
     <HStack mt="2rem" px="3rem" justifyContent="center" width="100%">
-      <VStack spacing="1rem">
-        <PortalBanner alignSelf="center" />
-        <Breadcrumb
-          separator={<BsChevronRight />}
-          fontSize="0.8rem"
-          color="green.700"
-          alignSelf="start"
-        >
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/">Home</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbItem>
-            <BreadcrumbLink href="#">PageA</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbItem>
-            <BreadcrumbLink href="#">PageB</BreadcrumbLink>
-          </BreadcrumbItem>
-        </Breadcrumb>
-      </VStack>
+      <Stack spacing="1rem">
+        <PortalBanner />
+        <PortalBreadcrumbList title={props.children?.toString() ?? ""} />
+      </Stack>
       <VStack flex="1">
         <Heading
           justifySelf="center"

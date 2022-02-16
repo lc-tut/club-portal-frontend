@@ -1,22 +1,24 @@
 import {
+  Center,
   Flex,
   Grid,
   GridItem,
   Heading,
   Spacer,
+  Text,
   VStack,
-  Center,
+  Wrap,
 } from "@chakra-ui/react"
 import React from "react"
-import { PortalLogo } from "../components/common/Icon"
-import { MenuButton } from "../components/common/Button"
-import { BsSearch, BsMegaphone, BsClockHistory, BsStar } from "react-icons/bs"
+import { BsClockHistory, BsMegaphone, BsSearch, BsStar } from "react-icons/bs"
 import { Link } from "react-router-dom"
+import { MenuButton } from "../components/common/Button"
+import { PortalLogo } from "../components/common/Icon"
 
 const AnimatedTop: React.VFC<{}> = () => {
   return (
     <Flex flex="1" bgGradient="radial(#ffffff, green.100)">
-      <VStack flex="1" spacing="4rem">
+      <VStack flex="1">
         <Heading
           pt="5rem"
           fontFamily="futura-pt-bold"
@@ -32,6 +34,7 @@ const AnimatedTop: React.VFC<{}> = () => {
           templateColumns="repeat(2, 1fr)"
           columnGap="2.5rem"
           rowGap="1rem"
+          pt="4rem"
         >
           {/* ----- left content ----- */}
           <GridItem rowSpan={3}>
@@ -94,6 +97,13 @@ const AnimatedTop: React.VFC<{}> = () => {
             </Flex>
           </GridItem>
         </Grid>
+        <Wrap pt="2rem">
+          <Link to="/edit">
+            <Text as="u" fontSize="1.2rem" textColor="green.700">
+              編集者の方はこちら
+            </Text>
+          </Link>
+        </Wrap>
         <Link to="/club-description-test">
           {" "}
           サークル紹介ページのテスト Link{" "}
