@@ -1,15 +1,16 @@
 import {
-  Flex,
-  Heading,
-  HStack,
-  Center,
-  Text,
-  VStack,
+  Box,
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
+  Button,
+  Center,
+  Heading,
+  HStack,
+  Text,
+  VStack,
 } from "@chakra-ui/react"
-import { PortalBanner } from "../../common/PortalBanner"
+import { IconType } from "react-icons"
 import {
   BsChevronRight,
   BsClockHistory,
@@ -17,36 +18,92 @@ import {
   BsSearch,
   BsStar,
 } from "react-icons/bs"
-import { IconType } from "react-icons"
+import { Link } from "react-router-dom"
+import { PortalBanner } from "../../common/PortalBanner"
 
-type WebGlobalMenuProps = {
+type BrowserGlobalNavItemProps = {
   icon: IconType
   label: string | JSX.Element
+  href: string
   islast?: boolean
+  isNotAvailable?: boolean
 }
 
-const WebGlobalMenu: React.VFC<React.PropsWithChildren<WebGlobalMenuProps>> = (
-  props
-) => {
+const BrowserGlobalNavItem: React.VFC<
+  React.PropsWithChildren<BrowserGlobalNavItemProps>
+> = (props) => {
   const borderRight = props.islast ? "1px" : "0"
 
   return (
-    <Center
-      width="5rem"
-      height="5rem"
-      borderLeft="1px"
-      borderRight={borderRight}
-      color="text.sub"
-    >
-      <VStack alignSelf="flex-start" height="100%">
-        <props.icon size="2rem" />
-        <Center flex="1">
-          <Text textAlign="center" fontSize="0.85rem">
-            {props.label}
-          </Text>
-        </Center>
-      </VStack>
-    </Center>
+    <VStack>
+      <Link to={props.href}>
+        <Box color="text.sub" borderLeft="1px" borderRight={borderRight}>
+          <Button
+            backgroundColor="transparent"
+            width="5rem"
+            height="5rem"
+            borderRadius="0"
+            isDisabled={props.isNotAvailable}
+            _hover={{
+              backgroundColor: "transparent",
+              opacity: "0.4",
+            }}
+            _focus={{}}
+            _active={{}}
+          >
+            <VStack alignSelf="flex-start" height="100%">
+              <props.icon size="2rem" />
+              <Center flex="1">
+                <Text textAlign="center" fontSize="0.85rem">
+                  {props.label}
+                </Text>
+              </Center>
+            </VStack>
+          </Button>
+        </Box>
+      </Link>
+      {props.isNotAvailable && (
+        <Text fontSize="0.8rem" color="text.sub">
+          準備中です
+        </Text>
+      )}
+    </VStack>
+  )
+}
+
+const BrowserGlobalNav: React.VFC<{}> = () => {
+  return (
+    <HStack alignItems="start" spacing="0">
+      <BrowserGlobalNavItem
+        label={
+          <>
+            サークル
+            <br />
+            検索
+          </>
+        }
+        icon={BsSearch}
+        href="/clubs"
+      />
+      <BrowserGlobalNavItem
+        label="お気に入り"
+        icon={BsStar}
+        href="/favorites"
+      />
+      <BrowserGlobalNavItem
+        label="お知らせ"
+        icon={BsMegaphone}
+        href="#"
+        isNotAvailable
+      />
+      <BrowserGlobalNavItem
+        icon={BsClockHistory}
+        href="#"
+        label="履歴"
+        islast={true}
+        isNotAvailable
+      />
+    </HStack>
   )
 }
 
@@ -56,7 +113,9 @@ export const TitleArea: React.VFC<
   return (
     <HStack mt="2rem" px="3rem" justifyContent="center" width="100%">
       <VStack spacing="1rem">
-        <PortalBanner alignSelf="center" />
+        <Link to="/">
+          <PortalBanner alignSelf="center" />
+        </Link>
         <Breadcrumb
           separator={<BsChevronRight />}
           fontSize="0.8rem"
@@ -88,21 +147,7 @@ export const TitleArea: React.VFC<
           {props.subtitle}
         </Text>
       </VStack>
-      <Flex alignItems="center">
-        <WebGlobalMenu
-          icon={BsSearch}
-          label={
-            <>
-              サークル
-              <br />
-              検索
-            </>
-          }
-        />
-        <WebGlobalMenu icon={BsMegaphone} label="お知らせ" />
-        <WebGlobalMenu icon={BsStar} label="お気に入り" />
-        <WebGlobalMenu icon={BsClockHistory} label="履歴" islast={true} />
-      </Flex>
+      <BrowserGlobalNav />
     </HStack>
   )
 }
