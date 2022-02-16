@@ -1,4 +1,4 @@
-import { Center, Flex, Heading, HStack, Text, VStack } from "@chakra-ui/react"
+import { Center, Flex, Heading, HStack, Stack, Text, VStack } from "@chakra-ui/react"
 import { IconType } from "react-icons"
 import { BsClockHistory, BsMegaphone, BsSearch, BsStar } from "react-icons/bs"
 import { PortalBanner } from "../../common/PortalBanner"
@@ -40,10 +40,10 @@ export const TitleArea: React.VFC<
 > = (props) => {
   return (
     <HStack mt="2rem" px="3rem" justifyContent="center" width="100%">
-      <VStack spacing="1rem">
-        <PortalBanner alignSelf="center" />
+      <Stack spacing="1rem">
+        <PortalBanner />
         <PortalBreadcrumbList title={props.children?.toString() ?? ""} />
-      </VStack>
+      </Stack>
       <VStack flex="1">
         <Heading
           justifySelf="center"

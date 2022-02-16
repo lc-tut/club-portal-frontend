@@ -1,4 +1,4 @@
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, Text } from "@chakra-ui/react"
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from "@chakra-ui/react"
 import { BsChevronRight } from "react-icons/bs"
 import { useLocation } from "react-router-dom"
 
@@ -79,32 +79,15 @@ export const PortalBreadcrumbList: React.VFC<PortalBreadcrumbListProps> = (
       currentNode = currentNode.dynamicChildNode
     }
 
-    if (i>0) {
+    if (i > 0) {
       currentPath += "/"
     }
-    currentPath += pathArray[i+1]
+    currentPath += pathArray[i + 1]
 
     if (!currentNode) {
       break
     }
   }
-
-  // const testBreadcrumbItems: JSX.Element[] = [
-  //   <BreadcrumbItem key="first">
-  //     <Text>
-  //       う
-  //     </Text>
-  //   </BreadcrumbItem>
-  // ]
-  // for (let i=0; i<10; i++) {
-  //   testBreadcrumbItems.push(
-  //     <BreadcrumbItem key={i}>
-  //       <Text>
-  //         お
-  //       </Text>
-  //     </BreadcrumbItem>
-  //   )
-  // }
 
   return (
     <Breadcrumb
@@ -114,7 +97,6 @@ export const PortalBreadcrumbList: React.VFC<PortalBreadcrumbListProps> = (
       alignSelf="start"
     >
       {breadcrumbItems}
-      {/* { testBreadcrumbItems } */}
     </Breadcrumb>
   )
 }
