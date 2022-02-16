@@ -1,7 +1,7 @@
 import { Center, Flex, Icon, Spacer } from "@chakra-ui/react"
 import { BsBellFill } from "react-icons/bs"
-import { DefaultUserIcon } from "../../common/Icon"
 import { HamburgerMenu } from "./HamburgerMenu"
+import { UserMenu } from "./UserMenu"
 
 export const headerHeight = "3rem"
 
@@ -14,7 +14,7 @@ export const Header: React.VFC<{}> = () => {
         <Icon as={BsBellFill} boxSize="2em" color="text.title.sub" />
       </Center>
       <Center>
-        <DefaultUserIcon boxSize="2em" />
+        <UserMenu />
       </Center>
     </Flex>
   )
