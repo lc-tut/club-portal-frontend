@@ -1,31 +1,38 @@
 import {
+  Center,
   Flex,
   Grid,
   GridItem,
   Heading,
   Spacer,
+  Text,
   VStack,
-  Center,
 } from "@chakra-ui/react"
 import React from "react"
-import { PortalLogo } from "../components/common/Icon"
-import { MenuButton } from "../components/common/Button"
-import { BsSearch, BsMegaphone, BsClockHistory, BsStar } from "react-icons/bs"
+import { BsClockHistory, BsMegaphone, BsSearch, BsStar } from "react-icons/bs"
 import { Link } from "react-router-dom"
+import { MenuButton } from "../components/common/Button"
+import { PortalLogo } from "../components/common/Icon"
 
 const AnimatedTop: React.VFC<{}> = () => {
   return (
     <Flex flex="1" bgGradient="radial(#ffffff, green.100)">
       <VStack flex="1" spacing="4rem">
-        <Heading
-          pt="5rem"
-          fontFamily="futura-pt-bold"
-          fontSize="4.5rem"
-          color="green.900"
-          textAlign="justify"
-        >
-          TUT Club Portal
-        </Heading>
+        <VStack alignItems="end" spacing="0">
+          <Heading
+            pt="5rem"
+            pb="0"
+            fontFamily="futura-pt-bold"
+            fontSize="4.5rem"
+            color="green.900"
+            textAlign="justify"
+          >
+            TUT Club Portal
+          </Heading>
+          <Text fontFamily="futura-pt-bold" fontSize="1.2rem" color="green.700">
+            Preview
+          </Text>
+        </VStack>
 
         <Grid
           templateRows="repeat(3, 1fr)"
