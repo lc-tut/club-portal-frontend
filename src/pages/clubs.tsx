@@ -6,6 +6,7 @@ import {
   GridItem,
   HStack,
   Input,
+  Spacer,
   Stack,
   Switch,
   Text,
@@ -15,6 +16,7 @@ import { ClubCard } from "../components/common/Clubs/ClubCard"
 import { ClubCardSortOptionSelect } from "../components/common/Clubs/ClubCardSortOptionSelect"
 import { ChangeEvent, Dispatch, SetStateAction, useState } from "react"
 import { TitleArea } from "../components/global/Header/TitleArea"
+import { PortalButton } from "../components/common/Button/PortalButton"
 
 type FilterItemProps = {
   label: string
@@ -90,15 +92,12 @@ const FilterArea: React.VFC<FilterAreaProps> = (props) => {
     )
   }
 
-  console.log(props.filterInput)
-
   return (
     <VStack
       width="20rem"
       height="100%"
       py="2rem"
       backgroundColor="form.background"
-      {...props}
     >
       <Input
         width="18rem"
@@ -119,6 +118,16 @@ const FilterArea: React.VFC<FilterAreaProps> = (props) => {
         {filterItemWrapper("体育系", "isSports")}
         {filterItemWrapper("実行委員会", "isCommittee")}
       </Stack>
+      <Spacer h="1.5rem" />
+      <HStack w="80%">
+        <PortalButton pbstyle="solid" width="8rem">
+          リセット
+        </PortalButton>
+        <Spacer flex="1" />
+        <PortalButton width="6rem">
+          検索
+        </PortalButton>
+      </HStack>
     </VStack>
   )
 }
