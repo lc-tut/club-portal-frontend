@@ -122,6 +122,7 @@ export type UnregisterFavoriteClubPayload = ClubUUIDObject
 export type CreateClubPayload = {
   name: string
   description: string
+  shortDescription: string
   campus: number // 0, 1
   clubType: number // 0, 1, 2
   contents: Array<Content>

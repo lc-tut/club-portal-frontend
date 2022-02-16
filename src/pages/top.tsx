@@ -112,9 +112,9 @@ const PostTest: React.VFC<{}> = () => {
     const data: CreateClubPayload = {
       name: "test",
       description: "これはtestのdescriptionです",
-      short_description: "this is test",
+      shortDescription: "this is test",
       campus: 1,
-      club_type: 1,
+      clubType: 1,
       contents: [
         {
           content: "テストを行う"
@@ -132,12 +132,19 @@ const PostTest: React.VFC<{}> = () => {
       schedules: [
         {
           month: 5,
-          schedule: "５月のスケジュール"
+          schedule: "５月のスケジュール",
+          remarks: ""
         }
       ],
-      achievements: [{}],
-      images: [{}],
-      videos: [{}],
+      achievements: [{
+        achievement: ""
+      }],
+      images: [{
+        imageID: 0
+      }],
+      videos: [{
+        path: ""
+      }],
       activity_details: [{}]
     }
     axios.post("/api/v1/clubs", data)
