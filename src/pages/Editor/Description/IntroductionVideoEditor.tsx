@@ -16,17 +16,19 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react"
-import { Dispatch, SetStateAction, useState } from "react"
+import { useState } from "react"
+import { useForm } from "react-hook-form"
 import { BsQuestionCircle } from "react-icons/bs"
 import { PortalButton } from "../../../components/common/Button"
 import { EditorBase } from "../../../components/common/Editor/EditorBase"
 import { TitleArea } from "../../../components/global/Header/TitleArea"
 import { PADDING_BEFORE_FOOTER } from "../../../static/consts"
+import type { StateDispatch } from "../../../types/utils"
 
 function parseVideoId(
   input: string,
-  setError: Dispatch<SetStateAction<string>>,
-  setVideoId: Dispatch<SetStateAction<string>>
+  setError: StateDispatch<string>,
+  setVideoId: StateDispatch<string>
 ) {
   if (input === "") {
     setError("URLを入力して下さい")
@@ -101,13 +103,22 @@ const HelpModal = () => {
 }
 
 export const IntroductionVideoEditor: React.VFC<{}> = () => {
+  const {
+    handleSubmit,
+    register,
+    formState: { errors, isSubmitting },
+  } = useForm()
+
   const [videoId, setVideoId] = useState("")
   const [inputData, setInputData] = useState("")
   const [error, setError] = useState("")
+
   const onConfirm = () => {
     parseVideoId(inputData, setError, setVideoId)
     console.log("video id is: " + videoId)
   }
+
+  const onSubmit = handleSubmit((data) => console.log(data))
 
   return (
     <VStack flex="1" pb={PADDING_BEFORE_FOOTER}>
@@ -158,7 +169,7 @@ export const IntroductionVideoEditor: React.VFC<{}> = () => {
           </AspectRatio>
         </VStack>
         <VStack textColor="text.main">
-          <PortalButton>保存</PortalButton>
+          <PortalButton type="submit">保存</PortalButton>
           <Text>
             以下の内容で保存します
             <br />

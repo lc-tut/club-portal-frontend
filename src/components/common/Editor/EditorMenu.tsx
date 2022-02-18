@@ -45,21 +45,6 @@ const EditorMenuButton: React.VFC<
 }
 
 export const EditorMenu: React.VFC<EditorMenuProps> = (props) => {
-  const gridItems: JSX.Element[] = []
-  props.items.map((item) => {
-    gridItems.push(
-      <GridItem key={item.content}>
-        <EditorMenuButton
-          to={item.to}
-          isNotAvailable={item.isNotAvailable}
-          remark={item.remark}
-        >
-          {item.content}
-        </EditorMenuButton>
-      </GridItem>
-    )
-  })
-
   return (
     <EditorBase>
       <Grid
@@ -68,7 +53,17 @@ export const EditorMenu: React.VFC<EditorMenuProps> = (props) => {
         rowGap="1rem"
         columnGap="1rem"
       >
-        {gridItems}
+        {props.items.map((item) => (
+          <GridItem key={item.content}>
+            <EditorMenuButton
+              to={item.to}
+              isNotAvailable={item.isNotAvailable}
+              remark={item.remark}
+            >
+              {item.content}
+            </EditorMenuButton>
+          </GridItem>
+        ))}
       </Grid>
     </EditorBase>
   )

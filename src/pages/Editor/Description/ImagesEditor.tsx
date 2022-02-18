@@ -15,12 +15,13 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react"
-import React, { createRef, SetStateAction, useState } from "react"
+import { createRef, useState } from "react"
 import { PortalButton } from "../../../components/common/Button"
 import { EditorBase } from "../../../components/common/Editor/EditorBase"
 import { EditorButton } from "../../../components/common/Editor/EditorButton"
 import { TitleArea } from "../../../components/global/Header/TitleArea"
 import { PADDING_BEFORE_FOOTER } from "../../../static/consts"
+import { StateDispatch } from "../../../types/utils"
 
 type ImageModalProps = {
   image: string
@@ -31,7 +32,7 @@ type ImageModalProps = {
 type ImagePreviewsProps = {
   onPreviewClick: (image: string) => void
   items: string[]
-  setItems: React.Dispatch<SetStateAction<string[]>>
+  setItems: StateDispatch<Array<string>>
   isNew?: boolean
 }
 
@@ -55,31 +56,30 @@ const ImagePreviews: React.VFC<ImagePreviewsProps> = (props) => {
     newItems.splice(index, 1)
     props.setItems(newItems)
   }
-  const previews: JSX.Element[] = []
 
-  props.items.map((item, index) => {
-    previews.push(
-      <GridItem key={item}>
-        <HStack>
-          <VStack>
-            <EditorButton icon="remove" onClick={() => onRemove(index)} />
-            <Text color="text.main">{props.isNew && "新規"}</Text>
-          </VStack>
-          <AspectRatio ratio={16 / 9} w="15rem">
-            <Button
-              p="0"
-              borderRadius="0"
-              onClick={() => props.onPreviewClick(item)}
-            >
-              <Image src={item} key={item} />
-            </Button>
-          </AspectRatio>
-        </HStack>
-      </GridItem>
-    )
-  })
-
-  return <>{previews}</>
+  return (
+    <>
+      {props.items.map((item, index) => (
+        <GridItem key={item}>
+          <HStack>
+            <VStack>
+              <EditorButton icon="remove" onClick={() => onRemove(index)} />
+              <Text color="text.main">{props.isNew && "新規"}</Text>
+            </VStack>
+            <AspectRatio ratio={16 / 9} w="15rem">
+              <Button
+                p="0"
+                borderRadius="0"
+                onClick={() => props.onPreviewClick(item)}
+              >
+                <Image src={item} key={item} />
+              </Button>
+            </AspectRatio>
+          </HStack>
+        </GridItem>
+      ))}
+    </>
+  )
 }
 
 export const ImagesEditor: React.VFC<{}> = () => {

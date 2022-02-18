@@ -12,7 +12,7 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react"
-import React, {
+import {
   ChangeEvent,
   createRef,
   Dispatch,

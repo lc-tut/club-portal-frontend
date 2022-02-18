@@ -1,7 +1,7 @@
 import { Flex, VStack } from "@chakra-ui/react"
-import React from "react"
+import type { PropsWithChildren } from "react"
 
-export const EditorBase: React.VFC<React.PropsWithChildren<{}>> = (props) => {
+export const EditorBase: React.VFC<PropsWithChildren<{}>> = (props) => {
   return (
     <Flex pt="3rem">
       <VStack
