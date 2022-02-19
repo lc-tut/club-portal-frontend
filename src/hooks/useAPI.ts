@@ -1,22 +1,13 @@
 import type { AxiosError, AxiosRequestConfig } from "axios"
 import useSWR from "swr"
-import type { APIPayload, APIResponse } from "../types/api"
+import type { APIResponse } from "../types/api"
 import { axiosFetcher } from "../utils/axios"
 
-export const useAPI = <
-  R extends APIResponse | {},
-  D = unknown extends APIPayload ? APIPayload : undefined
->(
-  endpoint: string,
-  method: "get" | "post" | "put" | "patch" | "delete",
-  payload?: D
-) => {
-  const axiosConfig: AxiosRequestConfig<D> = {
+export const useAPI = <R extends APIResponse | {}>(endpoint: string) => {
+  const axiosConfig: AxiosRequestConfig = {
     url: endpoint,
-    method: method,
-    data: payload,
   }
-  const { data, error } = useSWR<R, AxiosError<{}, D> | Error>(
+  const { data, error } = useSWR<R, AxiosError | Error>(
     [endpoint, axiosConfig],
     axiosFetcher
   )

@@ -79,6 +79,7 @@ export type ClubPageInternal = {
   shortDescription: string
   campus: number // 0, 1
   clubType: number // 0, 1, 2
+  remark: string | null
   updatedAt: string // RFC3339
   contents: Array<Content>
   links: Array<Link>
@@ -122,8 +123,10 @@ export type UnregisterFavoriteClubPayload = ClubUUIDObject
 export type CreateClubPayload = {
   name: string
   description: string
+  shortDescription: string
   campus: number // 0, 1
   clubType: number // 0, 1, 2
+  remark: string | null
   contents: Array<Content>
   links: Array<Link>
   schedules: Array<Schedule>
@@ -135,6 +138,8 @@ export type CreateClubPayload = {
 
 export type UpdateClubPayload = {
   description: string
+  shortDescription: string
+  remark: string | null
   contents: Array<Content>
   links: Array<Link>
   schedules: Array<Schedule>

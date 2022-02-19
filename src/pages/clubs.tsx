@@ -10,14 +10,20 @@ import {
   Image,
   Input,
   Select,
+  Spinner,
   Stack,
   Switch,
   Text,
+  useToast,
   VStack,
 } from "@chakra-ui/react"
 import { ClubTypeBadge } from "../components/common/ClubTypeBadge"
 import { TitleArea } from "../components/global/Header/TitleArea"
+import { useAPI } from "../hooks/useAPI"
 import type { BadgeActivity, BadgeCampus } from "../types/badge"
+import type { ClubPageExternal } from "../types/api"
+import { ACTIVITY, CAMPUS } from "../utils/consts"
+import { Link } from "react-router-dom"
 
 type ClubCardProps = {
   thumbnail: string
@@ -28,7 +34,7 @@ type ClubCardProps = {
 }
 
 const FilterArea: React.VFC<BoxProps> = (props) => {
-  const FilterCategory = (props: { text: string }): JSX.Element => {
+  const FilterCategory = (props: { text: string }) => {
     return (
       <Text color="text.modal.sub" pb="0.5rem" pt="1rem">
         {props.text}
@@ -36,7 +42,7 @@ const FilterArea: React.VFC<BoxProps> = (props) => {
     )
   }
 
-  const FilterItem = (props: { label: string; id: string }): JSX.Element => {
+  const FilterItem = (props: { label: string; id: string }) => {
     return (
       <FormControl display="flex" pl="1rem">
         <FormLabel width="8rem" fontSize="1.25rem" mb="0">
@@ -130,6 +136,12 @@ const TestCards: React.VFC<{}> = () => {
 }
 
 const AnimatedClubs: React.VFC<{}> = () => {
+  const {data, isLoading, isError} = useAPI<Array<ClubPageExternal>>("/api/v1/clubs")
+  const toast = useToast()
+
+  const getCampus = (num: number): BadgeCampus => CAMPUS[num] as BadgeCampus
+  const getActivity = (num: number): BadgeActivity => ACTIVITY[num] as BadgeActivity
+
   return (
     <VStack
       flex="1"
@@ -137,6 +149,14 @@ const AnimatedClubs: React.VFC<{}> = () => {
       backgroundColor="background.main"
       spacing="1rem"
     >
+      {isError ? toast({
+        title: "Error!",
+        description: "データ取得中にエラーが発生しました！",
+        status: "error",
+        isClosable: true,
+        duration: 6000,
+        position: "top-right"
+      }): <></>}
       {/* TODO: TitleAreaはHeaderに含めたい */}
       <TitleArea>サークル一覧</TitleArea>
       <HStack width="100%" height="100%" spacing="0">
@@ -162,7 +182,13 @@ const AnimatedClubs: React.VFC<{}> = () => {
               <option value="opt-02">Option 02</option>
               <option value="opt-03">Option 03</option>
             </Select>
-            <TestCards />
+            {!isLoading ?
+            data?.map((club) => (
+              <Link to={club.clubSlug} key={club.clubUUID}>
+                <ClubCard name={club.name} brief={club.shortDescription} campus={getCampus(club.campus)} activity={getActivity(club.clubType)} thumbnail={club.thumbnail.path} />
+              </Link>
+            ))
+             : <Spinner />}
           </Stack>
         </Box>
       </HStack>
