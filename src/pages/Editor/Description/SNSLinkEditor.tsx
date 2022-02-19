@@ -38,7 +38,9 @@ export const SNSLinkEditor: React.VFC<{}> = () => {
     resolver: zodResolver(schema),
   })
 
-  const [items, setItems] = useState<Array<SNSLinkItem>>([{label: "", url: ""}])
+  const [items, setItems] = useState<Array<SNSLinkItem>>([
+    { label: "", url: "" },
+  ])
   const [type, setType] = useState<"add" | "remove">("add")
 
   const onAdd = (item: SNSLinkItem) => {
