@@ -22,24 +22,34 @@ import { IconType } from "react-icons/lib"
 import { Link } from "react-router-dom"
 import { DetailInformationProps } from "../../types/description"
 
-type GeneralInformationRowProps = {
-  icon: IconType
-  label: string
-  content: string[]
-  type?: "text" | "list" | "link" | "table"
-  islast?: boolean
-}
-
-type DateTimeInformationRowProps = {
-  content: { [key: string]: string }
-  islast?: boolean
-}
-
 type RowComponentProps = {
   icon: IconType
   label: string
   content: JSX.Element
   islast: boolean
+}
+
+type PlaceAndTime = {
+  date: string
+  time: string
+  place: string
+  timeRemark: string
+  placeRemark: string
+}
+
+type ContentProps = Pick<RowComponentProps, "icon" | "label" | "islast">
+
+type TextContentProps = ContentProps & {
+  // 要素ごとに改行する
+  texts: Array<string>
+}
+
+type ListContentProps = ContentProps & {
+  list: Array<string>
+}
+
+type PlaceAndTimeContentProps = ContentProps & {
+  placeAndTimes: Array<PlaceAndTime>
 }
 
 const RowComponent: React.VFC<RowComponentProps> = (props) => {
@@ -60,90 +70,53 @@ const RowComponent: React.VFC<RowComponentProps> = (props) => {
   )
 }
 
-const GeneralInformationRow: React.VFC<GeneralInformationRowProps> = (
-  props
-) => {
-  const type = props.type ?? "text"
-  let content = <></>
-
-  switch (type) {
-    case "text":
-      content = (
-        <List textColor="text.main">
-          {props.content.map((item) => {
-            return <ListItem key={item}>{item}</ListItem>
-          })}
-        </List>
-      )
-      break
-
-    case "list":
-      content = (
-        <UnorderedList stylePosition="inside" color="text.main">
-          {" "}
-          {props.content?.map((item) => {
-            return <ListItem key={item}> {item} </ListItem>
-          })}
-        </UnorderedList>
-      )
-      break
-
-    case "link":
-      content = (
-        <List>
-          {" "}
-          {props.content.map((item) => {
-            return (
-              <ListItem key={item} textColor="green.600">
-                <Link to={item}>{item}</Link>
-              </ListItem>
-            )
-          })}
-        </List>
-      )
-      break
-
-    default:
-      break
-  }
+const TextContent: React.VFC<TextContentProps> = (props) => {
+  const content = (
+    <List textColor="text.main">
+      {props.texts.map((item) => {
+        return <ListItem key={item}>{item}</ListItem>
+      })}
+    </List>
+  )
 
   return (
     <RowComponent
       icon={props.icon}
       label={props.label}
+      islast={props.islast}
       content={content}
-      islast={props.islast || false}
     />
   )
 }
 
-const DateTimeInformationRow: React.VFC<DateTimeInformationRowProps> = (
-  props
-) => {
-  const items = []
-  for (const key in props.content) {
-    items.push(<GridItem key={key}>{key}</GridItem>)
-    items.push(
-      <GridItem key={props.content[key]}>{props.content[key]}</GridItem>
-    )
-  }
-
+const ListContent: React.VFC<ListContentProps> = (props) => {
   const content = (
-    <Grid
-      templateColumns="repeat(2, 1fr)"
-      textColor="text.main"
-      gridTemplateColumns={"4rem 1fr"}
-    >
-      {items}
-    </Grid>
+    <UnorderedList stylePosition="inside" color="text.main">
+      {props.list.map((item) => {
+        return <ListItem key={item}> {item} </ListItem>
+      })}
+    </UnorderedList>
   )
 
   return (
     <RowComponent
-      icon={BsClock}
-      label="時間"
+      icon={props.icon}
+      label={props.label}
+      islast={props.islast}
       content={content}
-      islast={props.islast || false}
+    />
+  )
+}
+
+const PlaceAndTimeContent: React.VFC<PlaceAndTimeContentProps> = (props) => {
+  const content = <></>
+
+  return (
+    <RowComponent
+      icon={props.icon}
+      label={props.label}
+      islast={props.islast}
+      content={content}
     />
   )
 }
