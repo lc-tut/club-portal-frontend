@@ -7,6 +7,7 @@ import {
   Spacer,
   Text,
   VStack,
+  Wrap,
 } from "@chakra-ui/react"
 import React from "react"
 import { BsClockHistory, BsMegaphone, BsSearch, BsStar } from "react-icons/bs"
@@ -17,28 +18,23 @@ import { PortalLogo } from "../components/common/Icon"
 const AnimatedTop: React.VFC<{}> = () => {
   return (
     <Flex flex="1" bgGradient="radial(#ffffff, green.100)">
-      <VStack flex="1" spacing="4rem">
-        <VStack alignItems="end" spacing="0">
-          <Heading
-            pt="5rem"
-            pb="0"
-            fontFamily="futura-pt-bold"
-            fontSize="4.5rem"
-            color="green.900"
-            textAlign="justify"
-          >
-            TUT Club Portal
-          </Heading>
-          <Text fontFamily="futura-pt-bold" fontSize="1.2rem" color="green.700">
-            Preview
-          </Text>
-        </VStack>
+      <VStack flex="1">
+        <Heading
+          pt="5rem"
+          fontFamily="futura-pt-bold"
+          fontSize="4.5rem"
+          color="green.900"
+          textAlign="justify"
+        >
+          TUT Club Portal
+        </Heading>
 
         <Grid
           templateRows="repeat(3, 1fr)"
           templateColumns="repeat(2, 1fr)"
           columnGap="2.5rem"
           rowGap="1rem"
+          pt="4rem"
         >
           {/* ----- left content ----- */}
           <GridItem rowSpan={3}>
@@ -102,6 +98,13 @@ const AnimatedTop: React.VFC<{}> = () => {
             </Flex>
           </GridItem>
         </Grid>
+        <Wrap pt="2rem">
+          <Link to="/edit">
+            <Text as="u" fontSize="1.2rem" textColor="green.700">
+              編集者の方はこちら
+            </Text>
+          </Link>
+        </Wrap>
         <Link to="/club-description-test">
           {" "}
           サークル紹介ページのテスト Link{" "}
