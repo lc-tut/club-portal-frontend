@@ -57,7 +57,7 @@ export const DetailInformationEditor: React.VFC<{}> = () => {
   ]
   const placeAndTimeDummy: PlaceAndTimeItem[] = [
     {
-      date: "月曜日",
+      date: "mon",
       startTime: {
         hours: 19,
         minutes: 30,
@@ -66,10 +66,31 @@ export const DetailInformationEditor: React.VFC<{}> = () => {
         hours: 21,
         minutes: 0,
       },
-      place: "講義実験棟123",
+      place: {
+        building: "講義実験棟",
+        roomNumber: 123
+      },
+      timeRemark: "これは時間に関する備考ですうわああああああああああああ",
+      placeRemark: "この場所はお気に入りです"
     },
     {
-      date: "水曜日",
+      date: "tue",
+      startTime: {
+        hours: 20,
+        minutes: 0,
+      },
+      endTime: {
+        hours: 21,
+        minutes: 0,
+      },
+      place: {
+        building: "サークル棟",
+        roomNumber: 111
+      },
+      placeRemark: "サークル棟たのしいいいいいいいいいいいいいああああああああああ"
+    },
+    {
+      date: "wed",
       startTime: {
         hours: 19,
         minutes: 30,
@@ -78,7 +99,10 @@ export const DetailInformationEditor: React.VFC<{}> = () => {
         hours: 21,
         minutes: 0,
       },
-      place: "研究棟300",
+      place: {
+        building: "研究棟",
+        roomNumber: 345
+      },
     },
   ]
   const [activities, setActivities] = useState(activityDummy)
