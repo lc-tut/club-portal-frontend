@@ -6,6 +6,7 @@ import { TitleArea } from "../../../../components/global/Header/TitleArea"
 import { PADDING_BEFORE_FOOTER } from "../../../../static/consts"
 import { ActivityEditor } from "./ActivityEditor"
 import { DatetimeEditor, DatetimeItem } from "./DatetimeEditor"
+import { PlaceAndTimeEditor, PlaceAndTimeItem } from "./PlaceAndTimeEditor"
 import { PlaceEditor, PlaceItem } from "./PlaceEditor"
 
 type GeneralInputAreaProps = {
@@ -56,27 +57,34 @@ export const DetailInformationEditor: React.VFC<{}> = () => {
     "活動内容その2です",
     "他にも何か色々やってます",
   ]
-  const [activities, setActivities] = useState(activityDummy)
-  const datetimeDummy: DatetimeItem[] = [
+  const placeAndTimeDummy: PlaceAndTimeItem[] = [
     {
-      date: "mon",
-      time: "19:00 ~ 21:00",
+      date: "月曜日",
+      startTime: {
+        hours: 19,
+        minutes: 30,
+      },
+      endTime: {
+        hours: 21,
+        minutes: 0,
+      },
+      place: "講義実験棟123",
     },
     {
-      date: "wed",
-      time: "19:30 ~ 20:30",
+      date: "水曜日",
+      startTime: {
+        hours: 19,
+        minutes: 30,
+      },
+      endTime: {
+        hours: 21,
+        minutes: 0,
+      },
+      place: "研究棟300",
     },
   ]
-  const [datetimes, setDatetimes] = useState(datetimeDummy)
-  const [places, setPlaces] = useState<PlaceItem[]>([
-    {
-      place: "サークル棟000",
-    },
-    {
-      place: "講義実験棟111",
-      remarks: "たまに使用します",
-    },
-  ])
+  const [activities, setActivities] = useState(activityDummy)
+  const [placeAndTimes, setPlaceAndTimes] = useState(placeAndTimeDummy)
   const [mail, setMail] = useState("")
   const [hp, setHp] = useState("")
 
@@ -94,10 +102,10 @@ export const DetailInformationEditor: React.VFC<{}> = () => {
               <ActivityEditor items={activities} setItems={setActivities} />
             </GridItem>
             <GridItem colSpan={{ base: 1, md: 2 }}>
-              <DatetimeEditor items={datetimes} setItems={setDatetimes} />
-            </GridItem>
-            <GridItem colSpan={{ base: 1, md: 2 }}>
-              <PlaceEditor items={places} setItems={setPlaces} />
+              <PlaceAndTimeEditor
+                items={placeAndTimes}
+                setItems={setPlaceAndTimes}
+              />
             </GridItem>
             <GridItem>
               <GeneralInputArea
