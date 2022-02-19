@@ -18,16 +18,22 @@ import { PortalLogo } from "../components/common/Icon"
 const AnimatedTop: React.VFC<{}> = () => {
   return (
     <Flex flex="1" bgGradient="radial(#ffffff, green.100)">
-      <VStack flex="1">
-        <Heading
-          pt="5rem"
-          fontFamily="futura-pt-bold"
-          fontSize="4.5rem"
-          color="green.900"
-          textAlign="justify"
-        >
-          TUT Club Portal
-        </Heading>
+      <VStack flex="1" spacing="4rem">
+        <VStack alignItems="end" spacing="0">
+          <Heading
+            pt="5rem"
+            pb="0"
+            fontFamily="futura-pt-bold"
+            fontSize="4.5rem"
+            color="green.900"
+            textAlign="justify"
+          >
+            TUT Club Portal
+          </Heading>
+          <Text fontFamily="futura-pt-bold" fontSize="1.2rem" color="green.700">
+            Preview
+          </Text>
+        </VStack>
 
         <Grid
           templateRows="repeat(3, 1fr)"
@@ -71,7 +77,7 @@ const AnimatedTop: React.VFC<{}> = () => {
             </Link>
           </GridItem>
           <GridItem>
-            <MenuButton pbstyle="solid" leftIcon={<BsMegaphone />}>
+            <MenuButton pbstyle="solid" leftIcon={<BsMegaphone />} isDisabled>
               お知らせ
             </MenuButton>
           </GridItem>
@@ -82,6 +88,7 @@ const AnimatedTop: React.VFC<{}> = () => {
                 mbtype="sub"
                 pbstyle="solid"
                 leftIcon={<BsClockHistory />}
+                isDisabled
               >
                 履歴
               </MenuButton>

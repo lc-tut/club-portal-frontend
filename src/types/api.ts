@@ -6,6 +6,7 @@ export type Session = {
   email: string
   name: string
   role: Role
+  avatar: string
 } | null
 
 export type UserInfo = {
@@ -13,6 +14,7 @@ export type UserInfo = {
   email: string
   name: string
   role: Role
+  clubUUID?: string
 }
 
 export type Thumbnail = {

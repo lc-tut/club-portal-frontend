@@ -15,6 +15,7 @@ export const MenuButton: React.VFC<React.PropsWithChildren<MenuButtonProps>> = (
       fontSize="1.25rem"
       leftIcon={props.leftIcon}
       flex={props.flex}
+      isDisabled={props.isDisabled}
       pbcolor={props.pbcolor}
       pbsize={props.pbsize}
       pbstyle={props.pbstyle}
