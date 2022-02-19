@@ -5,9 +5,7 @@ import { EditorBase } from "../../../../components/common/Editor/EditorBase"
 import { TitleArea } from "../../../../components/global/Header/TitleArea"
 import { PADDING_BEFORE_FOOTER } from "../../../../static/consts"
 import { ActivityEditor } from "./ActivityEditor"
-import { DatetimeEditor, DatetimeItem } from "./DatetimeEditor"
 import { PlaceAndTimeEditor, PlaceAndTimeItem } from "./PlaceAndTimeEditor"
-import { PlaceEditor, PlaceItem } from "./PlaceEditor"
 
 type GeneralInputAreaProps = {
   label: string
