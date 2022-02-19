@@ -15,7 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { EditorBase } from "../../../components/common/Editor/EditorBase"
 import { EditorButton } from "../../../components/common/Editor/EditorButton"
 import { TitleArea } from "../../../components/global/Header/TitleArea"
-import { PADDING_BEFORE_FOOTER, VALID_SNS_LIST } from "../../../static/consts"
+import { PADDING_BEFORE_FOOTER, VALID_SNS_LIST } from "../../../utils/consts"
 import * as z from "zod"
 
 type SNSLinkItem = {

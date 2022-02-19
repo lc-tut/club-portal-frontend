@@ -25,7 +25,7 @@ import { PortalButton } from "../../components/common/Button"
 import { EditorBase } from "../../components/common/Editor/EditorBase"
 import { PortalLogo } from "../../components/common/Icon"
 import { TitleArea } from "../../components/global/Header/TitleArea"
-import { PADDING_BEFORE_FOOTER } from "../../static/consts"
+import { PADDING_BEFORE_FOOTER } from "../../utils/consts"
 
 type ResizeModalProps = {
   isOpen: boolean

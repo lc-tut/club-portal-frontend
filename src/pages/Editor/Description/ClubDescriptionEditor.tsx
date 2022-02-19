@@ -2,7 +2,7 @@ import { Textarea, VStack } from "@chakra-ui/react"
 import { PortalButton } from "../../../components/common/Button"
 import { EditorBase } from "../../../components/common/Editor/EditorBase"
 import { TitleArea } from "../../../components/global/Header/TitleArea"
-import { PADDING_BEFORE_FOOTER } from "../../../static/consts"
+import { PADDING_BEFORE_FOOTER } from "../../../utils/consts"
 
 export const ClubDescriptionEditor: React.VFC<{}> = () => {
   return (

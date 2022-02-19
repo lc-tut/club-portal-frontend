@@ -20,7 +20,7 @@ import { PortalButton } from "../../../components/common/Button"
 import { EditorBase } from "../../../components/common/Editor/EditorBase"
 import { EditorButton } from "../../../components/common/Editor/EditorButton"
 import { TitleArea } from "../../../components/global/Header/TitleArea"
-import { PADDING_BEFORE_FOOTER } from "../../../static/consts"
+import { PADDING_BEFORE_FOOTER } from "../../../utils/consts"
 import { StateDispatch } from "../../../types/utils"
 
 type ImageModalProps = {
