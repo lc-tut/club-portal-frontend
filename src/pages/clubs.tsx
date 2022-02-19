@@ -19,6 +19,26 @@ import { TitleArea } from "../components/global/Header/TitleArea"
 import { PortalButton } from "../components/common/Button/PortalButton"
 import { PADDING_BEFORE_FOOTER } from "../static/consts"
 
+const filterFlagKeyList = [
+  "inHachioji",
+  "inKamata",
+  "isCulture",
+  "isSports",
+  "isCommittee",
+] as const
+type FilterFlagKey = typeof filterFlagKeyList[number]
+
+const defaultFilterInput: FilterInput = {
+  keyword: "",
+  flags: {
+    inHachioji: true,
+    inKamata: true,
+    isCulture: true,
+    isSports: true,
+    isCommittee: true,
+  },
+}
+
 type FilterItemProps = {
   label: string
   flagKey: FilterFlagKey
@@ -31,15 +51,6 @@ type FilterAreaProps = {
   filterInput: FilterInput
   setFilterInput: Dispatch<SetStateAction<FilterInput>>
 }
-
-const filterFlagKeyList = [
-  "inHachioji",
-  "inKamata",
-  "isCulture",
-  "isSports",
-  "isCommittee",
-] as const
-type FilterFlagKey = typeof filterFlagKeyList[number]
 
 type FilterInput = {
   keyword: string
@@ -84,6 +95,11 @@ const FilterArea: React.VFC<FilterAreaProps> = (props) => {
     newFilterInput.keyword = e.target.value
     props.setFilterInput(newFilterInput)
   }
+  const onReset = () => {
+    console.log("猫リセット")
+    props.setFilterInput(defaultFilterInput)
+  }
+
   const filterItemWrapper = (label: string, flagKey: FilterFlagKey) => {
     return (
       <FilterItem
@@ -127,7 +143,7 @@ const FilterArea: React.VFC<FilterAreaProps> = (props) => {
       </Stack>
       <Spacer h="1.5rem" />
       <HStack w="80%">
-        <PortalButton pbstyle="solid" width="7rem">
+        <PortalButton pbstyle="solid" width="7rem" onClick={onReset}>
           リセット
         </PortalButton>
         <Spacer flex="1" />
@@ -162,16 +178,8 @@ const TestCards: React.VFC<{}> = () => {
 }
 
 const AnimatedClubs: React.VFC<{}> = () => {
-  const [filterInput, setFilterInput] = useState<FilterInput>({
-    keyword: "",
-    flags: {
-      inHachioji: true,
-      inKamata: true,
-      isCulture: true,
-      isSports: true,
-      isCommittee: true,
-    },
-  })
+  const [filterInput, setFilterInput] =
+    useState<FilterInput>(defaultFilterInput)
 
   return (
     <VStack
