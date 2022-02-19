@@ -1,4 +1,4 @@
-import { Box, GridItem, Stack, Text, VStack } from "@chakra-ui/react"
+import { GridItem, Stack, Text, VStack } from "@chakra-ui/react"
 import React from "react"
 import {
   BsEnvelope,
@@ -10,6 +10,7 @@ import { DetailInformationProps } from "../../../types/description"
 import { LinkContent } from "./LinkContent"
 import { ListContent } from "./ListContent"
 import { PlaceAndTimeContent } from "./PlaceAndTimeContent"
+import { Remark } from "../Remark"
 import { TextContent } from "./TextContent"
 
 export const DetailInformation: React.VFC<DetailInformationProps> = (props) => {
@@ -45,18 +46,7 @@ export const DetailInformation: React.VFC<DetailInformationProps> = (props) => {
             islast={true}
           />
         </Stack>
-        {props.remark && (
-          <Box
-            width="100%"
-            p="1rem"
-            backgroundColor="background.remark"
-            textColor="text.modal.sub"
-            borderLeftWidth="1rem"
-            borderLeftColor="green.200"
-          >
-            <Text>{props.remark}</Text>
-          </Box>
-        )}
+        {props.remark && <Remark texts={props.remark ?? []} />}
       </VStack>
     </GridItem>
   )

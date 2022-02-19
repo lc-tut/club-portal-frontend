@@ -79,6 +79,10 @@ const AnimatedClubDescription: React.VFC<{}> = () => {
           ]}
           mail={["account@mail.example.com"]}
           website={["https://example.co.jp/introduce/this/club"]}
+          remark={[
+            "これは脚注ですうううううううううううううううあああああああああうおおおおおおおおおおおお",
+            "2行目です"
+          ]}
         />
         <AnnualPlan
           schedules={{
@@ -88,6 +92,9 @@ const AnimatedClubDescription: React.VFC<{}> = () => {
             10: "ああああああああ大会",
             12: "クリスマスパーティ",
           }}
+          remark={[
+            "これは脚注ですよおおおおおおおおお"
+          ]}
         />
       </Grid>
     </VStack>

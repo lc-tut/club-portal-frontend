@@ -1,7 +1,6 @@
 import {
   HStack,
   Stack,
-  VStack,
   Text,
   Grid,
   GridItem,

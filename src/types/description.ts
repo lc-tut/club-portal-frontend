@@ -30,8 +30,14 @@ export type DetailInformationProps = {
 
 export type AnnualPlanProps = {
   schedules: { [key: number]: string }
+  remark?: Array<string>
 }
 
 export const snsList = ["twitter", "instagram"] as const
 
 export type SNSId = typeof snsList[number] | "other"
+
+export type RemarkProps = {
+  texts: Array<string>
+  width?: string
+}

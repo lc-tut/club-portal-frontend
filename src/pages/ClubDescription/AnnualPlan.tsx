@@ -1,6 +1,7 @@
 import { Flex, Grid, GridItem, HStack, Text, VStack } from "@chakra-ui/react"
 import React from "react"
 import { AnnualPlanProps } from "../../types/description"
+import { Remark } from "./Remark"
 
 export const AnnualPlan: React.VFC<AnnualPlanProps> = (props) => {
   const monthList = [4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3]
@@ -40,6 +41,7 @@ export const AnnualPlan: React.VFC<AnnualPlanProps> = (props) => {
             )
           })}
         </Grid>
+        {props.remark && <Remark texts={props.remark ?? []} />}
       </VStack>
     </GridItem>
   )
