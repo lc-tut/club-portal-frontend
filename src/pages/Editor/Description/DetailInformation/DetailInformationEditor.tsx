@@ -1,9 +1,10 @@
 import { Grid, GridItem, Input, Text, Textarea, VStack } from "@chakra-ui/react"
-import { Dispatch, SetStateAction, useState } from "react"
+import { useState } from "react"
 import { PortalButton } from "../../../../components/common/Button"
 import { EditorBase } from "../../../../components/common/Editor/EditorBase"
 import { TitleArea } from "../../../../components/global/Header/TitleArea"
 import { PADDING_BEFORE_FOOTER } from "../../../../static/consts"
+import type { StateDispatch } from "../../../../types/utils"
 import { ActivityEditor } from "./ActivityEditor"
 import { DatetimeEditor, DatetimeItem } from "./DatetimeEditor"
 import { PlaceEditor, PlaceItem } from "./PlaceEditor"
@@ -11,7 +12,7 @@ import { PlaceEditor, PlaceItem } from "./PlaceEditor"
 type GeneralInputAreaProps = {
   label: string
   item: string
-  setItem: Dispatch<SetStateAction<string>>
+  setItem: StateDispatch<string>
   type: "textarea" | "input"
 }
 

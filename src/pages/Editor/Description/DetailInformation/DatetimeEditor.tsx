@@ -1,6 +1,7 @@
 import { HStack, Input, Select, Stack, Text, Wrap } from "@chakra-ui/react"
-import { createRef, Dispatch, SetStateAction, useState } from "react"
+import { useRef, useState } from "react"
 import { EditorButton } from "../../../../components/common/Editor/EditorButton"
+import type { StateDispatch } from "../../../../types/utils"
 
 export type DatetimeItem = {
   date: string
@@ -10,7 +11,7 @@ export type DatetimeItem = {
 
 export type DatetimeEditorProps = {
   items: DatetimeItem[]
-  setItems: Dispatch<SetStateAction<DatetimeItem[]>>
+  setItems: StateDispatch<DatetimeItem[]>
 }
 
 const dateDisplayNameMap: { [key in string]: string } = {
@@ -29,7 +30,7 @@ export const DatetimeEditor: React.VFC<DatetimeEditorProps> = (props) => {
     date: "",
     time: "",
   })
-  const selectRef = createRef<HTMLSelectElement>()
+  const selectRef = useRef<HTMLSelectElement>(null)
 
   const onAdd = (item: DatetimeItem) => {
     if (item.date === "") {
