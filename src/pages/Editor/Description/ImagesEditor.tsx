@@ -159,7 +159,7 @@ export const ImagesEditor: React.VFC<{}> = () => {
           <ImageModal image={modalImage} isOpen={isOpen} onClose={onClose} />
         </VStack>
         <VStack>
-          <PortalButton>保存</PortalButton>
+          <PortalButton type="submit">保存</PortalButton>
           <Text color="text.main">
             新しく追加された画像: {inputImages?.length ?? 0} 件
           </Text>

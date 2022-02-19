@@ -74,7 +74,7 @@ export const AnualPlanEditor: React.VFC<{}> = () => {
             )
           })}
         </Grid>
-        <PortalButton> 保存 </PortalButton>
+        <PortalButton type="submit">保存</PortalButton>
       </EditorBase>
     </VStack>
   )

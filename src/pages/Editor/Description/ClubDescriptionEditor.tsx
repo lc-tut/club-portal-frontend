@@ -15,7 +15,7 @@ export const ClubDescriptionEditor: React.VFC<{}> = () => {
           h="10rem"
           placeholder="サークルの説明文を入力して下さい"
         />
-        <PortalButton> 保存 </PortalButton>
+        <PortalButton type="submit">保存</PortalButton>
       </EditorBase>
     </VStack>
   )

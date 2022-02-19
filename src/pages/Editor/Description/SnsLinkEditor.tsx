@@ -28,20 +28,17 @@ const schema = z.object({
   url: z.string().url(),
 })
 
-type SNSLinkEditorProps = {
-  initialItems: Array<SNSLinkItem>
-}
-
-export const SNSLinkEditor: React.VFC<SNSLinkEditorProps> = (props) => {
+// TODO: 個別 API へ叩く処理
+export const SNSLinkEditor: React.VFC<{}> = () => {
   const {
     handleSubmit,
     register,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<SNSLinkItem>({
     resolver: zodResolver(schema),
   })
 
-  const [items, setItems] = useState<Array<SNSLinkItem>>(props.initialItems)
+  const [items, setItems] = useState<Array<SNSLinkItem>>([{label: "", url: ""}])
   const [type, setType] = useState<"add" | "remove">("add")
 
   const onAdd = (item: SNSLinkItem) => {
@@ -122,8 +119,8 @@ export const SNSLinkEditor: React.VFC<SNSLinkEditorProps> = (props) => {
                       type="submit"
                       onClick={() => setType("remove")}
                     />
-                    <Text> {item.label + " - "} </Text>
-                    <Text> {item.url} </Text>
+                    <Text>{item.label + " - "}</Text>
+                    <Text>{item.url}</Text>
                   </HStack>
                 )
               })}
