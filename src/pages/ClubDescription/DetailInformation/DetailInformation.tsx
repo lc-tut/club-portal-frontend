@@ -5,6 +5,7 @@ import {
   BsLink45Deg,
   BsPinMap,
   BsQuestionCircle,
+  BsTrophy,
 } from "react-icons/bs"
 import { DetailInformationProps } from "../../../types/description"
 import { LinkContent } from "./LinkContent"
@@ -31,6 +32,12 @@ export const DetailInformation: React.VFC<DetailInformationProps> = (props) => {
             icon={BsPinMap}
             label="日時・場所"
             placeAndTimes={props.placeAndTimes}
+            islast={false}
+          />
+          <ListContent
+            icon={BsTrophy}
+            label="実績"
+            list={props.achievements ?? []}
             islast={false}
           />
           <TextContent

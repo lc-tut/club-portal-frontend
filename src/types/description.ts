@@ -23,6 +23,7 @@ export type PlaceAndTime = {
 export type DetailInformationProps = {
   activity: Array<string>
   placeAndTimes: Array<PlaceAndTime>
+  achievements?: Array<string>
   mail?: Array<string>
   website?: Array<string>
   remark?: Array<string>

@@ -44,9 +44,7 @@ const RemarkButton: React.VFC<RemarkButtonProps> = (props) => {
       <PopoverContent>
         <PopoverArrow />
         <PopoverCloseButton />
-        <PopoverBody>
-          {props.text}
-        </PopoverBody>
+        <PopoverBody>{props.text}</PopoverBody>
       </PopoverContent>
     </Popover>
   )
