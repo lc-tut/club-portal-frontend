@@ -113,10 +113,7 @@ export const DetailInformationEditor: React.VFC<{}> = () => {
       },
     },
   ]
-  const achievementDummy = [
-    "実績その1",
-    "うんちもりもり"
-  ]
+  const achievementDummy = ["実績その1", "うんちもりもり"]
   const [activities, setActivities] = useState<string[]>(activityDummy)
   const [placeAndTimes, setPlaceAndTimes] =
     useState<PlaceAndTimeItem[]>(placeAndTimeDummy)

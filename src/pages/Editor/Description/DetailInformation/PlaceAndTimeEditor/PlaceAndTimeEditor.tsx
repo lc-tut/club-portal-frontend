@@ -141,7 +141,9 @@ export const PlaceAndTimeEditor: React.VFC<PlaceAndTimeEditorProps> = (
                   </Text>
                 </HStack>
                 <Stack textColor="text.sub">
-                  {item.timeRemark && <Text>備考(時間) - {item.timeRemark}</Text>}
+                  {item.timeRemark && (
+                    <Text>備考(時間) - {item.timeRemark}</Text>
+                  )}
                   {item.placeRemark && (
                     <Text>備考(場所) - {item.placeRemark}</Text>
                   )}
