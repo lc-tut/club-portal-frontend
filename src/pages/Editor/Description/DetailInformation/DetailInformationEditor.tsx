@@ -62,18 +62,19 @@ export const DetailInformationEditor: React.VFC<{}> = () => {
     {
       date: "mon",
       startTime: {
-        hours: 19,
-        minutes: 30,
-      },
-      endTime: {
-        hours: 21,
+        hours: 0,
         minutes: 0,
       },
+      endTime: {
+        hours: 0,
+        minutes: 0,
+      },
+      isTimeOthers: true,
       place: {
-        building: "講義実験棟",
+        buildingId: 1,
         roomNumber: 123,
       },
-      timeRemark: "これは時間に関する備考ですうわああああああああああああ",
+      timeRemark: "時間は適当に決めてます",
       placeRemark: "この場所はお気に入りです",
     },
     {
@@ -86,8 +87,9 @@ export const DetailInformationEditor: React.VFC<{}> = () => {
         hours: 21,
         minutes: 0,
       },
+      isTimeOthers: false,
       place: {
-        building: "サークル棟",
+        buildingId: 10,
         roomNumber: 111,
       },
       placeRemark:
@@ -103,8 +105,9 @@ export const DetailInformationEditor: React.VFC<{}> = () => {
         hours: 21,
         minutes: 0,
       },
+      isTimeOthers: false,
       place: {
-        building: "研究棟",
+        buildingId: 20,
         roomNumber: 345,
       },
     },

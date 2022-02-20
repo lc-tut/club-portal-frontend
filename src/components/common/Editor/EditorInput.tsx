@@ -1,6 +1,5 @@
 import {
   Box,
-  Center,
   Flex,
   Input,
   InputProps,
@@ -42,6 +41,7 @@ type EditorNumberInputProps = Pick<
   NumberInputProps,
   "defaultValue" | "min" | "max" | "width" | "value" | "onChange"
 > & {
+  isDisabled: boolean
   label: string
 }
 
@@ -110,6 +110,7 @@ export const EditorNumberInput: React.VFC<EditorNumberInputProps> = (props) => {
           min={props.min}
           max={props.max}
           textColor="text.main"
+          isDisabled={props.isDisabled}
           value={props.value}
           onChange={props.onChange}
         >
@@ -130,7 +131,12 @@ export const EditorSwitch: React.VFC<EditorSwitchProps> = (props) => {
     <EditorInput
       element={
         <Flex h="40px" alignItems="center">
-          <Switch colorScheme="green" size="lg" />
+          <Switch
+            colorScheme="green"
+            size="lg"
+            isChecked={props.isChecked}
+            onChange={props.onChange}
+          />
         </Flex>
       }
       label={props.label}

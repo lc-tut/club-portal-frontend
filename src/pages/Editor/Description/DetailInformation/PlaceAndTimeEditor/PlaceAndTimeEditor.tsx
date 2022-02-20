@@ -1,19 +1,21 @@
 import { HStack, Stack, Text, Wrap } from "@chakra-ui/react"
 import React, { Dispatch, SetStateAction, useState } from "react"
 import { EditorButton } from "../../../../../components/common/Editor/EditorButton"
-import { RemarkInput } from "./CommonComponents"
+import { BUILDING_ID_MAP } from "../../../../../static/consts"
 import { Place, PlaceInput } from "./PlaceEditorComponents"
+import { RemarkInput } from "./RemarkEditorComponent"
 import {
   dateDisplayNameMap,
   DateSelect,
   Time,
-  TimeInput
+  TimeInput,
 } from "./TimeEditorComponents"
 
 export type PlaceAndTimeItem = {
   date: string
   startTime: Time
   endTime: Time
+  isTimeOthers: boolean
   place: Place
   timeRemark?: string
   placeRemark?: string
@@ -27,19 +29,21 @@ type PlaceAndTimeEditorProps = {
 const defaultInputData: PlaceAndTimeItem = {
   date: "",
   startTime: {
-    hours: 0,
+    hours: 19,
     minutes: 0,
   },
   endTime: {
-    hours: 0,
+    hours: 19,
     minutes: 0,
   },
+  isTimeOthers: false,
   place: {
-    building: "",
+    buildingId: -1,
     roomNumber: 0,
   },
-  timeRemark: undefined,
-  placeRemark: undefined,
+  // undefined だと警告が出る
+  timeRemark: "",
+  placeRemark: "",
 }
 
 export function updateInputData(
@@ -66,6 +70,8 @@ export const PlaceAndTimeEditor: React.VFC<PlaceAndTimeEditorProps> = (
     props.setItems(newItems)
   }
 
+  console.log(inputData)
+
   return (
     <Stack spacing="1.5rem">
       <HStack alignItems="start">
@@ -73,8 +79,15 @@ export const PlaceAndTimeEditor: React.VFC<PlaceAndTimeEditorProps> = (
           <EditorButton
             icon="add"
             onClick={() => {
-              const newItems = [...props.items, inputData]
+              const copy: PlaceAndTimeItem = {
+                ...inputData,
+                startTime: { ...inputData.startTime },
+                endTime: { ...inputData.endTime },
+                place: { ...inputData.place },
+              }
+              const newItems = [...props.items, copy]
               props.setItems(newItems)
+              setInputData(defaultInputData)
             }}
           />
         </Wrap>
@@ -85,16 +98,14 @@ export const PlaceAndTimeEditor: React.VFC<PlaceAndTimeEditorProps> = (
           </HStack>
           <RemarkInput
             label="時間に関する備考(任意)"
+            remarkKey="timeRemark"
             inputData={inputData}
             setInputData={setInputData}
           />
-          <PlaceInput options={[
-            {value: "1",   label: "講義実験棟"},
-            {value: "10",  label: "研究棟A"},
-            {value: "100", label: "研究棟B"},
-          ]} />
+          <PlaceInput inputData={inputData} setInputData={setInputData} />
           <RemarkInput
             label="場所に関する備考(任意)"
+            remarkKey="placeRemark"
             inputData={inputData}
             setInputData={setInputData}
           />
@@ -102,16 +113,26 @@ export const PlaceAndTimeEditor: React.VFC<PlaceAndTimeEditorProps> = (
       </HStack>
       {props.items.map((item, index) => {
         return (
-          <HStack key={item.date} alignItems="start" textColor="text.main">
+          <HStack key={index} alignItems="start" textColor="text.main">
             <EditorButton icon="remove" onClick={() => onRemove(index)} />
             <Stack>
-              <HStack>
+              <HStack h="40px">
                 <Text>{dateDisplayNameMap[item.date]}曜日</Text>
-                <Text>{timeToString(item.startTime)}</Text>
-                <Text>~</Text>
-                <Text>{timeToString(item.endTime)}</Text>
+
+                {item.isTimeOthers ? (
+                  <>
+                    <Text>時間未定</Text>
+                  </>
+                ) : (
+                  <>
+                    <Text>{timeToString(item.startTime)}</Text>
+                    <Text>~</Text>
+                    <Text>{timeToString(item.endTime)}</Text>
+                  </>
+                )}
+
                 <Text>
-                  {item.place.building}
+                  {BUILDING_ID_MAP[item.place.buildingId] ?? ""}
                   {item.place.roomNumber}
                 </Text>
               </HStack>
