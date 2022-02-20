@@ -4,6 +4,7 @@ import { PortalButton } from "../../../../components/common/Button"
 import { EditorBase } from "../../../../components/common/Editor/EditorBase"
 import { TitleArea } from "../../../../components/global/Header/TitleArea"
 import { PADDING_BEFORE_FOOTER } from "../../../../static/consts"
+import { AchievementEditor } from "./AchievementEditor"
 import { ActivityEditor } from "./ActivityEditor"
 import {
   PlaceAndTimeEditor,
@@ -44,7 +45,7 @@ const GeneralInputArea: React.VFC<GeneralInputAreaProps> = (props) => {
 
   return (
     <>
-      <Text color="text.main" pl="0.2rem">
+      <Text color="text.main" pl="0.2rem" fontSize="1.2rem">
         {props.label}
       </Text>
       {inputElement}
@@ -112,10 +113,16 @@ export const DetailInformationEditor: React.VFC<{}> = () => {
       },
     },
   ]
-  const [activities, setActivities] = useState(activityDummy)
-  const [placeAndTimes, setPlaceAndTimes] = useState(placeAndTimeDummy)
-  const [mail, setMail] = useState("")
-  const [hp, setHp] = useState("")
+  const achievementDummy = [
+    "実績その1",
+    "うんちもりもり"
+  ]
+  const [activities, setActivities] = useState<string[]>(activityDummy)
+  const [placeAndTimes, setPlaceAndTimes] =
+    useState<PlaceAndTimeItem[]>(placeAndTimeDummy)
+  const [achievements, setAchievements] = useState<string[]>(achievementDummy)
+  const [mail, setMail] = useState<string>("")
+  const [hp, setHp] = useState<string>("")
 
   return (
     <>
@@ -134,6 +141,12 @@ export const DetailInformationEditor: React.VFC<{}> = () => {
               <PlaceAndTimeEditor
                 items={placeAndTimes}
                 setItems={setPlaceAndTimes}
+              />
+            </GridItem>
+            <GridItem colSpan={{ base: 1, md: 2 }}>
+              <AchievementEditor
+                items={achievements}
+                setItems={setAchievements}
               />
             </GridItem>
             <GridItem>

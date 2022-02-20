@@ -73,79 +73,84 @@ export const PlaceAndTimeEditor: React.VFC<PlaceAndTimeEditorProps> = (
   console.log(inputData)
 
   return (
-    <Stack spacing="1.5rem">
-      <HStack alignItems="start">
-        <Wrap mt="1.2rem">
-          <EditorButton
-            icon="add"
-            onClick={() => {
-              const copy: PlaceAndTimeItem = {
-                ...inputData,
-                startTime: { ...inputData.startTime },
-                endTime: { ...inputData.endTime },
-                place: { ...inputData.place },
-              }
-              const newItems = [...props.items, copy]
-              props.setItems(newItems)
-              setInputData(defaultInputData)
-            }}
-          />
-        </Wrap>
-        <Stack flex="1">
-          <HStack>
-            <DateSelect inputData={inputData} setInputData={setInputData} />
-            <TimeInput inputData={inputData} setInputData={setInputData} />
-          </HStack>
-          <RemarkInput
-            label="時間に関する備考(任意)"
-            remarkKey="timeRemark"
-            inputData={inputData}
-            setInputData={setInputData}
-          />
-          <PlaceInput inputData={inputData} setInputData={setInputData} />
-          <RemarkInput
-            label="場所に関する備考(任意)"
-            remarkKey="placeRemark"
-            inputData={inputData}
-            setInputData={setInputData}
-          />
-        </Stack>
-      </HStack>
-      {props.items.map((item, index) => {
-        return (
-          <HStack key={index} alignItems="start" textColor="text.main">
-            <EditorButton icon="remove" onClick={() => onRemove(index)} />
-            <Stack>
-              <HStack h="40px">
-                <Text>{dateDisplayNameMap[item.date]}曜日</Text>
+    <Stack>
+      <Text color="text.main" fontSize="1.2rem">
+        時間・場所
+      </Text>
+      <Stack spacing="1.5rem">
+        <HStack alignItems="start">
+          <Wrap mt="1.2rem">
+            <EditorButton
+              icon="add"
+              onClick={() => {
+                const copy: PlaceAndTimeItem = {
+                  ...inputData,
+                  startTime: { ...inputData.startTime },
+                  endTime: { ...inputData.endTime },
+                  place: { ...inputData.place },
+                }
+                const newItems = [...props.items, copy]
+                props.setItems(newItems)
+                setInputData(defaultInputData)
+              }}
+            />
+          </Wrap>
+          <Stack flex="1">
+            <HStack>
+              <DateSelect inputData={inputData} setInputData={setInputData} />
+              <TimeInput inputData={inputData} setInputData={setInputData} />
+            </HStack>
+            <RemarkInput
+              label="時間に関する備考(任意)"
+              remarkKey="timeRemark"
+              inputData={inputData}
+              setInputData={setInputData}
+            />
+            <PlaceInput inputData={inputData} setInputData={setInputData} />
+            <RemarkInput
+              label="場所に関する備考(任意)"
+              remarkKey="placeRemark"
+              inputData={inputData}
+              setInputData={setInputData}
+            />
+          </Stack>
+        </HStack>
+        {props.items.map((item, index) => {
+          return (
+            <HStack key={index} alignItems="start" textColor="text.main">
+              <EditorButton icon="remove" onClick={() => onRemove(index)} />
+              <Stack>
+                <HStack h="40px">
+                  <Text>{dateDisplayNameMap[item.date]}曜日</Text>
 
-                {item.isTimeOthers ? (
-                  <>
-                    <Text>時間未定</Text>
-                  </>
-                ) : (
-                  <>
-                    <Text>{timeToString(item.startTime)}</Text>
-                    <Text>~</Text>
-                    <Text>{timeToString(item.endTime)}</Text>
-                  </>
-                )}
+                  {item.isTimeOthers ? (
+                    <>
+                      <Text>時間未定</Text>
+                    </>
+                  ) : (
+                    <>
+                      <Text>{timeToString(item.startTime)}</Text>
+                      <Text>~</Text>
+                      <Text>{timeToString(item.endTime)}</Text>
+                    </>
+                  )}
 
-                <Text>
-                  {BUILDING_ID_MAP[item.place.buildingId] ?? ""}
-                  {item.place.roomNumber}
-                </Text>
-              </HStack>
-              <Stack textColor="text.sub">
-                {item.timeRemark && <Text>備考(時間) - {item.timeRemark}</Text>}
-                {item.placeRemark && (
-                  <Text>備考(場所) - {item.placeRemark}</Text>
-                )}
+                  <Text>
+                    {BUILDING_ID_MAP[item.place.buildingId] ?? ""}
+                    {item.place.roomNumber}
+                  </Text>
+                </HStack>
+                <Stack textColor="text.sub">
+                  {item.timeRemark && <Text>備考(時間) - {item.timeRemark}</Text>}
+                  {item.placeRemark && (
+                    <Text>備考(場所) - {item.placeRemark}</Text>
+                  )}
+                </Stack>
               </Stack>
-            </Stack>
-          </HStack>
-        )
-      })}
+            </HStack>
+          )
+        })}
+      </Stack>
     </Stack>
   )
 }
