@@ -5,7 +5,10 @@ import { EditorBase } from "../../../../components/common/Editor/EditorBase"
 import { TitleArea } from "../../../../components/global/Header/TitleArea"
 import { PADDING_BEFORE_FOOTER } from "../../../../static/consts"
 import { ActivityEditor } from "./ActivityEditor"
-import { PlaceAndTimeEditor, PlaceAndTimeItem } from "./PlaceAndTimeEditor"
+import {
+  PlaceAndTimeEditor,
+  PlaceAndTimeItem,
+} from "./PlaceAndTimeEditor/PlaceAndTimeEditor"
 
 type GeneralInputAreaProps = {
   label: string
@@ -68,10 +71,10 @@ export const DetailInformationEditor: React.VFC<{}> = () => {
       },
       place: {
         building: "講義実験棟",
-        roomNumber: 123
+        roomNumber: 123,
       },
       timeRemark: "これは時間に関する備考ですうわああああああああああああ",
-      placeRemark: "この場所はお気に入りです"
+      placeRemark: "この場所はお気に入りです",
     },
     {
       date: "tue",
@@ -85,9 +88,10 @@ export const DetailInformationEditor: React.VFC<{}> = () => {
       },
       place: {
         building: "サークル棟",
-        roomNumber: 111
+        roomNumber: 111,
       },
-      placeRemark: "サークル棟たのしいいいいいいいいいいいいいああああああああああ"
+      placeRemark:
+        "サークル棟たのしいいいいいいいいいいいいいああああああああああ",
     },
     {
       date: "wed",
@@ -101,7 +105,7 @@ export const DetailInformationEditor: React.VFC<{}> = () => {
       },
       place: {
         building: "研究棟",
-        roomNumber: 345
+        roomNumber: 345,
       },
     },
   ]
