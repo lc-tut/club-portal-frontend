@@ -28,6 +28,7 @@ export const AchievementEditor: React.VFC<AchievementEditorProps> = (props) => {
         <EditorButton icon="add" onClick={onAdd} />
         <Input
           backgroundColor="#fff"
+          textColor="text.main"
           placeholder="実績を入力して下さい"
           value={inputData}
           onChange={(e) => setInputData(e.target.value)}
