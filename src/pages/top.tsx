@@ -1,25 +1,25 @@
 import {
+  Center,
   Flex,
   Grid,
   GridItem,
   Heading,
   Spacer,
+  Text,
   VStack,
-  Center,
   Button,
+  MenuButton,
+  Wrap,
 } from "@chakra-ui/react"
-import React from "react"
-import { PortalLogo } from "../components/common/Icon"
-import { MenuButton } from "../components/common/Button"
-import { BsSearch, BsMegaphone, BsClockHistory, BsStar, BsTwitter } from "react-icons/bs"
-import { Link } from "react-router-dom"
 import axios from "axios"
-import { CreateClubPayload } from "../types/api"
+import { BsSearch, BsMegaphone, BsClockHistory, BsStar } from "react-icons/bs"
+import { Link } from "react-router-dom"
+import { PortalLogo } from "../components/common/Icon"
 
 const AnimatedTop: React.VFC<{}> = () => {
   return (
     <Flex flex="1" bgGradient="radial(#ffffff, green.100)">
-      <VStack flex="1" spacing="4rem">
+      <VStack flex="1">
         <Heading
           pt="5rem"
           fontFamily="futura-pt-bold"
@@ -35,6 +35,7 @@ const AnimatedTop: React.VFC<{}> = () => {
           templateColumns="repeat(2, 1fr)"
           columnGap="2.5rem"
           rowGap="1rem"
+          pt="4rem"
         >
           {/* ----- left content ----- */}
           <GridItem rowSpan={3}>
@@ -71,7 +72,7 @@ const AnimatedTop: React.VFC<{}> = () => {
             </Link>
           </GridItem>
           <GridItem>
-            <MenuButton pbstyle="solid" leftIcon={<BsMegaphone />}>
+            <MenuButton pbstyle="solid" leftIcon={<BsMegaphone />} isDisabled>
               お知らせ
             </MenuButton>
           </GridItem>
@@ -82,6 +83,7 @@ const AnimatedTop: React.VFC<{}> = () => {
                 mbtype="sub"
                 pbstyle="solid"
                 leftIcon={<BsClockHistory />}
+                isDisabled
               >
                 履歴
               </MenuButton>
@@ -98,6 +100,13 @@ const AnimatedTop: React.VFC<{}> = () => {
           </GridItem>
         </Grid>
         <PostTest />
+        <Wrap pt="2rem">
+          <Link to="/edit">
+            <Text as="u" fontSize="1.2rem" textColor="green.700">
+              編集者の方はこちら
+            </Text>
+          </Link>
+        </Wrap>
         <Link to="/club-description-test">
           {" "}
           サークル紹介ページのテスト Link{" "}

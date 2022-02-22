@@ -4,7 +4,10 @@ export type ButtonSize = "normal" | "large" | "100%"
 export type ButtonStyle = "fill" | "solid" | "round-fill" | "round-solid"
 export type ButtonColor = "green" | "orange" | "yellow"
 
-type CommonPickedProps = Pick<ButtonProps, "leftIcon" | "flex">
+type CommonPickedProps = Pick<
+  ButtonProps,
+  "leftIcon" | "flex" | "onClick" | "isDisabled"
+>
 
 type CommonProps = CommonPickedProps & {
   pbsize?: ButtonSize // specify template width of button (default is 'normal')
@@ -26,7 +29,7 @@ export type FavoriteButtonProps = CommonProps & FavoriteButtonInternalProps
 
 type PortalButtonInternalProps = Pick<
   ButtonProps,
-  "width" | "height" | "fontSize"
+  "width" | "height" | "fontSize" | "type"
 >
 
 export type PortalButtonProps = CommonProps & PortalButtonInternalProps

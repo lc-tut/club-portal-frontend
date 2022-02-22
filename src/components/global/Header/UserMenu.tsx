@@ -10,8 +10,10 @@ import {
   VStack,
 } from "@chakra-ui/react"
 import axios from "axios"
+import { BsBoxArrowRight } from "react-icons/bs"
 import { useLocation } from "react-router-dom"
 import { useSession } from "../../../hooks/useSession"
+import { PortalButton } from "../../common/Button"
 import { DefaultUserIcon } from "../../common/Icon"
 
 export const UserMenu: React.VFC<{}> = () => {
@@ -33,18 +35,26 @@ export const UserMenu: React.VFC<{}> = () => {
   if (session === null) {
     popoverContent = (
       <VStack>
-        <Text>you are not logged in</Text>
+        <Text>
+          大学Gmailアカウントでログインすると、全ての情報を閲覧することができます
+        </Text>
         {/* TODO: 他にいい方法ある？ */}
         <a href={"/api/auth/signin?redirect_url=" + loc.pathname}>
-          <Button>Login</Button>
+          <PortalButton>ログイン</PortalButton>
         </a>
       </VStack>
     )
   } else {
     popoverContent = (
       <VStack>
-        <Text>you have logged in</Text>
-        <Button onClick={logout}>Logout</Button>
+        <Text>ログインしています</Text>
+        <PortalButton
+          onClick={logout}
+          pbstyle="solid"
+          leftIcon={<BsBoxArrowRight />}
+        >
+          ログアウト
+        </PortalButton>
       </VStack>
     )
   }
