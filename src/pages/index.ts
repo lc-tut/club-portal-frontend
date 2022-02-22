@@ -6,3 +6,6 @@ export { Editors } from "./Editor/Editors"
 export { EditorRouter } from "./Editor/EditorRouter"
 export { DescriptionEditors } from "./Editor/Description/DescriptionEditors"
 export { DescriptionEditorRouter } from "./Editor/Description/DescriptionEditorRouter"
+
+// test
+export { Test } from "./Test/Test"

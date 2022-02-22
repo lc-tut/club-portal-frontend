@@ -8,13 +8,14 @@ import {
   Text,
   VStack,
   Button,
-  MenuButton,
   Wrap,
 } from "@chakra-ui/react"
 import axios from "axios"
 import { BsSearch, BsMegaphone, BsClockHistory, BsStar } from "react-icons/bs"
 import { Link } from "react-router-dom"
+import { MenuButton } from "../components/common/Button"
 import { PortalLogo } from "../components/common/Icon"
+import { Test } from "./Test/Test"
 
 const AnimatedTop: React.VFC<{}> = () => {
   return (
@@ -99,7 +100,6 @@ const AnimatedTop: React.VFC<{}> = () => {
             </Flex>
           </GridItem>
         </Grid>
-        <PostTest />
         <Wrap pt="2rem">
           <Link to="/edit">
             <Text as="u" fontSize="1.2rem" textColor="green.700">
@@ -111,39 +111,11 @@ const AnimatedTop: React.VFC<{}> = () => {
           {" "}
           サークル紹介ページのテスト Link{" "}
         </Link>
+        <Link to="/test">
+          test
+        </Link>
       </VStack>
     </Flex>
-  )
-}
-
-const PostTest: React.VFC<{}> = () => {
-  const postClub = () => {
-    const data = {}
-
-    axios.post("/api/v1/clubs", data)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err))
-  }
-
-  const postUser = () => {
-    const data = {
-      email: "c0119304bd@edu.teu.ac.jp",
-      name: "caffeine TUT"
-    }
-    axios.post("/api/v1/users", data)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err))
-  }
-
-  return (
-    <>
-      {/* <Button onClick={postClub}>
-        new club POST
-      </Button> */}
-      <Button onClick={postUser}>
-        new user POST
-      </Button>
-    </>
   )
 }
 

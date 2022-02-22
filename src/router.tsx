@@ -49,6 +49,7 @@ const AnimatedRouter: React.VFC<{}> = () => {
             />
 
             <Route path="/clubs" element={<page.Clubs />} />
+            <Route path="/test" element={<page.Test />} />
             <Route path="*" element={<page.NotFound />} />
             <Route
               path="/club-description-test"
