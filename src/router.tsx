@@ -33,25 +33,28 @@ const AnimatedRouter: React.VFC<{}> = () => {
       <Flex p="0" flex="1">
         <AnimatePresence exitBeforeEnter initial={false}>
           <Routes location={location} key={location.pathname}>
-            <Route path="/" element={<page.Top />} />
-            <Route path="/clubs/:slug" />
-            <Route path="/users/:uuid" />
-
-            <Route path="/edit" element={<page.Editors />} />
-            <Route path="/edit/:page" element={<page.EditorRouter />} />
-            <Route
-              path="/edit/description"
-              element={<page.DescriptionEditors />}
-            />
-            <Route
-              path="/edit/description/:page"
-              element={<page.DescriptionEditorRouter />}
-            />
-
-            <Route path="/clubs" element={<page.Clubs />} />
+            <Route index element={<page.Top />} />
+            <Route path="clubs">
+              <Route index element={<page.Clubs />} />
+              <Route path=":slug" />
+            </Route>
+            <Route path="users">
+              <Route path="edit">
+                <Route index element={<page.Editors />} />
+                <Route path="description">
+                  <Route index element={<page.DescriptionEditors />} />
+                  <Route
+                    path=":page"
+                    element={<page.DescriptionEditorRouter />}
+                  />
+                </Route>
+                <Route path=":page" element={<page.EditorRouter />} />
+              </Route>
+              <Route path=":uuid" />
+            </Route>
             <Route path="*" element={<page.NotFound />} />
             <Route
-              path="/club-description-test"
+              path="club-description-test"
               element={<page.ClubDescription />}
             />
           </Routes>

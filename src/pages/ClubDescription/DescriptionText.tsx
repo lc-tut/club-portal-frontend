@@ -1,26 +1,27 @@
 import { GridItem, VStack, Text, HStack, Link, Button } from "@chakra-ui/react"
 import { IconType } from "react-icons"
 import { BsInstagram, BsLink, BsTwitter } from "react-icons/bs"
-import { DescriptionProps, SnsId, snsList } from "../../types/description"
+import type { DescriptionProps, SNSType } from "../../types/description"
 
-function getSnsId(label: string): SnsId {
-  if (snsList.some((value) => value === label)) {
-    return label as SnsId
-  }
+function getSnsId(label: string): label is SNSType | "other" {
+  if (label === "twitter" || label === "instagram") {
+    return label
+   } else {
   return "other"
+   }
 }
 
-const fgColorMap: { [key in SnsId]: string } = {
+const fgColorMap: { [key in SNSType]: string } = {
   twitter: "#fff",
   instagram: "#fff",
   other: "button.text.gray",
 }
-const bgColorMap: { [key in SnsId]: string } = {
+const bgColorMap: { [key in SNSType]: string } = {
   twitter: "#2E94DA",
   instagram: "#D35CCA",
   other: "button.gray",
 }
-const iconMap: { [key in SnsId]: IconType } = {
+const iconMap: { [key in SNSType]: IconType } = {
   twitter: BsTwitter,
   instagram: BsInstagram,
   other: BsLink,

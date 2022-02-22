@@ -1,8 +1,5 @@
-export const campuses = ["hachioji", "kamata"] as const
-export const activities = ["sports", "culture", "committee"] as const
-
-export type BadgeCampus = typeof campuses[number]
-export type BadgeActivity = typeof activities[number]
+export type BadgeCampus = "hachioji" | "kamata"
+export type BadgeActivity = "sports" | "culture" | "committee"
 export type BadgeContent = BadgeCampus | BadgeActivity
 export type BadgeSize = "card" | "page"
 

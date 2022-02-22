@@ -22,9 +22,10 @@ export type DetailInformationProps = {
 }
 
 export type AnnualPlanProps = {
-  schedules: { [key: number]: string }
+  month: number
+  schedules: string
+  remarks?: string
 }
 
-export const snsList = ["twitter", "instagram"] as const
-
-export type SnsId = typeof snsList[number] | "other"
+export type SNSType = "twitter" | "instagram"
+export type AllSNSType = SNSType | "other"
