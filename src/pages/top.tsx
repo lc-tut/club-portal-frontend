@@ -109,44 +109,8 @@ const AnimatedTop: React.VFC<{}> = () => {
 
 const PostTest: React.VFC<{}> = () => {
   const postClub = () => {
-    const data: CreateClubPayload = {
-      name: "test",
-      description: "これはtestのdescriptionです",
-      shortDescription: "this is test",
-      campus: 1,
-      clubType: 1,
-      contents: [
-        {
-          content: "テストを行う"
-        },
-        {
-          content: "めっちゃテストを行う"
-        }
-      ],
-      links: [
-        {
-          label: "twitter",
-          url: "https://twitter.com/Caffeine0coffee"
-        }
-      ],
-      schedules: [
-        {
-          month: 5,
-          schedule: "５月のスケジュール",
-          remarks: ""
-        }
-      ],
-      achievements: [{
-        achievement: ""
-      }],
-      images: [{
-        imageID: 0
-      }],
-      videos: [{
-        path: ""
-      }],
-      activity_details: [{}]
-    }
+    const data = {}
+
     axios.post("/api/v1/clubs", data)
       .then((res) => console.log(res))
       .catch((err) => console.log(err))
@@ -164,9 +128,9 @@ const PostTest: React.VFC<{}> = () => {
 
   return (
     <>
-      <Button onClick={postClub}>
+      {/* <Button onClick={postClub}>
         new club POST
-      </Button>
+      </Button> */}
       <Button onClick={postUser}>
         new user POST
       </Button>
