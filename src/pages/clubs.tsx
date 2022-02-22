@@ -111,36 +111,14 @@ const ClubCard: React.VFC<ClubCardProps> = (props) => {
   )
 }
 
-const TestCards: React.VFC<{}> = () => {
-  const cards: Array<JSX.Element> = []
-
-  for (let i = 0; i < 5; i++) {
-    cards.push(
-      <GridItem key={i} colSpan={{ xl: 4, lg: 6, sm: 12 }}>
-        <ClubCard
-          thumbnail="https://placehold.jp/400x400.png"
-          name="アミューズメントメディア研究会"
-          campus="hachioji"
-          activity="culture"
-          brief="the most exciting club"
-        />
-      </GridItem>
-    )
-  }
-
-  return (
-    <Grid templateColumns="repeat(12, 1fr)" rowGap="1rem" columnGap="2rem">
-      {cards}
-    </Grid>
-  )
-}
-
 const AnimatedClubs: React.VFC<{}> = () => {
-  const {data, isLoading, isError} = useAPI<Array<ClubPageExternal>>("/api/v1/clubs")
+  const { data, isLoading, isError } =
+    useAPI<Array<ClubPageExternal>>("/api/v1/clubs")
   const toast = useToast()
 
   const getCampus = (num: number): BadgeCampus => CAMPUS[num] as BadgeCampus
-  const getActivity = (num: number): BadgeActivity => ACTIVITY[num] as BadgeActivity
+  const getActivity = (num: number): BadgeActivity =>
+    ACTIVITY[num] as BadgeActivity
 
   return (
     <VStack
@@ -149,14 +127,18 @@ const AnimatedClubs: React.VFC<{}> = () => {
       backgroundColor="background.main"
       spacing="1rem"
     >
-      {isError ? toast({
-        title: "Error!",
-        description: "データ取得中にエラーが発生しました！",
-        status: "error",
-        isClosable: true,
-        duration: 6000,
-        position: "top-right"
-      }): <></>}
+      {isError ? (
+        toast({
+          title: "Error!",
+          description: "データ取得中にエラーが発生しました！",
+          status: "error",
+          isClosable: true,
+          duration: 6000,
+          position: "top-right",
+        })
+      ) : (
+        <></>
+      )}
       {/* TODO: TitleAreaはHeaderに含めたい */}
       <TitleArea>サークル一覧</TitleArea>
       <HStack width="100%" height="100%" spacing="0">
@@ -182,13 +164,29 @@ const AnimatedClubs: React.VFC<{}> = () => {
               <option value="opt-02">Option 02</option>
               <option value="opt-03">Option 03</option>
             </Select>
-            {!isLoading ?
-            data?.map((club) => (
-              <Link to={club.clubSlug} key={club.clubUUID}>
-                <ClubCard name={club.name} brief={club.shortDescription} campus={getCampus(club.campus)} activity={getActivity(club.clubType)} thumbnail={club.thumbnail.path} />
-              </Link>
-            ))
-             : <Spinner />}
+            {!isLoading ? (
+              <Grid
+                templateColumns="repeat(12, 1fr)"
+                rowGap="1rem"
+                columnGap="2rem"
+              >
+                {data?.map((club, i) => (
+                  <GridItem colSpan={{ xl: 4, lg: 6, sm: 12 }} key={i}>
+                    <Link to={club.clubSlug}>
+                      <ClubCard
+                        name={club.name}
+                        brief={club.shortDescription}
+                        campus={getCampus(club.campus)}
+                        activity={getActivity(club.clubType)}
+                        thumbnail={club.thumbnail.path}
+                      />
+                    </Link>
+                  </GridItem>
+                ))}
+              </Grid>
+            ) : (
+              <Spinner />
+            )}
           </Stack>
         </Box>
       </HStack>
