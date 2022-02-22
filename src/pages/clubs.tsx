@@ -116,9 +116,9 @@ const AnimatedClubs: React.VFC<{}> = () => {
     useAPI<Array<ClubPageExternal>>("/api/v1/clubs")
   const toast = useToast()
 
-  const getCampus = (num: number): BadgeCampus => CAMPUS[num] as BadgeCampus
+  const getCampus = (num: number): BadgeCampus => CAMPUS[num]
   const getActivity = (num: number): BadgeActivity =>
-    ACTIVITY[num] as BadgeActivity
+    ACTIVITY[num]
 
   return (
     <VStack

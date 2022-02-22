@@ -8,7 +8,7 @@ import { TitleArea } from "../../global/Header/TitleArea"
 import { IntroductionVideo } from "./IntroductionMovie"
 import { DescriptionText } from "./DescriptionText"
 import { CarouselGallery } from "./CarouselGallery"
-import { DetailInformation } from "./DetailInformation"
+import { DetailInformation } from "./DetailInformation/DetailInformation"
 import { AnnualPlan } from "./AnnualPlan"
 
 const AnimatedClubDescription: React.VFC<{}> = () => {
@@ -57,15 +57,36 @@ const AnimatedClubDescription: React.VFC<{}> = () => {
             "活動内容はああああああああああああです",
             "いいいいいという活動も行っています",
           ]}
-          // date={["水曜日", "金曜日"]}
-          // time={["19:30~20:00", "20:00~21:00"]}
-          datetime={{
-            水曜日: "19:30~20:00",
-            金曜日: "20:00~21:00",
-          }}
-          place={["サークル棟000"]}
+          placeAndTimes={[
+            {
+              date: "月",
+              time: "19:00 ~ 21:00",
+              place: "サークル棟AAA",
+            },
+            {
+              date: "水",
+              time: "20:00 ~ 21:30",
+              place: "講義実験棟111",
+              placeRemark:
+                "参加人数が少ない場合は部室(研究棟A123)で活動を行います。",
+            },
+            {
+              date: "金",
+              time: "19:00 ~ 21:00",
+              place: "講義実験棟222",
+              timeRemark: "参加者の都合で早めに終わる日が多いです。",
+            },
+          ]}
+          achievements={[
+            "なんとやら大会に出場",
+            "あの大会で金賞獲得うおおおおおおお",
+          ]}
           mail={["account@mail.example.com"]}
           website={["https://example.co.jp/introduce/this/club"]}
+          remark={[
+            "これは脚注ですうううううううううううううううあああああああああうおおおおおおおおおおおお",
+            "2行目です",
+          ]}
         />
         <AnnualPlan
           schedules={{
@@ -75,6 +96,7 @@ const AnimatedClubDescription: React.VFC<{}> = () => {
             10: "ああああああああ大会",
             12: "クリスマスパーティ",
           }}
+          remark={["これは脚注ですよおおおおおおおおお"]}
         />
       </Grid>
     </VStack>

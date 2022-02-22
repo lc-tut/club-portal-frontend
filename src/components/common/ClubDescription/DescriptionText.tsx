@@ -1,5 +1,6 @@
 import { GridItem, VStack, Text, HStack, Link, Button } from "@chakra-ui/react"
 import { BsInstagram, BsLink, BsTwitter } from "react-icons/bs"
+
 import type { DescriptionProps, SNSType } from "../../../types/description"
 
 const isRegisteredSNS = (label: string): label is SNSType =>
@@ -9,10 +10,12 @@ const fgColorMap: { [key in SNSType]: string } = {
   twitter: "#fff",
   instagram: "#fff",
 }
+
 const bgColorMap: { [key in SNSType]: string } = {
   twitter: "#2E94DA",
   instagram: "#D35CCA",
 }
+
 const iconMap: { [key in SNSType]: JSX.Element } = {
   twitter: <BsTwitter />,
   instagram: <BsInstagram />,

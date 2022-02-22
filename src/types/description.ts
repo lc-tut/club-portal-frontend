@@ -1,5 +1,5 @@
 export type CarouselGalleryProps = {
-  imagePaths: string[]
+  imagePaths: Array<string>
 }
 
 export type IntroductionVideoProps = {
@@ -11,16 +11,29 @@ export type DescriptionProps = {
   links?: Array<{ label: string, path: string }>
 }
 
+export type PlaceAndTime = {
+  date: string
+  time: string
+  place: string
+  timeRemark?: string
+  placeRemark?: string
+}
+
 export type DetailInformationProps = {
-  activity?: string[]
-  datetime?: { [key: string]: string }
-  place?: string[]
-  mail?: string[]
-  website?: string[]
-  remark?: string[]
+  activity: Array<string>
+  placeAndTimes: Array<PlaceAndTime>
+  achievements?: Array<string>
+  mail?: Array<string>
+  website?: Array<string>
+  remark?: Array<string>
 }
 
 export type AnnualPlanProps = {[key in number]?: { schedule: string, remarks?: string }}
 
 export type SNSType = "twitter" | "instagram"
 export type AllSNSType = SNSType | "other"
+
+export type RemarkProps = {
+  texts: Array<string>
+  width?: string
+}
