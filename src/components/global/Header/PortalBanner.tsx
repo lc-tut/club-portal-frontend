@@ -6,9 +6,7 @@ type BannerProps = BoxProps & {
   subcolor?: string
 }
 
-export const PortalBanner: React.VFC<BannerProps> = (
-  props
-) => {
+export const PortalBanner: React.VFC<BannerProps> = (props) => {
   const mainColor = props.maincolor ?? "text.title.sub"
   const subColor = props.subcolor ?? "text.main"
 

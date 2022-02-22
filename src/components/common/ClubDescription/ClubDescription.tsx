@@ -1,11 +1,11 @@
 import { Flex, Grid, HStack, Icon, VStack } from "@chakra-ui/react"
 import React from "react"
 import { BsClock } from "react-icons/bs"
-import { FavoriteButton } from "../../components/common/Button"
-import { ClubTypeBadge } from "../../components/common/ClubTypeBadge"
-import { TitleArea } from "../../components/global/Header/TitleArea"
+import { FavoriteButton } from "../Button"
+import { ClubTypeBadge } from "../ClubTypeBadge"
+import { TitleArea } from "../../global/Header/TitleArea"
 
-import { IntroductionMovie } from "./IntroductionMovie"
+import { IntroductionVideo } from "./IntroductionMovie"
 import { DescriptionText } from "./DescriptionText"
 import { CarouselGallery } from "./CarouselGallery"
 import { DetailInformation } from "./DetailInformation"
@@ -34,9 +34,9 @@ const AnimatedClubDescription: React.VFC<{}> = () => {
         pb="6rem"
         alignItems="center"
       >
-        <IntroductionMovie youtubeurl="https://www.youtube.com/embed/dy90tA3TT1c" />
+        <IntroductionVideo videoPath="https://www.youtube.com/embed/dy90tA3TT1c" />
         <CarouselGallery
-          images={[
+          imagePaths={[
             "https://placekitten.com/g/640/360",
             "https://placehold.jp/400x400.png",
             "https://loremflickr.com/400/400",

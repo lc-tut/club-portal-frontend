@@ -20,7 +20,7 @@ import {
 } from "react-icons/bs"
 import { IconType } from "react-icons/lib"
 import { Link } from "react-router-dom"
-import { DetailInformationProps } from "../../types/description"
+import type { DetailInformationProps } from "../../../types/description"
 
 type GeneralInformationRowProps = {
   icon: IconType

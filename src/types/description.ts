@@ -1,15 +1,14 @@
 export type CarouselGalleryProps = {
-  images: string[]
+  imagePaths: string[]
 }
 
-export type IntroductionMovieProps = {
-  youtubeurl: string
+export type IntroductionVideoProps = {
+  videoPath: string
 }
 
 export type DescriptionProps = {
-  // [label: url] i.g. ["twitter": "twitter.com/~~"]
-  snslinks?: [string, string][]
   content: string
+  links?: Array<{ label: string, path: string }>
 }
 
 export type DetailInformationProps = {
@@ -21,11 +20,7 @@ export type DetailInformationProps = {
   remark?: string[]
 }
 
-export type AnnualPlanProps = {
-  month: number
-  schedules: string
-  remarks?: string
-}
+export type AnnualPlanProps = {[key in number]?: { schedule: string, remarks?: string }}
 
 export type SNSType = "twitter" | "instagram"
 export type AllSNSType = SNSType | "other"
