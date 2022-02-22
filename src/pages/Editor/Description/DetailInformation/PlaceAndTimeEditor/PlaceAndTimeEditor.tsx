@@ -2,14 +2,14 @@ import { HStack, Stack, Text, Wrap } from "@chakra-ui/react"
 import React, { Dispatch, SetStateAction, useState } from "react"
 import { EditorButton } from "../../../../../components/common/Editor/EditorButton"
 import { BUILDING_ID_MAP } from "../../../../../static/consts"
-import { Place, PlaceInput } from "./PlaceEditorComponents"
+import { Place, PlaceInput } from "./PlaceEditorComponent"
 import { RemarkInput } from "./RemarkEditorComponent"
 import {
   dateDisplayNameMap,
   DateSelect,
   Time,
   TimeInput,
-} from "./TimeEditorComponents"
+} from "./TimeEditorComponent"
 
 export type PlaceAndTimeItem = {
   date: string
