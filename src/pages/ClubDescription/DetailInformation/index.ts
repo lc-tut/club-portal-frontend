@@ -1,0 +1,1 @@
+export { DetailInformation } from "./DetailInformation"

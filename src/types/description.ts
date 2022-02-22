@@ -1,5 +1,5 @@
 export type CarouselGalleryProps = {
-  images: string[]
+  images: Array<string>
 }
 
 export type IntroductionMovieProps = {
@@ -8,23 +8,37 @@ export type IntroductionMovieProps = {
 
 export type DescriptionProps = {
   // [label: url] i.g. ["twitter": "twitter.com/~~"]
-  snslinks?: [string, string][]
+  snslinks?: Array<[string, string]>
   content: string
 }
 
+export type PlaceAndTime = {
+  date: string
+  time: string
+  place: string
+  timeRemark?: string
+  placeRemark?: string
+}
+
 export type DetailInformationProps = {
-  activity?: string[]
-  datetime?: { [key: string]: string }
-  place?: string[]
-  mail?: string[]
-  website?: string[]
-  remark?: string[]
+  activity: Array<string>
+  placeAndTimes: Array<PlaceAndTime>
+  achievements?: Array<string>
+  mail?: Array<string>
+  website?: Array<string>
+  remark?: Array<string>
 }
 
 export type AnnualPlanProps = {
   schedules: { [key: number]: string }
+  remark?: Array<string>
 }
 
 export const snsList = ["twitter", "instagram"] as const
 
-export type SnsId = typeof snsList[number] | "other"
+export type SNSId = typeof snsList[number] | "other"
+
+export type RemarkProps = {
+  texts: Array<string>
+  width?: string
+}
