@@ -4,10 +4,13 @@ import { PortalButton } from "../../../../components/common/Button"
 import { EditorBase } from "../../../../components/common/Editor/EditorBase"
 import { TitleArea } from "../../../../components/global/Header/TitleArea"
 import { PADDING_BEFORE_FOOTER } from "../../../../static/consts"
+import { AchievementEditor } from "./AchievementEditor"
 import type { StateDispatch } from "../../../../types/utils"
 import { ActivityEditor } from "./ActivityEditor"
-import { DatetimeEditor, DatetimeItem } from "./DatetimeEditor"
-import { PlaceEditor, PlaceItem } from "./PlaceEditor"
+import {
+  PlaceAndTimeEditor,
+  PlaceAndTimeItem,
+} from "./PlaceAndTimeEditor/PlaceAndTimeEditor"
 
 type GeneralInputAreaProps = {
   label: string
@@ -43,7 +46,7 @@ const GeneralInputArea: React.VFC<GeneralInputAreaProps> = (props) => {
 
   return (
     <>
-      <Text color="text.main" pl="0.2rem">
+      <Text color="text.main" pl="0.2rem" fontSize="1.2rem">
         {props.label}
       </Text>
       {inputElement}
@@ -57,29 +60,70 @@ export const DetailInformationEditor: React.VFC<{}> = () => {
     "活動内容その2です",
     "他にも何か色々やってます",
   ]
-  const [activities, setActivities] = useState(activityDummy)
-  const datetimeDummy: DatetimeItem[] = [
+  const placeAndTimeDummy: PlaceAndTimeItem[] = [
     {
       date: "mon",
-      time: "19:00 ~ 21:00",
+      startTime: {
+        hours: 0,
+        minutes: 0,
+      },
+      endTime: {
+        hours: 0,
+        minutes: 0,
+      },
+      isTimeOthers: true,
+      place: {
+        buildingId: 1,
+        roomNumber: 123,
+      },
+      isRoomNumberEmpty: false,
+      timeRemark: "時間は適当に決めてます",
+      placeRemark: "この場所はお気に入りです",
+    },
+    {
+      date: "tue",
+      startTime: {
+        hours: 20,
+        minutes: 0,
+      },
+      endTime: {
+        hours: 21,
+        minutes: 0,
+      },
+      isTimeOthers: false,
+      place: {
+        buildingId: 10,
+        roomNumber: 111,
+      },
+      isRoomNumberEmpty: false,
+      placeRemark:
+        "サークル棟たのしいいいいいいいいいいいいいああああああああああ",
     },
     {
       date: "wed",
-      time: "19:30 ~ 20:30",
+      startTime: {
+        hours: 19,
+        minutes: 30,
+      },
+      endTime: {
+        hours: 21,
+        minutes: 0,
+      },
+      isTimeOthers: false,
+      place: {
+        buildingId: 20,
+        roomNumber: 345,
+      },
+      isRoomNumberEmpty: false,
     },
   ]
-  const [datetimes, setDatetimes] = useState(datetimeDummy)
-  const [places, setPlaces] = useState<PlaceItem[]>([
-    {
-      place: "サークル棟000",
-    },
-    {
-      place: "講義実験棟111",
-      remarks: "たまに使用します",
-    },
-  ])
-  const [mail, setMail] = useState("")
-  const [hp, setHp] = useState("")
+  const achievementDummy = ["実績その1", "うんちもりもり"]
+  const [activities, setActivities] = useState<string[]>(activityDummy)
+  const [placeAndTimes, setPlaceAndTimes] =
+    useState<PlaceAndTimeItem[]>(placeAndTimeDummy)
+  const [achievements, setAchievements] = useState<string[]>(achievementDummy)
+  const [mail, setMail] = useState<string>("")
+  const [hp, setHp] = useState<string>("")
 
   return (
     <>
@@ -95,10 +139,16 @@ export const DetailInformationEditor: React.VFC<{}> = () => {
               <ActivityEditor items={activities} setItems={setActivities} />
             </GridItem>
             <GridItem colSpan={{ base: 1, md: 2 }}>
-              <DatetimeEditor items={datetimes} setItems={setDatetimes} />
+              <PlaceAndTimeEditor
+                items={placeAndTimes}
+                setItems={setPlaceAndTimes}
+              />
             </GridItem>
             <GridItem colSpan={{ base: 1, md: 2 }}>
-              <PlaceEditor items={places} setItems={setPlaces} />
+              <AchievementEditor
+                items={achievements}
+                setItems={setAchievements}
+              />
             </GridItem>
             <GridItem>
               <GeneralInputArea
