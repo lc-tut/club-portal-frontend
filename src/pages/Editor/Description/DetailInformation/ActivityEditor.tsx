@@ -1,16 +1,17 @@
 import { HStack, Input, Stack, Text } from "@chakra-ui/react"
-import { createRef, Dispatch, SetStateAction, useState } from "react"
+import { useRef, useState } from "react"
 import { EditorButton } from "../../../../components/common/Editor/EditorButton"
+import type { StateDispatch } from "../../../../types/utils"
 
 type ActivityEditorProps = {
   items: string[]
-  setItems: Dispatch<SetStateAction<string[]>>
+  setItems: StateDispatch<string[]>
 }
 
 export const ActivityEditor: React.VFC<ActivityEditorProps> = (props) => {
   const { items, setItems } = props
   const [inputData, setInputData] = useState("")
-  const inputRef = createRef<HTMLInputElement>()
+  const inputRef = useRef<HTMLInputElement>(null)
 
   const onAdd = (item: string) => {
     setItems([...items, item])

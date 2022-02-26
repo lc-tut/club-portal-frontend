@@ -1,6 +1,7 @@
 import { Flex, Grid, GridItem, HStack, Text, VStack } from "@chakra-ui/react"
 import React from "react"
 import { AnnualPlanProps } from "../../types/description"
+import { Remark } from "./Remark"
 
 export const AnnualPlan: React.VFC<AnnualPlanProps> = (props) => {
   const monthList = [4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3]
@@ -8,7 +9,9 @@ export const AnnualPlan: React.VFC<AnnualPlanProps> = (props) => {
   return (
     <GridItem colSpan={12}>
       <VStack>
-        <Text fontSize="1.5rem">年間予定</Text>
+        <Text fontSize="1.5rem" color="text.main">
+          年間予定
+        </Text>
         <Grid
           width="100%"
           templateRows={{ base: "repeat(12, 1fr)", md: "repeat(6, 1fr)" }}
@@ -40,6 +43,7 @@ export const AnnualPlan: React.VFC<AnnualPlanProps> = (props) => {
             )
           })}
         </Grid>
+        {props.remark && <Remark texts={props.remark ?? []} />}
       </VStack>
     </GridItem>
   )
