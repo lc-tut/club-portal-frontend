@@ -17,6 +17,7 @@ export type PlaceAndTimeItem = {
   endTime: Time
   isTimeOthers: boolean
   place: Place
+  isRoomNumberEmpty: boolean
   timeRemark?: string
   placeRemark?: string
 }
@@ -41,6 +42,7 @@ const defaultInputData: PlaceAndTimeItem = {
     buildingId: -1,
     roomNumber: 0,
   },
+  isRoomNumberEmpty: false,
   // undefined だと警告が出る
   timeRemark: "",
   placeRemark: "",

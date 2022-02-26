@@ -75,6 +75,7 @@ export const DetailInformationEditor: React.VFC<{}> = () => {
         buildingId: 1,
         roomNumber: 123,
       },
+      isRoomNumberEmpty: false,
       timeRemark: "時間は適当に決めてます",
       placeRemark: "この場所はお気に入りです",
     },
@@ -93,6 +94,7 @@ export const DetailInformationEditor: React.VFC<{}> = () => {
         buildingId: 10,
         roomNumber: 111,
       },
+      isRoomNumberEmpty: false,
       placeRemark:
         "サークル棟たのしいいいいいいいいいいいいいああああああああああ",
     },
@@ -111,6 +113,7 @@ export const DetailInformationEditor: React.VFC<{}> = () => {
         buildingId: 20,
         roomNumber: 345,
       },
+      isRoomNumberEmpty: false,
     },
   ]
   const achievementDummy = ["実績その1", "うんちもりもり"]

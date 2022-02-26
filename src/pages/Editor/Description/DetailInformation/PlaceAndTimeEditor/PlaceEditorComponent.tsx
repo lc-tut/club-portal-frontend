@@ -3,10 +3,11 @@ import { Dispatch, SetStateAction } from "react"
 import {
   EditorNumberInput,
   EditorSelect,
+  EditorSwitch,
 } from "../../../../../components/common/Editor/EditorInput"
 import { BUILDING_ID_MAP } from "../../../../../static/consts"
 import { EditorSelectOptionItem } from "../../../../../types/editor"
-import { PlaceAndTimeItem } from "./PlaceAndTimeEditor"
+import { PlaceAndTimeItem, updateInputData } from "./PlaceAndTimeEditor"
 
 export type Place = {
   buildingId: number
@@ -55,7 +56,19 @@ export const PlaceInput: React.VFC<PlaceInputProps> = (props) => {
           newInputData.place.roomNumber = value
           props.setInputData(newInputData)
         }}
-        isDisabled={false}
+        isDisabled={props.inputData.isRoomNumberEmpty}
+      />
+      <EditorSwitch
+        label="部屋番号なし"
+        onChange={(e) => {
+          updateInputData(
+            {
+              ...props.inputData,
+              isRoomNumberEmpty: e.target.checked,
+            },
+            props.setInputData
+          )
+        }}
       />
     </HStack>
   )
