@@ -59,6 +59,15 @@ export const Test: React.VFC<{}> = (props) => {
     <VStack>
       <Button onClick={postClub}>new club POST</Button>
       <Button onClick={postUser}>new user POST</Button>
+      <form id="test">
+        <input type="file" name="images" accept="image/*" />
+        <Button onClick={(e)=>{
+          e.preventDefault()
+          axios.post("/api/v1/upload/images", new FormData(document.getElementById("test") as HTMLFormElement ?? undefined))
+            .then((res) => console.log(res))
+            .catch((err) => console.log(err))
+        }} />
+      </form>
     </VStack>
   )
 }
