@@ -6,7 +6,7 @@ export type ButtonColor = "green" | "orange" | "yellow"
 
 type CommonPickedProps = Pick<
   ButtonProps,
-  "leftIcon" | "flex" | "onClick" | "isDisabled"
+  "leftIcon" | "flex" | "isDisabled" | "onClick"
 >
 
 type CommonProps = CommonPickedProps & {

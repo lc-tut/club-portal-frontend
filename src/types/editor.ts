@@ -24,3 +24,8 @@ export type EditorButtonProps = Pick<ButtonProps, "type"> & {
 export type EditorBaseProps = {
   onSubmit: Pick<UseFormReturn, "handleSubmit">
 }
+
+export type EditorSelectOptionItem = {
+  value: string
+  label: string
+}

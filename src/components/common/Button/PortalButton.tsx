@@ -61,23 +61,26 @@ export const PortalButton: React.VFC<
   }
 
   return (
-    <Button
-      width={width}
-      height={height}
-      borderRadius={borderRadius}
-      color={fgColor}
-      borderColor={borderColor}
-      borderWidth="1px"
-      backgroundColor={bgColor}
-      leftIcon={props.leftIcon}
-      flex={props.flex}
-      fontSize={props.fontSize}
-      onClick={props.onClick}
-      isDisabled={props.isDisabled}
-      _hover={hoverStyle}
-      _focus={{}}
-    >
-      {props.children}
-    </Button>
+    <Tooltip label={props.isDisabled ? "準備中です" : undefined}>
+      <Wrap flex={props.flex}>
+        <Button
+          width={width}
+          height={height}
+          borderRadius={borderRadius}
+          color={fgColor}
+          borderColor={borderColor}
+          borderWidth="1px"
+          backgroundColor={bgColor}
+          leftIcon={props.leftIcon}
+          fontSize={props.fontSize}
+          isDisabled={props.isDisabled}
+          onClick={props.onClick}
+          _hover={hoverStyle}
+          _focus={{}}
+        >
+          {props.children}
+        </Button>
+      </Wrap>
+    </Tooltip>
   )
 }
