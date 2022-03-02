@@ -87,6 +87,7 @@ const FilterArea: React.VFC<FilterAreaProps> = (props) => {
     flagKey: FilterFlagKey
   ) => {
     const newFilterInput = { ...props.filterInput }
+    newFilterInput.flags = { ...props.filterInput.flags }
     newFilterInput.flags[flagKey] = e.target.checked
     props.setFilterInput(newFilterInput)
   }
@@ -97,7 +98,9 @@ const FilterArea: React.VFC<FilterAreaProps> = (props) => {
   }
   const onReset = () => {
     console.log("猫リセット")
-    props.setFilterInput(defaultFilterInput)
+    const newFilterInput = { ...defaultFilterInput }
+    newFilterInput.flags = { ...defaultFilterInput.flags }
+    props.setFilterInput(newFilterInput)
   }
 
   const filterItemWrapper = (label: string, flagKey: FilterFlagKey) => {
@@ -124,6 +127,7 @@ const FilterArea: React.VFC<FilterAreaProps> = (props) => {
         width="18rem"
         backgroundColor="#fff"
         borderColor="form.frame"
+        textColor="text.main"
         placeholder="検索キーワード"
         value={props.filterInput.keyword}
         onChange={onKeywordChange}
