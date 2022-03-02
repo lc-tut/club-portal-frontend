@@ -97,7 +97,6 @@ const FilterArea: React.VFC<FilterAreaProps> = (props) => {
     props.setFilterInput(newFilterInput)
   }
   const onReset = () => {
-    console.log("猫リセット")
     const newFilterInput = { ...defaultFilterInput }
     newFilterInput.flags = { ...defaultFilterInput.flags }
     props.setFilterInput(newFilterInput)
