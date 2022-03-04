@@ -49,7 +49,7 @@ export const ClubPage: React.VFC<{}> = () => {
 
   return (
     <VStack flex="1">
-      <TitleArea subtitle="サークルの簡単な説明">サークル名</TitleArea>
+      <TitleArea subtitle={data.shortDescription}>{data.name}</TitleArea>
       <HStack spacing="2rem" pb="3rem">
         <Flex gap="10px" width="12rem" justifyContent="end">
           <ClubTypeBadge content={CAMPUS[data.campus]} badgetype="page" />
