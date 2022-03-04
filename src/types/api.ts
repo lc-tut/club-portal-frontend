@@ -34,7 +34,6 @@ export type Link = {
 export type Schedule = {
   month: number // 1 to 12 (uint8)
   schedule: string
-  remarks?: string
 }
 
 export type Achievement = {
@@ -79,7 +78,8 @@ export type ClubPageInternal = {
   shortDescription: string
   campus: number // 0, 1
   clubType: number // 0, 1, 2
-  remark?: string
+  clubRemark?: string
+  scheduleRemark?: string
   updatedAt: string // RFC3339
   contents: Array<Content>
   links: Array<Link>

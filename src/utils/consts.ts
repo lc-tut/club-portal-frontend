@@ -9,4 +9,15 @@ export const ACTIVITY: ReadonlyArray<BadgeActivity> = [
   "culture",
   "committee",
 ]
-export const MONTHS: ReadonlyArray<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+export const MONTHS: ReadonlyArray<number> = [
+  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
+]
+
+export const BUILDING_ID_MAP: { [key in number]: string } = {
+  1: "サークル棟",
+  10: "研究棟A",
+  11: "研究棟B",
+  12: "研究棟C",
+  13: "研究棟D",
+  20: "講義実験棟",
+}

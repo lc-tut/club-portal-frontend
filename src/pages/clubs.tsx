@@ -117,8 +117,7 @@ const AnimatedClubs: React.VFC<{}> = () => {
   const toast = useToast()
 
   const getCampus = (num: number): BadgeCampus => CAMPUS[num]
-  const getActivity = (num: number): BadgeActivity =>
-    ACTIVITY[num]
+  const getActivity = (num: number): BadgeActivity => ACTIVITY[num]
 
   return (
     <VStack

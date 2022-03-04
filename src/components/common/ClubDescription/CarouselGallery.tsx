@@ -18,13 +18,13 @@ export const CarouselGallery: React.VFC<CarouselGalleryProps> = (props) => {
         navigation={true}
         modules={[Pagination, Navigation]}
       >
-        {props.imagePaths.map((path, i) => {
+        {props.imagePaths.map((path, i) => (
           <SwiperSlide key={i}>
-          <AspectRatio ratio={16 / 9}>
-            <Image src={path} maxHeight="15rem" />
-          </AspectRatio>
-        </SwiperSlide>
-        })}
+            <AspectRatio ratio={16 / 9}>
+              <Image src={path} maxHeight="15rem" />
+            </AspectRatio>
+          </SwiperSlide>
+        ))}
       </Swiper>
     </GridItem>
   )

@@ -35,13 +35,13 @@ export const AnnualPlan: React.VFC<AnnualPlanProps> = (props) => {
                   >
                     {month}月
                   </Flex>
-                  <Text color="text.main">{props[month]?.schedule}</Text>
+                  <Text color="text.main">{props.schedules[month]}</Text>
                 </HStack>
               </GridItem>
             )
           })}
         </Grid>
-        {props.remark && <Remark texts={props.remark ?? []} />}
+        {props.remark && <Remark text={props.remark} />}
       </VStack>
     </GridItem>
   )

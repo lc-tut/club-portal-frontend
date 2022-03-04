@@ -39,7 +39,9 @@ export const DescriptionText: React.VFC<DescriptionProps> = (props) => {
               <Link href={link.path} key={link.path} isExternal>
                 <Button
                   color={registerdSNS ? fgColorMap[label] : "button.text.gray"}
-                  backgroundColor={registerdSNS ? bgColorMap[label] : "button.gray"}
+                  backgroundColor={
+                    registerdSNS ? bgColorMap[label] : "button.gray"
+                  }
                   leftIcon={registerdSNS ? iconMap[label] : <BsLink />}
                   fontSize="0.75rem"
                   borderRadius="2px"

@@ -8,7 +8,7 @@ import { TitleArea } from "../../global/Header/TitleArea"
 import { IntroductionVideo } from "./IntroductionMovie"
 import { DescriptionText } from "./DescriptionText"
 import { CarouselGallery } from "./CarouselGallery"
-import { DetailInformation } from "./DetailInformation/DetailInformation"
+import { DetailInformation } from "./DetailInformation"
 import { AnnualPlan } from "./AnnualPlan"
 
 const AnimatedClubDescription: React.VFC<{}> = () => {
@@ -46,9 +46,12 @@ const AnimatedClubDescription: React.VFC<{}> = () => {
           ]}
         />
         <DescriptionText
-          snslinks={[
-            ["twitter", "https://twitter.com/lc_tut"],
-            ["instagram", "https://www.instagram.com/instagram/"],
+          links={[
+            { label: "twitter", path: "https://twitter.com/lc_tut" },
+            {
+              label: "instagram",
+              path: "https://www.instagram.com/instagram/",
+            },
           ]}
           content="サークル説明サークル説明サークル説明サークル説明サークル説明 サークル説明サークル説明サークル説明サークル説明サークル説明 サークル説明サークル説明サークル説明サークル説明サークル説明 サークル説明サークル説明サークル説明サークル説明サークル説明 サークル説明サークル説明サークル説明サークル説明サークル説明 サークル説明サークル説明サークル説明サークル説明サークル説明 サークル説明サークル説明サークル説明"
         />
@@ -83,10 +86,9 @@ const AnimatedClubDescription: React.VFC<{}> = () => {
           ]}
           mail={["account@mail.example.com"]}
           website={["https://example.co.jp/introduce/this/club"]}
-          remark={[
-            "これは脚注ですうううううううううううううううあああああああああうおおおおおおおおおおおお",
-            "2行目です",
-          ]}
+          remark="これは脚注ですうううううううううううううううあああああああああうおおおおおおおおおおおお
+
+          2行目"
         />
         <AnnualPlan
           schedules={{
@@ -96,7 +98,7 @@ const AnimatedClubDescription: React.VFC<{}> = () => {
             10: "ああああああああ大会",
             12: "クリスマスパーティ",
           }}
-          remark={["これは脚注ですよおおおおおおおおお"]}
+          remark="これは脚注ですよおおおおおおおおお"
         />
       </Grid>
     </VStack>

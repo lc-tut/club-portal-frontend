@@ -2,52 +2,36 @@ import {
   Grid,
   GridItem,
   HStack,
+  List,
   ListItem,
   Stack,
   Text,
   UnorderedList,
   VStack,
-  Box,
-  List,
 } from "@chakra-ui/react"
-import React from "react"
+import { Fragment, PropsWithChildren } from "react"
 import {
   BsClock,
   BsEnvelope,
   BsLink45Deg,
-  BsPinMap,
   BsQuestionCircle,
+  BsTrophy,
 } from "react-icons/bs"
-import { IconType } from "react-icons/lib"
-import { Link } from "react-router-dom"
-import type { DetailInformationProps } from "../../../types/description"
+import type {
+  DetailInformationProps,
+  RowComponentProps,
+} from "../../../types/description"
+import { ActivityRemarkButton } from "./ActivityRemarkButton"
+import { Remark } from "./Remark"
 
-type GeneralInformationRowProps = {
-  icon: IconType
-  label: string
-  content: string[]
-  type?: "text" | "list" | "link" | "table"
-  islast?: boolean
-}
-
-type DateTimeInformationRowProps = {
-  content: { [key: string]: string }
-  islast?: boolean
-}
-
-type RowComponentProps = {
-  icon: IconType
-  label: string
-  content: JSX.Element
-  islast: boolean
-}
-
-const RowComponent: React.VFC<RowComponentProps> = (props) => {
+const RowComponent: React.VFC<PropsWithChildren<RowComponentProps>> = (
+  props
+) => {
   return (
     <HStack
       borderTop="1px"
       borderTopColor="text.sub"
-      borderBottom={props.islast ? "1px" : ""}
+      borderBottom={props.lastIndex ? "1px" : ""}
       borderBottomColor="text.sub"
       py="0.8rem"
     >
@@ -55,99 +39,10 @@ const RowComponent: React.VFC<RowComponentProps> = (props) => {
         <props.icon size="1.1rem" />
         <Text>{props.label}</Text>
       </HStack>
-      {props.content}
+      {props.children}
     </HStack>
   )
 }
-
-const GeneralInformationRow: React.VFC<GeneralInformationRowProps> = (
-  props
-) => {
-  const type = props.type ?? "text"
-  let content = <></>
-
-  switch (type) {
-    case "text":
-      content = (
-        <List textColor="text.main">
-          {props.content.map((item) => {
-            return <ListItem key={item}>{item}</ListItem>
-          })}
-        </List>
-      )
-      break
-
-    case "list":
-      content = (
-        <UnorderedList stylePosition="inside" color="text.main">
-          {" "}
-          {props.content?.map((item) => {
-            return <ListItem key={item}> {item} </ListItem>
-          })}
-        </UnorderedList>
-      )
-      break
-
-    case "link":
-      content = (
-        <List>
-          {" "}
-          {props.content.map((item) => {
-            return (
-              <ListItem key={item} textColor="green.600">
-                <Link to={item}>{item}</Link>
-              </ListItem>
-            )
-          })}
-        </List>
-      )
-      break
-
-    default:
-      break
-  }
-
-  return (
-    <RowComponent
-      icon={props.icon}
-      label={props.label}
-      content={content}
-      islast={props.islast || false}
-    />
-  )
-}
-
-const DateTimeInformationRow: React.VFC<DateTimeInformationRowProps> = (
-  props
-) => {
-  const items = []
-  for (const key in props.content) {
-    items.push(<GridItem key={key}>{key}</GridItem>)
-    items.push(
-      <GridItem key={props.content[key]}>{props.content[key]}</GridItem>
-    )
-  }
-
-  const content = (
-    <Grid
-      templateColumns="repeat(2, 1fr)"
-      textColor="text.main"
-      gridTemplateColumns={"4rem 1fr"}
-    >
-      {items}
-    </Grid>
-  )
-
-  return (
-    <RowComponent
-      icon={BsClock}
-      label="時間"
-      content={content}
-      islast={props.islast || false}
-    />
-  )
-}
-
 export const DetailInformation: React.VFC<DetailInformationProps> = (props) => {
   return (
     <GridItem colSpan={{ base: 12, md: 6 }}>
@@ -156,43 +51,68 @@ export const DetailInformation: React.VFC<DetailInformationProps> = (props) => {
           詳細情報
         </Text>
         <Stack alignSelf="stretch" spacing="0">
-          <GeneralInformationRow
-            icon={BsQuestionCircle}
-            label="活動内容"
-            content={props.activity ?? []}
-            type="list"
-          />
-          <DateTimeInformationRow content={props.datetime ?? {}} />
-          <GeneralInformationRow
-            icon={BsPinMap}
-            label="場所"
-            content={props.place ?? []}
-          />
-          <GeneralInformationRow
-            icon={BsEnvelope}
-            label="メール"
-            content={props.mail ?? []}
-          />
-          <GeneralInformationRow
-            icon={BsLink45Deg}
-            label="HP"
-            content={props.website ?? []}
-            islast={true}
-            type="link"
-          />
+          <RowComponent icon={BsQuestionCircle} label="活動内容">
+            <UnorderedList stylePosition="inside" color="text.main">
+              {props.activity?.map((item, i) => (
+                <ListItem key={i}>{item}</ListItem>
+              ))}
+            </UnorderedList>
+          </RowComponent>
+          <RowComponent icon={BsClock} label="日時・場所">
+            <Grid
+              templateColumns="auto 1fr"
+              columnGap="1rem"
+              textColor="text.main"
+            >
+              {props.placeAndTimes.map((pat, i) => (
+                <Fragment key={i}>
+                  <GridItem>
+                    <Text>{pat.date}</Text>
+                  </GridItem>
+                  <GridItem>
+                    <HStack>
+                      <Text w="9rem">{pat.time}</Text>
+                      {pat.timeRemark && (
+                        <ActivityRemarkButton text={pat.timeRemark} />
+                      )}
+                    </HStack>
+                  </GridItem>
+                  <GridItem />
+                  <GridItem>
+                    <HStack>
+                      <Text w="9rem">{pat.place}</Text>
+                      {pat.placeRemark && (
+                        <ActivityRemarkButton text={pat.placeRemark} />
+                      )}
+                    </HStack>
+                  </GridItem>
+                </Fragment>
+              ))}
+            </Grid>
+          </RowComponent>
+          <RowComponent icon={BsTrophy} label="実績">
+            <UnorderedList stylePosition="inside" color="text.main">
+              {props.achievements?.map((item, i) => (
+                <ListItem key={i}>{item}</ListItem>
+              ))}
+            </UnorderedList>
+          </RowComponent>
+          <RowComponent icon={BsEnvelope} label="メール">
+            <List textColor="text.main">
+              {props.mail?.map((item, i) => (
+                <ListItem key={i}>{item}</ListItem>
+              ))}
+            </List>
+          </RowComponent>
+          <RowComponent icon={BsLink45Deg} label="HP" lastIndex>
+            <List>
+            {props.website?.map((item, i) => (
+              <ListItem key={i} textColor="green.600">{item}</ListItem>
+            ))}
+            </List>
+          </RowComponent>
         </Stack>
-        {props.remark && (
-          <Box
-            width="100%"
-            p="1rem"
-            backgroundColor="background.remark"
-            textColor="text.modal.sub"
-            borderLeftWidth="1rem"
-            borderLeftColor="green.200"
-          >
-            <Text>{props.remark}</Text>
-          </Box>
-        )}
+        {props.remark && <Remark text={props.remark} />}
       </VStack>
     </GridItem>
   )
