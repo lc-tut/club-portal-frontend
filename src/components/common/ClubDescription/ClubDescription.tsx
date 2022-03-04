@@ -1,5 +1,4 @@
 import { Flex, Grid, HStack, Icon, VStack } from "@chakra-ui/react"
-import React from "react"
 import { BsClock } from "react-icons/bs"
 import { FavoriteButton } from "../Button"
 import { ClubTypeBadge } from "../ClubTypeBadge"
