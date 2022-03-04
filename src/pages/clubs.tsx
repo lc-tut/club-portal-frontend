@@ -119,6 +119,21 @@ const AnimatedClubs: React.VFC<{}> = () => {
   const getCampus = (num: number): BadgeCampus => CAMPUS[num]
   const getActivity = (num: number): BadgeActivity => ACTIVITY[num]
 
+  if (isError) {
+    return (
+      <>
+        {toast({
+          title: "Error!",
+          description: "データ取得中にエラーが発生しました！",
+          status: "error",
+          isClosable: true,
+          duration: 6000,
+          position: "top-right",
+        })}
+      </>
+    )
+  }
+
   return (
     <VStack
       flex="1"
@@ -126,18 +141,6 @@ const AnimatedClubs: React.VFC<{}> = () => {
       backgroundColor="background.main"
       spacing="1rem"
     >
-      {isError ? (
-        toast({
-          title: "Error!",
-          description: "データ取得中にエラーが発生しました！",
-          status: "error",
-          isClosable: true,
-          duration: 6000,
-          position: "top-right",
-        })
-      ) : (
-        <></>
-      )}
       {/* TODO: TitleAreaはHeaderに含めたい */}
       <TitleArea>サークル一覧</TitleArea>
       <HStack width="100%" height="100%" spacing="0">

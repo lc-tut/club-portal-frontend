@@ -22,7 +22,7 @@ const AnimatedRouter: React.VFC<{}> = () => {
   if (isLoading) {
     return (
       <AnimatePresence>
-        <Loading />
+        <Loading fullScreen />
       </AnimatePresence>
     )
   }

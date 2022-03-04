@@ -4,7 +4,7 @@ import { FavoriteButton } from "../Button"
 import { ClubTypeBadge } from "../ClubTypeBadge"
 import { TitleArea } from "../../global/Header/TitleArea"
 
-import { IntroductionVideo } from "./IntroductionMovie"
+import { IntroductionVideo } from "./IntroductionVideo"
 import { DescriptionText } from "./DescriptionText"
 import { CarouselGallery } from "./CarouselGallery"
 import { DetailInformation } from "./DetailInformation"
@@ -59,7 +59,7 @@ const AnimatedClubDescription: React.VFC<{}> = () => {
             "活動内容はああああああああああああです",
             "いいいいいという活動も行っています",
           ]}
-          placeAndTimes={[
+          timePlaces={[
             {
               date: "月",
               time: "19:00 ~ 21:00",

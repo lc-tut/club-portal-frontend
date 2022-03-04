@@ -42,21 +42,19 @@ export type Achievement = {
 
 export type Image = {
   imageID: number
+  path: string
 }
 
 export type Video = {
   path: string
 }
 
-export type Time = {
+export type TimePlace = {
   date: string
   time: string
-  remarks?: string
-}
-
-export type Place = {
+  timeRemarks?: string
   place: string
-  remarks?: string
+  placeRemarks?: string
 }
 
 export type ClubPageExternal = {
@@ -87,8 +85,7 @@ export type ClubPageInternal = {
   achievements: Array<Achievement>
   images: Array<Image>
   videos: Array<Video>
-  times: Array<Time>
-  places: Array<Place>
+  timePlaces: Array<TimePlace>
 }
 
 export type ActivityDetail = {

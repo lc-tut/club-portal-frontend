@@ -64,7 +64,7 @@ export const DetailInformation: React.VFC<DetailInformationProps> = (props) => {
               columnGap="1rem"
               textColor="text.main"
             >
-              {props.placeAndTimes.map((pat, i) => (
+              {props.timePlaces.map((pat, i) => (
                 <Fragment key={i}>
                   <GridItem>
                     <Text>{pat.date}</Text>
@@ -106,9 +106,11 @@ export const DetailInformation: React.VFC<DetailInformationProps> = (props) => {
           </RowComponent>
           <RowComponent icon={BsLink45Deg} label="HP" lastIndex>
             <List>
-            {props.website?.map((item, i) => (
-              <ListItem key={i} textColor="green.600">{item}</ListItem>
-            ))}
+              {props.website?.map((item, i) => (
+                <ListItem key={i} textColor="green.600">
+                  {item}
+                </ListItem>
+              ))}
             </List>
           </RowComponent>
         </Stack>

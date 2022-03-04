@@ -13,7 +13,7 @@ export type DescriptionProps = {
   links?: Array<{ label: string; path: string }>
 }
 
-export type PlaceAndTime = {
+export type TimePlace = {
   date: string
   time: string
   place: string
@@ -23,7 +23,7 @@ export type PlaceAndTime = {
 
 export type DetailInformationProps = {
   activity: Array<string>
-  placeAndTimes: Array<PlaceAndTime>
+  timePlaces: Array<TimePlace>
   achievements?: Array<string>
   mail?: Array<string>
   website?: Array<string>
