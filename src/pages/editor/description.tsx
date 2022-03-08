@@ -1,25 +1,101 @@
-import { Textarea, VStack } from "@chakra-ui/react"
+import {
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  Textarea,
+  VStack,
+} from "@chakra-ui/react"
 import { PortalButton } from "../../components/common/Button"
 import { EditorBase } from "../../components/common/Editor/EditorBase"
 import { TitleArea } from "../../components/global/Header/TitleArea"
+import { useAPI } from "../../hooks/useAPI"
+import { useOutletUser } from "../../hooks/useOutletUser"
+import { Description } from "../../types/api"
 import { PADDING_BEFORE_FOOTER } from "../../utils/consts"
+import * as z from "zod"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Loading } from "../../components/global/LoadingPage"
+import { ErrorPage } from "../error"
+import { axiosWithPayload } from "../../utils/axios"
+import { AxiosRequestConfig } from "axios"
+import { useState } from "react"
+import { ErrorToast } from "../../components/global/ErrorToast"
+
+const schema = z.object({
+  desciption: z.string(),
+})
 
 export const DescriptionEditor: React.VFC<{}> = () => {
+  const { clubUUID } = useOutletUser()
+  const { data, isLoading, isError } = useAPI<Description>(
+    `/api/v1/uuid/${clubUUID!}/description`
+  )
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<Description>({
+    defaultValues: data,
+    resolver: zodResolver(schema),
+  })
+  const [postError, setPostError] = useState<boolean>(false)
+
+  const onSubmit = handleSubmit(async (data) => {
+    const requestConfig: AxiosRequestConfig<Description> = {
+      url: `/api/v1/uuid/${clubUUID!}/description`,
+      method: "put",
+      data: data,
+    }
+    try {
+      await axiosWithPayload<
+        Description,
+        AxiosRequestConfig<Description>,
+        Description
+      >(requestConfig)
+    } catch (e) {
+      setPostError(true)
+    }
+  })
+
+  if (isLoading) {
+    ;<Loading fullScreen />
+  }
+
+  if (isError) {
+    ;<ErrorPage />
+  }
+
   return (
     <VStack flex="1" pb={PADDING_BEFORE_FOOTER}>
       <TitleArea>サークル説明文の編集</TitleArea>
-      <form>
+      <form onSubmit={onSubmit}>
         <EditorBase>
-          <Textarea
-            backgroundColor="#fff"
-            w="30rem"
-            h="10rem"
-            placeholder="サークルの説明文を入力して下さい"
-            resize="none"
-          />
+          <FormControl isInvalid={errors.description !== undefined}>
+            <FormLabel fontSize="0.8rem" color="text.sub">
+              サークルの説明文
+            </FormLabel>
+            <Textarea
+              {...(register("description"),
+              {
+                required: true,
+                minLength: 1,
+              })}
+              backgroundColor="#fff"
+              w="30rem"
+              h="10rem"
+              placeholder="サークルの説明文を入力して下さい"
+              value={data.description}
+              resize="none"
+            />
+            <FormErrorMessage>
+              {errors.description && errors.description.message}
+            </FormErrorMessage>
+          </FormControl>
           <PortalButton type="submit">保存</PortalButton>
         </EditorBase>
       </form>
+      {postError && <ErrorToast desc="データの保存に失敗しました。" />}
     </VStack>
   )
 }

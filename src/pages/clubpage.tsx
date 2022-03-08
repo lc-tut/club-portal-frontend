@@ -1,4 +1,4 @@
-import { Flex, Grid, HStack, Icon, useToast, VStack } from "@chakra-ui/react"
+import { Flex, Grid, HStack, Icon, VStack } from "@chakra-ui/react"
 import { BsClock } from "react-icons/bs"
 import { useLocation } from "react-router-dom"
 import { FavoriteButton } from "../components/common/Button"
@@ -15,10 +15,10 @@ import { Loading } from "../components/global/LoadingPage"
 import { useAPI } from "../hooks/useAPI"
 import type { ClubPageInternal } from "../types/api"
 import { ACTIVITY, CAMPUS } from "../utils/consts"
+import { ErrorPage } from "./error"
 
 // TODO: アニメーションをつける
 export const ClubPage: React.VFC<{}> = () => {
-  const toast = useToast()
   const clubSlug = useLocation()
   const { data, isLoading, isError } = useAPI<ClubPageInternal>(
     `/api/v1/clubs/slug${clubSlug.pathname}`
@@ -29,16 +29,7 @@ export const ClubPage: React.VFC<{}> = () => {
   if (isError)
     return (
       // TODO: 存在しない clubSlug に対しては NotFound ページを出す
-      <>
-        {toast({
-          title: "Error!",
-          description: "データ取得中にエラーが発生しました！",
-          status: "error",
-          isClosable: true,
-          duration: 6000,
-          position: "top-right",
-        })}
-      </>
+      <ErrorPage />
     )
 
   const schedule: { [key in number]: string } = {}

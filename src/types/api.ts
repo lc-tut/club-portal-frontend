@@ -26,6 +26,10 @@ export type Content = {
   content: string
 }
 
+export type Description = {
+  description: string
+}
+
 export type Link = {
   label: string
   url: string
@@ -153,6 +157,13 @@ export type APIPayload =
   | UnregisterFavoriteClubPayload
   | CreateClubPayload
   | UpdateClubPayload
+  | Description
+  | Array<Link>
+  | Array<Content>
+  | Array<Schedule>
+  | Array<Achievement>
+  | Array<Video>
+  | Array<ActivityDetail>
 
 export type APIResponse =
   | UserInfo
@@ -166,3 +177,4 @@ export type APIResponse =
   | Array<Achievement>
   | Array<Video>
   | Array<TimePlace>
+  | Description

@@ -1,13 +1,13 @@
 import { useToast } from "@chakra-ui/react"
 
-export const ErrorToast: React.VFC<{}> = () => {
+export const ErrorToast: React.VFC<{ desc: string }> = (props) => {
   const toast = useToast()
 
   return (
     <>
       {toast({
         title: "Error!",
-        description: "データ取得中にエラーが発生しました！",
+        description: props.desc,
         status: "error",
         isClosable: true,
         duration: 6000,

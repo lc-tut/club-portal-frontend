@@ -25,4 +25,4 @@ const axiosWithPayload = async <
   return res
 }
 
-export { axiosFetcher }
+export { axiosFetcher, axiosWithPayload }

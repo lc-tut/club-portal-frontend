@@ -22,11 +22,11 @@ import { SNSType } from "../../types/description"
 import { useAPI } from "../../hooks/useAPI"
 import { Link } from "../../types/api"
 import { useOutletUser } from "../../hooks/useOutletUser"
-
-type SNSLinkItem = {
-  label: string
-  url: string
-}
+import { Loading } from "../../components/global/LoadingPage"
+import { ErrorPage } from "../error"
+import { AxiosRequestConfig } from "axios"
+import { axiosWithPayload } from "../../utils/axios"
+import { ErrorToast } from "../../components/global/ErrorToast"
 
 const schema = z.object({
   label: z.string(),
@@ -34,10 +34,10 @@ const schema = z.object({
 })
 
 export const LinkEditor: React.VFC<{}> = () => {
-  // const { clubUUID } = useOutletUser()
-  // const { data, isLoading, isError } = useAPI<Array<Link>>(
-  //   `/api/v1/uuid/${clubUUID!}/link`
-  // )
+  const { clubUUID } = useOutletUser()
+  const { data, isLoading, isError } = useAPI<Array<Link>>(
+    `/api/v1/uuid/${clubUUID!}/link`
+  )
   const {
     handleSubmit,
     register,
@@ -45,11 +45,14 @@ export const LinkEditor: React.VFC<{}> = () => {
     setError,
     clearErrors,
     formState: { errors },
-  } = useForm<SNSLinkItem>({
+  } = useForm<Link>({
     defaultValues: { label: "", url: "" },
     resolver: zodResolver(schema),
   })
-  const [items, setItems] = useState<Array<SNSLinkItem>>([])
+  const [items, setItems] = useState<Array<Link>>(
+    data.filter((d) => d.label !== "HP" && d.label !== "Email")
+  )
+  const [postError, setPostError] = useState<boolean>(false)
 
   const values = watch()
 
@@ -58,13 +61,19 @@ export const LinkEditor: React.VFC<{}> = () => {
     let err = false
     if (values.label === "") {
       err = true
-      setError("label", { type: "required", message: "SNSを選択してください." })
+      setError("label", {
+        type: "required",
+        message: "SNSを選択してください。",
+      })
     } else {
       clearErrors("label")
     }
     if (values.url === "" || !z.string().url().safeParse(values.url).success) {
       err = true
-      setError("url", { type: "validate", message: "有効なURLではありません." })
+      setError("url", {
+        type: "validate",
+        message: "有効なURLではありません。",
+      })
     } else {
       clearErrors("url")
     }
@@ -73,13 +82,35 @@ export const LinkEditor: React.VFC<{}> = () => {
     }
   }
 
-  const onRemove = (item: SNSLinkItem) => {
+  const onRemove = (item: Link) => {
     setItems(items.filter((obj) => !Object.is(obj, item)))
   }
 
-  const onSubmit = handleSubmit((data) => {
+  const onSubmit = handleSubmit(async () => {
     // TODO: Submit process
+    const requestConfig: AxiosRequestConfig<Array<Link>> = {
+      url: `/api/v1/uuid/${clubUUID!}/link`,
+      method: "put",
+      data: items,
+    }
+    try {
+      await axiosWithPayload<
+        Array<Link>,
+        AxiosRequestConfig<Array<Link>>,
+        Array<Link>
+      >(requestConfig)
+    } catch (e) {
+      setPostError(true)
+    }
   })
+
+  if (isLoading) {
+    ;<Loading fullScreen />
+  }
+
+  if (isError) {
+    ;<ErrorPage />
+  }
 
   return (
     <VStack flex="1" pb={PADDING_BEFORE_FOOTER}>
@@ -148,6 +179,7 @@ export const LinkEditor: React.VFC<{}> = () => {
           <PortalButton type="submit">保存</PortalButton>
         </EditorBase>
       </form>
+      {postError && <ErrorToast desc="データの保存に失敗しました。" />}
     </VStack>
   )
 }

@@ -156,34 +156,39 @@ export const IconEditor: React.VFC<{}> = () => {
   return (
     <VStack flex="1" pb={PADDING_BEFORE_FOOTER}>
       <TitleArea>サークルアイコンの変更</TitleArea>
-      <Input
-        type="file"
-        accept="image/png, image/jpeg"
-        display="none"
-        ref={inputRef}
-        value=""
-        onChange={onImageLoad}
-      />
-      <ResizeModal
-        image={inputImage ?? new Image()}
-        setImage={setInputImage}
-        isOpen={isOpen}
-        onClose={onClose}
-        crop={crop}
-        setCrop={setCrop}
-        setIcon={setIcon}
-      />
-      <EditorBase>
-        {icon !== "" ? (
-          <ChakraImage src={icon} w="10rem" h="auto" />
-        ) : (
-          <PortalLogo boxSize="10rem" />
-        )}
-        <PortalButton pbstyle="solid" onClick={() => inputRef.current?.click()}>
-          画像をアップロード
-        </PortalButton>
-        <PortalButton>保存</PortalButton>
-      </EditorBase>
+      <form>
+        <Input
+          type="file"
+          accept="image/png, image/jpeg"
+          display="none"
+          ref={inputRef}
+          value=""
+          onChange={onImageLoad}
+        />
+        <ResizeModal
+          image={inputImage ?? new Image()}
+          setImage={setInputImage}
+          isOpen={isOpen}
+          onClose={onClose}
+          crop={crop}
+          setCrop={setCrop}
+          setIcon={setIcon}
+        />
+        <EditorBase>
+          {icon !== "" ? (
+            <ChakraImage src={icon} w="10rem" h="auto" />
+          ) : (
+            <PortalLogo boxSize="10rem" />
+          )}
+          <PortalButton
+            pbstyle="solid"
+            onClick={() => inputRef.current?.click()}
+          >
+            画像をアップロード
+          </PortalButton>
+          <PortalButton>保存</PortalButton>
+        </EditorBase>
+      </form>
     </VStack>
   )
 }
