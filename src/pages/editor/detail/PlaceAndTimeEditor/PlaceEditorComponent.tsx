@@ -4,9 +4,9 @@ import {
   EditorNumberInput,
   EditorSelect,
   EditorSwitch,
-} from "../../../../../components/common/Editor/EditorInput"
-import { BUILDING_ID_MAP } from "../../../../../utils/consts"
-import { EditorSelectOptionItem } from "../../../../../types/editor"
+} from "../../../../components/common/Editor/EditorInput"
+import { BUILDING_ID_MAP } from "../../../../utils/consts"
+import { EditorSelectOptionItem } from "../../../../types/editor"
 import { PlaceAndTimeItem, updateInputData } from "./PlaceAndTimeEditor"
 
 export type Place = {

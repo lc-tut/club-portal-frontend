@@ -19,11 +19,11 @@ import {
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { BsQuestionCircle } from "react-icons/bs"
-import { PortalButton } from "../../../components/common/Button"
-import { EditorBase } from "../../../components/common/Editor/EditorBase"
-import { TitleArea } from "../../../components/global/Header/TitleArea"
-import { PADDING_BEFORE_FOOTER } from "../../../utils/consts"
-import type { StateDispatch } from "../../../types/utils"
+import { PortalButton } from "../../components/common/Button"
+import { EditorBase } from "../../components/common/Editor/EditorBase"
+import { TitleArea } from "../../components/global/Header/TitleArea"
+import { PADDING_BEFORE_FOOTER } from "../../utils/consts"
+import type { StateDispatch } from "../../types/utils"
 
 function parseVideoId(
   input: string,
@@ -102,7 +102,7 @@ const HelpModal = () => {
   )
 }
 
-export const IntroductionVideoEditor: React.VFC<{}> = () => {
+export const VideoEditor: React.VFC<{}> = () => {
   const {
     handleSubmit,
     register,

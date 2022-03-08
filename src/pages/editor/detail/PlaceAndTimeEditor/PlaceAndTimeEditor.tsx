@@ -1,7 +1,7 @@
 import { HStack, Stack, Text, Wrap } from "@chakra-ui/react"
 import React, { Dispatch, SetStateAction, useState } from "react"
-import { EditorButton } from "../../../../../components/common/Editor/EditorButton"
-import { BUILDING_ID_MAP } from "../../../../../utils/consts"
+import { EditorButton } from "../../../../components/common/Editor/EditorButton"
+import { BUILDING_ID_MAP } from "../../../../utils/consts"
 import { Place, PlaceInput } from "./PlaceEditorComponent"
 import { RemarkInput } from "./RemarkEditorComponent"
 import {

@@ -1,10 +1,10 @@
 import { Grid, GridItem, Stack, Text, Textarea, VStack } from "@chakra-ui/react"
 import { useState } from "react"
-import { PortalButton } from "../../../components/common/Button"
-import { EditorBase } from "../../../components/common/Editor/EditorBase"
-import { TitleArea } from "../../../components/global/Header/TitleArea"
-import { PADDING_BEFORE_FOOTER } from "../../../utils/consts"
-import type { StateDispatch } from "../../../types/utils"
+import { PortalButton } from "../../components/common/Button"
+import { EditorBase } from "../../components/common/Editor/EditorBase"
+import { TitleArea } from "../../components/global/Header/TitleArea"
+import { PADDING_BEFORE_FOOTER } from "../../utils/consts"
+import type { StateDispatch } from "../../types/utils"
 
 const months = [4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3]
 
@@ -36,7 +36,7 @@ const MonthInputArea: React.VFC<MonthInputAreaProps> = (props) => {
   )
 }
 
-export const AnualPlanEditor: React.VFC<{}> = () => {
+export const ScheduleEditor: React.VFC<{}> = () => {
   // ここでデータを取得するが、要素数が12なるようにする
   const dummy = [
     "1月の予定",

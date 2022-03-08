@@ -1,11 +1,11 @@
 import { Grid, GridItem, Input, Text, Textarea, VStack } from "@chakra-ui/react"
 import { useState } from "react"
-import { PortalButton } from "../../../../components/common/Button"
-import { EditorBase } from "../../../../components/common/Editor/EditorBase"
-import { TitleArea } from "../../../../components/global/Header/TitleArea"
-import { PADDING_BEFORE_FOOTER } from "../../../../utils/consts"
+import { PortalButton } from "../../../components/common/Button"
+import { EditorBase } from "../../../components/common/Editor/EditorBase"
+import { TitleArea } from "../../../components/global/Header/TitleArea"
+import { PADDING_BEFORE_FOOTER } from "../../../utils/consts"
 import { AchievementEditor } from "./AchievementEditor"
-import type { StateDispatch } from "../../../../types/utils"
+import type { StateDispatch } from "../../../types/utils"
 import { ActivityEditor } from "./ActivityEditor"
 import {
   PlaceAndTimeEditor,
@@ -54,7 +54,7 @@ const GeneralInputArea: React.VFC<GeneralInputAreaProps> = (props) => {
   )
 }
 
-export const DetailInformationEditor: React.VFC<{}> = () => {
+export const DetailEditor: React.VFC<{}> = () => {
   const activityDummy = [
     "活動内容その1",
     "活動内容その2です",

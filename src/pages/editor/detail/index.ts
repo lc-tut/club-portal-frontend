@@ -1,0 +1,1 @@
+export { DetailEditor } from "./DetailInformationEditor"

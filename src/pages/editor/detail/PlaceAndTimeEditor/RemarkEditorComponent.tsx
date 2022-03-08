@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react"
-import { EditorTextInput } from "../../../../../components/common/Editor/EditorInput"
+import { EditorTextInput } from "../../../../components/common/Editor/EditorInput"
 import { PlaceAndTimeItem } from "./PlaceAndTimeEditor"
 
 type RemarkInputProps = {

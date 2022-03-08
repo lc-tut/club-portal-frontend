@@ -1,6 +1,6 @@
 import { HStack, Input, Stack, Text } from "@chakra-ui/react"
 import { ChangeEvent, Dispatch, SetStateAction, useState } from "react"
-import { EditorButton } from "../../../../components/common/Editor/EditorButton"
+import { EditorButton } from "../../../components/common/Editor/EditorButton"
 
 type AchievementEditorProps = {
   items: string[]

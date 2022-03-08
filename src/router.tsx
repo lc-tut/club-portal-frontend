@@ -40,15 +40,14 @@ const AnimatedRouter: React.VFC<{}> = () => {
             </Route>
             <Route path="users">
               <Route path="edit">
-                <Route index element={<page.Editors />} />
-                <Route path="description">
-                  <Route index element={<page.DescriptionEditors />} />
-                  <Route
-                    path=":page"
-                    element={<page.DescriptionEditorRouter />}
-                  />
-                </Route>
-                <Route path=":page" element={<page.EditorRouter />} />
+                <Route index element={<page.EditorList />} />
+                <Route path="description" element={<page.DescriptionEditor />} />
+                <Route path="detail" element={<page.DetailEditor />} />
+                <Route path="image" element={<page.ImageEditor />} />
+                <Route path="link" element={<page.LinkEditor />} />
+                <Route path="schedule" element={<page.ScheduleEditor />} />
+                <Route path="video" element={<page.VideoEditor />} />
+                <Route path="icon" element={<page.IconEditor />} />
               </Route>
               <Route path=":uuid" />
             </Route>

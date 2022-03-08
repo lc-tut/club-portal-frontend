@@ -5,8 +5,8 @@ import {
   EditorSelect,
   EditorSwitch,
   EditorText,
-} from "../../../../../components/common/Editor/EditorInput"
-import { EditorSelectOptionItem } from "../../../../../types/editor"
+} from "../../../../components/common/Editor/EditorInput"
+import { EditorSelectOptionItem } from "../../../../types/editor"
 import { PlaceAndTimeItem, updateInputData } from "./PlaceAndTimeEditor"
 
 export type Time = {

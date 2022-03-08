@@ -16,12 +16,12 @@ import {
   VStack,
 } from "@chakra-ui/react"
 import { createRef, useState } from "react"
-import { PortalButton } from "../../../components/common/Button"
-import { EditorBase } from "../../../components/common/Editor/EditorBase"
-import { EditorButton } from "../../../components/common/Editor/EditorButton"
-import { TitleArea } from "../../../components/global/Header/TitleArea"
-import { PADDING_BEFORE_FOOTER } from "../../../utils/consts"
-import { StateDispatch } from "../../../types/utils"
+import { PortalButton } from "../../components/common/Button"
+import { EditorBase } from "../../components/common/Editor/EditorBase"
+import { EditorButton } from "../../components/common/Editor/EditorButton"
+import { TitleArea } from "../../components/global/Header/TitleArea"
+import { PADDING_BEFORE_FOOTER } from "../../utils/consts"
+import { StateDispatch } from "../../types/utils"
 
 type ImageModalProps = {
   image: string
@@ -82,7 +82,7 @@ const ImagePreviews: React.VFC<ImagePreviewsProps> = (props) => {
   )
 }
 
-export const ImagesEditor: React.VFC<{}> = () => {
+export const ImageEditor: React.VFC<{}> = () => {
   const dummy = [
     "https://placekitten.com/g/640/360",
     "https://placehold.jp/400x400.png",

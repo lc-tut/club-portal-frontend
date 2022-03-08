@@ -12,10 +12,10 @@ import {
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { EditorBase } from "../../../components/common/Editor/EditorBase"
-import { EditorButton } from "../../../components/common/Editor/EditorButton"
-import { TitleArea } from "../../../components/global/Header/TitleArea"
-import { PADDING_BEFORE_FOOTER, VALID_SNS_LIST } from "../../../utils/consts"
+import { EditorBase } from "../../components/common/Editor/EditorBase"
+import { EditorButton } from "../../components/common/Editor/EditorButton"
+import { TitleArea } from "../../components/global/Header/TitleArea"
+import { PADDING_BEFORE_FOOTER, VALID_SNS_LIST } from "../../utils/consts"
 import * as z from "zod"
 
 type SNSLinkItem = {
@@ -29,7 +29,7 @@ const schema = z.object({
 })
 
 // TODO: 個別 API へ叩く処理
-export const SNSLinkEditor: React.VFC<{}> = () => {
+export const LinkEditor: React.VFC<{}> = () => {
   const {
     handleSubmit,
     register,
@@ -65,7 +65,7 @@ export const SNSLinkEditor: React.VFC<{}> = () => {
 
   return (
     <VStack flex="1" pb={PADDING_BEFORE_FOOTER}>
-      <TitleArea>SNSリンクの編集</TitleArea>
+      <TitleArea>外部リンクの編集</TitleArea>
       <EditorBase>
         <form onSubmit={onSubmit}>
           <FormControl
