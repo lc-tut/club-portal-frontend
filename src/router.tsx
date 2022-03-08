@@ -36,7 +36,7 @@ const AnimatedRouter: React.VFC<{}> = () => {
             <Route index element={<page.Top />} />
             <Route path="clubs">
               <Route index element={<page.Clubs />} />
-              <Route path=":slug" />
+              <Route path=":slug" element={<page.ClubPage />} />
             </Route>
             <Route path="users">
               <Route path="edit">
@@ -53,10 +53,6 @@ const AnimatedRouter: React.VFC<{}> = () => {
               <Route path=":uuid" />
             </Route>
             <Route path="*" element={<page.NotFound />} />
-            <Route
-              path="club-description-test"
-              element={<page.ClubDescription />}
-            />
           </Routes>
         </AnimatePresence>
       </Flex>

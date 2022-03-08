@@ -52,9 +52,9 @@ export type Video = {
 export type TimePlace = {
   date: string
   time: string
-  timeRemarks?: string
+  timeRemark?: string
   place: string
-  placeRemarks?: string
+  placeRemark?: string
 }
 
 export type ClubPageExternal = {

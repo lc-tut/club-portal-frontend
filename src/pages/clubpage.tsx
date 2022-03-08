@@ -82,9 +82,9 @@ export const ClubPage: React.VFC<{}> = () => {
           timePlaces={data.timePlaces.map((tp) => ({
             date: tp.date,
             time: tp.time,
-            timeRemark: tp.timeRemarks,
+            timeRemark: tp.timeRemark,
             place: tp.place,
-            placeRemark: tp.placeRemarks,
+            placeRemark: tp.placeRemark,
           }))}
           achievements={data.achievements.map((ach) => ach.achievement)}
           mail={data.links
