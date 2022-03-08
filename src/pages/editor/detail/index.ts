@@ -1,1 +1,1 @@
-export { DetailEditor } from "./DetailInformationEditor"
+export { DetailEditor } from "../detail"

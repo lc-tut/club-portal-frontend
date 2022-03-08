@@ -121,50 +121,52 @@ export const ImageEditor: React.VFC<{}> = () => {
   return (
     <VStack flex="1" pb={PADDING_BEFORE_FOOTER}>
       <TitleArea>画像の掲載・変更</TitleArea>
-      <Input
-        type="file"
-        accept="image/png, image/jpeg"
-        display="none"
-        ref={inputRef}
-        onChange={(e) => onAdd(e)}
-      />
-      <EditorBase>
-        <VStack>
-          <PortalButton onClick={() => inputRef.current?.click()}>
-            画像をアップロード
-          </PortalButton>
-          <Text color="text.main">
-            掲載時に画像は16:9の比率で切り抜かれます
-          </Text>
-        </VStack>
-        <VStack spacing="2rem">
-          <Text color="text.main">画像クリックで拡大</Text>
-          <Grid
-            templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)" }}
-            columnGap="2rem"
-            rowGap="2rem"
-          >
-            <ImagePreviews
-              items={images}
-              setItems={setImages}
-              onPreviewClick={onClick}
-            />
-            <ImagePreviews
-              items={inputImages}
-              setItems={setInputImages}
-              onPreviewClick={onClick}
-              isNew
-            />
-          </Grid>
-          <ImageModal image={modalImage} isOpen={isOpen} onClose={onClose} />
-        </VStack>
-        <VStack>
-          <PortalButton type="submit">保存</PortalButton>
-          <Text color="text.main">
-            新しく追加された画像: {inputImages?.length ?? 0} 件
-          </Text>
-        </VStack>
-      </EditorBase>
+      <form>
+        <Input
+          type="file"
+          accept="image/png, image/jpeg"
+          display="none"
+          ref={inputRef}
+          onChange={(e) => onAdd(e)}
+        />
+        <EditorBase>
+          <VStack>
+            <PortalButton onClick={() => inputRef.current?.click()}>
+              画像をアップロード
+            </PortalButton>
+            <Text color="text.main">
+              掲載時に画像は16:9の比率で切り抜かれます
+            </Text>
+          </VStack>
+          <VStack spacing="2rem">
+            <Text color="text.main">画像クリックで拡大</Text>
+            <Grid
+              templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)" }}
+              columnGap="2rem"
+              rowGap="2rem"
+            >
+              <ImagePreviews
+                items={images}
+                setItems={setImages}
+                onPreviewClick={onClick}
+              />
+              <ImagePreviews
+                items={inputImages}
+                setItems={setInputImages}
+                onPreviewClick={onClick}
+                isNew
+              />
+            </Grid>
+            <ImageModal image={modalImage} isOpen={isOpen} onClose={onClose} />
+          </VStack>
+          <VStack>
+            <PortalButton type="submit">保存</PortalButton>
+            <Text color="text.main">
+              新しく追加された画像: {inputImages?.length ?? 0} 件
+            </Text>
+          </VStack>
+        </EditorBase>
+      </form>
     </VStack>
   )
 }

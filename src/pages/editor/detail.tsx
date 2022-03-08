@@ -1,16 +1,16 @@
 import { Grid, GridItem, Input, Text, Textarea, VStack } from "@chakra-ui/react"
 import { useState } from "react"
-import { PortalButton } from "../../../components/common/Button"
-import { EditorBase } from "../../../components/common/Editor/EditorBase"
-import { TitleArea } from "../../../components/global/Header/TitleArea"
-import { PADDING_BEFORE_FOOTER } from "../../../utils/consts"
-import { AchievementEditor } from "./AchievementEditor"
-import type { StateDispatch } from "../../../types/utils"
-import { ActivityEditor } from "./ActivityEditor"
+import { PortalButton } from "../../components/common/Button"
+import { EditorBase } from "../../components/common/Editor/EditorBase"
+import { TitleArea } from "../../components/global/Header/TitleArea"
+import { PADDING_BEFORE_FOOTER } from "../../utils/consts"
+import { AchievementEditor } from "../../components/common/Editor/AchievementEditor"
+import type { StateDispatch } from "../../types/utils"
+import { ActivityEditor } from "../../components/common/Editor/ContentEditor"
 import {
   PlaceAndTimeEditor,
   PlaceAndTimeItem,
-} from "./PlaceAndTimeEditor/PlaceAndTimeEditor"
+} from "./detail/PlaceAndTimeEditor/PlaceAndTimeEditor"
 
 type GeneralInputAreaProps = {
   label: string
@@ -167,7 +167,7 @@ export const DetailEditor: React.VFC<{}> = () => {
               />
             </GridItem>
           </Grid>
-          <PortalButton> 保存 </PortalButton>
+          <PortalButton type="submit">保存</PortalButton>
         </EditorBase>
       </VStack>
     </>

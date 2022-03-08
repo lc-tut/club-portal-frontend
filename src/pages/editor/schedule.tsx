@@ -5,8 +5,17 @@ import { EditorBase } from "../../components/common/Editor/EditorBase"
 import { TitleArea } from "../../components/global/Header/TitleArea"
 import { PADDING_BEFORE_FOOTER } from "../../utils/consts"
 import type { StateDispatch } from "../../types/utils"
+import { useForm } from "react-hook-form"
+import { Schedule } from "../../types/api"
+import { zodResolver } from "@hookform/resolvers/zod"
+import * as z from "zod"
 
 const months = [4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3]
+
+const schema = z.object({
+  month: z.number(),
+  schedule: z.string(),
+})
 
 type MonthInputAreaProps = {
   month: number
@@ -31,6 +40,7 @@ const MonthInputArea: React.VFC<MonthInputAreaProps> = (props) => {
           newInputData[props.month] = e.target.value
           props.setInputData(newInputData)
         }}
+        resize="none"
       />
     </Stack>
   )
@@ -38,6 +48,9 @@ const MonthInputArea: React.VFC<MonthInputAreaProps> = (props) => {
 
 export const ScheduleEditor: React.VFC<{}> = () => {
   // ここでデータを取得するが、要素数が12なるようにする
+  const { register, control } = useForm<Schedule>({
+    resolver: zodResolver(schema),
+  })
   const dummy = [
     "1月の予定",
     "",
@@ -57,26 +70,28 @@ export const ScheduleEditor: React.VFC<{}> = () => {
   return (
     <VStack flex="1" pb={PADDING_BEFORE_FOOTER}>
       <TitleArea>年間予定の編集</TitleArea>
-      <EditorBase>
-        <Grid
-          templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)" }}
-          columnGap="2rem"
-          rowGap="2rem"
-        >
-          {months.map((item) => {
-            return (
-              <GridItem key={item}>
-                <MonthInputArea
-                  month={item}
-                  inputData={inputData}
-                  setInputData={setInputData}
-                />
-              </GridItem>
-            )
-          })}
-        </Grid>
-        <PortalButton type="submit">保存</PortalButton>
-      </EditorBase>
+      <form>
+        <EditorBase>
+          <Grid
+            templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)" }}
+            columnGap="2rem"
+            rowGap="2rem"
+          >
+            {months.map((item) => {
+              return (
+                <GridItem key={item}>
+                  <MonthInputArea
+                    month={item}
+                    inputData={inputData}
+                    setInputData={setInputData}
+                  />
+                </GridItem>
+              )
+            })}
+          </Grid>
+          <PortalButton type="submit">保存</PortalButton>
+        </EditorBase>
+      </form>
     </VStack>
   )
 }

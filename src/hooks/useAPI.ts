@@ -1,14 +1,11 @@
-import type { AxiosError, AxiosRequestConfig } from "axios"
+import type { AxiosError } from "axios"
 import useSWRImmutable from "swr/immutable"
 import type { APIResponse } from "../types/api"
 import { axiosFetcher } from "../utils/axios"
 
-export const useAPI = <R extends APIResponse | {}>(endpoint: string) => {
-  const axiosConfig: AxiosRequestConfig = {
-    url: endpoint,
-  }
+export const useAPI = <R extends APIResponse>(endpoint: string) => {
   const { data, error } = useSWRImmutable<R, AxiosError | Error>(
-    [endpoint, axiosConfig],
+    endpoint,
     axiosFetcher
   )
 

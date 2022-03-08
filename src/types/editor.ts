@@ -1,4 +1,3 @@
-import type { ButtonProps } from "@chakra-ui/react"
 import type { UseFormReturn } from "react-hook-form"
 
 export type EditorMenuProps = {
@@ -16,7 +15,7 @@ export type EditorMenuButtonProps = {
   remark?: string
 }
 
-export type EditorButtonProps = Pick<ButtonProps, "type"> & {
+export type EditorButtonProps = {
   icon: "add" | "remove"
   onClick: () => void
 }

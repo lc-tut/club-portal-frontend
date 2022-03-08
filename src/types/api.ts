@@ -156,7 +156,13 @@ export type APIPayload =
 
 export type APIResponse =
   | UserInfo
-  | ClubPageExternal
+  | Array<ClubPageExternal>
   | ClubPageInternal
-  | (Image & { path: string })
+  | Array<Image>
   | Thumbnail
+  | Array<Link>
+  | Array<Content>
+  | Array<Schedule>
+  | Array<Achievement>
+  | Array<Video>
+  | Array<TimePlace>

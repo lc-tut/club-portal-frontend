@@ -17,6 +17,11 @@ import { EditorButton } from "../../components/common/Editor/EditorButton"
 import { TitleArea } from "../../components/global/Header/TitleArea"
 import { PADDING_BEFORE_FOOTER, VALID_SNS_LIST } from "../../utils/consts"
 import * as z from "zod"
+import { PortalButton } from "../../components/common/Button"
+import { SNSType } from "../../types/description"
+import { useAPI } from "../../hooks/useAPI"
+import { Link } from "../../types/api"
+import { useOutletUser } from "../../hooks/useOutletUser"
 
 type SNSLinkItem = {
   label: string
@@ -28,76 +33,92 @@ const schema = z.object({
   url: z.string().url(),
 })
 
-// TODO: 個別 API へ叩く処理
 export const LinkEditor: React.VFC<{}> = () => {
+  // const { clubUUID } = useOutletUser()
+  // const { data, isLoading, isError } = useAPI<Array<Link>>(
+  //   `/api/v1/uuid/${clubUUID!}/link`
+  // )
   const {
     handleSubmit,
     register,
+    watch,
+    setError,
+    clearErrors,
     formState: { errors },
   } = useForm<SNSLinkItem>({
+    defaultValues: { label: "", url: "" },
     resolver: zodResolver(schema),
   })
+  const [items, setItems] = useState<Array<SNSLinkItem>>([])
 
-  const [items, setItems] = useState<Array<SNSLinkItem>>([
-    { label: "", url: "" },
-  ])
-  const [type, setType] = useState<"add" | "remove">("add")
+  const values = watch()
 
-  const onAdd = (item: SNSLinkItem) => {
-    const updateItems = [...items, item]
-    setItems(updateItems)
+  const onAdd = () => {
+    console.log(values)
+    let err = false
+    if (values.label === "") {
+      err = true
+      setError("label", { type: "required", message: "SNSを選択してください." })
+    } else {
+      clearErrors("label")
+    }
+    if (values.url === "" || !z.string().url().safeParse(values.url).success) {
+      err = true
+      setError("url", { type: "validate", message: "有効なURLではありません." })
+    } else {
+      clearErrors("url")
+    }
+    if (!err) {
+      setItems([values, ...items])
+    }
   }
 
-  const onRemove = () => {
-    // API による remove
+  const onRemove = (item: SNSLinkItem) => {
+    setItems(items.filter((obj) => !Object.is(obj, item)))
   }
 
   const onSubmit = handleSubmit((data) => {
-    switch (type) {
-      case "add":
-        onAdd({ label: data.label, url: data.url })
-        break
-      case "remove":
-        onRemove()
-        break
-    }
+    // TODO: Submit process
   })
 
   return (
     <VStack flex="1" pb={PADDING_BEFORE_FOOTER}>
-      <TitleArea>外部リンクの編集</TitleArea>
-      <EditorBase>
-        <form onSubmit={onSubmit}>
-          <FormControl
-            isInvalid={errors.label !== undefined || errors.url !== undefined}
-          >
-            <HStack alignItems="end">
-              <EditorButton
-                icon="add"
-                type="submit"
-                onClick={() => setType("add")}
-              />
-              <Stack spacing="0">
+      <TitleArea>SNSリンクの編集</TitleArea>
+      <form onSubmit={onSubmit}>
+        <EditorBase>
+          <HStack alignItems="end">
+            <EditorButton icon="add" onClick={() => onAdd()} />
+            <Stack spacing="0">
+              <FormControl isInvalid={errors.label !== undefined}>
                 <FormLabel htmlFor="sns" fontSize="0.8rem" color="text.sub">
-                  {" "}
-                  SNS{" "}
+                  SNS
                 </FormLabel>
-                <Select backgroundColor="#fff" w="12rem" {...register("label")}>
-                  <option value=""> - </option>
-                  {VALID_SNS_LIST.map((item) => {
+                <Select
+                  backgroundColor="#fff"
+                  w="12rem"
+                  {...register("label")}
+                  defaultValue=""
+                >
+                  <option value="" hidden>
+                    -
+                  </option>
+                  {VALID_SNS_LIST.map((item: SNSType) => {
                     return (
                       <option key={item} value={item}>
-                        {" "}
-                        {item}{" "}
+                        {item}
                       </option>
                     )
                   })}
                 </Select>
-              </Stack>
-              <Stack spacing="0">
+                <FormErrorMessage>
+                  {errors.label && errors.label.message}
+                </FormErrorMessage>
+              </FormControl>
+            </Stack>
+            <Stack spacing="0">
+              <FormControl isInvalid={errors.url !== undefined}>
                 <FormLabel htmlFor="url" fontSize="0.8rem" color="text.sub">
-                  {" "}
-                  URL{" "}
+                  URL
                 </FormLabel>
                 <Input
                   w="25rem"
@@ -110,26 +131,23 @@ export const LinkEditor: React.VFC<{}> = () => {
                 <FormErrorMessage>
                   {errors.url && errors.url.message}
                 </FormErrorMessage>
-              </Stack>
-            </HStack>
-            <Stack w="100%">
-              {items.map((item) => {
-                return (
-                  <HStack key={item.label} textColor="text.main">
-                    <EditorButton
-                      icon="remove"
-                      type="submit"
-                      onClick={() => setType("remove")}
-                    />
-                    <Text>{item.label + " - "}</Text>
-                    <Text>{item.url}</Text>
-                  </HStack>
-                )
-              })}
+              </FormControl>
             </Stack>
-          </FormControl>
-        </form>
-      </EditorBase>
+          </HStack>
+          <Stack w="100%">
+            {items.map((item) => {
+              return (
+                <HStack key={item.label} textColor="text.main">
+                  <EditorButton icon="remove" onClick={() => onRemove(item)} />
+                  <Text>{item.label + " - "}</Text>
+                  <Text>{item.url}</Text>
+                </HStack>
+              )
+            })}
+          </Stack>
+          <PortalButton type="submit">保存</PortalButton>
+        </EditorBase>
+      </form>
     </VStack>
   )
 }

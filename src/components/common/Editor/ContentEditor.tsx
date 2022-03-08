@@ -1,6 +1,6 @@
 import { HStack, Input, Stack, Text } from "@chakra-ui/react"
 import { useRef, useState } from "react"
-import { EditorButton } from "../../../components/common/Editor/EditorButton"
+import { EditorButton } from "./EditorButton"
 import type { StateDispatch } from "../../../types/utils"
 
 type ActivityEditorProps = {

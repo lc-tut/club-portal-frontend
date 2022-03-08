@@ -123,60 +123,65 @@ export const VideoEditor: React.VFC<{}> = () => {
   return (
     <VStack flex="1" pb={PADDING_BEFORE_FOOTER}>
       <TitleArea>動画の掲載・変更</TitleArea>
-      <EditorBase>
-        <Stack>
-          <HStack>
-            <Text fontSize="0.8rem" color="text.main">
-              YouTubeの動画URL
-            </Text>
-            <HelpModal />
-          </HStack>
-          <Input
-            w="30rem"
-            textColor="text.main"
-            backgroundColor="#fff"
-            errorBorderColor="red.300"
-            isInvalid={error !== ""}
-            placeholder="URLを入力して下さい"
-            value={inputData}
-            onChange={(e) => setInputData(e.target.value)}
-          />
-          <Text fontSize="0.8rem" color="red.500">
-            {error}
-          </Text>
-        </Stack>
-        <PortalButton pbstyle="solid" onClick={() => onConfirm()}>
-          確認
-        </PortalButton>
-        <VStack>
-          <Text> ↓ここに正しく表示されることを確認した上で保存して下さい </Text>
-          <AspectRatio
-            ratio={16 / 9}
-            width="100%"
-            boxShadow="md"
-            border="2px"
-            borderColor="text.sub"
-          >
-            <iframe
-              width="100%"
-              height="100%"
-              src={"https://www.youtube.com/embed/" + videoId}
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
+      <form>
+        <EditorBase>
+          <Stack>
+            <HStack>
+              <Text fontSize="0.8rem" color="text.main">
+                YouTubeの動画URL
+              </Text>
+              <HelpModal />
+            </HStack>
+            <Input
+              w="30rem"
+              textColor="text.main"
+              backgroundColor="#fff"
+              errorBorderColor="red.300"
+              isInvalid={error !== ""}
+              placeholder="URLを入力して下さい"
+              value={inputData}
+              onChange={(e) => setInputData(e.target.value)}
             />
-          </AspectRatio>
-        </VStack>
-        <VStack textColor="text.main">
-          <PortalButton type="submit">保存</PortalButton>
-          <Text>
-            以下の内容で保存します
-            <br />
-            動画ID: {videoId !== "" ? videoId : "(未入力)"}
-          </Text>
-        </VStack>
-      </EditorBase>
+            <Text fontSize="0.8rem" color="red.500">
+              {error}
+            </Text>
+          </Stack>
+          <PortalButton pbstyle="solid" onClick={() => onConfirm()}>
+            確認
+          </PortalButton>
+          <VStack>
+            <Text>
+              {" "}
+              ↓ここに正しく表示されることを確認した上で保存して下さい{" "}
+            </Text>
+            <AspectRatio
+              ratio={16 / 9}
+              width="100%"
+              boxShadow="md"
+              border="2px"
+              borderColor="text.sub"
+            >
+              <iframe
+                width="100%"
+                height="100%"
+                src={"https://www.youtube.com/embed/" + videoId}
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </AspectRatio>
+          </VStack>
+          <VStack textColor="text.main">
+            <PortalButton type="submit">保存</PortalButton>
+            <Text>
+              以下の内容で保存します
+              <br />
+              動画ID: {videoId !== "" ? videoId : "(未入力)"}
+            </Text>
+          </VStack>
+        </EditorBase>
+      </form>
     </VStack>
   )
 }
