@@ -19,8 +19,7 @@ import { Loading } from "../../components/global/LoadingPage"
 import { ErrorPage } from "../error"
 import { axiosWithPayload } from "../../utils/axios"
 import { AxiosRequestConfig } from "axios"
-import { useState } from "react"
-import { ErrorToast } from "../../components/global/ErrorToast"
+import { useErrorToast } from "../../hooks/useErrorToast"
 
 const schema = z.object({
   desciption: z.string(),
@@ -29,7 +28,7 @@ const schema = z.object({
 export const DescriptionEditor: React.VFC<{}> = () => {
   const { clubUUID } = useOutletUser()
   const { data, isLoading, isError } = useAPI<Description>(
-    `/api/v1/uuid/${clubUUID!}/description`
+    `/api/v1/clubs/uuid/${clubUUID!}/description`
   )
   const {
     handleSubmit,
@@ -39,7 +38,7 @@ export const DescriptionEditor: React.VFC<{}> = () => {
     defaultValues: data,
     resolver: zodResolver(schema),
   })
-  const [postError, setPostError] = useState<boolean>(false)
+  const toast = useErrorToast("データの保存に失敗しました。")
 
   const onSubmit = handleSubmit(async (data) => {
     const requestConfig: AxiosRequestConfig<Description> = {
@@ -48,22 +47,18 @@ export const DescriptionEditor: React.VFC<{}> = () => {
       data: data,
     }
     try {
-      await axiosWithPayload<
-        Description,
-        AxiosRequestConfig<Description>,
-        Description
-      >(requestConfig)
+      await axiosWithPayload<Description, Description>(requestConfig)
     } catch (e) {
-      setPostError(true)
+      toast()
     }
   })
 
   if (isLoading) {
-    ;<Loading fullScreen />
+    return <Loading fullScreen />
   }
 
   if (isError) {
-    ;<ErrorPage />
+    return <ErrorPage />
   }
 
   return (
@@ -85,7 +80,7 @@ export const DescriptionEditor: React.VFC<{}> = () => {
               w="30rem"
               h="10rem"
               placeholder="サークルの説明文を入力して下さい"
-              value={data.description}
+              defaultValue={data.description}
               resize="none"
             />
             <FormErrorMessage>
@@ -95,7 +90,6 @@ export const DescriptionEditor: React.VFC<{}> = () => {
           <PortalButton type="submit">保存</PortalButton>
         </EditorBase>
       </form>
-      {postError && <ErrorToast desc="データの保存に失敗しました。" />}
     </VStack>
   )
 }

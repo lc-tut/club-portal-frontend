@@ -16,8 +16,8 @@ const axiosFetcher = async <T = AxiosRequestConfig, R = APIResponse>(
 
 const axiosWithPayload = async <
   D extends APIPayload,
-  T extends AxiosRequestConfig<D>,
-  R extends APIResponse
+  R extends APIResponse,
+  T = AxiosRequestConfig<D>
 >(
   config: T
 ) => {

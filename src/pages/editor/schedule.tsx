@@ -1,32 +1,33 @@
 import { Grid, GridItem, Stack, Text, Textarea, VStack } from "@chakra-ui/react"
-import { useState } from "react"
 import { PortalButton } from "../../components/common/Button"
 import { EditorBase } from "../../components/common/Editor/EditorBase"
 import { TitleArea } from "../../components/global/Header/TitleArea"
-import { PADDING_BEFORE_FOOTER } from "../../utils/consts"
-import type { StateDispatch } from "../../types/utils"
-import { useForm } from "react-hook-form"
+import { MONTHS, PADDING_BEFORE_FOOTER } from "../../utils/consts"
+import { FormProvider, useForm, useFormContext } from "react-hook-form"
 import { Schedule } from "../../types/api"
-import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
-
-const months = [4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3]
-
-const schema = z.object({
-  month: z.number(),
-  schedule: z.string(),
-})
+import { useOutletUser } from "../../hooks/useOutletUser"
+import { useAPI } from "../../hooks/useAPI"
+import { Loading } from "../../components/global/LoadingPage"
+import { ErrorPage } from "../error"
+import { axiosWithPayload } from "../../utils/axios"
+import type { AxiosRequestConfig } from "axios"
+import { useErrorToast } from "../../hooks/useErrorToast"
 
 type MonthInputAreaProps = {
   month: number
-  inputData: string[]
-  setInputData: StateDispatch<string[]>
+  value?: string
 }
 
 const MonthInputArea: React.VFC<MonthInputAreaProps> = (props) => {
+  const { register } = useFormContext<Array<Schedule>>()
+
   return (
     <Stack>
-      <Text pl="0.2rem" color="text.main">
+      <input width={0} height={0} value={props.month} {...register(`${props.month - 1}.month`)} hidden/>
+      <Text
+        pl="0.2rem"
+        color="text.main"
+      >
         {props.month.toString() + "月"}
       </Text>
       <Textarea
@@ -34,64 +35,74 @@ const MonthInputArea: React.VFC<MonthInputAreaProps> = (props) => {
         h="4rem"
         textColor="text.main"
         backgroundColor="#fff"
-        value={props.inputData[props.month]}
-        onChange={(e) => {
-          const newInputData = [...props.inputData]
-          newInputData[props.month] = e.target.value
-          props.setInputData(newInputData)
-        }}
+        defaultValue={props.value}
+        {...register(`${props.month - 1}.schedule`)}
         resize="none"
       />
     </Stack>
   )
 }
 
+const scheduleMap = new Map<number, string>()
+
 export const ScheduleEditor: React.VFC<{}> = () => {
-  // ここでデータを取得するが、要素数が12なるようにする
-  const { register, control } = useForm<Schedule>({
-    resolver: zodResolver(schema),
+  const { clubUUID } = useOutletUser()
+  const { data, isLoading, isError } = useAPI<Array<Schedule>>(
+    `/api/v1/clubs/uuid/${clubUUID!}/schedule`
+  )
+  const methods = useForm<Array<Schedule>>({ defaultValues: data })
+  const toast = useErrorToast("データの保存に失敗しました。")
+
+  const onSubmit = methods.handleSubmit(async (data) => {
+    const payload = data.filter((d) => d.schedule !== "")
+    const requestConfig: AxiosRequestConfig<Array<Schedule>> = {
+      url: `/api/v1/clubs/uuid/${clubUUID!}/schedule`,
+      method: "put",
+      data: payload,
+    }
+    try {
+      await axiosWithPayload<Array<Schedule>, Array<Schedule>>(requestConfig)
+    } catch (e) {
+      toast()
+    }
   })
-  const dummy = [
-    "1月の予定",
-    "",
-    "",
-    "",
-    "5月の予定",
-    "",
-    "7月の予定",
-    "",
-    "",
-    "",
-    "11月の予定",
-    "",
-  ]
-  const [inputData, setInputData] = useState(dummy)
+
+  if (isLoading) {
+    return <Loading fullScreen />
+  }
+
+  if (isError) {
+    return <ErrorPage />
+  }
+
+  data.map((schedule) => scheduleMap.set(schedule.month, schedule.schedule))
 
   return (
     <VStack flex="1" pb={PADDING_BEFORE_FOOTER}>
       <TitleArea>年間予定の編集</TitleArea>
-      <form>
-        <EditorBase>
-          <Grid
-            templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)" }}
-            columnGap="2rem"
-            rowGap="2rem"
-          >
-            {months.map((item) => {
-              return (
-                <GridItem key={item}>
-                  <MonthInputArea
-                    month={item}
-                    inputData={inputData}
-                    setInputData={setInputData}
-                  />
-                </GridItem>
-              )
-            })}
-          </Grid>
-          <PortalButton type="submit">保存</PortalButton>
-        </EditorBase>
-      </form>
+      <FormProvider {...methods}>
+        <form onSubmit={onSubmit}>
+          <EditorBase>
+            <Grid
+              templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)" }}
+              columnGap="2rem"
+              rowGap="2rem"
+            >
+              {MONTHS.map((item) => {
+                return (
+                  <GridItem key={item}>
+                    <MonthInputArea
+                      month={item}
+                      value={scheduleMap.get(item)}
+                    />
+                  </GridItem>
+                )
+              })}
+            </Grid>
+            <PortalButton type="submit">保存</PortalButton>
+          </EditorBase>
+        </form>
+      </FormProvider>
     </VStack>
   )
 }

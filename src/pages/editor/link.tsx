@@ -26,7 +26,7 @@ import { Loading } from "../../components/global/LoadingPage"
 import { ErrorPage } from "../error"
 import { AxiosRequestConfig } from "axios"
 import { axiosWithPayload } from "../../utils/axios"
-import { ErrorToast } from "../../components/global/ErrorToast"
+import { useErrorToast } from "../../hooks/useErrorToast"
 
 const schema = z.object({
   label: z.string(),
@@ -36,7 +36,7 @@ const schema = z.object({
 export const LinkEditor: React.VFC<{}> = () => {
   const { clubUUID } = useOutletUser()
   const { data, isLoading, isError } = useAPI<Array<Link>>(
-    `/api/v1/uuid/${clubUUID!}/link`
+    `/api/v1/clubs/uuid/${clubUUID!}/link`
   )
   const {
     handleSubmit,
@@ -52,7 +52,7 @@ export const LinkEditor: React.VFC<{}> = () => {
   const [items, setItems] = useState<Array<Link>>(
     data.filter((d) => d.label !== "HP" && d.label !== "Email")
   )
-  const [postError, setPostError] = useState<boolean>(false)
+  const toast = useErrorToast("データの保存に失敗しました。")
 
   const values = watch()
 
@@ -94,22 +94,18 @@ export const LinkEditor: React.VFC<{}> = () => {
       data: items,
     }
     try {
-      await axiosWithPayload<
-        Array<Link>,
-        AxiosRequestConfig<Array<Link>>,
-        Array<Link>
-      >(requestConfig)
+      await axiosWithPayload<Array<Link>, Array<Link>>(requestConfig)
     } catch (e) {
-      setPostError(true)
+      toast()
     }
   })
 
   if (isLoading) {
-    ;<Loading fullScreen />
+    return <Loading fullScreen />
   }
 
   if (isError) {
-    ;<ErrorPage />
+    return <ErrorPage />
   }
 
   return (
@@ -179,7 +175,6 @@ export const LinkEditor: React.VFC<{}> = () => {
           <PortalButton type="submit">保存</PortalButton>
         </EditorBase>
       </form>
-      {postError && <ErrorToast desc="データの保存に失敗しました。" />}
     </VStack>
   )
 }
