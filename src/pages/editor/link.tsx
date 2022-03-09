@@ -87,7 +87,6 @@ export const LinkEditor: React.VFC<{}> = () => {
   }
 
   const onSubmit = handleSubmit(async () => {
-    // TODO: Submit process
     const requestConfig: AxiosRequestConfig<Array<Link>> = {
       url: `/api/v1/uuid/${clubUUID!}/link`,
       method: "put",

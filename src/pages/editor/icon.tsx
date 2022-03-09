@@ -186,7 +186,7 @@ export const IconEditor: React.VFC<{}> = () => {
           >
             画像をアップロード
           </PortalButton>
-          <PortalButton>保存</PortalButton>
+          <PortalButton type="submit">保存</PortalButton>
         </EditorBase>
       </form>
     </VStack>

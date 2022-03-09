@@ -1,5 +1,8 @@
 import {
   AspectRatio,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
   HStack,
   Icon,
   Input,
@@ -23,16 +26,17 @@ import { PortalButton } from "../../components/common/Button"
 import { EditorBase } from "../../components/common/Editor/EditorBase"
 import { TitleArea } from "../../components/global/Header/TitleArea"
 import { PADDING_BEFORE_FOOTER } from "../../utils/consts"
-import type { StateDispatch } from "../../types/utils"
+import { Video } from "../../types/api"
+import { useErrorToast } from "../../hooks/useErrorToast"
+import { AxiosRequestConfig } from "axios"
+import { useOutletUser } from "../../hooks/useOutletUser"
+import { axiosWithPayload } from "../../utils/axios"
 
-function parseVideoId(
+const parseVideoId = (
   input: string,
-  setError: StateDispatch<string>,
-  setVideoId: StateDispatch<string>
-) {
+): {success: boolean, message: string, videoID:string} => {
   if (input === "") {
-    setError("URLを入力して下さい")
-    return
+    return { success: false, message: "URLを入力して下さい。", videoID: ""}
   }
 
   let url: URL
@@ -40,30 +44,26 @@ function parseVideoId(
     url = new URL(input)
   } catch (e) {
     if (e instanceof TypeError) {
-      setError("URLの形式が正しくありません")
-      return
+      return { success: false, message: "URLの形式が正しくありません。", videoID: "" }
     } else {
       throw e
     }
   }
 
   if (!["www.youtube.com", "youtube.com", "youtu.be"].includes(url.hostname)) {
-    setError("YouTubeのURLではありません")
-    return
+    return { success: false, message: "YouTubeのURLではありません。", videoID: "" }
   }
   if (url.pathname === "/watch") {
     const vParam = url.searchParams.get("v")
     if (!vParam) {
-      setError("URLに動画IDが含まれていません")
-      return
+      return { success: false, message: "URLに動画IDが含まれていません。", videoID: "" }
     }
-    console.log("set: " + vParam)
-    setVideoId(vParam)
+    return { success: true, message: "", videoID: vParam }
   } else if (url.hostname === "youtu.be") {
-    setVideoId(url.pathname.replace("/", ""))
+    return { success: true, message: "", videoID: url.pathname.replace("/", "") }
+  } else {
+    return { success: false, message: "URLの形式が正しくありません。", videoID: "" }
   }
-
-  setError("")
 }
 
 const HelpModal = () => {
@@ -75,24 +75,22 @@ const HelpModal = () => {
       <Modal isOpen={isOpen} onClose={onClose} size="xl">
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader> YouTubeの動画リンクについて </ModalHeader>
+          <ModalHeader>YouTubeの動画リンクについて</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Text> URLは以下の形式に対応しています </Text>
+            <Text>URLは以下の形式に対応しています</Text>
             <UnorderedList pt="0.5rem">
-              <ListItem> www.youtube.com/watch?v=(動画ID) </ListItem>
-              <ListItem> youtube.com/watch?v=(動画ID) </ListItem>
-              <ListItem> youtu.be/(動画ID) </ListItem>
+              <ListItem>www.youtube.com/watch?v=(動画ID)</ListItem>
+              <ListItem>youtube.com/watch?v=(動画ID)</ListItem>
+              <ListItem>youtu.be/(動画ID)</ListItem>
             </UnorderedList>
-            <Text pt="1rem"> これらのURLは以下の方法で取得できます </Text>
+            <Text pt="1rem">これらのURLは以下の方法で取得できます</Text>
             <UnorderedList pt="0.5rem">
               <ListItem>
-                {" "}
-                ブラウザで動画視聴画面を開き、上部アドレスバーのURLをコピーする{" "}
+                ブラウザで動画視聴画面を開き、上部アドレスバーのURLをコピーする
               </ListItem>
               <ListItem>
-                {" "}
-                ブラウザ・アプリの動画視聴画面の「共有」ボタンからリンクを取得する{" "}
+                ブラウザ・アプリの動画視聴画面の「共有」ボタンからリンクを取得する
               </ListItem>
             </UnorderedList>
           </ModalBody>
@@ -103,33 +101,54 @@ const HelpModal = () => {
 }
 
 export const VideoEditor: React.VFC<{}> = () => {
+  const { clubUUID } = useOutletUser()
   const {
     handleSubmit,
     register,
-    formState: { errors, isSubmitting },
-  } = useForm()
+    watch,
+    setError,
+    clearErrors,
+    formState: { errors },
+  } = useForm<Video>({defaultValues: {path: ""}})
+  const [videoID, setVideoID] = useState("")
+  const toast = useErrorToast("データの保存に失敗しました。")
 
-  const [videoId, setVideoId] = useState("")
-  const [inputData, setInputData] = useState("")
-  const [error, setError] = useState("")
+  const watchPath = watch("path")
 
   const onConfirm = () => {
-    parseVideoId(inputData, setError, setVideoId)
-    console.log("video id is: " + videoId)
+    const res = parseVideoId(watchPath)
+    if (res.success) {
+      setVideoID(res.videoID)
+      clearErrors("path")
+    } else {
+      setError("path", { type: "validate", "message": res.message })
+    }
   }
 
-  const onSubmit = handleSubmit((data) => console.log(data))
+  const onSubmit = handleSubmit(async (data) => {
+    const requestConfig: AxiosRequestConfig<Array<Video>> = {
+      url: `/api/v1/uuid/${clubUUID!}/video`,
+      method: "put",
+      data: [data]
+    }
+    try {
+      await axiosWithPayload<Array<Video>, Array<Video>>(requestConfig)
+    } catch (e) {
+      toast()
+    }
+  })
 
   return (
     <VStack flex="1" pb={PADDING_BEFORE_FOOTER}>
       <TitleArea>動画の掲載・変更</TitleArea>
-      <form>
+      <form onSubmit={onSubmit}>
         <EditorBase>
           <Stack>
+          <FormControl isInvalid={errors.path !== undefined}>
             <HStack>
-              <Text fontSize="0.8rem" color="text.main">
+              <FormLabel fontSize="0.8rem" color="text.main">
                 YouTubeの動画URL
-              </Text>
+              </FormLabel>
               <HelpModal />
             </HStack>
             <Input
@@ -137,22 +156,20 @@ export const VideoEditor: React.VFC<{}> = () => {
               textColor="text.main"
               backgroundColor="#fff"
               errorBorderColor="red.300"
-              isInvalid={error !== ""}
               placeholder="URLを入力して下さい"
-              value={inputData}
-              onChange={(e) => setInputData(e.target.value)}
+              {...register("path")}
             />
-            <Text fontSize="0.8rem" color="red.500">
-              {error}
-            </Text>
+            <FormErrorMessage>
+              {errors.path && errors.path.message}
+            </FormErrorMessage>
+            </FormControl>
           </Stack>
           <PortalButton pbstyle="solid" onClick={() => onConfirm()}>
             確認
           </PortalButton>
           <VStack>
             <Text>
-              {" "}
-              ↓ここに正しく表示されることを確認した上で保存して下さい{" "}
+              ↓ここに正しく表示されることを確認した上で保存して下さい
             </Text>
             <AspectRatio
               ratio={16 / 9}
@@ -164,7 +181,7 @@ export const VideoEditor: React.VFC<{}> = () => {
               <iframe
                 width="100%"
                 height="100%"
-                src={"https://www.youtube.com/embed/" + videoId}
+                src={"https://www.youtube.com/embed/" + videoID}
                 title="YouTube video player"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -173,11 +190,11 @@ export const VideoEditor: React.VFC<{}> = () => {
             </AspectRatio>
           </VStack>
           <VStack textColor="text.main">
-            <PortalButton type="submit">保存</PortalButton>
+            <PortalButton type="submit" isDisabled={videoID === "" || errors.path === undefined}>保存</PortalButton>
             <Text>
               以下の内容で保存します
               <br />
-              動画ID: {videoId !== "" ? videoId : "(未入力)"}
+              動画ID: {videoID !== "" ? videoID : "(未入力)"}
             </Text>
           </VStack>
         </EditorBase>
