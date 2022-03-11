@@ -23,11 +23,14 @@ const MonthInputArea: React.VFC<MonthInputAreaProps> = (props) => {
 
   return (
     <Stack>
-      <input width={0} height={0} value={props.month} {...register(`${props.month - 1}.month`)} hidden/>
-      <Text
-        pl="0.2rem"
-        color="text.main"
-      >
+      <input
+        width={0}
+        height={0}
+        value={props.month}
+        {...register(`${props.month - 1}.month`)}
+        hidden
+      />
+      <Text pl="0.2rem" color="text.main">
         {props.month.toString() + "月"}
       </Text>
       <Textarea

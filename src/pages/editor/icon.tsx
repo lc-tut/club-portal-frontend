@@ -12,29 +12,31 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react"
-import {
-  ChangeEvent,
-  createRef,
-  Dispatch,
-  SetStateAction,
-  useState,
-} from "react"
+import { AxiosRequestConfig } from "axios"
+import { ChangeEvent, useRef, useState } from "react"
 import ReactCrop, { Crop } from "react-image-crop"
 import "react-image-crop/dist/ReactCrop.css"
 import { PortalButton } from "../../components/common/Button"
 import { EditorBase } from "../../components/common/Editor/EditorBase"
 import { PortalLogo } from "../../components/common/Icon"
 import { TitleArea } from "../../components/global/Header/TitleArea"
+import { Loading } from "../../components/global/LoadingPage"
+import { useAPI } from "../../hooks/useAPI"
+import { useErrorToast } from "../../hooks/useErrorToast"
+import { useOutletUser } from "../../hooks/useOutletUser"
+import { Thumbnail } from "../../types/api"
+import type { StateDispatch } from "../../types/utils"
+import { axiosWithPayload } from "../../utils/axios"
 import { PADDING_BEFORE_FOOTER } from "../../utils/consts"
+import { ErrorPage } from "../error"
 
 type ResizeModalProps = {
   isOpen: boolean
   onClose: () => void
   crop: Crop
   image: HTMLImageElement
-  setImage: Dispatch<SetStateAction<HTMLImageElement>>
-  setCrop: Dispatch<SetStateAction<Crop>>
-  setIcon: Dispatch<SetStateAction<string>>
+  setCrop: StateDispatch<Crop>
+  setIcon: StateDispatch<string>
 }
 
 const defaultCrop: Crop = {
@@ -51,9 +53,7 @@ const ResizeModal: React.VFC<ResizeModalProps> = (props) => {
     props.setCrop(defaultCrop)
     props.onClose()
   }
-  const onImageLoad = (image: HTMLImageElement) => {
-    props.setImage(image)
-  }
+
   const onSave = () => {
     const canvas = document.createElement("canvas")
     canvas.width = 400
@@ -61,7 +61,12 @@ const ResizeModal: React.VFC<ResizeModalProps> = (props) => {
     const scaleX = props.image.naturalWidth / props.image.width
     const scaleY = props.image.naturalHeight / props.image.height
     const ctx = canvas.getContext("2d")
-    ctx?.drawImage(
+
+    if (!ctx) {
+      throw new Error("No 2d context")
+    }
+
+    ctx.drawImage(
       props.image,
       props.crop.x * scaleX,
       props.crop.y * scaleY,
@@ -72,7 +77,10 @@ const ResizeModal: React.VFC<ResizeModalProps> = (props) => {
       400,
       400
     )
-    props.setIcon(canvas.toDataURL().toString())
+
+    canvas.toBlob((b) => {
+      if (b) props.setIcon(URL.createObjectURL(b))
+    })
 
     props.onClose()
   }
@@ -87,12 +95,11 @@ const ResizeModal: React.VFC<ResizeModalProps> = (props) => {
           </ModalHeader>
           <ModalBody>
             <VStack>
-              <Text>画像は400x400[px]に圧縮されます</Text>
+              <Text>画像は400x400[px]に縮小されます</Text>
               <ReactCrop
                 src={props.image.src}
                 crop={props.crop}
                 onChange={(crop) => props.setCrop(crop)}
-                onImageLoaded={onImageLoad}
               />
             </VStack>
           </ModalBody>
@@ -111,11 +118,21 @@ const ResizeModal: React.VFC<ResizeModalProps> = (props) => {
 }
 
 export const IconEditor: React.VFC<{}> = () => {
+  const { clubUUID } = useOutletUser()
+  const { data, isLoading, isError } = useAPI<Thumbnail>(
+    `/api/v1/upload/thumbnail/${clubUUID!}`
+  )
+  const toast = useErrorToast("データの保存に失敗しました。")
   const [icon, setIcon] = useState<string>("")
-  const [inputImage, setInputImage] = useState<HTMLImageElement>(new Image())
+  const [inputImage, setInputImage] = useState<HTMLImageElement>(() => {
+    const img = new Image()
+    img.src = data.path
+    return img
+  })
   const [crop, setCrop] = useState<Crop>(defaultCrop)
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const inputRef = createRef<HTMLInputElement>()
+  const inputRef = useRef<HTMLInputElement>(null)
+
   const onImageLoad = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || !e.target.files[0]) {
       return
@@ -153,10 +170,37 @@ export const IconEditor: React.VFC<{}> = () => {
     }
   }
 
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const formData = new FormData()
+    formData.append("file", inputRef.current!.files![0])
+    const requestConfig: AxiosRequestConfig<FormData> = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      url: `/api/v1/upload/thumbnail/clubs/${clubUUID!}`,
+      method: "put",
+      data: formData,
+    }
+    try {
+      await axiosWithPayload<FormData, unknown>(requestConfig)
+    } catch (e) {
+      toast()
+    }
+  }
+
+  if (isLoading) {
+    return <Loading fullScreen />
+  }
+
+  if (isError) {
+    return <ErrorPage />
+  }
+
   return (
     <VStack flex="1" pb={PADDING_BEFORE_FOOTER}>
       <TitleArea>サークルアイコンの変更</TitleArea>
-      <form>
+      <form onSubmit={onSubmit}>
         <Input
           type="file"
           accept="image/png, image/jpeg"
@@ -167,7 +211,6 @@ export const IconEditor: React.VFC<{}> = () => {
         />
         <ResizeModal
           image={inputImage ?? new Image()}
-          setImage={setInputImage}
           isOpen={isOpen}
           onClose={onClose}
           crop={crop}
@@ -186,7 +229,9 @@ export const IconEditor: React.VFC<{}> = () => {
           >
             画像をアップロード
           </PortalButton>
-          <PortalButton type="submit">保存</PortalButton>
+          <PortalButton type="submit" isDisabled={icon === ""}>
+            保存
+          </PortalButton>
         </EditorBase>
       </form>
     </VStack>

@@ -61,7 +61,7 @@ export const PortalButton: React.VFC<
   }
 
   return (
-    <Tooltip label={props.isDisabled ? "準備中です" : undefined}>
+    <Tooltip label={props.isPreparing ? "準備中です" : undefined}>
       <Wrap flex={props.flex}>
         <Button
           width={width}
@@ -73,7 +73,7 @@ export const PortalButton: React.VFC<
           backgroundColor={bgColor}
           leftIcon={props.leftIcon}
           fontSize={props.fontSize}
-          isDisabled={props.isDisabled}
+          isDisabled={props.isPreparing || props.isDisabled}
           type={props.type}
           onClick={props.onClick}
           _hover={hoverStyle}

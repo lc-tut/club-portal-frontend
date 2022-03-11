@@ -33,10 +33,10 @@ import { useOutletUser } from "../../hooks/useOutletUser"
 import { axiosWithPayload } from "../../utils/axios"
 
 const parseVideoId = (
-  input: string,
-): {success: boolean, message: string, videoID:string} => {
+  input: string
+): { success: boolean; message: string; videoID: string } => {
   if (input === "") {
-    return { success: false, message: "URLを入力して下さい。", videoID: ""}
+    return { success: false, message: "URLを入力して下さい。", videoID: "" }
   }
 
   let url: URL
@@ -44,25 +44,45 @@ const parseVideoId = (
     url = new URL(input)
   } catch (e) {
     if (e instanceof TypeError) {
-      return { success: false, message: "URLの形式が正しくありません。", videoID: "" }
+      return {
+        success: false,
+        message: "URLの形式が正しくありません。",
+        videoID: "",
+      }
     } else {
       throw e
     }
   }
 
   if (!["www.youtube.com", "youtube.com", "youtu.be"].includes(url.hostname)) {
-    return { success: false, message: "YouTubeのURLではありません。", videoID: "" }
+    return {
+      success: false,
+      message: "YouTubeのURLではありません。",
+      videoID: "",
+    }
   }
   if (url.pathname === "/watch") {
     const vParam = url.searchParams.get("v")
     if (!vParam) {
-      return { success: false, message: "URLに動画IDが含まれていません。", videoID: "" }
+      return {
+        success: false,
+        message: "URLに動画IDが含まれていません。",
+        videoID: "",
+      }
     }
     return { success: true, message: "", videoID: vParam }
   } else if (url.hostname === "youtu.be") {
-    return { success: true, message: "", videoID: url.pathname.replace("/", "") }
+    return {
+      success: true,
+      message: "",
+      videoID: url.pathname.replace("/", ""),
+    }
   } else {
-    return { success: false, message: "URLの形式が正しくありません。", videoID: "" }
+    return {
+      success: false,
+      message: "URLの形式が正しくありません。",
+      videoID: "",
+    }
   }
 }
 
@@ -109,7 +129,7 @@ export const VideoEditor: React.VFC<{}> = () => {
     setError,
     clearErrors,
     formState: { errors },
-  } = useForm<Video>({defaultValues: {path: ""}})
+  } = useForm<Video>({ defaultValues: { path: "" } })
   const [videoID, setVideoID] = useState("")
   const toast = useErrorToast("データの保存に失敗しました。")
 
@@ -121,7 +141,7 @@ export const VideoEditor: React.VFC<{}> = () => {
       setVideoID(res.videoID)
       clearErrors("path")
     } else {
-      setError("path", { type: "validate", "message": res.message })
+      setError("path", { type: "validate", message: res.message })
     }
   }
 
@@ -129,7 +149,7 @@ export const VideoEditor: React.VFC<{}> = () => {
     const requestConfig: AxiosRequestConfig<Array<Video>> = {
       url: `/api/v1/uuid/${clubUUID!}/video`,
       method: "put",
-      data: [data]
+      data: [data],
     }
     try {
       await axiosWithPayload<Array<Video>, Array<Video>>(requestConfig)
@@ -144,33 +164,31 @@ export const VideoEditor: React.VFC<{}> = () => {
       <form onSubmit={onSubmit}>
         <EditorBase>
           <Stack>
-          <FormControl isInvalid={errors.path !== undefined}>
-            <HStack>
-              <FormLabel fontSize="0.8rem" color="text.main">
-                YouTubeの動画URL
-              </FormLabel>
-              <HelpModal />
-            </HStack>
-            <Input
-              w="30rem"
-              textColor="text.main"
-              backgroundColor="#fff"
-              errorBorderColor="red.300"
-              placeholder="URLを入力して下さい"
-              {...register("path")}
-            />
-            <FormErrorMessage>
-              {errors.path && errors.path.message}
-            </FormErrorMessage>
+            <FormControl isInvalid={errors.path !== undefined}>
+              <HStack>
+                <FormLabel fontSize="0.8rem" color="text.main">
+                  YouTubeの動画URL
+                </FormLabel>
+                <HelpModal />
+              </HStack>
+              <Input
+                w="30rem"
+                textColor="text.main"
+                backgroundColor="#fff"
+                errorBorderColor="red.300"
+                placeholder="URLを入力して下さい"
+                {...register("path")}
+              />
+              <FormErrorMessage>
+                {errors.path && errors.path.message}
+              </FormErrorMessage>
             </FormControl>
           </Stack>
           <PortalButton pbstyle="solid" onClick={() => onConfirm()}>
             確認
           </PortalButton>
           <VStack>
-            <Text>
-              ↓ここに正しく表示されることを確認した上で保存して下さい
-            </Text>
+            <Text>↓ここに正しく表示されることを確認した上で保存して下さい</Text>
             <AspectRatio
               ratio={16 / 9}
               width="100%"
@@ -190,7 +208,12 @@ export const VideoEditor: React.VFC<{}> = () => {
             </AspectRatio>
           </VStack>
           <VStack textColor="text.main">
-            <PortalButton type="submit" isDisabled={videoID === "" || errors.path === undefined}>保存</PortalButton>
+            <PortalButton
+              type="submit"
+              isDisabled={videoID === "" || errors.path === undefined}
+            >
+              保存
+            </PortalButton>
             <Text>
               以下の内容で保存します
               <br />
