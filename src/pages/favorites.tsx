@@ -1,6 +1,7 @@
 import { Flex, Grid, GridItem, useMediaQuery, VStack } from "@chakra-ui/react"
+import { useState } from "react"
 import { ClubCard } from "../components/common/Clubs/ClubCard"
-import { ClubCardSortOptionSelect } from "../components/common/Clubs/ClubCardSortOptionSelect"
+import { ClubSortOptionSelect } from "../components/common/Clubs/ClubSortOptionSelect"
 import { TitleArea } from "../components/global/Header/TitleArea"
 import { PADDING_BEFORE_FOOTER } from "../static/consts"
 
@@ -35,6 +36,8 @@ export const AnimatedFavorites: React.VFC<{}> = () => {
   else if (is1col) templateColumns = "repeat(1, 1fr)"
   else templateColumns = "repeat(1, 1fr)"
 
+  const [sortOption, setSortOption] = useState<string>("name-asc")
+
   return (
     <VStack flex="1" spacing="2rem">
       <TitleArea>お気に入りのサークル</TitleArea>
@@ -48,7 +51,10 @@ export const AnimatedFavorites: React.VFC<{}> = () => {
       >
         <VStack w="80%" spacing="3rem">
           <Flex w="100%">
-            <ClubCardSortOptionSelect />
+            <ClubSortOptionSelect
+              sortOption={sortOption}
+              setSortOption={setSortOption}
+            />
           </Flex>
           <Grid
             templateColumns={templateColumns}
