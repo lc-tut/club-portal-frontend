@@ -109,6 +109,7 @@ const ResizeModal: React.VFC<ResizeModalProps> = (props) => {
                 src={props.image.src}
                 crop={props.crop}
                 onChange={(crop) => props.setCrop(crop)}
+                // 正しく動作させる為に必要 消さない
                 onImageLoaded={(image) => props.setImage(image)}
               />
             </VStack>
