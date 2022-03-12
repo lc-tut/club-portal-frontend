@@ -1,55 +1,130 @@
 import {
   Box,
-  BoxProps,
-  Flex,
   FormControl,
   FormLabel,
   Grid,
   GridItem,
   HStack,
-  Image,
   Input,
+<<<<<<< HEAD
   Select,
   Spinner,
+=======
+  Spacer,
+>>>>>>> refactoring/202202/CaffeineFree/clubs_filter
   Stack,
   Switch,
   Text,
   useToast,
   VStack,
 } from "@chakra-ui/react"
-import { ClubTypeBadge } from "../components/common/ClubTypeBadge"
+import { ClubCard } from "../components/common/Clubs/ClubCard"
+import { ClubCardSortOptionSelect } from "../components/common/Clubs/ClubCardSortOptionSelect"
+import { ChangeEvent, Dispatch, SetStateAction, useState } from "react"
 import { TitleArea } from "../components/global/Header/TitleArea"
+<<<<<<< HEAD
 import { useAPI } from "../hooks/useAPI"
 import type { BadgeActivity, BadgeCampus } from "../types/badge"
 import type { ClubPageExternal } from "../types/api"
 import { ACTIVITY, CAMPUS } from "../utils/consts"
 import { Link } from "react-router-dom"
+=======
+import { PortalButton } from "../components/common/Button/PortalButton"
+import { PADDING_BEFORE_FOOTER } from "../static/consts"
+>>>>>>> refactoring/202202/CaffeineFree/clubs_filter
 
-type ClubCardProps = {
-  thumbnail: string
-  name: string
-  brief: string
-  campus: BadgeCampus
-  activity: BadgeActivity
+const filterFlagKeyList = [
+  "inHachioji",
+  "inKamata",
+  "isCulture",
+  "isSports",
+  "isCommittee",
+] as const
+type FilterFlagKey = typeof filterFlagKeyList[number]
+
+const defaultFilterInput: FilterInput = {
+  keyword: "",
+  flags: {
+    inHachioji: true,
+    inKamata: true,
+    isCulture: true,
+    isSports: true,
+    isCommittee: true,
+  },
 }
 
-const FilterArea: React.VFC<BoxProps> = (props) => {
-  const FilterCategory = (props: { text: string }) => {
-    return (
-      <Text color="text.modal.sub" pb="0.5rem" pt="1rem">
-        {props.text}
-      </Text>
-    )
+type FilterItemProps = {
+  label: string
+  flagKey: FilterFlagKey
+  filterInput: FilterInput
+  isChecked: boolean
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void
+}
+
+type FilterAreaProps = {
+  filterInput: FilterInput
+  setFilterInput: Dispatch<SetStateAction<FilterInput>>
+}
+
+type FilterInput = {
+  keyword: string
+  flags: { [key in FilterFlagKey]: boolean }
+}
+
+const FilterCategoryLabel: React.VFC<React.PropsWithChildren<{}>> = (props) => {
+  return (
+    <Text color="text.modal.sub" pb="0.5rem" pt="1rem">
+      {props.children}
+    </Text>
+  )
+}
+
+const FilterItem: React.VFC<FilterItemProps> = (props) => {
+  return (
+    <FormControl display="flex" pl="1rem">
+      <FormLabel width="8rem" fontSize="1.25rem" mb="0">
+        {props.label}
+      </FormLabel>
+      <Switch
+        colorScheme="green"
+        size="lg"
+        isChecked={props.isChecked}
+        onChange={(e) => props.onChange(e)}
+      />
+    </FormControl>
+  )
+}
+
+const FilterArea: React.VFC<FilterAreaProps> = (props) => {
+  const onFlagChange = (
+    e: ChangeEvent<HTMLInputElement>,
+    flagKey: FilterFlagKey
+  ) => {
+    const newFilterInput = { ...props.filterInput }
+    newFilterInput.flags = { ...props.filterInput.flags }
+    newFilterInput.flags[flagKey] = e.target.checked
+    props.setFilterInput(newFilterInput)
+  }
+  const onKeywordChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const newFilterInput = { ...props.filterInput }
+    newFilterInput.keyword = e.target.value
+    props.setFilterInput(newFilterInput)
+  }
+  const onReset = () => {
+    const newFilterInput = { ...defaultFilterInput }
+    newFilterInput.flags = { ...defaultFilterInput.flags }
+    props.setFilterInput(newFilterInput)
   }
 
-  const FilterItem = (props: { label: string; id: string }) => {
+  const filterItemWrapper = (label: string, flagKey: FilterFlagKey) => {
     return (
-      <FormControl display="flex" pl="1rem">
-        <FormLabel width="8rem" fontSize="1.25rem" mb="0">
-          {props.label}
-        </FormLabel>
-        <Switch colorScheme="green" id={props.id} size="lg" />
-      </FormControl>
+      <FilterItem
+        label={label}
+        flagKey={flagKey}
+        filterInput={props.filterInput}
+        isChecked={props.filterInput.flags[flagKey]}
+        onChange={(e) => onFlagChange(e, flagKey)}
+      />
     )
   }
 
@@ -57,57 +132,41 @@ const FilterArea: React.VFC<BoxProps> = (props) => {
     <VStack
       width="20rem"
       height="100%"
-      py="2rem"
+      pt="2rem"
+      pb={PADDING_BEFORE_FOOTER}
       backgroundColor="form.background"
-      {...props}
     >
       <Input
         width="18rem"
         backgroundColor="#fff"
         borderColor="form.frame"
+        textColor="text.main"
         placeholder="検索キーワード"
+        value={props.filterInput.keyword}
+        onChange={onKeywordChange}
         _placeholder={{
           color: "text.sub",
         }}
       />
 
       <Stack alignSelf="start" spacing="0.5rem" pt="1rem" pl="3rem">
-        <FilterCategory text="キャンパス" />
-        <FilterItem label="八王子" id="filter-campus-hachioji" />
-        <FilterItem label="蒲田" id="filter-campus-kamata" />
-        <FilterCategory text="分類" />
-        <FilterItem label="文化系" id="filter-activity-culture" />
-        <FilterItem label="体育系" id="filter-activity-sports" />
-        <FilterItem label="実行委員会" id="filter-activity-committee" />
+        <FilterCategoryLabel>キャンパス</FilterCategoryLabel>
+        {filterItemWrapper("八王子", "inHachioji")}
+        {filterItemWrapper("蒲田", "inKamata")}
+        <FilterCategoryLabel>分類</FilterCategoryLabel>
+        {filterItemWrapper("文化系", "isCulture")}
+        {filterItemWrapper("体育系", "isSports")}
+        {filterItemWrapper("実行委員会", "isCommittee")}
       </Stack>
-    </VStack>
-  )
-}
-
-const ClubCard: React.VFC<ClubCardProps> = (props) => {
-  return (
-    <Flex
-      height="7rem"
-      boxShadow="md"
-      backgroundColor="#fff"
-      borderRadius="3px"
-    >
-      <HStack spacing="1rem">
-        <Image src={props.thumbnail} height="4rem" ml="1.5rem" />
-        <VStack alignSelf="start" pt="1rem" alignItems="start" spacing="0">
-          <HStack spacing="10px">
-            <ClubTypeBadge content="hachioji" />
-            <ClubTypeBadge content="culture" />
-          </HStack>
-          <Text fontSize="1.2rem" color="text.card.main" pt="0.5rem">
-            {props.name}
-          </Text>
-          <Text fontSize="0.8rem" color="text.card.sub" pt="0.2rem">
-            {props.brief}
-          </Text>
-        </VStack>
+      <Spacer h="1.5rem" />
+      <HStack w="80%">
+        <PortalButton pbstyle="solid" width="7rem" onClick={onReset}>
+          リセット
+        </PortalButton>
+        <Spacer flex="1" />
+        <PortalButton width="7rem">検索</PortalButton>
       </HStack>
-    </Flex>
+    </VStack>
   )
 }
 
@@ -135,6 +194,20 @@ const AnimatedClubs: React.VFC<{}> = () => {
   }
 
   return (
+<<<<<<< HEAD
+=======
+    <Grid templateColumns="repeat(12, 1fr)" rowGap="1rem" columnGap="2rem">
+      {cards}
+    </Grid>
+  )
+}
+
+const AnimatedClubs: React.VFC<{}> = () => {
+  const [filterInput, setFilterInput] =
+    useState<FilterInput>(defaultFilterInput)
+
+  return (
+>>>>>>> refactoring/202202/CaffeineFree/clubs_filter
     <VStack
       flex="1"
       alignItems="start"
@@ -144,16 +217,18 @@ const AnimatedClubs: React.VFC<{}> = () => {
       {/* TODO: TitleAreaはHeaderに含めたい */}
       <TitleArea>サークル一覧</TitleArea>
       <HStack width="100%" height="100%" spacing="0">
-        <FilterArea />
+        <FilterArea filterInput={filterInput} setFilterInput={setFilterInput} />
         <Box
           py="2rem"
           px="3rem"
+          pb={PADDING_BEFORE_FOOTER}
           flex="1"
           height="100%"
           alignItems="start"
           backgroundColor="background.cards"
         >
           <Stack spacing="3rem">
+<<<<<<< HEAD
             <Select
               width="9rem"
               backgroundColor="#fff"
@@ -189,6 +264,10 @@ const AnimatedClubs: React.VFC<{}> = () => {
             ) : (
               <Spinner />
             )}
+=======
+            <ClubCardSortOptionSelect />
+            <TestCards />
+>>>>>>> refactoring/202202/CaffeineFree/clubs_filter
           </Stack>
         </Box>
       </HStack>
