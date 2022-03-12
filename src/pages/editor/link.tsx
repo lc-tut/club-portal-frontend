@@ -169,7 +169,11 @@ export const LinkEditor: React.VFC<{}> = () => {
               {items.map((item) => {
                 return (
                   <HStack key={item.label} textColor="text.main">
-                    <EditorButton icon="remove" onClick={() => onRemove(item)} paddingTop="0" />
+                    <EditorButton
+                      icon="remove"
+                      onClick={() => onRemove(item)}
+                      paddingTop="0"
+                    />
                     <Text>{item.label + " - "}</Text>
                     <Text>{item.url}</Text>
                   </HStack>

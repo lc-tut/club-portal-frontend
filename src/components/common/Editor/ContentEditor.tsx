@@ -75,7 +75,11 @@ export const ContentEditor: React.VFC<ContentEditorProps> = (props) => {
         {props.items.map((item, index) => {
           return (
             <HStack key={index} textColor="text.main">
-              <EditorButton icon="remove" onClick={() => onRemove(item)} paddingTop="0" />
+              <EditorButton
+                icon="remove"
+                onClick={() => onRemove(item)}
+                paddingTop="0"
+              />
               <Text>{item}</Text>
             </HStack>
           )
