@@ -14,8 +14,8 @@ export const ClubCard: React.VFC<ClubCardProps> = (props) => {
         <Image src={props.thumbnail} height="4rem" ml="1.5rem" />
         <VStack alignSelf="start" pt="1rem" alignItems="start" spacing="0">
           <HStack spacing="10px">
-            <ClubTypeBadge content="hachioji" />
-            <ClubTypeBadge content="culture" />
+            <ClubTypeBadge content={props.campus} />
+            <ClubTypeBadge content={props.activity} />
           </HStack>
           <Text fontSize="1.2rem" color="text.card.main" pt="0.5rem">
             {props.name}

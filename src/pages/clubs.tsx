@@ -1,179 +1,85 @@
 import {
   Box,
-  FormControl,
-  FormLabel,
   Grid,
   GridItem,
   HStack,
-  Input,
-<<<<<<< HEAD
-  Select,
   Spinner,
-=======
-  Spacer,
->>>>>>> refactoring/202202/CaffeineFree/clubs_filter
   Stack,
-  Switch,
   Text,
   useToast,
   VStack,
 } from "@chakra-ui/react"
-import { ClubCard } from "../components/common/Clubs/ClubCard"
-import { ClubCardSortOptionSelect } from "../components/common/Clubs/ClubCardSortOptionSelect"
-import { ChangeEvent, Dispatch, SetStateAction, useState } from "react"
-import { TitleArea } from "../components/global/Header/TitleArea"
-<<<<<<< HEAD
-import { useAPI } from "../hooks/useAPI"
-import type { BadgeActivity, BadgeCampus } from "../types/badge"
-import type { ClubPageExternal } from "../types/api"
-import { ACTIVITY, CAMPUS } from "../utils/consts"
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-=======
-import { PortalButton } from "../components/common/Button/PortalButton"
+import { ClubCard } from "../components/common/Clubs/ClubCard"
+import type { Filter } from "../components/common/Clubs/ClubFilter"
+import {
+  ClubFilter,
+  defaultFilter,
+} from "../components/common/Clubs/ClubFilter"
+import { ClubSortOptionSelect } from "../components/common/Clubs/ClubSortOptionSelect"
+import { TitleArea } from "../components/global/Header/TitleArea"
+import { useAPI } from "../hooks/useAPI"
 import { PADDING_BEFORE_FOOTER } from "../static/consts"
->>>>>>> refactoring/202202/CaffeineFree/clubs_filter
-
-const filterFlagKeyList = [
-  "inHachioji",
-  "inKamata",
-  "isCulture",
-  "isSports",
-  "isCommittee",
-] as const
-type FilterFlagKey = typeof filterFlagKeyList[number]
-
-const defaultFilterInput: FilterInput = {
-  keyword: "",
-  flags: {
-    inHachioji: true,
-    inKamata: true,
-    isCulture: true,
-    isSports: true,
-    isCommittee: true,
-  },
-}
-
-type FilterItemProps = {
-  label: string
-  flagKey: FilterFlagKey
-  filterInput: FilterInput
-  isChecked: boolean
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void
-}
-
-type FilterAreaProps = {
-  filterInput: FilterInput
-  setFilterInput: Dispatch<SetStateAction<FilterInput>>
-}
-
-type FilterInput = {
-  keyword: string
-  flags: { [key in FilterFlagKey]: boolean }
-}
-
-const FilterCategoryLabel: React.VFC<React.PropsWithChildren<{}>> = (props) => {
-  return (
-    <Text color="text.modal.sub" pb="0.5rem" pt="1rem">
-      {props.children}
-    </Text>
-  )
-}
-
-const FilterItem: React.VFC<FilterItemProps> = (props) => {
-  return (
-    <FormControl display="flex" pl="1rem">
-      <FormLabel width="8rem" fontSize="1.25rem" mb="0">
-        {props.label}
-      </FormLabel>
-      <Switch
-        colorScheme="green"
-        size="lg"
-        isChecked={props.isChecked}
-        onChange={(e) => props.onChange(e)}
-      />
-    </FormControl>
-  )
-}
-
-const FilterArea: React.VFC<FilterAreaProps> = (props) => {
-  const onFlagChange = (
-    e: ChangeEvent<HTMLInputElement>,
-    flagKey: FilterFlagKey
-  ) => {
-    const newFilterInput = { ...props.filterInput }
-    newFilterInput.flags = { ...props.filterInput.flags }
-    newFilterInput.flags[flagKey] = e.target.checked
-    props.setFilterInput(newFilterInput)
-  }
-  const onKeywordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const newFilterInput = { ...props.filterInput }
-    newFilterInput.keyword = e.target.value
-    props.setFilterInput(newFilterInput)
-  }
-  const onReset = () => {
-    const newFilterInput = { ...defaultFilterInput }
-    newFilterInput.flags = { ...defaultFilterInput.flags }
-    props.setFilterInput(newFilterInput)
-  }
-
-  const filterItemWrapper = (label: string, flagKey: FilterFlagKey) => {
-    return (
-      <FilterItem
-        label={label}
-        flagKey={flagKey}
-        filterInput={props.filterInput}
-        isChecked={props.filterInput.flags[flagKey]}
-        onChange={(e) => onFlagChange(e, flagKey)}
-      />
-    )
-  }
-
-  return (
-    <VStack
-      width="20rem"
-      height="100%"
-      pt="2rem"
-      pb={PADDING_BEFORE_FOOTER}
-      backgroundColor="form.background"
-    >
-      <Input
-        width="18rem"
-        backgroundColor="#fff"
-        borderColor="form.frame"
-        textColor="text.main"
-        placeholder="検索キーワード"
-        value={props.filterInput.keyword}
-        onChange={onKeywordChange}
-        _placeholder={{
-          color: "text.sub",
-        }}
-      />
-
-      <Stack alignSelf="start" spacing="0.5rem" pt="1rem" pl="3rem">
-        <FilterCategoryLabel>キャンパス</FilterCategoryLabel>
-        {filterItemWrapper("八王子", "inHachioji")}
-        {filterItemWrapper("蒲田", "inKamata")}
-        <FilterCategoryLabel>分類</FilterCategoryLabel>
-        {filterItemWrapper("文化系", "isCulture")}
-        {filterItemWrapper("体育系", "isSports")}
-        {filterItemWrapper("実行委員会", "isCommittee")}
-      </Stack>
-      <Spacer h="1.5rem" />
-      <HStack w="80%">
-        <PortalButton pbstyle="solid" width="7rem" onClick={onReset}>
-          リセット
-        </PortalButton>
-        <Spacer flex="1" />
-        <PortalButton width="7rem">検索</PortalButton>
-      </HStack>
-    </VStack>
-  )
-}
+import type { ClubPageExternal } from "../types/api"
+import type { BadgeActivity, BadgeCampus } from "../types/badge"
+import { ACTIVITY, CAMPUS } from "../utils/consts"
 
 const AnimatedClubs: React.VFC<{}> = () => {
   const { data, isLoading, isError } =
     useAPI<Array<ClubPageExternal>>("/api/v1/clubs")
+  const [sortedClubs, setSortedClubs] = useState<Array<ClubPageExternal>>([])
+
   const toast = useToast()
+
+  const [filterInputData, setFilterInputData] = useState<Filter>(defaultFilter)
+  const [filter, setFilter] = useState<Filter>(defaultFilter)
+  const [sortOption, setSortOption] = useState<string>("name-asc")
+
+  // sort clubs
+  useEffect(() => {
+    const newSortedClubs: Array<ClubPageExternal> = []
+    data?.map((club) => {
+      newSortedClubs.push({ ...club })
+    })
+
+    newSortedClubs?.sort((val1, val2) => {
+      if (sortOption == "name-asc") {
+        return val1.name.localeCompare(val2.name)
+      } else if (sortOption == "name-desc") {
+        return val2.name.localeCompare(val1.name)
+      } else {
+        return 0
+      }
+    })
+    setSortedClubs(newSortedClubs)
+  }, [data, sortOption])
+
+  // filter clubs
+  function getFilteredClubs() {
+    const filteredClubs: Array<ClubPageExternal> = []
+    sortedClubs.map((club) => {
+      // exclude by name, short_description
+      if (
+        !club.name.includes(filter.keyword) &&
+        !club.shortDescription.includes(filter.keyword)
+      )
+        return
+
+      // exclude by campus
+      if (club.campus == 0 && !filter.flags.inHachioji) return
+      else if (club.campus == 1 && !filter.flags.inKamata) return
+
+      // exclude by type
+      if (club.clubType == 0 && !filter.flags.isSports) return
+      else if (club.clubType == 1 && !filter.flags.isCulture) return
+      else if (club.clubType == 2 && !filter.flags.isCommittee) return
+
+      filteredClubs.push({ ...club })
+    })
+
+    return filteredClubs
+  }
 
   const getCampus = (num: number): BadgeCampus => CAMPUS[num]
   const getActivity = (num: number): BadgeActivity => ACTIVITY[num]
@@ -194,20 +100,6 @@ const AnimatedClubs: React.VFC<{}> = () => {
   }
 
   return (
-<<<<<<< HEAD
-=======
-    <Grid templateColumns="repeat(12, 1fr)" rowGap="1rem" columnGap="2rem">
-      {cards}
-    </Grid>
-  )
-}
-
-const AnimatedClubs: React.VFC<{}> = () => {
-  const [filterInput, setFilterInput] =
-    useState<FilterInput>(defaultFilterInput)
-
-  return (
->>>>>>> refactoring/202202/CaffeineFree/clubs_filter
     <VStack
       flex="1"
       alignItems="start"
@@ -217,7 +109,11 @@ const AnimatedClubs: React.VFC<{}> = () => {
       {/* TODO: TitleAreaはHeaderに含めたい */}
       <TitleArea>サークル一覧</TitleArea>
       <HStack width="100%" height="100%" spacing="0">
-        <FilterArea filterInput={filterInput} setFilterInput={setFilterInput} />
+        <ClubFilter
+          filterInputData={filterInputData}
+          setFilterInputData={setFilterInputData}
+          setFilter={setFilter}
+        />
         <Box
           py="2rem"
           px="3rem"
@@ -228,46 +124,38 @@ const AnimatedClubs: React.VFC<{}> = () => {
           backgroundColor="background.cards"
         >
           <Stack spacing="3rem">
-<<<<<<< HEAD
-            <Select
-              width="9rem"
-              backgroundColor="#fff"
-              color="text.main"
-              borderColor="text.card.main"
-              iconColor="text.card.main"
-            >
-              <option value="name-asc">名前順</option>
-              <option value="opt-01">Option 01</option>
-              <option value="opt-02">Option 02</option>
-              <option value="opt-03">Option 03</option>
-            </Select>
+            <ClubSortOptionSelect
+              sortOption={sortOption}
+              setSortOption={setSortOption}
+            />
             {!isLoading ? (
-              <Grid
-                templateColumns="repeat(12, 1fr)"
-                rowGap="1rem"
-                columnGap="2rem"
-              >
-                {data?.map((club, i) => (
-                  <GridItem colSpan={{ xl: 4, lg: 6, sm: 12 }} key={i}>
-                    <Link to={club.clubSlug}>
-                      <ClubCard
-                        name={club.name}
-                        brief={club.shortDescription}
-                        campus={getCampus(club.campus)}
-                        activity={getActivity(club.clubType)}
-                        thumbnail={club.thumbnail.path}
-                      />
-                    </Link>
-                  </GridItem>
-                ))}
-              </Grid>
+              <>
+                <Grid
+                  templateColumns="repeat(12, 1fr)"
+                  rowGap="1rem"
+                  columnGap="2rem"
+                >
+                  {getFilteredClubs().map((club, i) => (
+                    <GridItem colSpan={{ xl: 4, lg: 6, sm: 12 }} key={i}>
+                      <Link to={club.clubSlug}>
+                        <ClubCard
+                          name={club.name}
+                          brief={club.shortDescription}
+                          campus={getCampus(club.campus)}
+                          activity={getActivity(club.clubType)}
+                          thumbnail={club.thumbnail.path}
+                        />
+                      </Link>
+                    </GridItem>
+                  ))}
+                </Grid>
+                {getFilteredClubs().length === 0 && (
+                  <Text color="text.main">条件に合うサークルが見つかりませんでした。</Text>
+                )}
+              </>
             ) : (
               <Spinner />
             )}
-=======
-            <ClubCardSortOptionSelect />
-            <TestCards />
->>>>>>> refactoring/202202/CaffeineFree/clubs_filter
           </Stack>
         </Box>
       </HStack>

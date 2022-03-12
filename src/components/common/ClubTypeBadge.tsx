@@ -37,7 +37,7 @@ export const ClubTypeBadge: React.VFC<ClubTypeBadgeProp> = (props) => {
     kamata: "蒲田",
     sports: "体育系",
     culture: "文化系",
-    committee: "実行委員会",
+    committee: "委員会",
   }
 
   type ColorType = {
