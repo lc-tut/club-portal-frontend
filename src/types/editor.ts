@@ -67,3 +67,8 @@ export type TimePlaceInputProps = {
   state: TimePlaceStateType
   dispatch: Dispatch<TimePlaceActionType>
 }
+
+export type EditorSelectOptionItem = {
+  value: string
+  label: string
+}

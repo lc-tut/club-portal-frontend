@@ -1,5 +1,4 @@
 import { Box, FormLabel, Text, TextProps } from "@chakra-ui/react"
-
 export const EditorText: React.VFC<TextProps> = (props) => {
   return (
     <Text pt="1.2rem" color={props.color ?? "text.main"}>
