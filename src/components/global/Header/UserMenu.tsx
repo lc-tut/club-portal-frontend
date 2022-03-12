@@ -20,7 +20,7 @@ import { DefaultUserIcon } from "../../common/Icon"
 export const UserMenu: React.VFC<HeaderProps> = (props) => {
   const [isOpen, setIsOpen] = useBoolean(false)
   const loc = useLocation()
-  const { session, isLoading, isError } = useSession()
+  const { session } = useSession()
 
   const onLogout = async () => {
     try {
@@ -64,11 +64,14 @@ export const UserMenu: React.VFC<HeaderProps> = (props) => {
             <VStack py="1rem">
               <Text>ログインしています</Text>
               {session?.name && <Text>{session?.name}</Text>}
-              <Link to="/users/club/edit">
-                <PortalButton leftIcon={<BsPencil />}>
-                  サークル編集
-                </PortalButton>
-              </Link>
+              {
+                session?.role == "general" &&
+                <Link to="/users/club/edit">
+                  <PortalButton leftIcon={<BsPencil />}>
+                    サークル編集
+                  </PortalButton>
+                </Link>
+              }
               <PortalButton
                 onClick={onLogout}
                 pbstyle="solid"
