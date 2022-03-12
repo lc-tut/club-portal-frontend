@@ -13,7 +13,6 @@ export const menuItems: { [key: string]: string } = {
   //  通知:           "",
   //  プロフィール:   "",
   //  設定:           "",
-  編集者用ページ: "",
 }
 
 export const HamburgerIcon: React.VFC<{}> = () => {
