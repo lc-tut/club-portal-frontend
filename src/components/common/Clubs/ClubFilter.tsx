@@ -90,7 +90,7 @@ export const ClubFilter: React.VFC<FilterAreaProps> = (props) => {
     props.setFilter(newFilterInput)
   }
   const onSearch = () => {
-    const newFilter = {...props.filterInputData}
+    const newFilter = { ...props.filterInputData }
     props.setFilter(newFilter)
   }
 
@@ -145,7 +145,9 @@ export const ClubFilter: React.VFC<FilterAreaProps> = (props) => {
           リセット
         </PortalButton>
         <Spacer flex="1" />
-        <PortalButton width="7rem" onClick={onSearch}>検索</PortalButton>
+        <PortalButton width="7rem" onClick={onSearch}>
+          検索
+        </PortalButton>
       </HStack>
     </VStack>
   )

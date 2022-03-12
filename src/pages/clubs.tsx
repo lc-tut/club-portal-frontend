@@ -150,7 +150,9 @@ const AnimatedClubs: React.VFC<{}> = () => {
                   ))}
                 </Grid>
                 {getFilteredClubs().length === 0 && (
-                  <Text color="text.main">条件に合うサークルが見つかりませんでした。</Text>
+                  <Text color="text.main">
+                    条件に合うサークルが見つかりませんでした。
+                  </Text>
                 )}
               </>
             ) : (
