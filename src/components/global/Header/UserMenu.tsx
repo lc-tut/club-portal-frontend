@@ -64,14 +64,13 @@ export const UserMenu: React.VFC<HeaderProps> = (props) => {
             <VStack py="1rem">
               <Text>ログインしています</Text>
               {session?.name && <Text>{session?.name}</Text>}
-              {
-                session?.role == "general" &&
+              {session?.role == "general" && (
                 <Link to="/users/club/edit">
                   <PortalButton leftIcon={<BsPencil />}>
                     サークル編集
                   </PortalButton>
                 </Link>
-              }
+              )}
               <PortalButton
                 onClick={onLogout}
                 pbstyle="solid"
