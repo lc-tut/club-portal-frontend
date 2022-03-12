@@ -44,7 +44,10 @@ export const ClubPage: React.VFC<{}> = () => {
       <HStack spacing="2rem" pb="3rem">
         <Flex gap="10px" width="12rem" justifyContent="end">
           <ClubTypeBadge content={CAMPUS[data?.campus ?? 0]} badgetype="page" />
-          <ClubTypeBadge content={ACTIVITY[data?.clubType ?? 0]} badgetype="page" />
+          <ClubTypeBadge
+            content={ACTIVITY[data?.clubType ?? 0]}
+            badgetype="page"
+          />
         </Flex>
         <Flex color="text.sub" alignItems="center">
           <Icon as={BsClock} mr="5px" />
@@ -70,13 +73,15 @@ export const ClubPage: React.VFC<{}> = () => {
         />
         <DetailInformation
           activity={data?.contents.map((cont) => cont.content) ?? []}
-          timePlaces={data?.timePlaces.map((tp) => ({
-            date: tp.date,
-            time: tp.time,
-            timeRemark: tp.timeRemark,
-            place: tp.place,
-            placeRemark: tp.placeRemark,
-          })) ?? []}
+          timePlaces={
+            data?.timePlaces.map((tp) => ({
+              date: tp.date,
+              time: tp.time,
+              timeRemark: tp.timeRemark,
+              place: tp.place,
+              placeRemark: tp.placeRemark,
+            })) ?? []
+          }
           achievements={data?.achievements.map((ach) => ach.achievement)}
           mail={data?.links
             .filter((link) => link.label === "Email")

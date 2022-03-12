@@ -47,7 +47,7 @@ const MonthInputArea: React.VFC<MonthInputAreaProps> = (props) => {
   )
 }
 
-type scheduleObjType = {[key in number]?: string}
+type scheduleObjType = { [key in number]?: string }
 
 export const ScheduleEditor: React.VFC<{}> = () => {
   const { clubUuid } = useOutletUser()
@@ -61,7 +61,7 @@ export const ScheduleEditor: React.VFC<{}> = () => {
   useEffect(() => {
     if (data) {
       const obj: scheduleObjType = {}
-      data.map(d => obj[d.month] = d.schedule)
+      data.map((d) => (obj[d.month] = d.schedule))
       setSchedule(obj)
     }
   }, [data])
@@ -102,10 +102,7 @@ export const ScheduleEditor: React.VFC<{}> = () => {
               {MONTHS.map((item) => {
                 return (
                   <GridItem key={item}>
-                    <MonthInputArea
-                      month={item}
-                      value={schedule[item]}
-                    />
+                    <MonthInputArea month={item} value={schedule[item]} />
                   </GridItem>
                 )
               })}

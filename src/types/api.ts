@@ -106,6 +106,10 @@ type ClubUUIDObject = {
   clubUuid: string
 }
 
+export type UpdateImagePayload = Array<{
+  imageId: number
+}>
+
 export type CreateGeneralUserPayload = {
   email: string
   name: string
@@ -151,6 +155,7 @@ export type UpdateClubPayload = {
 }
 
 export type APIPayload =
+  | UpdateImagePayload
   | CreateGeneralUserPayload
   | ChangeUserPayload
   | RegisterFavoriteClubPayload

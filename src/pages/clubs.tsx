@@ -24,6 +24,7 @@ import type { BadgeActivity, BadgeCampus } from "../types/badge"
 import type { ClubPageExternal } from "../types/api"
 import { ACTIVITY, CAMPUS } from "../utils/consts"
 import { Link } from "react-router-dom"
+import { toAbsolutePath } from "../utils/functions"
 
 type ClubCardProps = {
   thumbnail: string
@@ -93,7 +94,7 @@ const ClubCard: React.VFC<ClubCardProps> = (props) => {
       borderRadius="3px"
     >
       <HStack spacing="1rem">
-        <Image src={props.thumbnail} height="4rem" ml="1.5rem" />
+        <Image src={toAbsolutePath(props.thumbnail)} height="4rem" ml="1.5rem" />
         <VStack alignSelf="start" pt="1rem" alignItems="start" spacing="0">
           <HStack spacing="10px">
             <ClubTypeBadge content="hachioji" />

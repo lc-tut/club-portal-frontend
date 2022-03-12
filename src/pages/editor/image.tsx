@@ -4,7 +4,7 @@ import {
   Grid,
   GridItem,
   HStack,
-  Image,
+  Image as ChakraImage,
   Input,
   Modal,
   ModalBody,
@@ -15,25 +15,26 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react"
-import { createRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { PortalButton } from "../../components/common/Button"
 import { EditorBase } from "../../components/common/Editor/EditorBase"
 import { EditorButton } from "../../components/common/Editor/EditorButton"
 import { TitleArea } from "../../components/global/Header/TitleArea"
 import { PADDING_BEFORE_FOOTER } from "../../utils/consts"
-import { StateDispatch } from "../../types/utils"
+import { useOutletUser } from "../../hooks/useOutletUser"
+import { useAPI } from "../../hooks/useAPI"
+import type { Image, UpdateImagePayload } from "../../types/api"
+import { Loading } from "../../components/global/LoadingPage"
+import { ErrorPage } from "../error"
+import { toAbsolutePath } from "../../utils/functions"
+import type { AxiosRequestConfig } from "axios"
+import { axiosWithPayload } from "../../utils/axios"
+import { useErrorToast } from "../../hooks/useErrorToast"
 
 type ImageModalProps = {
-  image: string
+  image: string | undefined
   isOpen: boolean
   onClose: () => void
-}
-
-type ImagePreviewsProps = {
-  onPreviewClick: (image: string) => void
-  items: string[]
-  setItems: StateDispatch<Array<string>>
-  isNew?: boolean
 }
 
 const ImageModal: React.VFC<ImageModalProps> = (props) => {
@@ -43,91 +44,139 @@ const ImageModal: React.VFC<ImageModalProps> = (props) => {
       <ModalContent>
         <ModalCloseButton />
         <ModalBody>
-          <Image src={props.image} pr="2rem" />
+          <ChakraImage src={props.image} pr="2rem" />
         </ModalBody>
       </ModalContent>
     </Modal>
   )
 }
 
-const ImagePreviews: React.VFC<ImagePreviewsProps> = (props) => {
-  const onRemove = (index: number) => {
-    const newItems = [...props.items]
-    newItems.splice(index, 1)
-    props.setItems(newItems)
-  }
+type ImagePreviewsProps = {
+  path: string
+  item: Image | File
+  isNew?: boolean
+  onPreviewClick: () => void
+  onRemove: (item: Image | File, isNew?: boolean) => void
+}
 
+const ImagePreviews: React.VFC<ImagePreviewsProps> = (props) => {
   return (
-    <>
-      {props.items.map((item, index) => (
-        <GridItem key={item}>
-          <HStack>
-            <VStack>
-              <EditorButton icon="remove" onClick={() => onRemove(index)} />
-              <Text color="text.main">{props.isNew && "新規"}</Text>
-            </VStack>
-            <AspectRatio ratio={16 / 9} w="15rem">
-              <Button
-                p="0"
-                borderRadius="0"
-                onClick={() => props.onPreviewClick(item)}
-              >
-                <Image src={item} key={item} />
-              </Button>
-            </AspectRatio>
-          </HStack>
-        </GridItem>
-      ))}
-    </>
+    <GridItem>
+      <HStack>
+        <VStack>
+          <EditorButton
+            icon="remove"
+            onClick={() => props.onRemove(props.item, props.isNew)}
+          />
+          <Text color="text.main">{props.isNew && "新規"}</Text>
+        </VStack>
+        <AspectRatio ratio={16 / 9} w="15rem">
+          <Button p="0" borderRadius="0" onClick={props.onPreviewClick}>
+            <ChakraImage src={props.path} />
+          </Button>
+        </AspectRatio>
+      </HStack>
+    </GridItem>
   )
 }
 
 export const ImageEditor: React.VFC<{}> = () => {
-  const dummy = [
-    "https://placekitten.com/g/640/360",
-    "https://placehold.jp/400x400.png",
-    "https://loremflickr.com/400/400",
-    "https://placehold.jp/640x360.png",
-    "https://www.fillmurray.com/400/400",
-    "https://baconmockup.com/640/360",
-  ]
-  const [inputImages, setInputImages] = useState<string[]>([])
-  const [images, setImages] = useState<string[]>(dummy)
-  const [modalImage, setModalImage] = useState<string>("")
+  const { clubUuid } = useOutletUser()
+  const { data, isLoading, isError } = useAPI<Array<Image>>(
+    `/api/v1/clubs/uuid/${clubUuid!}/image`
+  )
+  const [existImages, setExistImages] = useState<Array<Image>>([])
+  const [newImages, setNewImages] = useState<Array<File>>([])
+  const [currentImage, setCurrentImage] = useState<string>("")
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const inputRef = createRef<HTMLInputElement>()
-  const onClick = (image: string) => {
-    setModalImage(image)
-    onOpen()
-  }
+  const inputRef = useRef<HTMLInputElement>(null)
+  const toast = useErrorToast("データの保存に失敗しました。")
+
+  useEffect(() => {
+    if (data) {
+      setExistImages(data)
+    }
+  }, [data])
+
   const onAdd = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) {
+    const files = e.target.files
+    if (!files || !files[0]) {
       return
     }
-    const file = e.target.files[0]
-    if (file) {
-      const reader = new FileReader()
-      reader.readAsDataURL(file)
-      reader.onload = () => {
-        const result = reader.result?.toString()
-        if (!result) {
-          return
-        }
-        setInputImages([...(inputImages ?? []), result])
-      }
+    const reader = new FileReader()
+    reader.readAsDataURL(files[0])
+    reader.onload = () => {
+      setNewImages([...newImages, files[0]])
+    }
+  }
+
+  const onRemove = (item: Image | File, isNew?: boolean) => {
+    if (isNew) {
+      setNewImages(newImages.filter((image) => !Object.is(image, item)))
+    } else {
+      setExistImages(existImages.filter((image) => !Object.is(image, item)))
+    }
+  }
+
+  const onPreviewClick = (imagePath: string) => {
+    setCurrentImage(imagePath)
+    onOpen()
+  }
+
+  if (isLoading) {
+    return <Loading fullScreen />
+  }
+
+  if (isError) {
+    return <ErrorPage />
+  }
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const imageIDs = existImages.map((image) => ({ imageId: image.imageId }))
+    const formData = new FormData()
+    newImages.map((image) => formData.append("images", image))
+    const uploadRequestConfig: AxiosRequestConfig<FormData> = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      url: `/api/v1/upload/images`,
+      method: "post",
+      data: formData,
+    }
+    try {
+      const res = await axiosWithPayload<FormData, Array<Image>>(
+        uploadRequestConfig
+      )
+      res.data.map((d) => imageIDs.push({ imageId: d.imageId }))
+    } catch (e) {
+      toast()
+      return
+    }
+
+    const updateRequestConfig: AxiosRequestConfig<UpdateImagePayload> = {
+      url: `/api/v1/clubs/uuid/${clubUuid!}/image`,
+      data: imageIDs,
+    }
+    try {
+      await axiosWithPayload<UpdateImagePayload, Array<Image>>(
+        updateRequestConfig
+      )
+    } catch (e) {
+      toast()
     }
   }
 
   return (
     <VStack flex="1" pb={PADDING_BEFORE_FOOTER}>
       <TitleArea>画像の掲載・変更</TitleArea>
-      <form>
+      <form onSubmit={onSubmit}>
         <Input
           type="file"
           accept="image/png, image/jpeg"
           display="none"
           ref={inputRef}
-          onChange={(e) => onAdd(e)}
+          onChange={onAdd}
         />
         <EditorBase>
           <VStack>
@@ -145,24 +194,40 @@ export const ImageEditor: React.VFC<{}> = () => {
               columnGap="2rem"
               rowGap="2rem"
             >
-              <ImagePreviews
-                items={images}
-                setItems={setImages}
-                onPreviewClick={onClick}
-              />
-              <ImagePreviews
-                items={inputImages}
-                setItems={setInputImages}
-                onPreviewClick={onClick}
-                isNew
-              />
+              {existImages.map((image) => (
+                <ImagePreviews
+                  path={toAbsolutePath(image.path)}
+                  item={image}
+                  onPreviewClick={() => onPreviewClick(image.path)}
+                  onRemove={onRemove}
+                  key={image.imageId}
+                />
+              ))}
+              {newImages.map((image, index) => (
+                <ImagePreviews
+                  path={toAbsolutePath(URL.createObjectURL(image))}
+                  item={image}
+                  onPreviewClick={() =>
+                    onPreviewClick(URL.createObjectURL(image))
+                  }
+                  onRemove={() => onRemove(image, true)}
+                  key={index}
+                  isNew
+                />
+              ))}
             </Grid>
-            <ImageModal image={modalImage} isOpen={isOpen} onClose={onClose} />
+            <ImageModal
+              image={toAbsolutePath(currentImage)}
+              isOpen={isOpen}
+              onClose={onClose}
+            />
           </VStack>
           <VStack>
-            <PortalButton type="submit">保存</PortalButton>
+            <PortalButton type="submit" isDisabled={newImages.length === 0}>
+              保存
+            </PortalButton>
             <Text color="text.main">
-              新しく追加された画像: {inputImages?.length ?? 0} 件
+              新しく追加された画像: {newImages.length ?? 0} 件
             </Text>
           </VStack>
         </EditorBase>
