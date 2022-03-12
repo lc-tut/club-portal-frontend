@@ -8,7 +8,7 @@ import { Loading } from "../components/global/LoadingPage"
 import { useAPI } from "../hooks/useAPI"
 import { useOutletUser } from "../hooks/useOutletUser"
 import { PADDING_BEFORE_FOOTER } from "../utils/consts"
-import { ClubPageExternal } from "../types/api"
+import type { ClubPageExternal } from "../types/api"
 import { getCampus, getActivity } from "../utils/functions"
 import { ErrorPage } from "./error"
 

@@ -9,7 +9,7 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react"
-import { ChangeEvent, Dispatch, SetStateAction } from "react"
+import { StateDispatch } from "../../../types/utils"
 import { PADDING_BEFORE_FOOTER } from "../../../utils/consts"
 import { PortalButton } from "../Button"
 
@@ -40,8 +40,8 @@ export const defaultFilter: Filter = {
 
 type FilterAreaProps = {
   filterInputData: Filter
-  setFilterInputData: Dispatch<SetStateAction<Filter>>
-  setFilter: Dispatch<SetStateAction<Filter>>
+  setFilterInputData: StateDispatch<Filter>
+  setFilter: StateDispatch<Filter>
 }
 
 type FilterItemProps = {
@@ -49,7 +49,7 @@ type FilterItemProps = {
   flagKey: FilterFlagKey
   filterInputData: Filter
   isChecked: boolean
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 const FilterItem: React.VFC<FilterItemProps> = (props) => {
@@ -70,7 +70,7 @@ const FilterItem: React.VFC<FilterItemProps> = (props) => {
 
 export const ClubFilter: React.VFC<FilterAreaProps> = (props) => {
   const onFlagChange = (
-    e: ChangeEvent<HTMLInputElement>,
+    e: React.ChangeEvent<HTMLInputElement>,
     flagKey: FilterFlagKey
   ) => {
     const newFilterInput = { ...props.filterInputData }
@@ -78,7 +78,7 @@ export const ClubFilter: React.VFC<FilterAreaProps> = (props) => {
     newFilterInput.flags[flagKey] = e.target.checked
     props.setFilterInputData(newFilterInput)
   }
-  const onKeywordChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newFilterInput = { ...props.filterInputData }
     newFilterInput.keyword = e.target.value
     props.setFilterInputData(newFilterInput)

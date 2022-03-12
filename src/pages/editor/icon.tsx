@@ -12,8 +12,8 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react"
-import { AxiosRequestConfig } from "axios"
-import { ChangeEvent, useEffect, useRef, useState } from "react"
+import type { AxiosRequestConfig } from "axios"
+import { useEffect, useRef, useState } from "react"
 import ReactCrop, { Crop } from "react-image-crop"
 import "react-image-crop/dist/ReactCrop.css"
 import { PortalButton } from "../../components/common/Button"
@@ -24,7 +24,7 @@ import { Loading } from "../../components/global/LoadingPage"
 import { useAPI } from "../../hooks/useAPI"
 import { useErrorToast } from "../../hooks/useErrorToast"
 import { useOutletUser } from "../../hooks/useOutletUser"
-import { Thumbnail } from "../../types/api"
+import type { Thumbnail } from "../../types/api"
 import type { StateDispatch } from "../../types/utils"
 import { axiosWithPayload } from "../../utils/axios"
 import { PADDING_BEFORE_FOOTER } from "../../utils/consts"
@@ -139,7 +139,7 @@ export const IconEditor: React.VFC<{}> = () => {
     }
   }, [data])
 
-  const onImageLoad = (e: ChangeEvent<HTMLInputElement>) => {
+  const onImageLoad = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || !e.target.files[0]) {
       return
     }

@@ -1,5 +1,5 @@
 import { Center, Flex, Spacer } from "@chakra-ui/react"
-import { HeaderProps } from "../../../types/header"
+import type { HeaderProps } from "../../../types/header"
 import { HamburgerMenu } from "./HamburgerMenu"
 import { UserMenu } from "./UserMenu"
 

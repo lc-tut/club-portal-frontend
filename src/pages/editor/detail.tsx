@@ -31,7 +31,7 @@ import { ErrorPage } from "../error"
 import { Loading } from "../../components/global/LoadingPage"
 import { useErrorToast } from "../../hooks/useErrorToast"
 import { axiosWithPayload } from "../../utils/axios"
-import { AxiosRequestConfig } from "axios"
+import type { AxiosRequestConfig } from "axios"
 
 type FormType = {
   email: string

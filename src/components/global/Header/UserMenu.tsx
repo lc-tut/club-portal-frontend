@@ -13,7 +13,7 @@ import axios from "axios"
 import { BsBoxArrowRight, BsPencil } from "react-icons/bs"
 import { Link, useLocation } from "react-router-dom"
 import { useSession } from "../../../hooks/useSession"
-import { HeaderProps } from "../../../types/header"
+import type { HeaderProps } from "../../../types/header"
 import { PortalButton } from "../../common/Button"
 import { DefaultUserIcon } from "../../common/Icon"
 

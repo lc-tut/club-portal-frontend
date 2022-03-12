@@ -1,4 +1,4 @@
-import { Reducer } from "react"
+import type { Reducer } from "react"
 import type { TimePlaceStateType, TimePlaceActionType } from "../types/reducer"
 
 export const timePlaceReducer: Reducer<

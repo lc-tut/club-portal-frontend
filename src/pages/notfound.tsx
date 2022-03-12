@@ -5,7 +5,6 @@ import { TitleArea } from "../components/global/Header/TitleArea"
 
 export const NotFound: React.VFC<{}> = () => {
   return (
-    <>
       <motion.div>
         <VStack w="100vw">
           <TitleArea>404 Not Found</TitleArea>
@@ -19,6 +18,5 @@ export const NotFound: React.VFC<{}> = () => {
           </Text>
         </VStack>
       </motion.div>
-    </>
   )
 }
