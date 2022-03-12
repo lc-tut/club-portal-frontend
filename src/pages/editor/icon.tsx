@@ -13,7 +13,7 @@ import {
   VStack,
 } from "@chakra-ui/react"
 import { AxiosRequestConfig } from "axios"
-import { ChangeEvent, useRef, useState } from "react"
+import { ChangeEvent, useEffect, useRef, useState } from "react"
 import ReactCrop, { Crop } from "react-image-crop"
 import "react-image-crop/dist/ReactCrop.css"
 import { PortalButton } from "../../components/common/Button"
@@ -120,18 +120,21 @@ const ResizeModal: React.VFC<ResizeModalProps> = (props) => {
 export const IconEditor: React.VFC<{}> = () => {
   const { clubUuid } = useOutletUser()
   const { data, isLoading, isError } = useAPI<Thumbnail>(
-    `/api/v1/upload/thumbnail/${clubUuid!}`
+    `/api/v1/upload/thumbnail/clubs/${clubUuid!}`
   )
   const toast = useErrorToast("データの保存に失敗しました。")
   const [icon, setIcon] = useState<string>("")
-  const [inputImage, setInputImage] = useState<HTMLImageElement>(() => {
-    const img = new Image()
-    img.src = data.path
-    return img
-  })
+  const [inputImage, setInputImage] = useState<HTMLImageElement>(new Image())
   const [crop, setCrop] = useState<Crop>(defaultCrop)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    if (data) {
+      inputImage.src = data.path
+      setInputImage(inputImage)
+    }
+  }, [data, inputImage])
 
   const onImageLoad = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || !e.target.files[0]) {

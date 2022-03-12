@@ -12,6 +12,7 @@ import { ErrorPage } from "../error"
 import { axiosWithPayload } from "../../utils/axios"
 import type { AxiosRequestConfig } from "axios"
 import { useErrorToast } from "../../hooks/useErrorToast"
+import { useEffect, useState } from "react"
 
 type MonthInputAreaProps = {
   month: number
@@ -46,15 +47,24 @@ const MonthInputArea: React.VFC<MonthInputAreaProps> = (props) => {
   )
 }
 
-const scheduleMap = new Map<number, string>()
+type scheduleObjType = {[key in number]?: string}
 
 export const ScheduleEditor: React.VFC<{}> = () => {
   const { clubUuid } = useOutletUser()
   const { data, isLoading, isError } = useAPI<Array<Schedule>>(
     `/api/v1/clubs/uuid/${clubUuid!}/schedule`
   )
-  const methods = useForm<Array<Schedule>>({ defaultValues: data })
+  const methods = useForm<Array<Schedule>>()
   const toast = useErrorToast("データの保存に失敗しました。")
+  const [schedule, setSchedule] = useState<scheduleObjType>({})
+
+  useEffect(() => {
+    if (data) {
+      const obj: scheduleObjType = {}
+      data.map(d => obj[d.month] = d.schedule)
+      setSchedule(obj)
+    }
+  }, [data])
 
   const onSubmit = methods.handleSubmit(async (data) => {
     const payload = data.filter((d) => d.schedule !== "")
@@ -78,8 +88,6 @@ export const ScheduleEditor: React.VFC<{}> = () => {
     return <ErrorPage />
   }
 
-  data.map((schedule) => scheduleMap.set(schedule.month, schedule.schedule))
-
   return (
     <VStack flex="1" pb={PADDING_BEFORE_FOOTER}>
       <TitleArea>年間予定の編集</TitleArea>
@@ -96,7 +104,7 @@ export const ScheduleEditor: React.VFC<{}> = () => {
                   <GridItem key={item}>
                     <MonthInputArea
                       month={item}
-                      value={scheduleMap.get(item)}
+                      value={schedule[item]}
                     />
                   </GridItem>
                 )

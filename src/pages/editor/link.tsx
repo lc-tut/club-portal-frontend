@@ -9,7 +9,7 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { EditorBase } from "../../components/common/Editor/EditorBase"
@@ -46,13 +46,17 @@ export const LinkEditor: React.VFC<{}> = () => {
     clearErrors,
     formState: { errors },
   } = useForm<Link>({
-    defaultValues: { label: "", url: "" },
     resolver: zodResolver(schema),
   })
-  const [items, setItems] = useState<Array<Link>>(
-    data.filter((d) => d.label !== "HP" && d.label !== "Email")
-  )
+  const [items, setItems] = useState<Array<Link>>([])
   const toast = useErrorToast("データの保存に失敗しました。")
+
+  useEffect(() => {
+    if (data) {
+      const v = data.filter((d) => d.label !== "HP" && d.label !== "Email")
+      setItems(v)
+    }
+  }, [data])
 
   const values = watch()
 

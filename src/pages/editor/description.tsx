@@ -20,6 +20,7 @@ import { ErrorPage } from "../error"
 import { axiosWithPayload } from "../../utils/axios"
 import { AxiosRequestConfig } from "axios"
 import { useErrorToast } from "../../hooks/useErrorToast"
+import { useEffect, useState } from "react"
 
 const schema = z.object({
   desciption: z.string(),
@@ -30,15 +31,21 @@ export const DescriptionEditor: React.VFC<{}> = () => {
   const { data, isLoading, isError } = useAPI<Description>(
     `/api/v1/clubs/uuid/${clubUuid!}/description`
   )
+  const [desc, setDesc] = useState<string>("")
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm<Description>({
-    defaultValues: data,
     resolver: zodResolver(schema),
   })
   const toast = useErrorToast("データの保存に失敗しました。")
+
+  useEffect(() => {
+    if (data) {
+      setDesc(data.description)
+    }
+  }, [data])
 
   const onSubmit = handleSubmit(async (data) => {
     const requestConfig: AxiosRequestConfig<Description> = {
@@ -80,7 +87,7 @@ export const DescriptionEditor: React.VFC<{}> = () => {
               w="30rem"
               h="10rem"
               placeholder="サークルの説明文を入力して下さい"
-              defaultValue={data.description}
+              defaultValue={desc}
               resize="none"
             />
             <FormErrorMessage>

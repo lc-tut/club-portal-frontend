@@ -129,7 +129,7 @@ export const VideoEditor: React.VFC<{}> = () => {
     setError,
     clearErrors,
     formState: { errors },
-  } = useForm<Video>({ defaultValues: { path: "" } })
+  } = useForm<Video>()
   const [videoID, setVideoID] = useState("")
   const toast = useErrorToast("データの保存に失敗しました。")
 

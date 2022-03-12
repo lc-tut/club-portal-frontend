@@ -10,7 +10,7 @@ export const useAPI = <R extends APIResponse>(endpoint: string) => {
   )
 
   return {
-    data: data!,
+    data: data,
     isLoading: !error && data === undefined,
     isError: error,
   }
