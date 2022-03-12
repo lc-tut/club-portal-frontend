@@ -9,7 +9,7 @@ import {
   DetailInformation,
   AnnualPlan,
 } from "../components/common/ClubDescription"
-import { ClubTypeBadge } from "../components/common/ClubTypeBadge"
+import { ClubTypeBadge } from "../components/common/Clubs/ClubTypeBadge"
 import { TitleArea } from "../components/global/Header/TitleArea"
 import { Loading } from "../components/global/LoadingPage"
 import { useAPI } from "../hooks/useAPI"
@@ -17,9 +17,14 @@ import type { ClubPageInternal } from "../types/api"
 import { ACTIVITY, CAMPUS } from "../utils/consts"
 import { ErrorPage } from "./error"
 
+type ClubPageProps = {
+  userUUID?: string
+}
+
 // TODO: アニメーションをつける
-export const ClubPage: React.VFC<{}> = () => {
+export const ClubPage: React.VFC<ClubPageProps> = (props) => {
   const clubSlug = useLocation()
+  console.log(clubSlug)
   const { data, isLoading, isError } = useAPI<ClubPageInternal>(
     `/api/v1/clubs/slug${clubSlug.pathname.replace("/clubs", "")}`
   )
@@ -53,7 +58,11 @@ export const ClubPage: React.VFC<{}> = () => {
           <Icon as={BsClock} mr="5px" />
           最終更新: {data?.updatedAt}
         </Flex>
-        <FavoriteButton registered={false} />
+        <FavoriteButton
+          userUUID={props.userUUID}
+          clubUUID={data?.clubUuid}
+          isDisabled={props.userUUID === undefined}
+        />
       </HStack>
       <Grid
         templateColumns="repeat(12, 1fr)"
