@@ -119,6 +119,10 @@ export type RegisterFavoriteClubPayload = ClubUUIDObject
 
 export type UnregisterFavoriteClubPayload = ClubUUIDObject
 
+export type FavoriteClubResponse = ClubUUIDObject
+
+export type FavoriteClubStatus = { status: boolean }
+
 export type CreateClubPayload = {
   name: string
   description: string
@@ -177,3 +181,5 @@ export type APIResponse =
   | Array<Video>
   | Array<ActivityDetail>
   | Description
+  | FavoriteClubResponse
+  | FavoriteClubStatus
