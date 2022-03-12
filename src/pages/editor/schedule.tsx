@@ -49,9 +49,9 @@ const MonthInputArea: React.VFC<MonthInputAreaProps> = (props) => {
 const scheduleMap = new Map<number, string>()
 
 export const ScheduleEditor: React.VFC<{}> = () => {
-  const { clubUUID } = useOutletUser()
+  const { clubUuid } = useOutletUser()
   const { data, isLoading, isError } = useAPI<Array<Schedule>>(
-    `/api/v1/clubs/uuid/${clubUUID!}/schedule`
+    `/api/v1/clubs/uuid/${clubUuid!}/schedule`
   )
   const methods = useForm<Array<Schedule>>({ defaultValues: data })
   const toast = useErrorToast("データの保存に失敗しました。")
@@ -59,7 +59,7 @@ export const ScheduleEditor: React.VFC<{}> = () => {
   const onSubmit = methods.handleSubmit(async (data) => {
     const payload = data.filter((d) => d.schedule !== "")
     const requestConfig: AxiosRequestConfig<Array<Schedule>> = {
-      url: `/api/v1/clubs/uuid/${clubUUID!}/schedule`,
+      url: `/api/v1/clubs/uuid/${clubUuid!}/schedule`,
       method: "put",
       data: payload,
     }

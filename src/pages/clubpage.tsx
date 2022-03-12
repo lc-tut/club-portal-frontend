@@ -21,7 +21,7 @@ import { ErrorPage } from "./error"
 export const ClubPage: React.VFC<{}> = () => {
   const clubSlug = useLocation()
   const { data, isLoading, isError } = useAPI<ClubPageInternal>(
-    `/api/v1/clubs/slug${clubSlug.pathname}`
+    `/api/v1/clubs/slug${clubSlug.pathname.replace("/clubs", "")}`
   )
 
   if (isLoading) return <Loading fullScreen />
@@ -60,7 +60,7 @@ export const ClubPage: React.VFC<{}> = () => {
         pb="6rem"
         alignItems="center"
       >
-        <IntroductionVideo videoPath={data.videos[0].path} />
+        <IntroductionVideo videoPath={data.videos[0]?.path} />
         <CarouselGallery imagePaths={data.images.map((im) => im.path)} />
         <DescriptionText
           links={data.links

@@ -34,9 +34,9 @@ const schema = z.object({
 })
 
 export const LinkEditor: React.VFC<{}> = () => {
-  const { clubUUID } = useOutletUser()
+  const { clubUuid } = useOutletUser()
   const { data, isLoading, isError } = useAPI<Array<Link>>(
-    `/api/v1/clubs/uuid/${clubUUID!}/link`
+    `/api/v1/clubs/uuid/${clubUuid!}/link`
   )
   const {
     handleSubmit,
@@ -88,7 +88,7 @@ export const LinkEditor: React.VFC<{}> = () => {
 
   const onSubmit = handleSubmit(async () => {
     const requestConfig: AxiosRequestConfig<Array<Link>> = {
-      url: `/api/v1/uuid/${clubUUID!}/link`,
+      url: `/api/v1/uuid/${clubUuid!}/link`,
       method: "put",
       data: items,
     }

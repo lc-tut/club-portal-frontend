@@ -2,7 +2,7 @@ import { AspectRatio, GridItem, Text, VStack } from "@chakra-ui/react"
 import { IntroductionVideoProps } from "../../../types/description"
 
 export const IntroductionVideo: React.VFC<IntroductionVideoProps> = (props) => {
-  return (
+  return props.videoPath ? (
     <GridItem colSpan={12} width="50%" justifySelf="center">
       <VStack spacing="1rem">
         <Text fontSize="1.5rem" color="text.main">
@@ -21,5 +21,7 @@ export const IntroductionVideo: React.VFC<IntroductionVideoProps> = (props) => {
         </AspectRatio>
       </VStack>
     </GridItem>
+  ) : (
+    <></>
   )
 }

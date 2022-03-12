@@ -26,9 +26,9 @@ const schema = z.object({
 })
 
 export const DescriptionEditor: React.VFC<{}> = () => {
-  const { clubUUID } = useOutletUser()
+  const { clubUuid } = useOutletUser()
   const { data, isLoading, isError } = useAPI<Description>(
-    `/api/v1/clubs/uuid/${clubUUID!}/description`
+    `/api/v1/clubs/uuid/${clubUuid!}/description`
   )
   const {
     handleSubmit,
@@ -42,7 +42,7 @@ export const DescriptionEditor: React.VFC<{}> = () => {
 
   const onSubmit = handleSubmit(async (data) => {
     const requestConfig: AxiosRequestConfig<Description> = {
-      url: `/api/v1/uuid/${clubUUID!}/description`,
+      url: `/api/v1/uuid/${clubUuid!}/description`,
       method: "put",
       data: data,
     }

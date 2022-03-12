@@ -121,7 +121,7 @@ const HelpModal = () => {
 }
 
 export const VideoEditor: React.VFC<{}> = () => {
-  const { clubUUID } = useOutletUser()
+  const { clubUuid } = useOutletUser()
   const {
     handleSubmit,
     register,
@@ -147,7 +147,7 @@ export const VideoEditor: React.VFC<{}> = () => {
 
   const onSubmit = handleSubmit(async (data) => {
     const requestConfig: AxiosRequestConfig<Array<Video>> = {
-      url: `/api/v1/uuid/${clubUUID!}/video`,
+      url: `/api/v1/uuid/${clubUuid!}/video`,
       method: "put",
       data: [data],
     }

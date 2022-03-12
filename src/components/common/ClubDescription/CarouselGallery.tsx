@@ -21,7 +21,10 @@ export const CarouselGallery: React.VFC<CarouselGalleryProps> = (props) => {
         {props.imagePaths.map((path, i) => (
           <SwiperSlide key={i}>
             <AspectRatio ratio={16 / 9}>
-              <Image src={path} maxHeight="15rem" />
+              <Image
+                src={`${location.protocol}//${location.host}/${path}`}
+                maxHeight="15rem"
+              />
             </AspectRatio>
           </SwiperSlide>
         ))}

@@ -1,8 +1,8 @@
 type Role = "domain" | "general" | "admin"
 
 export type Session = {
-  sessionUUID: string
-  userUUID: string
+  sessionUuid: string
+  userUuid: string
   email: string
   name: string
   role: Role
@@ -10,15 +10,15 @@ export type Session = {
 } | null
 
 export type UserInfo = {
-  userUUID: string
+  userUuid: string
   email: string
   name: string
   role: Role
-  clubUUID?: string
+  clubUuid?: string
 }
 
 export type Thumbnail = {
-  thumbnailID: number
+  thumbnailId: number
   path: string
 }
 
@@ -45,7 +45,7 @@ export type Achievement = {
 }
 
 export type Image = {
-  imageID: number
+  imageId: number
   path: string
 }
 
@@ -62,7 +62,7 @@ export type TimePlace = {
 }
 
 export type ClubPageExternal = {
-  clubUUID: string
+  clubUuid: string
   clubSlug: string
   name: string
   description: string
@@ -74,7 +74,7 @@ export type ClubPageExternal = {
 }
 
 export type ClubPageInternal = {
-  clubUUID: string
+  clubUuid: string
   name: string
   description: string
   shortDescription: string
@@ -93,17 +93,17 @@ export type ClubPageInternal = {
 }
 
 export type ActivityDetail = {
-  timeID: number
+  timeId: number
   date: string
   time: string
   timeRemark?: string
-  placeID: number
+  placeId: number
   place: string
   placeRemark?: string
 }
 
 type ClubUUIDObject = {
-  clubUUID: string
+  clubUuid: string
 }
 
 export type CreateGeneralUserPayload = {
@@ -114,7 +114,7 @@ export type CreateGeneralUserPayload = {
 export type ChangeUserPayload = {
   name: string
   role: string
-  clubUUID?: string
+  clubUuid?: string
 }
 
 export type RegisterFavoriteClubPayload = ClubUUIDObject

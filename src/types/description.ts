@@ -5,7 +5,7 @@ export type CarouselGalleryProps = {
 }
 
 export type IntroductionVideoProps = {
-  videoPath: string
+  videoPath?: string
 }
 
 export type DescriptionProps = {

@@ -118,9 +118,9 @@ const ResizeModal: React.VFC<ResizeModalProps> = (props) => {
 }
 
 export const IconEditor: React.VFC<{}> = () => {
-  const { clubUUID } = useOutletUser()
+  const { clubUuid } = useOutletUser()
   const { data, isLoading, isError } = useAPI<Thumbnail>(
-    `/api/v1/upload/thumbnail/${clubUUID!}`
+    `/api/v1/upload/thumbnail/${clubUuid!}`
   )
   const toast = useErrorToast("データの保存に失敗しました。")
   const [icon, setIcon] = useState<string>("")
@@ -178,7 +178,7 @@ export const IconEditor: React.VFC<{}> = () => {
       headers: {
         "Content-Type": "multipart/form-data",
       },
-      url: `/api/v1/upload/thumbnail/clubs/${clubUUID!}`,
+      url: `/api/v1/upload/thumbnail/clubs/${clubUuid!}`,
       method: "put",
       data: formData,
     }
