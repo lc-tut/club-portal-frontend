@@ -8,10 +8,12 @@ import { Footer } from "./components/global/Footer"
 import axios from "axios"
 import { ErrorPage } from "./pages/error"
 import { Flex } from "@chakra-ui/react"
+import { UserRouteElement } from "./components/global/Route/UserRoute"
+import { ClubRouteElement } from "./components/global/Route/ClubRoute"
 
 const AnimatedRouter: React.VFC<{}> = () => {
   const location = useLocation()
-  const { isLoading, isError } = useSession()
+  const { session, isLoading, isError } = useSession()
 
   if (isError) {
     if (axios.isAxiosError(isError)) {
@@ -22,27 +24,42 @@ const AnimatedRouter: React.VFC<{}> = () => {
   if (isLoading) {
     return (
       <AnimatePresence>
-        <Loading />
+        <Loading fullScreen />
       </AnimatePresence>
     )
   }
 
   return (
     <Flex direction="column" minH="100vh">
-      <Header />
+      <Header avatar={session === null ? null : session.avatar} />
       <Flex p="0" flex="1">
         <AnimatePresence exitBeforeEnter initial={false}>
           <Routes location={location} key={location.pathname}>
-            <Route path="/" element={<page.Top />}></Route>
-            <Route path="/clubs/:slug"></Route>
-            <Route
-              path="/club-description-test"
-              element={<page.ClubDescription />}
-            ></Route>
-            <Route path="/users/:uuid"></Route>
-            <Route path="/clubs" element={<page.Clubs />}></Route>
-            <Route path="/favorites" element={<page.Favorites />} />
-            <Route path="*" element={<page.NotFound />}></Route>
+            <Route index element={<page.Top />} />
+            <Route path="clubs">
+              <Route index element={<page.Clubs />} />
+              <Route path=":slug" element={<page.ClubPage />} />
+            </Route>
+            <Route path="users" element={<UserRouteElement />}>
+              <Route path="club" element={<ClubRouteElement />}>
+                <Route path="edit">
+                  <Route index element={<page.EditorList />} />
+                  <Route
+                    path="description"
+                    element={<page.DescriptionEditor />}
+                  />
+                  <Route path="detail" element={<page.DetailEditor />} />
+                  <Route path="image" element={<page.ImageEditor />} />
+                  <Route path="link" element={<page.LinkEditor />} />
+                  <Route path="schedule" element={<page.ScheduleEditor />} />
+                  <Route path="video" element={<page.VideoEditor />} />
+                  <Route path="icon" element={<page.IconEditor />} />
+                </Route>
+              </Route>
+              <Route path="edit" />
+              <Route path=":uuid" />
+            </Route>
+            <Route path="*" element={<page.NotFound />} />
           </Routes>
         </AnimatePresence>
       </Flex>

@@ -1,28 +1,35 @@
+import type { DateType } from "./description"
+
 type Role = "domain" | "general" | "admin"
 
 export type Session = {
-  sessionUUID: string
-  userUUID: string
+  sessionUuid: string
+  userUuid: string
   email: string
   name: string
   role: Role
+  avatar: string
 } | null
 
 export type UserInfo = {
-  userUUID: string
+  userUuid: string
   email: string
   name: string
   role: Role
-  clubUUID?: string
+  clubUuid?: string
 }
 
 export type Thumbnail = {
-  thumbnailID: number
+  thumbnailId: number
   path: string
 }
 
 export type Content = {
   content: string
+}
+
+export type Description = {
+  description: string
 }
 
 export type Link = {
@@ -33,7 +40,6 @@ export type Link = {
 export type Schedule = {
   month: number // 1 to 12 (uint8)
   schedule: string
-  remarks: string | null
 }
 
 export type Achievement = {
@@ -41,26 +47,16 @@ export type Achievement = {
 }
 
 export type Image = {
-  imageID: number
+  imageId: number
+  path: string
 }
 
 export type Video = {
   path: string
 }
 
-export type Time = {
-  date: string
-  time: string
-  remarks: string | null
-}
-
-export type Place = {
-  place: string
-  remarks: string | null
-}
-
 export type ClubPageExternal = {
-  clubUUID: string
+  clubUuid: string
   clubSlug: string
   name: string
   description: string
@@ -72,12 +68,14 @@ export type ClubPageExternal = {
 }
 
 export type ClubPageInternal = {
-  clubUUID: string
+  clubUuid: string
   name: string
   description: string
   shortDescription: string
   campus: number // 0, 1
   clubType: number // 0, 1, 2
+  clubRemark?: string
+  scheduleRemark?: string
   updatedAt: string // RFC3339
   contents: Array<Content>
   links: Array<Link>
@@ -85,23 +83,26 @@ export type ClubPageInternal = {
   achievements: Array<Achievement>
   images: Array<Image>
   videos: Array<Video>
-  times: Array<Time>
-  places: Array<Place>
+  activityDetails: Array<ActivityDetail>
 }
 
 export type ActivityDetail = {
-  timeID: number
-  date: string
+  timeId: number
+  date: DateType
   time: string
-  timeRemark: string | null
-  placeID: number
+  timeRemark?: string
+  placeId: number
   place: string
-  placeRemark: string | null
+  placeRemark?: string
 }
 
 type ClubUUIDObject = {
-  clubUUID: string
+  clubUuid: string
 }
+
+export type UpdateImagePayload = Array<{
+  imageId: number
+}>
 
 export type CreateGeneralUserPayload = {
   email: string
@@ -111,7 +112,7 @@ export type CreateGeneralUserPayload = {
 export type ChangeUserPayload = {
   name: string
   role: string
-  clubUUID?: string
+  clubUuid?: string
 }
 
 export type RegisterFavoriteClubPayload = ClubUUIDObject
@@ -121,8 +122,10 @@ export type UnregisterFavoriteClubPayload = ClubUUIDObject
 export type CreateClubPayload = {
   name: string
   description: string
+  shortDescription: string
   campus: number // 0, 1
   clubType: number // 0, 1, 2
+  remark?: string
   contents: Array<Content>
   links: Array<Link>
   schedules: Array<Schedule>
@@ -134,6 +137,8 @@ export type CreateClubPayload = {
 
 export type UpdateClubPayload = {
   description: string
+  shortDescription: string
+  remark?: string
   contents: Array<Content>
   links: Array<Link>
   schedules: Array<Schedule>
@@ -144,16 +149,31 @@ export type UpdateClubPayload = {
 }
 
 export type APIPayload =
+  | UpdateImagePayload
   | CreateGeneralUserPayload
   | ChangeUserPayload
   | RegisterFavoriteClubPayload
   | UnregisterFavoriteClubPayload
   | CreateClubPayload
   | UpdateClubPayload
+  | Description
+  | Array<Link>
+  | Array<Content>
+  | Array<Schedule>
+  | Array<Achievement>
+  | Array<Video>
+  | Array<ActivityDetail>
 
 export type APIResponse =
   | UserInfo
-  | ClubPageExternal
+  | Array<ClubPageExternal>
   | ClubPageInternal
-  | (Image & { path: string })
+  | Array<Image>
   | Thumbnail
+  | Array<Link>
+  | Array<Content>
+  | Array<Schedule>
+  | Array<Achievement>
+  | Array<Video>
+  | Array<ActivityDetail>
+  | Description

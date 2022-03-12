@@ -1,14 +1,12 @@
 import { Center, Flex, Text, BoxProps } from "@chakra-ui/react"
-import { PortalLogo } from "./Icon"
+import { PortalLogo } from "../../common/Icon"
 
 type BannerProps = BoxProps & {
   maincolor?: string
   subcolor?: string
 }
 
-export const PortalBanner: React.VFC<React.PropsWithChildren<BannerProps>> = (
-  props
-) => {
+export const PortalBanner: React.VFC<BannerProps> = (props) => {
   const mainColor = props.maincolor ?? "text.title.sub"
   const subColor = props.subcolor ?? "text.main"
 

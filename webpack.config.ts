@@ -31,6 +31,8 @@ const devServer: Configuration = {
   hot: true,
   proxy: {
     "/api": "http://localhost:8080",
+    "/thumbnails": "http://localhost:8080",
+    "/images": "http://localhost:8080"
   },
 }
 
@@ -40,6 +42,7 @@ const config: webpack.Configuration = {
   devtool: isProduction ? false : "inline-source-map",
 
   output: {
+    publicPath: "/",
     path: path.resolve(__dirname + "/dist"),
     filename: "[name].bundle.js",
     assetModuleFilename: "assets/[hash].[ext]",

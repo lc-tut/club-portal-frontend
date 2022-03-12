@@ -1,13 +1,13 @@
 import {
   Button,
   Center,
-  Flex,
   HStack,
-  Spacer,
   Text,
   useDisclosure,
+  VStack,
 } from "@chakra-ui/react"
 import { useState } from "react"
+import { Link } from "react-router-dom"
 import { PortalLogo } from "../../common/Icon"
 import { About } from "./About"
 import { FooterModal, FooterModalProps } from "./FooterModal"
@@ -50,40 +50,41 @@ export const Footer: React.VFC<{}> = () => {
 
   return (
     <>
-      <Center h="12rem" backgroundColor="green.500">
-        <Flex direction="column">
-          <Center>
-            <PortalLogo boxSize="3em" mr="5" />
-            <Text color="white" fontSize="xl" fontWeight="bold">
-              TUT Club Portal
-            </Text>
-          </Center>
-          <Center>
-            <Text color="white" fontSize="xs">
-              東京工科大学サークルホームページ
-            </Text>
-          </Center>
-          <HStack py="2.5" spacing={8}>
-            {elementKeysArray.map((k) => (
-              <Button
-                color="white"
-                fontSize="xs"
-                variant="link"
-                onClick={() => onClickLinkButton(k)}
-                key={k}
-              >
-                {elements[k].title}
-              </Button>
-            ))}
-          </HStack>
-          <Spacer />
-          <Center>
-            <Text color="white" fontSize="xs">
-              Made by LinuxClub under MIT License.
-            </Text>
-          </Center>
-        </Flex>
-      </Center>
+      <VStack spacing="1rem" backgroundColor="green.500" py="1.5rem">
+        <Link to="/">
+          <VStack>
+            <HStack spacing="0">
+              <PortalLogo boxSize="3em" mr="5px" />
+              <Text color="white" fontSize="1.5rem" fontWeight="bold">
+                TUT Club Portal
+              </Text>
+            </HStack>
+            <Center>
+              <Text color="white" fontSize="0.8rem" letterSpacing="0.15rem">
+                東京工科大学サークルホームページ
+              </Text>
+            </Center>
+          </VStack>
+        </Link>
+        <HStack spacing={8}>
+          {elementKeysArray.map((k) => (
+            <Button
+              color="white"
+              fontSize="0.8rem"
+              variant="link"
+              onClick={() => onClickLinkButton(k)}
+              key={k}
+            >
+              {elements[k].title}
+            </Button>
+          ))}
+        </HStack>
+        <Center>
+          <Text color="white" fontSize="0.8rem">
+            Made by LinuxClub under MIT License.
+          </Text>
+        </Center>
+      </VStack>
 
       <FooterModal
         title={elements[elementKey].title}

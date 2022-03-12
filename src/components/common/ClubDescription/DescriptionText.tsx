@@ -1,34 +1,27 @@
 import { GridItem, VStack, Text, HStack, Link, Button } from "@chakra-ui/react"
-import { IconType } from "react-icons"
 import { BsInstagram, BsLink, BsTwitter } from "react-icons/bs"
-import { DescriptionProps, SnsId, snsList } from "../../types/description"
 
-function getSnsId(label: string): SnsId {
-  if (snsList.some((value) => value === label)) {
-    return label as SnsId
-  }
-  return "other"
-}
+import type { DescriptionProps, SNSType } from "../../../types/description"
 
-const fgColorMap: { [key in SnsId]: string } = {
+const isRegisteredSNS = (label: string): label is SNSType =>
+  label === "twitter" || label === "instagram"
+
+const fgColorMap: { [key in SNSType]: string } = {
   twitter: "#fff",
   instagram: "#fff",
-  other: "button.text.gray",
 }
-const bgColorMap: { [key in SnsId]: string } = {
+
+const bgColorMap: { [key in SNSType]: string } = {
   twitter: "#2E94DA",
   instagram: "#D35CCA",
-  other: "button.gray",
 }
-const iconMap: { [key in SnsId]: IconType } = {
-  twitter: BsTwitter,
-  instagram: BsInstagram,
-  other: BsLink,
+
+const iconMap: { [key in SNSType]: JSX.Element } = {
+  twitter: <BsTwitter />,
+  instagram: <BsInstagram />,
 }
 
 export const DescriptionText: React.VFC<DescriptionProps> = (props) => {
-  const snsLinks = props.snslinks ?? []
-
   return (
     <GridItem colSpan={{ base: 12, md: 6 }}>
       <VStack spacing="1rem">
@@ -39,21 +32,23 @@ export const DescriptionText: React.VFC<DescriptionProps> = (props) => {
           {props.content}
         </Text>
         <HStack alignSelf="start" px="1rem">
-          {snsLinks.map((link) => {
-            const snsId = getSnsId(link[0])
-            const LeftIcon = iconMap[snsId]
+          {props.links?.map((link) => {
+            const label = link.label
+            const registerdSNS = isRegisteredSNS(label)
             return (
-              <Link href={link[1]} key={link[1]}>
+              <Link href={link.path} key={link.path} isExternal>
                 <Button
-                  color={fgColorMap[snsId]}
-                  backgroundColor={bgColorMap[snsId]}
-                  leftIcon={<LeftIcon />}
+                  color={registerdSNS ? fgColorMap[label] : "button.text.gray"}
+                  backgroundColor={
+                    registerdSNS ? bgColorMap[label] : "button.gray"
+                  }
+                  leftIcon={registerdSNS ? iconMap[label] : <BsLink />}
                   fontSize="0.75rem"
                   borderRadius="2px"
                   height="2rem"
                   minWidth="6rem"
                 >
-                  {link[0]}
+                  {link.label}
                 </Button>
               </Link>
             )

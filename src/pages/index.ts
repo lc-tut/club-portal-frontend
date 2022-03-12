@@ -1,5 +1,5 @@
 export { Top } from "./top"
 export { NotFound } from "./notfound"
 export { Clubs } from "./clubs"
-export { ClubDescription } from "./ClubDescription/ClubDescription"
-export { Favorites } from "./favorites"
+export { ClubPage } from "./clubpage"
+export * from "./editor"
