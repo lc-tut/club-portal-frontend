@@ -3,10 +3,8 @@ import {
   Grid,
   GridItem,
   HStack,
-  Spinner,
   Stack,
   Text,
-  useToast,
   VStack,
 } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
@@ -19,18 +17,17 @@ import {
 } from "../components/common/Clubs/ClubFilter"
 import { ClubSortOptionSelect } from "../components/common/Clubs/ClubSortOptionSelect"
 import { TitleArea } from "../components/global/Header/TitleArea"
+import { Loading } from "../components/global/LoadingPage"
 import { useAPI } from "../hooks/useAPI"
 import { PADDING_BEFORE_FOOTER } from "../static/consts"
 import type { ClubPageExternal } from "../types/api"
-import type { BadgeActivity, BadgeCampus } from "../types/badge"
-import { ACTIVITY, CAMPUS } from "../utils/consts"
+import { getCampus, getActivity } from "../utils/functions"
+import { ErrorPage } from "./error"
 
 const AnimatedClubs: React.VFC<{}> = () => {
   const { data, isLoading, isError } =
     useAPI<Array<ClubPageExternal>>("/api/v1/clubs")
   const [sortedClubs, setSortedClubs] = useState<Array<ClubPageExternal>>([])
-
-  const toast = useToast()
 
   const [filterInputData, setFilterInputData] = useState<Filter>(defaultFilter)
   const [filter, setFilter] = useState<Filter>(defaultFilter)
@@ -38,21 +35,18 @@ const AnimatedClubs: React.VFC<{}> = () => {
 
   // sort clubs
   useEffect(() => {
-    const newSortedClubs: Array<ClubPageExternal> = []
-    data?.map((club) => {
-      newSortedClubs.push({ ...club })
-    })
-
-    newSortedClubs?.sort((val1, val2) => {
-      if (sortOption == "name-asc") {
-        return val1.name.localeCompare(val2.name)
-      } else if (sortOption == "name-desc") {
-        return val2.name.localeCompare(val1.name)
-      } else {
-        return 0
-      }
-    })
-    setSortedClubs(newSortedClubs)
+    if (data) {
+      data.sort((val1, val2) => {
+        if (sortOption == "name-asc") {
+          return val1.name.localeCompare(val2.name)
+        } else if (sortOption == "name-desc") {
+          return val2.name.localeCompare(val1.name)
+        } else {
+          return 0
+        }
+      })
+      setSortedClubs(data)
+    }
   }, [data, sortOption])
 
   // filter clubs
@@ -81,22 +75,8 @@ const AnimatedClubs: React.VFC<{}> = () => {
     return filteredClubs
   }
 
-  const getCampus = (num: number): BadgeCampus => CAMPUS[num]
-  const getActivity = (num: number): BadgeActivity => ACTIVITY[num]
-
   if (isError) {
-    return (
-      <>
-        {toast({
-          title: "Error!",
-          description: "データ取得中にエラーが発生しました！",
-          status: "error",
-          isClosable: true,
-          duration: 6000,
-          position: "top-right",
-        })}
-      </>
-    )
+    return <ErrorPage />
   }
 
   return (
@@ -156,7 +136,7 @@ const AnimatedClubs: React.VFC<{}> = () => {
                 )}
               </>
             ) : (
-              <Spinner />
+              <Loading />
             )}
           </Stack>
         </Box>

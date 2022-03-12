@@ -183,27 +183,29 @@ export const DetailEditor: React.VFC<{}> = () => {
                 />
               </GridItem>
               <GridItem>
-                <FormControl isInvalid={methods.formState.errors.email !== undefined}>
+                <FormControl
+                  isInvalid={methods.formState.errors.email !== undefined}
+                >
                   <FormLabel color="text.main" pl="0.2rem" fontSize="1.2rem">
                     連絡先のメールアドレス
                   </FormLabel>
 
-                <Input
-                  placeholder={"メールアドレスを入力して下さい"}
-                  w="20rem"
-                  backgroundColor="#fff"
-                  defaultValue={email}
-                  {...methods.register("email", {
-                    required: {
-                      value: true,
-                      message: "メールアドレスが空白です！",
-                    },
-                  })}
-                />
-                <FormErrorMessage>
-                  {methods.formState.errors.email &&
-                    methods.formState.errors.email.message}
-                </FormErrorMessage>
+                  <Input
+                    placeholder={"メールアドレスを入力して下さい"}
+                    w="20rem"
+                    backgroundColor="#fff"
+                    defaultValue={email}
+                    {...methods.register("email", {
+                      required: {
+                        value: true,
+                        message: "メールアドレスが空白です！",
+                      },
+                    })}
+                  />
+                  <FormErrorMessage>
+                    {methods.formState.errors.email &&
+                      methods.formState.errors.email.message}
+                  </FormErrorMessage>
                 </FormControl>
               </GridItem>
               <GridItem>
