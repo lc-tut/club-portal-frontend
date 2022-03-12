@@ -41,7 +41,7 @@
     "react-router-dom": "6.2.2",
     "swiper": "8.0.7",
     "swr": "1.2.2",
-    "zod": "3.11.6"
+    "zod": "3.13.4"
   },
   "devDependencies": {
     "@babel/core": "7.17.5",
