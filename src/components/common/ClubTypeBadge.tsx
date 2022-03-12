@@ -5,10 +5,9 @@ import type {
   BadgeContent,
   BadgeCampus,
 } from "../../types/badge"
-import { campuses } from "../../types/badge"
 
 const isCampusContent = (content: BadgeContent): content is BadgeCampus => {
-  return campuses.some((value) => value === content)
+  return content === "hachioji" || content === "kamata"
 }
 
 export const ClubTypeBadge: React.VFC<ClubTypeBadgeProp> = (props) => {

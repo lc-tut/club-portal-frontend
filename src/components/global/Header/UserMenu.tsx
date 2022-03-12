@@ -12,62 +12,31 @@ import {
 import axios from "axios"
 import { BsBoxArrowRight } from "react-icons/bs"
 import { useLocation } from "react-router-dom"
-import { useSession } from "../../../hooks/useSession"
+import { HeaderProps } from "../../../types/header"
 import { PortalButton } from "../../common/Button"
 import { DefaultUserIcon } from "../../common/Icon"
 
-export const UserMenu: React.VFC<{}> = () => {
-  const { session, isLoading, isError } = useSession()
+export const UserMenu: React.VFC<HeaderProps> = (props) => {
   const [isOpen, setIsOpen] = useBoolean(false)
   const loc = useLocation()
 
-  const logout = () => {
-    axios.post("/api/auth/destroy").catch((err) => console.log(err))
-    // "F5" しないとセッションが残ったままになる
-    location.reload()
+  const onLogout = async () => {
+    try {
+      await axios.post(`/api/auth/destroy`)
+    } catch (e) {
+      // TODO: code errors
+    } finally {
+      window.location.reload()
+    }
   }
 
-  if (isLoading || isError) {
-    return <DefaultUserIcon />
-  }
-
-  let popoverContent = <></>
-  if (session === null) {
-    popoverContent = (
-      <VStack>
-        <Text>
-          大学Gmailアカウントでログインすると、全ての情報を閲覧することができます
-        </Text>
-        {/* TODO: 他にいい方法ある？ */}
-        <a href={"/api/auth/signin?redirect_url=" + loc.pathname}>
-          <PortalButton>ログイン</PortalButton>
-        </a>
-      </VStack>
-    )
-  } else {
-    popoverContent = (
-      <VStack>
-        <Text>ログインしています</Text>
-        <PortalButton
-          onClick={logout}
-          pbstyle="solid"
-          leftIcon={<BsBoxArrowRight />}
-        >
-          ログアウト
-        </PortalButton>
-      </VStack>
-    )
+  const onLogin = () => {
+    window.location.href = `/api/auth/signin?redirect_url=${loc.pathname}`
   }
 
   const avatarProps = {
     boxSize: "2rem",
     cursor: "pointer",
-  }
-  let avatar = <></>
-  if (!session) {
-    avatar = <DefaultUserIcon {...avatarProps} />
-  } else {
-    avatar = <Avatar src={session.avatar} {...avatarProps} />
   }
 
   return (
@@ -80,11 +49,35 @@ export const UserMenu: React.VFC<{}> = () => {
           _active={{}}
           _focus={{}}
         >
-          {avatar}
+          {props.avatar ? (
+            <Avatar src={props.avatar} {...avatarProps} />
+          ) : (
+            <DefaultUserIcon {...avatarProps} />
+          )}
         </Button>
       </PopoverTrigger>
       <PopoverContent>
-        <PopoverBody>{popoverContent}</PopoverBody>
+        <PopoverBody>
+          {props.avatar ? (
+            <VStack>
+              <Text>ログインしています</Text>
+              <PortalButton
+                onClick={onLogout}
+                pbstyle="solid"
+                leftIcon={<BsBoxArrowRight />}
+              >
+                ログアウト
+              </PortalButton>
+            </VStack>
+          ) : (
+            <VStack>
+              <Text>
+                大学Gmailアカウントでログインすると、全ての情報を閲覧することができます
+              </Text>
+              <PortalButton onClick={() => onLogin()}>ログイン</PortalButton>
+            </VStack>
+          )}
+        </PopoverBody>
       </PopoverContent>
     </Popover>
     // <Avatar src={session?.avatar} boxSize="2rem" />

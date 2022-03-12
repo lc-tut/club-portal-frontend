@@ -19,7 +19,7 @@ import {
   BsStar,
 } from "react-icons/bs"
 import { Link } from "react-router-dom"
-import { PortalBanner } from "../../common/PortalBanner"
+import { PortalBanner } from "./PortalBanner"
 
 type BrowserGlobalNavItemProps = {
   icon: IconType

@@ -10,14 +10,21 @@ import {
   Image,
   Input,
   Select,
+  Spinner,
   Stack,
   Switch,
   Text,
+  useToast,
   VStack,
 } from "@chakra-ui/react"
 import { ClubTypeBadge } from "../components/common/ClubTypeBadge"
 import { TitleArea } from "../components/global/Header/TitleArea"
+import { useAPI } from "../hooks/useAPI"
 import type { BadgeActivity, BadgeCampus } from "../types/badge"
+import type { ClubPageExternal } from "../types/api"
+import { ACTIVITY, CAMPUS } from "../utils/consts"
+import { Link } from "react-router-dom"
+import { toAbsolutePath } from "../utils/functions"
 
 type ClubCardProps = {
   thumbnail: string
@@ -28,7 +35,7 @@ type ClubCardProps = {
 }
 
 const FilterArea: React.VFC<BoxProps> = (props) => {
-  const FilterCategory = (props: { text: string }): JSX.Element => {
+  const FilterCategory = (props: { text: string }) => {
     return (
       <Text color="text.modal.sub" pb="0.5rem" pt="1rem">
         {props.text}
@@ -36,7 +43,7 @@ const FilterArea: React.VFC<BoxProps> = (props) => {
     )
   }
 
-  const FilterItem = (props: { label: string; id: string }): JSX.Element => {
+  const FilterItem = (props: { label: string; id: string }) => {
     return (
       <FormControl display="flex" pl="1rem">
         <FormLabel width="8rem" fontSize="1.25rem" mb="0">
@@ -87,7 +94,11 @@ const ClubCard: React.VFC<ClubCardProps> = (props) => {
       borderRadius="3px"
     >
       <HStack spacing="1rem">
-        <Image src={props.thumbnail} height="4rem" ml="1.5rem" />
+        <Image
+          src={toAbsolutePath(props.thumbnail)}
+          height="4rem"
+          ml="1.5rem"
+        />
         <VStack alignSelf="start" pt="1rem" alignItems="start" spacing="0">
           <HStack spacing="10px">
             <ClubTypeBadge content="hachioji" />
@@ -105,31 +116,29 @@ const ClubCard: React.VFC<ClubCardProps> = (props) => {
   )
 }
 
-const TestCards: React.VFC<{}> = () => {
-  const cards: Array<JSX.Element> = []
+const AnimatedClubs: React.VFC<{}> = () => {
+  const { data, isLoading, isError } =
+    useAPI<Array<ClubPageExternal>>("/api/v1/clubs")
+  const toast = useToast()
 
-  for (let i = 0; i < 5; i++) {
-    cards.push(
-      <GridItem key={i} colSpan={{ xl: 4, lg: 6, sm: 12 }}>
-        <ClubCard
-          thumbnail="https://placehold.jp/400x400.png"
-          name="アミューズメントメディア研究会"
-          campus="hachioji"
-          activity="culture"
-          brief="the most exciting club"
-        />
-      </GridItem>
+  const getCampus = (num: number): BadgeCampus => CAMPUS[num]
+  const getActivity = (num: number): BadgeActivity => ACTIVITY[num]
+
+  if (isError) {
+    return (
+      <>
+        {toast({
+          title: "Error!",
+          description: "データ取得中にエラーが発生しました！",
+          status: "error",
+          isClosable: true,
+          duration: 6000,
+          position: "top-right",
+        })}
+      </>
     )
   }
 
-  return (
-    <Grid templateColumns="repeat(12, 1fr)" rowGap="1rem" columnGap="2rem">
-      {cards}
-    </Grid>
-  )
-}
-
-const AnimatedClubs: React.VFC<{}> = () => {
   return (
     <VStack
       flex="1"
@@ -162,7 +171,29 @@ const AnimatedClubs: React.VFC<{}> = () => {
               <option value="opt-02">Option 02</option>
               <option value="opt-03">Option 03</option>
             </Select>
-            <TestCards />
+            {!isLoading ? (
+              <Grid
+                templateColumns="repeat(12, 1fr)"
+                rowGap="1rem"
+                columnGap="2rem"
+              >
+                {data?.map((club, i) => (
+                  <GridItem colSpan={{ xl: 4, lg: 6, sm: 12 }} key={i}>
+                    <Link to={club.clubSlug}>
+                      <ClubCard
+                        name={club.name}
+                        brief={club.shortDescription}
+                        campus={getCampus(club.campus)}
+                        activity={getActivity(club.clubType)}
+                        thumbnail={club.thumbnail.path}
+                      />
+                    </Link>
+                  </GridItem>
+                ))}
+              </Grid>
+            ) : (
+              <Spinner />
+            )}
           </Stack>
         </Box>
       </HStack>

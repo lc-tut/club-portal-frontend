@@ -1,11 +1,10 @@
-import { Container, Flex, Center, Spinner } from "@chakra-ui/react"
+import { Container, Flex, Center, Spinner, Box } from "@chakra-ui/react"
 import { motion } from "framer-motion"
-import { MinFullHeight } from "./Utils"
 
-export const Loading: React.VFC<{}> = () => {
+export const Loading: React.VFC<{ fullScreen?: boolean }> = (props) => {
   return (
     <motion.div exit={{ opacity: 0 }}>
-      <MinFullHeight>
+      <Box minH={props.fullScreen ? "100vh" : "100%"}>
         <Container maxW="2xl" height="100vh">
           <Flex
             direction="column"
@@ -18,7 +17,7 @@ export const Loading: React.VFC<{}> = () => {
             </Center>
           </Flex>
         </Container>
-      </MinFullHeight>
+      </Box>
     </motion.div>
   )
 }

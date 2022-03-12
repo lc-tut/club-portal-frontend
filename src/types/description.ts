@@ -1,30 +1,59 @@
+import { IconType } from "react-icons"
+import type { ActivityDetail } from "./api"
+
 export type CarouselGalleryProps = {
-  images: string[]
+  imagePaths: Array<string>
 }
 
-export type IntroductionMovieProps = {
-  youtubeurl: string
+export type IntroductionVideoProps = {
+  videoPath?: string
 }
 
 export type DescriptionProps = {
-  // [label: url] i.g. ["twitter": "twitter.com/~~"]
-  snslinks?: [string, string][]
   content: string
+  links?: Array<{ label: string; path: string }>
 }
 
 export type DetailInformationProps = {
-  activity?: string[]
-  datetime?: { [key: string]: string }
-  place?: string[]
-  mail?: string[]
-  website?: string[]
-  remark?: string[]
+  activity: Array<string>
+  activityDetail: Array<ActivityDetail>
+  achievements?: Array<string>
+  mail?: Array<string>
+  website?: Array<string>
+  remark?: string
 }
 
 export type AnnualPlanProps = {
-  schedules: { [key: number]: string }
+  remark?: string
+  schedules: {
+    [key in number]: string
+  }
 }
 
-export const snsList = ["twitter", "instagram"] as const
+export type RowComponentProps = {
+  icon: IconType
+  label: string
+  lastIndex?: boolean
+}
 
-export type SnsId = typeof snsList[number] | "other"
+export type ActivityRemarkButtonProps = {
+  text: string
+}
+
+export type SNSType = "twitter" | "instagram"
+export type AllSNSType = SNSType | "other"
+
+export type RemarkProps = {
+  text: string
+}
+
+export type DateType =
+  | "Mon"
+  | "Tue"
+  | "Wed"
+  | "Thu"
+  | "Fri"
+  | "Sat"
+  | "Sun"
+  | "Day"
+  | "Etc"

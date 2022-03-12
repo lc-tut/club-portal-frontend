@@ -92,6 +92,13 @@ const theme = extendTheme({
         flushed: variantFlushed,
       },
     },
+    NumberInput: {
+      variants: {
+        outline: variantOutlined,
+        filled: variantFilled,
+        flushed: variantFlushed,
+      },
+    },
     Select: {
       variants: {
         outline: variantOutlined,
