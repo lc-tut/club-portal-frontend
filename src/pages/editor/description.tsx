@@ -4,6 +4,7 @@ import {
   FormLabel,
   Textarea,
   VStack,
+  Wrap,
 } from "@chakra-ui/react"
 import { PortalButton } from "../../components/common/Button"
 import { EditorBase } from "../../components/common/Editor/EditorBase"
@@ -84,6 +85,7 @@ export const DescriptionEditor: React.VFC<{}> = () => {
                 minLength: 1,
               })}
               backgroundColor="#fff"
+              color="text.main"
               w="30rem"
               h="10rem"
               placeholder="サークルの説明文を入力して下さい"

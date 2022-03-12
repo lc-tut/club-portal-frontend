@@ -6,6 +6,7 @@ import {
   Input,
   Stack,
   Text,
+  Wrap,
 } from "@chakra-ui/react"
 import { useFormContext } from "react-hook-form"
 import type { StateDispatch } from "../../../types/utils"
@@ -48,32 +49,42 @@ export const AchievementEditor: React.VFC<AchievementEditorProps> = (props) => {
   }
 
   return (
-    <Stack>
+    <Stack spacing="0">
       <FormControl isInvalid={errors.achievement !== undefined}>
         <FormLabel color="text.main" fontSize="1.2rem">
           実績
         </FormLabel>
-        <HStack>
-          <EditorButton icon="add" onClick={onAdd} />
-          <Input
-            backgroundColor="#fff"
-            textColor="text.main"
-            placeholder="実績を入力して下さい"
-            {...register("achievement")}
-          />
+        <HStack alignItems="start">
+          <EditorButton icon="add" onClick={onAdd} paddingTop="0" />
+          <Stack spacing="0" flex="1">
+            <Input
+              backgroundColor="#fff"
+              textColor="text.main"
+              placeholder="実績を入力して下さい"
+              {...register("achievement")}
+            />
+            <Wrap h="1.2rem">
+              <FormErrorMessage>
+                {errors.achievement && errors.achievement.message}
+              </FormErrorMessage>
+            </Wrap>
+          </Stack>
         </HStack>
-        <FormErrorMessage>
-          {errors.achievement && errors.achievement.message}
-        </FormErrorMessage>
       </FormControl>
-      {props.items.map((item, index) => {
-        return (
-          <HStack key={index} textColor="text.main">
-            <EditorButton icon="remove" onClick={() => onRemove(item)} />
-            <Text>{item}</Text>
-          </HStack>
-        )
-      })}
+      <Stack>
+        {props.items.map((item, index) => {
+          return (
+            <HStack key={index} textColor="text.main">
+              <EditorButton
+                icon="remove"
+                onClick={() => onRemove(item)}
+                paddingTop="0"
+              />
+              <Text>{item}</Text>
+            </HStack>
+          )
+        })}
+      </Stack>
     </Stack>
   )
 }
