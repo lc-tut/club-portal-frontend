@@ -94,7 +94,11 @@ const ClubCard: React.VFC<ClubCardProps> = (props) => {
       borderRadius="3px"
     >
       <HStack spacing="1rem">
-        <Image src={toAbsolutePath(props.thumbnail)} height="4rem" ml="1.5rem" />
+        <Image
+          src={toAbsolutePath(props.thumbnail)}
+          height="4rem"
+          ml="1.5rem"
+        />
         <VStack alignSelf="start" pt="1rem" alignItems="start" spacing="0">
           <HStack spacing="10px">
             <ClubTypeBadge content="hachioji" />
