@@ -6,6 +6,7 @@ import {
   GridItem,
   Input,
   VStack,
+  Wrap,
 } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import { PortalButton } from "../../components/common/Button"
@@ -202,10 +203,12 @@ export const DetailEditor: React.VFC<{}> = () => {
                       },
                     })}
                   />
-                  <FormErrorMessage>
-                    {methods.formState.errors.email &&
-                      methods.formState.errors.email.message}
-                  </FormErrorMessage>
+                  <Wrap h="1.2rem">
+                    <FormErrorMessage>
+                      {methods.formState.errors.email &&
+                        methods.formState.errors.email.message}
+                    </FormErrorMessage>
+                  </Wrap>
                 </FormControl>
               </GridItem>
               <GridItem>

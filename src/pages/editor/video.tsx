@@ -18,6 +18,7 @@ import {
   UnorderedList,
   useDisclosure,
   VStack,
+  Wrap,
 } from "@chakra-ui/react"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
@@ -179,9 +180,11 @@ export const VideoEditor: React.VFC<{}> = () => {
                 placeholder="URLを入力して下さい"
                 {...register("path")}
               />
-              <FormErrorMessage>
-                {errors.path && errors.path.message}
-              </FormErrorMessage>
+              <Wrap h="1.2rem">
+                <FormErrorMessage>
+                  {errors.path && errors.path.message}
+                </FormErrorMessage>
+              </Wrap>
             </FormControl>
           </Stack>
           <PortalButton pbstyle="solid" onClick={() => onConfirm()}>

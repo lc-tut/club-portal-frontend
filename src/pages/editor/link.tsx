@@ -1,13 +1,13 @@
 import {
   FormControl,
   FormErrorMessage,
-  FormLabel,
   HStack,
   Input,
   Select,
   Stack,
   Text,
   VStack,
+  Wrap,
 } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
@@ -27,6 +27,7 @@ import { ErrorPage } from "../error"
 import { AxiosRequestConfig } from "axios"
 import { axiosWithPayload } from "../../utils/axios"
 import { useErrorToast } from "../../hooks/useErrorToast"
+import { EditorLabel } from "../../components/common/Editor/EditorInput"
 
 const schema = z.object({
   label: z.string(),
@@ -115,64 +116,70 @@ export const LinkEditor: React.VFC<{}> = () => {
       <TitleArea>SNSリンクの編集</TitleArea>
       <form onSubmit={onSubmit}>
         <EditorBase>
-          <HStack alignItems="end">
-            <EditorButton icon="add" onClick={() => onAdd()} />
-            <Stack spacing="0">
-              <FormControl isInvalid={errors.label !== undefined}>
-                <FormLabel htmlFor="sns" fontSize="0.8rem" color="text.sub">
-                  SNS
-                </FormLabel>
-                <Select
-                  backgroundColor="#fff"
-                  w="12rem"
-                  {...register("label")}
-                  defaultValue=""
-                >
-                  <option value="" hidden>
-                    -
-                  </option>
-                  {VALID_SNS_LIST.map((item: SNSType) => {
-                    return (
-                      <option key={item} value={item}>
-                        {item}
-                      </option>
-                    )
-                  })}
-                </Select>
-                <FormErrorMessage>
-                  {errors.label && errors.label.message}
-                </FormErrorMessage>
-              </FormControl>
+          <Stack>
+            <HStack alignItems="start">
+              <EditorButton icon="add" onClick={() => onAdd()} />
+              <Stack spacing="0">
+                <FormControl isInvalid={errors.label !== undefined}>
+                  <EditorLabel label="SNS" />
+                  <Select
+                    backgroundColor="#fff"
+                    w="12rem"
+                    {...register("label")}
+                    defaultValue=""
+                  >
+                    <option value="" hidden>
+                      -
+                    </option>
+                    {VALID_SNS_LIST.map((item: SNSType) => {
+                      return (
+                        <option key={item} value={item}>
+                          {item}
+                        </option>
+                      )
+                    })}
+                  </Select>
+                  <Wrap h="1.2rem">
+                    <FormErrorMessage>
+                      {errors.label && errors.label.message}
+                    </FormErrorMessage>
+                  </Wrap>
+                </FormControl>
+              </Stack>
+              <Stack spacing="0">
+                <FormControl isInvalid={errors.url !== undefined}>
+                  <EditorLabel label="URL" />
+                  <Input
+                    w="25rem"
+                    placeholder="URLを入力して下さい"
+                    backgroundColor="#fff"
+                    {...register("url", {
+                      required: true,
+                    })}
+                  />
+                  <Wrap h="1.2rem">
+                    <FormErrorMessage>
+                      {errors.url && errors.url.message}
+                    </FormErrorMessage>
+                  </Wrap>
+                </FormControl>
+              </Stack>
+            </HStack>
+            <Stack w="100%">
+              {items.map((item) => {
+                return (
+                  <HStack key={item.label} textColor="text.main">
+                    <EditorButton
+                      icon="remove"
+                      onClick={() => onRemove(item)}
+                      paddingTop="0"
+                    />
+                    <Text>{item.label + " - "}</Text>
+                    <Text>{item.url}</Text>
+                  </HStack>
+                )
+              })}
             </Stack>
-            <Stack spacing="0">
-              <FormControl isInvalid={errors.url !== undefined}>
-                <FormLabel htmlFor="url" fontSize="0.8rem" color="text.sub">
-                  URL
-                </FormLabel>
-                <Input
-                  w="25rem"
-                  placeholder="URLを入力して下さい"
-                  backgroundColor="#fff"
-                  {...register("url", {
-                    required: true,
-                  })}
-                />
-                <FormErrorMessage>
-                  {errors.url && errors.url.message}
-                </FormErrorMessage>
-              </FormControl>
-            </Stack>
-          </HStack>
-          <Stack w="100%">
-            {items.map((item) => {
-              return (
-                <HStack key={item.label} textColor="text.main">
-                  <EditorButton icon="remove" onClick={() => onRemove(item)} />
-                  <Text>{item.label + " - "}</Text>
-                  <Text>{item.url}</Text>
-                </HStack>
-              )
-            })}
           </Stack>
           <PortalButton type="submit">保存</PortalButton>
         </EditorBase>

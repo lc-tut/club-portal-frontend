@@ -107,9 +107,7 @@ export const PlaceAndTimeEditor: React.VFC<PlaceAndTimeEditorProps> = (
       </Text>
       <Stack spacing="1.5rem">
         <HStack alignItems="start">
-          <Wrap mt="1.2rem">
-            <EditorButton icon="add" onClick={onAdd} />
-          </Wrap>
+          <EditorButton icon="add" onClick={onAdd} />
           <Stack flex="1">
             <HStack>
               <DateSelect />
