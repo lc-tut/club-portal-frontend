@@ -54,6 +54,9 @@ const AnimatedRouter: React.VFC<{}> = () => {
               path="/club-description-test"
               element={<page.ClubDescription />}
             />
+
+            {/* TODO: エラーページ確認用なので後で消すこと */}
+            <Route path="/error" element={<ErrorPage />} />
           </Routes>
         </AnimatePresence>
       </Flex>
