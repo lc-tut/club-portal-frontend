@@ -10,7 +10,7 @@ import {
   VStack,
 } from "@chakra-ui/react"
 import { ChangeEvent, Dispatch, SetStateAction } from "react"
-import { PADDING_BEFORE_FOOTER } from "../../../static/consts"
+import { PADDING_BEFORE_FOOTER } from "../../../utils/consts"
 import { PortalButton } from "../Button"
 
 const filterFlagKeyList = [

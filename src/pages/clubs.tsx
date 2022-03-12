@@ -19,7 +19,7 @@ import { ClubSortOptionSelect } from "../components/common/Clubs/ClubSortOptionS
 import { TitleArea } from "../components/global/Header/TitleArea"
 import { Loading } from "../components/global/LoadingPage"
 import { useAPI } from "../hooks/useAPI"
-import { PADDING_BEFORE_FOOTER } from "../static/consts"
+import { PADDING_BEFORE_FOOTER } from "../utils/consts"
 import type { ClubPageExternal } from "../types/api"
 import { getCampus, getActivity } from "../utils/functions"
 import { ErrorPage } from "./error"
