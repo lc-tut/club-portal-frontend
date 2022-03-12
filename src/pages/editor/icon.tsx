@@ -13,14 +13,7 @@ import {
   VStack,
 } from "@chakra-ui/react"
 import { AxiosRequestConfig } from "axios"
-import {
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useRef,
-  useState,
-} from "react"
+import { ChangeEvent, useEffect, useRef, useState } from "react"
 import ReactCrop, { Crop } from "react-image-crop"
 import "react-image-crop/dist/ReactCrop.css"
 import { PortalButton } from "../../components/common/Button"
@@ -43,7 +36,7 @@ type ResizeModalProps = {
   onClose: () => void
   crop: Crop
   image: HTMLImageElement
-  setImage: Dispatch<SetStateAction<HTMLImageElement>>
+  setImage: StateDispatch<HTMLImageElement>
   setCrop: StateDispatch<Crop>
   setIcon: StateDispatch<string>
 }

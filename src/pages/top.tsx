@@ -7,7 +7,6 @@ import {
   Spacer,
   Text,
   VStack,
-  Wrap,
 } from "@chakra-ui/react"
 import React from "react"
 import { BsClockHistory, BsMegaphone, BsSearch, BsStar } from "react-icons/bs"
@@ -93,7 +92,7 @@ const AnimatedTop: React.VFC<{}> = () => {
                 履歴
               </MenuButton>
               <Spacer width="1.5rem" />
-              <Link to="/favorites">
+              <Link to="/users/favs">
                 <MenuButton
                   flex="6"
                   mbtype="sub"
@@ -106,14 +105,6 @@ const AnimatedTop: React.VFC<{}> = () => {
             </Flex>
           </GridItem>
         </Grid>
-        <Wrap pt="2rem">
-          <Link to="/edit">
-            <Text as="u" fontSize="1.2rem" textColor="green.700">
-              編集者の方はこちら
-            </Text>
-          </Link>
-        </Wrap>
-        <Link to="/club-description-test">サークル紹介ページのテスト Link</Link>
       </VStack>
     </Flex>
   )

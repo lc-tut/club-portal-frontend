@@ -4,7 +4,6 @@ import {
   FormLabel,
   Textarea,
   VStack,
-  Wrap,
 } from "@chakra-ui/react"
 import { PortalButton } from "../../components/common/Button"
 import { EditorBase } from "../../components/common/Editor/EditorBase"

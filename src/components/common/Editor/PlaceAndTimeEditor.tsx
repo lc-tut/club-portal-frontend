@@ -1,4 +1,4 @@
-import { HStack, Stack, Text, Wrap } from "@chakra-ui/react"
+import { HStack, Stack, Text } from "@chakra-ui/react"
 import React, { useReducer } from "react"
 import { EditorButton } from "./EditorButton"
 import { DATE_MAP } from "../../../utils/consts"

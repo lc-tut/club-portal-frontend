@@ -9,7 +9,7 @@ export const menuItems: { [key: string]: string } = {
   サークル検索: "/clubs",
   //  お知らせ:       "",
   //  履歴:           "",
-  お気に入り: "",
+  お気に入り: "/users/favs",
   //  通知:           "",
   //  プロフィール:   "",
   //  設定:           "",
