@@ -114,9 +114,6 @@ const AnimatedTop: React.VFC<{}> = () => {
         <Link to="/club-description-test">
           サークル紹介ページのテスト Link
         </Link>
-        <Link to="/error">
-          エラー起こそうぜ
-        </Link>
       </VStack>
     </Flex>
   )
