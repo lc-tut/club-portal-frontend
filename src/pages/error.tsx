@@ -12,8 +12,10 @@ export const ErrorPage = () => {
           エラーが発生しました
         </Heading>
         <Text color="text.main">
-          サーバーでエラーが発生したか、一時的に利用できない状態です。<br/>
-          URLが正しいかどうか、もう一度ご確認下さい。<br/>
+          サーバーでエラーが発生したか、一時的に利用できない状態です。
+          <br />
+          URLが正しいかどうか、もう一度ご確認下さい。
+          <br />
         </Text>
         <Text color="green.600" borderBottom="1px" pt="4rem">
           <Link to="/">←TOPページへ</Link>
