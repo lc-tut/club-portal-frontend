@@ -30,7 +30,7 @@
     "@emotion/react": "11.7.1",
     "@emotion/styled": "11.6.0",
     "@hookform/resolvers": "2.8.8",
-    "axios": "0.25.0",
+    "axios": "0.26.1",
     "axios-case-converter": "0.9.0",
     "framer-motion": "6.2.8",
     "react": "17.0.2",
