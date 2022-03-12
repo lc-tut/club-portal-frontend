@@ -107,7 +107,7 @@ export const DetailEditor: React.VFC<{}> = () => {
     timePlaceResponse.data,
   ])
 
-  const onSubmit = async () => {
+  const onSubmit = methods.handleSubmit(async (data) => {
     const achievementRequestConfig: AxiosRequestConfig<Array<Achievement>> = {
       url: `/api/v1/clubs/uuid/${clubUuid!}/achievement`,
       method: "put",
@@ -125,8 +125,8 @@ export const DetailEditor: React.VFC<{}> = () => {
       method: "put",
       data: contents.map((content) => ({ content: content })),
     }
-    const links: Array<Link> = [{ label: "Email", url: email }]
-    if (HP) links.push({ label: "HP", url: HP })
+    const links: Array<Link> = [{ label: "Email", url: data.email }]
+    if (data.homePage) links.push({ label: "HP", url: data.homePage })
     const linkRequestConfig: AxiosRequestConfig<Array<Link>> = {
       url: `/api/v1/clubs/uuid/${clubUuid!}/link`,
       method: "put",
@@ -146,7 +146,7 @@ export const DetailEditor: React.VFC<{}> = () => {
     } catch {
       toast()
     }
-  }
+  })
 
   if (isLoading) {
     return <Loading fullScreen />
@@ -183,11 +183,11 @@ export const DetailEditor: React.VFC<{}> = () => {
                 />
               </GridItem>
               <GridItem>
-                <FormControl>
+                <FormControl isInvalid={methods.formState.errors.email !== undefined}>
                   <FormLabel color="text.main" pl="0.2rem" fontSize="1.2rem">
                     連絡先のメールアドレス
                   </FormLabel>
-                </FormControl>
+
                 <Input
                   placeholder={"メールアドレスを入力して下さい"}
                   w="20rem"
@@ -204,6 +204,7 @@ export const DetailEditor: React.VFC<{}> = () => {
                   {methods.formState.errors.email &&
                     methods.formState.errors.email.message}
                 </FormErrorMessage>
+                </FormControl>
               </GridItem>
               <GridItem>
                 <FormControl>

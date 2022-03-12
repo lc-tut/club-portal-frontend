@@ -22,7 +22,7 @@ import type {
 } from "../../../types/editor"
 import { DATE_MAP } from "../../../utils/consts"
 import type { DateType } from "../../../types/description"
-import { useForm } from "react-hook-form"
+import { useFormContext } from "react-hook-form"
 
 type FormDateType = {
   date: DateType | ""
@@ -32,7 +32,7 @@ export const DateSelect: React.VFC<{}> = () => {
   const {
     register,
     formState: { errors },
-  } = useForm<FormDateType>()
+  } = useFormContext<FormDateType>()
   const options: Array<EditorSelectOptionItem> = Object.entries(DATE_MAP).map(
     (d) => ({ displayName: d[1], value: d[0] })
   )
@@ -77,7 +77,7 @@ type FormTimeType = {
 }
 
 export const TimeInput: React.VFC<TimePlaceInputProps> = (props) => {
-  const { register } = useForm<FormTimeType>()
+  const { register } = useFormContext<FormTimeType>()
   const { state, dispatch } = props
 
   return (
@@ -131,7 +131,7 @@ export const TimeInput: React.VFC<TimePlaceInputProps> = (props) => {
           width="5rem"
           min={0}
           max={23}
-          defaultValue={21}
+          defaultValue={0}
           {...register("end.minute", { disabled: state.isTimeDisabled })}
         >
           <NumberInputField backgroundColor="#fff" />

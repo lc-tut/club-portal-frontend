@@ -84,6 +84,7 @@ export const PlaceInput: React.VFC<TimePlaceInputProps> = (props) => {
         />
       </Flex>
       <Spacer w="0.5rem" />
+      <EditorLabel label="場所を「その他」にする" />
       <Flex h="40px" alignItems="center">
         <Switch
           colorScheme="green"
