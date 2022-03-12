@@ -10,8 +10,9 @@ import {
   VStack,
 } from "@chakra-ui/react"
 import axios from "axios"
-import { BsBoxArrowRight } from "react-icons/bs"
-import { useLocation } from "react-router-dom"
+import { BsBoxArrowRight, BsPencil } from "react-icons/bs"
+import { Link, useLocation } from "react-router-dom"
+import { useSession } from "../../../hooks/useSession"
 import { HeaderProps } from "../../../types/header"
 import { PortalButton } from "../../common/Button"
 import { DefaultUserIcon } from "../../common/Icon"
@@ -19,6 +20,7 @@ import { DefaultUserIcon } from "../../common/Icon"
 export const UserMenu: React.VFC<HeaderProps> = (props) => {
   const [isOpen, setIsOpen] = useBoolean(false)
   const loc = useLocation()
+  const { session, isLoading, isError } = useSession()
 
   const onLogout = async () => {
     try {
@@ -59,8 +61,14 @@ export const UserMenu: React.VFC<HeaderProps> = (props) => {
       <PopoverContent>
         <PopoverBody>
           {props.avatar ? (
-            <VStack>
+            <VStack py="1rem">
               <Text>ログインしています</Text>
+              {session?.name && <Text>{session?.name}</Text>}
+              <Link to="/users/club/edit">
+                <PortalButton leftIcon={<BsPencil />}>
+                  サークル編集
+                </PortalButton>
+              </Link>
               <PortalButton
                 onClick={onLogout}
                 pbstyle="solid"
@@ -70,9 +78,12 @@ export const UserMenu: React.VFC<HeaderProps> = (props) => {
               </PortalButton>
             </VStack>
           ) : (
-            <VStack>
-              <Text>
-                大学Gmailアカウントでログインすると、全ての情報を閲覧することができます
+            <VStack py="1rem">
+              <Text color="text.main">
+                大学Gmailアカウントでログインすると、全ての情報を閲覧することができます。
+              </Text>
+              <Text color="text.sub" fontSize="0.8rem">
+                サークル情報を編集するには、サークルのメールアドレスでログインして下さい。
               </Text>
               <PortalButton onClick={() => onLogin()}>ログイン</PortalButton>
             </VStack>
@@ -80,6 +91,5 @@ export const UserMenu: React.VFC<HeaderProps> = (props) => {
         </PopoverBody>
       </PopoverContent>
     </Popover>
-    // <Avatar src={session?.avatar} boxSize="2rem" />
   )
 }
