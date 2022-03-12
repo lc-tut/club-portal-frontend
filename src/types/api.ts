@@ -1,3 +1,5 @@
+import type { DateType } from "./description"
+
 type Role = "domain" | "general" | "admin"
 
 export type Session = {
@@ -53,14 +55,6 @@ export type Video = {
   path: string
 }
 
-export type TimePlace = {
-  date: string
-  time: string
-  timeRemark?: string
-  place: string
-  placeRemark?: string
-}
-
 export type ClubPageExternal = {
   clubUuid: string
   clubSlug: string
@@ -89,12 +83,12 @@ export type ClubPageInternal = {
   achievements: Array<Achievement>
   images: Array<Image>
   videos: Array<Video>
-  timePlaces: Array<TimePlace>
+  activityDetails: Array<ActivityDetail>
 }
 
 export type ActivityDetail = {
   timeId: number
-  date: string
+  date: DateType
   time: string
   timeRemark?: string
   placeId: number
@@ -105,6 +99,10 @@ export type ActivityDetail = {
 type ClubUUIDObject = {
   clubUuid: string
 }
+
+export type UpdateImagePayload = Array<{
+  imageId: number
+}>
 
 export type CreateGeneralUserPayload = {
   email: string
@@ -151,6 +149,7 @@ export type UpdateClubPayload = {
 }
 
 export type APIPayload =
+  | UpdateImagePayload
   | CreateGeneralUserPayload
   | ChangeUserPayload
   | RegisterFavoriteClubPayload
@@ -176,5 +175,5 @@ export type APIResponse =
   | Array<Schedule>
   | Array<Achievement>
   | Array<Video>
-  | Array<TimePlace>
+  | Array<ActivityDetail>
   | Description

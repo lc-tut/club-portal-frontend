@@ -1,5 +1,5 @@
 import type { BadgeActivity, BadgeCampus } from "../types/badge"
-import { SNSType } from "../types/description"
+import { DateType, SNSType } from "../types/description"
 
 export const PADDING_BEFORE_FOOTER = "6rem"
 export const VALID_SNS_LIST: ReadonlyArray<SNSType> = ["twitter", "instagram"]
@@ -20,4 +20,16 @@ export const BUILDING_ID_MAP: { [key in number]: string } = {
   12: "研究棟C",
   13: "研究棟D",
   20: "講義実験棟",
+}
+
+export const DATE_MAP: { [key in DateType]: string } = {
+  Mon: "月",
+  Tue: "火",
+  Wed: "水",
+  Thu: "木",
+  Fri: "金",
+  Sat: "土",
+  Sun: "日",
+  Day: "平日",
+  Etc: "その他",
 }

@@ -24,6 +24,98 @@ import { PADDING_BEFORE_FOOTER } from "../static/consts"
 import type { ClubPageExternal } from "../types/api"
 import type { BadgeActivity, BadgeCampus } from "../types/badge"
 import { ACTIVITY, CAMPUS } from "../utils/consts"
+import { Link } from "react-router-dom"
+import { toAbsolutePath } from "../utils/functions"
+
+type ClubCardProps = {
+  thumbnail: string
+  name: string
+  brief: string
+  campus: BadgeCampus
+  activity: BadgeActivity
+}
+
+const FilterArea: React.VFC<BoxProps> = (props) => {
+  const FilterCategory = (props: { text: string }) => {
+    return (
+      <Text color="text.modal.sub" pb="0.5rem" pt="1rem">
+        {props.text}
+      </Text>
+    )
+  }
+
+  const FilterItem = (props: { label: string; id: string }) => {
+    return (
+      <FormControl display="flex" pl="1rem">
+        <FormLabel width="8rem" fontSize="1.25rem" mb="0">
+          {props.label}
+        </FormLabel>
+        <Switch colorScheme="green" id={props.id} size="lg" />
+      </FormControl>
+    )
+  }
+
+  return (
+    <VStack
+      width="20rem"
+      height="100%"
+      py="2rem"
+      backgroundColor="form.background"
+      {...props}
+    >
+      <Input
+        width="18rem"
+        backgroundColor="#fff"
+        borderColor="form.frame"
+        placeholder="検索キーワード"
+        _placeholder={{
+          color: "text.sub",
+        }}
+      />
+
+      <Stack alignSelf="start" spacing="0.5rem" pt="1rem" pl="3rem">
+        <FilterCategory text="キャンパス" />
+        <FilterItem label="八王子" id="filter-campus-hachioji" />
+        <FilterItem label="蒲田" id="filter-campus-kamata" />
+        <FilterCategory text="分類" />
+        <FilterItem label="文化系" id="filter-activity-culture" />
+        <FilterItem label="体育系" id="filter-activity-sports" />
+        <FilterItem label="実行委員会" id="filter-activity-committee" />
+      </Stack>
+    </VStack>
+  )
+}
+
+const ClubCard: React.VFC<ClubCardProps> = (props) => {
+  return (
+    <Flex
+      height="7rem"
+      boxShadow="md"
+      backgroundColor="#fff"
+      borderRadius="3px"
+    >
+      <HStack spacing="1rem">
+        <Image
+          src={toAbsolutePath(props.thumbnail)}
+          height="4rem"
+          ml="1.5rem"
+        />
+        <VStack alignSelf="start" pt="1rem" alignItems="start" spacing="0">
+          <HStack spacing="10px">
+            <ClubTypeBadge content="hachioji" />
+            <ClubTypeBadge content="culture" />
+          </HStack>
+          <Text fontSize="1.2rem" color="text.card.main" pt="0.5rem">
+            {props.name}
+          </Text>
+          <Text fontSize="0.8rem" color="text.card.sub" pt="0.2rem">
+            {props.brief}
+          </Text>
+        </VStack>
+      </HStack>
+    </Flex>
+  )
+}
 
 const AnimatedClubs: React.VFC<{}> = () => {
   const { data, isLoading, isError } =

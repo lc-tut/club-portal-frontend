@@ -61,7 +61,6 @@ export const LinkEditor: React.VFC<{}> = () => {
   const values = watch()
 
   const onAdd = () => {
-    console.log(values)
     let err = false
     if (values.label === "") {
       err = true

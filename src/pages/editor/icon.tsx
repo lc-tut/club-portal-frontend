@@ -28,6 +28,7 @@ import { Thumbnail } from "../../types/api"
 import type { StateDispatch } from "../../types/utils"
 import { axiosWithPayload } from "../../utils/axios"
 import { PADDING_BEFORE_FOOTER } from "../../utils/consts"
+import { toAbsolutePath } from "../../utils/functions"
 import { ErrorPage } from "../error"
 
 type ResizeModalProps = {
@@ -131,10 +132,9 @@ export const IconEditor: React.VFC<{}> = () => {
 
   useEffect(() => {
     if (data) {
-      inputImage.src = data.path
-      setInputImage(inputImage)
+      setIcon(data.path)
     }
-  }, [data, inputImage])
+  }, [data])
 
   const onImageLoad = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || !e.target.files[0]) {
@@ -222,7 +222,7 @@ export const IconEditor: React.VFC<{}> = () => {
         />
         <EditorBase>
           {icon !== "" ? (
-            <ChakraImage src={icon} w="10rem" h="auto" />
+            <ChakraImage src={toAbsolutePath(icon)} w="10rem" h="auto" />
           ) : (
             <PortalLogo boxSize="10rem" />
           )}
