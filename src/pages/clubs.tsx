@@ -1,13 +1,11 @@
 import {
   Box,
   BoxProps,
-  Flex,
   FormControl,
   FormLabel,
   Grid,
   GridItem,
   HStack,
-  Image,
   Input,
   Select,
   Spinner,
@@ -17,7 +15,8 @@ import {
   useToast,
   VStack,
 } from "@chakra-ui/react"
-import { ClubTypeBadge } from "../components/common/ClubTypeBadge"
+import { ClubCard } from "../components/common/Clubs/ClubCard"
+import { ClubCardSortOptionSelect } from "../components/common/Clubs/ClubCardSortOptionSelect"
 import { TitleArea } from "../components/global/Header/TitleArea"
 import { useAPI } from "../hooks/useAPI"
 import type { BadgeActivity, BadgeCampus } from "../types/badge"
