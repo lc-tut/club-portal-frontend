@@ -73,7 +73,7 @@ export const ClubPage: React.VFC<{}> = () => {
         />
         <DetailInformation
           activity={data?.contents.map((cont) => cont.content) ?? []}
-          timePlaces={
+          activityDetail={
             data?.timePlaces.map((tp) => ({
               date: tp.date,
               time: tp.time,

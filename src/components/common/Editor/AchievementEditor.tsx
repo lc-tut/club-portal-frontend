@@ -1,43 +1,75 @@
-import { HStack, Input, Stack, Text } from "@chakra-ui/react"
-import { ChangeEvent, Dispatch, SetStateAction, useState } from "react"
+import {
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  HStack,
+  Input,
+  Stack,
+  Text,
+} from "@chakra-ui/react"
+import { useFormContext } from "react-hook-form"
+import type { StateDispatch } from "../../../types/utils"
 import { EditorButton } from "./EditorButton"
 
 type AchievementEditorProps = {
-  items: string[]
-  setItems: Dispatch<SetStateAction<string[]>>
+  items: Array<string>
+  setItems: StateDispatch<Array<string>>
+}
+
+type AchievementType = {
+  achievement: string
 }
 
 export const AchievementEditor: React.VFC<AchievementEditorProps> = (props) => {
-  const [inputData, setInputData] = useState<string>("")
+  const {
+    register,
+    watch,
+    setError,
+    clearErrors,
+    formState: { errors },
+  } = useFormContext<AchievementType>()
+  const { items, setItems } = props
+
+  const achievement = watch("achievement")
+
   const onAdd = () => {
-    const newItems = [...props.items, inputData]
-    props.setItems(newItems)
+    if (achievement === "") {
+      setError("achievement", {
+        type: "required",
+        message: "内容を入力してください。",
+      })
+    } else {
+      clearErrors("achievement")
+      setItems([achievement, ...items])
+    }
   }
-  const onRemove = (index: number) => {
-    const newItems = [...props.items]
-    newItems.splice(index, 1)
-    props.setItems(newItems)
+  const onRemove = (item: string) => {
+    setItems(items.filter((achievement) => achievement !== item))
   }
 
   return (
     <Stack>
-      <Text color="text.main" fontSize="1.2rem">
-        実績
-      </Text>
-      <HStack>
-        <EditorButton icon="add" onClick={onAdd} />
-        <Input
-          backgroundColor="#fff"
-          textColor="text.main"
-          placeholder="実績を入力して下さい"
-          value={inputData}
-          onChange={(e) => setInputData(e.target.value)}
-        />
-      </HStack>
+      <FormControl isInvalid={errors.achievement !== undefined}>
+        <FormLabel color="text.main" fontSize="1.2rem">
+          実績
+        </FormLabel>
+        <HStack>
+          <EditorButton icon="add" onClick={onAdd} />
+          <Input
+            backgroundColor="#fff"
+            textColor="text.main"
+            placeholder="実績を入力して下さい"
+            {...register("achievement")}
+          />
+        </HStack>
+        <FormErrorMessage>
+          {errors.achievement && errors.achievement.message}
+        </FormErrorMessage>
+      </FormControl>
       {props.items.map((item, index) => {
         return (
-          <HStack key={item} textColor="text.main">
-            <EditorButton icon="remove" onClick={() => onRemove(index)} />
+          <HStack key={index} textColor="text.main">
+            <EditorButton icon="remove" onClick={() => onRemove(item)} />
             <Text>{item}</Text>
           </HStack>
         )

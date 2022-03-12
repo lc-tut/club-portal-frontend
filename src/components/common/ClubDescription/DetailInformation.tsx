@@ -64,7 +64,7 @@ export const DetailInformation: React.VFC<DetailInformationProps> = (props) => {
               columnGap="1rem"
               textColor="text.main"
             >
-              {props.timePlaces.map((pat, i) => (
+              {props.activityDetail.map((pat, i) => (
                 <Fragment key={i}>
                   <GridItem>
                     <Text>{pat.date}</Text>

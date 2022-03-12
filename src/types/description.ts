@@ -1,4 +1,5 @@
 import { IconType } from "react-icons"
+import type { ActivityDetail } from "./api"
 
 export type CarouselGalleryProps = {
   imagePaths: Array<string>
@@ -13,17 +14,9 @@ export type DescriptionProps = {
   links?: Array<{ label: string; path: string }>
 }
 
-export type TimePlace = {
-  date: string
-  time: string
-  place: string
-  timeRemark?: string
-  placeRemark?: string
-}
-
 export type DetailInformationProps = {
   activity: Array<string>
-  timePlaces: Array<TimePlace>
+  activityDetail: Array<ActivityDetail>
   achievements?: Array<string>
   mail?: Array<string>
   website?: Array<string>
@@ -53,3 +46,14 @@ export type AllSNSType = SNSType | "other"
 export type RemarkProps = {
   text: string
 }
+
+export type DateType =
+  | "Mon"
+  | "Tue"
+  | "Wed"
+  | "Thu"
+  | "Fri"
+  | "Sat"
+  | "Sun"
+  | "Day"
+  | "Etc"
