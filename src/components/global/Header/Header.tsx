@@ -14,7 +14,7 @@ export const Header: React.VFC<HeaderProps> = (props) => {
         <Icon as={BsBellFill} boxSize="2em" color="text.title.sub" />
       </Center> */}
       <Center>
-        <UserMenu avatar={props.avatar} />
+        <UserMenu session={props.session} />
       </Center>
     </Flex>
   )

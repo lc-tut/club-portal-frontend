@@ -1,17 +1,30 @@
 import type { AxiosError } from "axios"
-import useSWRImmutable from "swr/immutable"
+import useSWR from "swr"
 import type { APIResponse } from "../types/api"
 import { axiosFetcher } from "../utils/axios"
 
-export const useAPI = <R extends APIResponse>(endpoint: string) => {
-  const { data, error } = useSWRImmutable<R, AxiosError | Error>(
+type EndpointArg<T> = T extends null ? null : string
+
+export const useAPI = <R extends APIResponse | null>(
+  endpoint: EndpointArg<R> | (() => EndpointArg<R>),
+  isImmutable?: boolean
+) => {
+  const { data, error, mutate } = useSWR<R, AxiosError | Error>(
     endpoint,
-    axiosFetcher
+    axiosFetcher,
+    isImmutable
+      ? {
+          revalidateIfStale: false,
+          revalidateOnFocus: false,
+          revalidateOnReconnect: false,
+        }
+      : {}
   )
 
   return {
     data: data,
     isLoading: !error && data === undefined,
     isError: error,
+    mutate: mutate,
   }
 }

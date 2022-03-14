@@ -1,10 +1,10 @@
 import type { AxiosError } from "axios"
-import useSWRImmutable from "swr/immutable"
+import useSWR from "swr"
 import type { Session } from "../types/api"
 import { axiosFetcher } from "../utils/axios"
 
 export const useSession = () => {
-  const { data, error } = useSWRImmutable<Session, Error | AxiosError>(
+  const { data, error } = useSWR<Session, Error | AxiosError>(
     "/api/auth",
     axiosFetcher
   )

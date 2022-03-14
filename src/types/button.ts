@@ -23,8 +23,8 @@ type MenuButtonInternalProps = {
 export type MenuButtonProps = CommonProps & MenuButtonInternalProps
 
 export type FavoriteButtonProps = CommonProps & {
-  userUUID?: string
-  clubUUID?: string
+  isRegistered?: boolean
+  isLoading: boolean
 }
 
 type PortalButtonInternalProps = Pick<

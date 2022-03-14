@@ -89,7 +89,7 @@ const BrowserGlobalNav: React.VFC<{}> = () => {
       <BrowserGlobalNavItem
         label="お気に入り"
         icon={BsStar}
-        href="/favorites"
+        href="/users/favs"
       />
       <BrowserGlobalNavItem
         label="お知らせ"

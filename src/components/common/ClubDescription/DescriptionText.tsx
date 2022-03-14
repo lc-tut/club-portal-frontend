@@ -1,23 +1,21 @@
 import { GridItem, VStack, Text, HStack, Link, Button } from "@chakra-ui/react"
 import { BsInstagram, BsLink, BsTwitter } from "react-icons/bs"
 import type { DescriptionProps, SNSType } from "../../../types/description"
+import { isRegisteredSNS } from "../../../utils/functions"
 
-const isRegisteredSNS = (label: string): label is SNSType =>
-  label === "twitter" || label === "instagram"
-
-const fgColorMap: { [key in SNSType]: string } = {
-  twitter: "#fff",
-  instagram: "#fff",
+const fgColorMap: { [key in SNSType]?: string } = {
+  Twitter: "#fff",
+  Instagram: "#fff",
 }
 
-const bgColorMap: { [key in SNSType]: string } = {
-  twitter: "#2E94DA",
-  instagram: "#D35CCA",
+const bgColorMap: { [key in SNSType]?: string } = {
+  Twitter: "#2E94DA",
+  Instagram: "#D35CCA",
 }
 
-const iconMap: { [key in SNSType]: JSX.Element } = {
-  twitter: <BsTwitter />,
-  instagram: <BsInstagram />,
+const iconMap: { [key in SNSType]?: JSX.Element } = {
+  Twitter: <BsTwitter />,
+  Instagram: <BsInstagram />,
 }
 
 export const DescriptionText: React.VFC<DescriptionProps> = (props) => {
