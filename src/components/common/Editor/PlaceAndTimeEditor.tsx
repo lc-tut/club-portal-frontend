@@ -1,11 +1,11 @@
-import { HStack, Stack, Text, Wrap } from "@chakra-ui/react"
+import { HStack, Stack, Text } from "@chakra-ui/react"
 import React, { useReducer } from "react"
 import { EditorButton } from "./EditorButton"
 import { DATE_MAP } from "../../../utils/consts"
 import { PlaceInput } from "./PlaceEditorComponent"
 import { RemarkInput } from "./RemarkEditorComponent"
 import { DateSelect, TimeInput } from "./TimeEditorComponent"
-import { DateType } from "../../../types/description"
+import type { DateType } from "../../../types/description"
 import { useFormContext } from "react-hook-form"
 import type { StateDispatch } from "../../../types/utils"
 import type { ActivityDetail } from "../../../types/api"
@@ -107,9 +107,7 @@ export const PlaceAndTimeEditor: React.VFC<PlaceAndTimeEditorProps> = (
       </Text>
       <Stack spacing="1.5rem">
         <HStack alignItems="start">
-          <Wrap mt="1.2rem">
-            <EditorButton icon="add" onClick={onAdd} />
-          </Wrap>
+          <EditorButton icon="add" onClick={onAdd} />
           <Stack flex="1">
             <HStack>
               <DateSelect />

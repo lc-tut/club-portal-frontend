@@ -1,9 +1,9 @@
 import { Select } from "@chakra-ui/react"
-import { Dispatch, SetStateAction } from "react"
+import type { StateDispatch } from "../../../types/utils"
 
 type ClubSortOptionSelectProps = {
   sortOption: string
-  setSortOption: Dispatch<SetStateAction<string>>
+  setSortOption: StateDispatch<string>
 }
 
 export const ClubSortOptionSelect: React.VFC<ClubSortOptionSelectProps> = (

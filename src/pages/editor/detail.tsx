@@ -6,6 +6,7 @@ import {
   GridItem,
   Input,
   VStack,
+  Wrap,
 } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import { PortalButton } from "../../components/common/Button"
@@ -30,7 +31,7 @@ import { ErrorPage } from "../error"
 import { Loading } from "../../components/global/LoadingPage"
 import { useErrorToast } from "../../hooks/useErrorToast"
 import { axiosWithPayload } from "../../utils/axios"
-import { AxiosRequestConfig } from "axios"
+import type { AxiosRequestConfig } from "axios"
 
 type FormType = {
   email: string
@@ -202,10 +203,12 @@ export const DetailEditor: React.VFC<{}> = () => {
                       },
                     })}
                   />
-                  <FormErrorMessage>
-                    {methods.formState.errors.email &&
-                      methods.formState.errors.email.message}
-                  </FormErrorMessage>
+                  <Wrap h="1.2rem">
+                    <FormErrorMessage>
+                      {methods.formState.errors.email &&
+                        methods.formState.errors.email.message}
+                    </FormErrorMessage>
+                  </Wrap>
                 </FormControl>
               </GridItem>
               <GridItem>

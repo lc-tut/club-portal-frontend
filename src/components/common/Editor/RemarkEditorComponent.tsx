@@ -1,12 +1,13 @@
 import {
-  Stack,
-  FormControl,
   Box,
-  FormLabel,
-  Input,
+  FormControl,
   FormErrorMessage,
+  Input,
+  Stack,
+  Wrap,
 } from "@chakra-ui/react"
 import { useFormContext } from "react-hook-form"
+import { EditorLabel } from "./EditorInput"
 
 type RemarkInputProps = {
   label: string
@@ -26,33 +27,24 @@ export const RemarkInput: React.VFC<RemarkInputProps> = (props) => {
   } = useFormContext<FormRemarkType>()
 
   return (
-    <Stack spacing="0">
-      <FormControl
-        isInvalid={props.isDisabled && errors[props.remarkKey] !== undefined}
-      >
+    <FormControl
+      isInvalid={props.isDisabled && errors[props.remarkKey] !== undefined}
+    >
+      <Stack spacing="0">
         <Box minH="1.2rem">
-          <FormLabel fontSize="0.8rem" color="text.sub">
-            {props.label}
-          </FormLabel>
+          <EditorLabel label={props.label} />
         </Box>
         <Input
           backgroundColor="#fff"
           textColor="text.main"
           {...register(props.remarkKey)}
         />
-        <FormErrorMessage>
-          {errors[props.remarkKey] && errors[props.remarkKey]?.message}
-        </FormErrorMessage>
-      </FormControl>
-    </Stack>
-    // <EditorTextInput
-    //   label={props.label}
-    //   value={props.inputData[props.remarkKey]}
-    //   onChange={(e) => {
-    //     const newInputData = { ...props.inputData }
-    //     newInputData[props.remarkKey] = e.target.value
-    //     props.setInputData(newInputData)
-    //   }}
-    // />
+        <Wrap h="1.2rem">
+          <FormErrorMessage>
+            {errors[props.remarkKey] && errors[props.remarkKey]?.message}
+          </FormErrorMessage>
+        </Wrap>
+      </Stack>
+    </FormControl>
   )
 }

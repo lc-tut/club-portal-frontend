@@ -22,11 +22,10 @@ type MenuButtonInternalProps = {
 
 export type MenuButtonProps = CommonProps & MenuButtonInternalProps
 
-type FavoriteButtonInternalProps = {
-  registered: boolean
+export type FavoriteButtonProps = CommonProps & {
+  userUUID?: string
+  clubUUID?: string
 }
-
-export type FavoriteButtonProps = CommonProps & FavoriteButtonInternalProps
 
 type PortalButtonInternalProps = Pick<
   ButtonProps,

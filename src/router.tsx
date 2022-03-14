@@ -10,6 +10,7 @@ import { ErrorPage } from "./pages/error"
 import { Flex } from "@chakra-ui/react"
 import { UserRouteElement } from "./components/global/Route/UserRoute"
 import { ClubRouteElement } from "./components/global/Route/ClubRoute"
+import { DomainUserRouteElement } from "./components/global/Route/DomainUserRoute"
 
 const AnimatedRouter: React.VFC<{}> = () => {
   const location = useLocation()
@@ -38,7 +39,16 @@ const AnimatedRouter: React.VFC<{}> = () => {
             <Route index element={<page.Top />} />
             <Route path="clubs">
               <Route index element={<page.Clubs />} />
-              <Route path=":slug" element={<page.ClubPage />} />
+              <Route
+                path=":slug"
+                element={
+                  <page.ClubPage
+                    userUUID={
+                      session?.role === "domain" ? session.userUuid : undefined
+                    }
+                  />
+                }
+              />
             </Route>
             <Route path="users" element={<UserRouteElement />}>
               <Route path="club" element={<ClubRouteElement />}>
@@ -55,6 +65,9 @@ const AnimatedRouter: React.VFC<{}> = () => {
                   <Route path="video" element={<page.VideoEditor />} />
                   <Route path="icon" element={<page.IconEditor />} />
                 </Route>
+              </Route>
+              <Route path="favs" element={<DomainUserRouteElement />}>
+                <Route index element={<page.Favorites />} />
               </Route>
               <Route path="edit" />
               <Route path=":uuid" />

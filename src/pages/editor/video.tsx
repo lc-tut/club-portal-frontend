@@ -18,6 +18,7 @@ import {
   UnorderedList,
   useDisclosure,
   VStack,
+  Wrap,
 } from "@chakra-ui/react"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
@@ -26,9 +27,9 @@ import { PortalButton } from "../../components/common/Button"
 import { EditorBase } from "../../components/common/Editor/EditorBase"
 import { TitleArea } from "../../components/global/Header/TitleArea"
 import { PADDING_BEFORE_FOOTER } from "../../utils/consts"
-import { Video } from "../../types/api"
+import type { Video } from "../../types/api"
 import { useErrorToast } from "../../hooks/useErrorToast"
-import { AxiosRequestConfig } from "axios"
+import type { AxiosRequestConfig } from "axios"
 import { useOutletUser } from "../../hooks/useOutletUser"
 import { axiosWithPayload } from "../../utils/axios"
 
@@ -179,9 +180,11 @@ export const VideoEditor: React.VFC<{}> = () => {
                 placeholder="URLを入力して下さい"
                 {...register("path")}
               />
-              <FormErrorMessage>
-                {errors.path && errors.path.message}
-              </FormErrorMessage>
+              <Wrap h="1.2rem">
+                <FormErrorMessage>
+                  {errors.path && errors.path.message}
+                </FormErrorMessage>
+              </Wrap>
             </FormControl>
           </Stack>
           <PortalButton pbstyle="solid" onClick={() => onConfirm()}>

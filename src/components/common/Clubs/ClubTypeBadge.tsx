@@ -4,7 +4,7 @@ import type {
   BadgeSize,
   BadgeContent,
   BadgeCampus,
-} from "../../types/badge"
+} from "../../../types/badge"
 
 const isCampusContent = (content: BadgeContent): content is BadgeCampus => {
   return content === "hachioji" || content === "kamata"
