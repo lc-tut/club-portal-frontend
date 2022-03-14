@@ -24,7 +24,6 @@ type ClubPageProps = {
 // TODO: アニメーションをつける
 export const ClubPage: React.VFC<ClubPageProps> = (props) => {
   const clubSlug = useLocation()
-  console.log(clubSlug)
   const { data, isLoading, isError } = useAPI<ClubPageInternal>(
     `/api/v1/clubs/slug${clubSlug.pathname.replace("/clubs", "")}`
   )

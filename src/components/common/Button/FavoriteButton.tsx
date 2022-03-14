@@ -1,7 +1,7 @@
 import { Button } from "@chakra-ui/react"
 import type { FavoriteButtonProps } from "../../../types/button"
 import { BsStarFill } from "react-icons/bs"
-import { axiosWithPayload } from "../../../utils/axios"
+import { axiosFetcher, axiosWithPayload } from "../../../utils/axios"
 import type { AxiosRequestConfig } from "axios"
 import type {
   FavoriteClubResponse,
@@ -22,29 +22,23 @@ export const FavoriteButton: React.VFC<FavoriteButtonProps> = (props) => {
   const [isError, setIsError] = useState<boolean>(false)
 
   useEffect(() => {
-    let trigger = false
-    if (props.userUUID && props.clubUUID) {
-      fetch(`/api/v1/users/${props.userUUID}/favs/${props.clubUUID}`)
-        .then((res) => res.json())
-        .then((data: FavoriteClubStatus) => {
-          if (!trigger) {
-            setIsRegistered(data.status)
-          }
-        })
-        .catch(() => {
-          if (!trigger) {
-            setIsError(isError)
-          }
-        })
-        .finally(() => {
-          if (!trigger) {
-            setIsLoaded(true)
-          }
-        })
-    }
-    return () => {
-      trigger = true
-    }
+    ;(async () => {
+      if (props.userUUID && props.clubUUID) {
+        try {
+          const data = await axiosFetcher<FavoriteClubStatus>(
+            `/api/v1/users/${props.userUUID}/favs/${props.clubUUID}`
+          )
+          setIsRegistered(data.status)
+        } catch (e) {
+          setIsError(true)
+          throw new Error("Failed fetch")
+        }
+      }
+    })()
+      .catch((err) => console.error(err))
+      .finally(() => {
+        setIsLoaded(true)
+      })
   }, [isError, props.clubUUID, props.userUUID])
 
   const fgColor = isRegistered ? "button.text.gray" : "#fff"
