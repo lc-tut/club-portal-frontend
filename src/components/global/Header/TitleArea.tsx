@@ -8,6 +8,7 @@ import {
   Heading,
   HStack,
   Text,
+  useMediaQuery,
   VStack,
 } from "@chakra-ui/react"
 import { IconType } from "react-icons"
@@ -110,28 +111,34 @@ const BrowserGlobalNav: React.VFC<{}> = () => {
 export const TitleArea: React.VFC<
   React.PropsWithChildren<{ subtitle?: string }>
 > = (props) => {
+  const [isMobile] = useMediaQuery(["(min-width: 80rem)"])
+
   return (
     <HStack mt="2rem" px="3rem" justifyContent="center" width="100%">
       <VStack spacing="1rem">
-        <Link to="/">
-          <PortalBanner alignSelf="center" />
-        </Link>
-        <Breadcrumb
-          separator={<BsChevronRight />}
-          fontSize="0.8rem"
-          color="green.700"
-          alignSelf="start"
-        >
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/">Home</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbItem>
-            <BreadcrumbLink href="#">PageA</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbItem>
-            <BreadcrumbLink href="#">PageB</BreadcrumbLink>
-          </BreadcrumbItem>
-        </Breadcrumb>
+        {isMobile && (
+          <Link to="/">
+            <PortalBanner alignSelf="center" />
+          </Link>
+        )}
+        {isMobile && (
+          <Breadcrumb
+            separator={<BsChevronRight />}
+            fontSize="0.8rem"
+            color="green.700"
+            alignSelf="start"
+          >
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">Home</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="#">PageA</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="#">PageB</BreadcrumbLink>
+            </BreadcrumbItem>
+          </Breadcrumb>
+        )}
       </VStack>
       <VStack flex="1">
         <Heading
@@ -147,7 +154,7 @@ export const TitleArea: React.VFC<
           {props.subtitle}
         </Text>
       </VStack>
-      <BrowserGlobalNav />
+      {isMobile && <BrowserGlobalNav />}
     </HStack>
   )
 }
