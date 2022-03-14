@@ -2,7 +2,12 @@ import type { BadgeActivity, BadgeCampus } from "../types/badge"
 import { DateType, SNSType } from "../types/description"
 
 export const PADDING_BEFORE_FOOTER = "6rem"
-export const VALID_SNS_LIST: ReadonlyArray<SNSType> = ["Twitter", "Instagram", "YouTube", "Discord"]
+export const VALID_SNS_LIST: ReadonlyArray<SNSType> = [
+  "Twitter",
+  "Instagram",
+  "YouTube",
+  "Discord",
+]
 export const CAMPUS: ReadonlyArray<BadgeCampus> = ["hachioji", "kamata"]
 export const ACTIVITY: ReadonlyArray<BadgeActivity> = [
   "sports",

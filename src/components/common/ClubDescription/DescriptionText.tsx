@@ -1,5 +1,11 @@
 import { GridItem, VStack, Text, HStack, Link, Button } from "@chakra-ui/react"
-import { BsDiscord, BsInstagram, BsLink, BsTwitter, BsYoutube } from "react-icons/bs"
+import {
+  BsDiscord,
+  BsInstagram,
+  BsLink,
+  BsTwitter,
+  BsYoutube,
+} from "react-icons/bs"
 import type { DescriptionProps, SNSType } from "../../../types/description"
 
 const isRegisteredSNS = (label: string): label is SNSType =>
