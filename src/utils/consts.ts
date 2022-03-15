@@ -5,8 +5,10 @@ export const PADDING_BEFORE_FOOTER = "6rem"
 export const VALID_SNS_LIST: ReadonlyArray<SNSType> = [
   "Twitter",
   "Instagram",
-  "YouTube",
   "Discord",
+  "LINE",
+  "YouTube",
+  "Blog",
 ]
 export const CAMPUS: ReadonlyArray<BadgeCampus> = ["hachioji", "kamata"]
 export const ACTIVITY: ReadonlyArray<BadgeActivity> = [

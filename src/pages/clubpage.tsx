@@ -1,4 +1,5 @@
 import { Flex, Grid, HStack, Icon, VStack } from "@chakra-ui/react"
+import { AxiosRequestConfig } from "axios"
 import { BsClock } from "react-icons/bs"
 import { useLocation } from "react-router-dom"
 import { FavoriteButton } from "../components/common/Button"
@@ -13,7 +14,13 @@ import { ClubTypeBadge } from "../components/common/Clubs/ClubTypeBadge"
 import { TitleArea } from "../components/global/Header/TitleArea"
 import { Loading } from "../components/global/LoadingPage"
 import { useAPI } from "../hooks/useAPI"
-import type { ClubPageInternal } from "../types/api"
+import { useErrorToast } from "../hooks/useErrorToast"
+import type {
+  ClubPageInternal,
+  FavoriteClubStatus,
+  RegisterFavoriteClubPayload,
+} from "../types/api"
+import { axiosWithPayload } from "../utils/axios"
 import { ACTIVITY, CAMPUS } from "../utils/consts"
 import { ErrorPage } from "./error"
 
@@ -24,13 +31,23 @@ type ClubPageProps = {
 // TODO: アニメーションをつける
 export const ClubPage: React.VFC<ClubPageProps> = (props) => {
   const clubSlug = useLocation()
-  const { data, isLoading, isError } = useAPI<ClubPageInternal>(
-    `/api/v1/clubs/slug${clubSlug.pathname.replace("/clubs", "")}`
+  console.log(clubSlug)
+  const { data, isLoading, isError } = useAPI<ClubPageInternal | null>(
+    !clubSlug.pathname.startsWith("/clubs/")
+      ? null
+      : `/api/v1/clubs/slug${clubSlug.pathname.replace("/clubs", "")}`,
+    true
   )
+  const favs = useAPI<FavoriteClubStatus | null>(
+    props.userUUID && data
+      ? `/api/v1/users/${props.userUUID}/favs/${data.clubUuid}`
+      : null
+  )
+  const toast = useErrorToast("お気に入りの設定に失敗しました。")
 
   if (isLoading) return <Loading fullScreen />
 
-  if (isError)
+  if (isError || favs.isError)
     return (
       // TODO: 存在しない clubSlug に対しては NotFound ページを出す
       <ErrorPage />
@@ -41,6 +58,26 @@ export const ClubPage: React.VFC<ClubPageProps> = (props) => {
   data?.schedules.map((sch) => {
     schedule[sch.month] = sch.schedule
   })
+
+  const onClick = async () => {
+    try {
+      const requestConfig: AxiosRequestConfig<RegisterFavoriteClubPayload> = {
+        url: favs.data?.status
+          ? `/api/v1/users/${props.userUUID!}/unfav`
+          : `/api/v1/users/${props.userUUID!}/favs`,
+        method: "post",
+        data: { clubUuid: data!.clubUuid },
+      }
+      await favs.mutate({ status: !favs.data?.status })
+      await axiosWithPayload<RegisterFavoriteClubPayload, unknown>(
+        requestConfig
+      )
+      await favs.mutate()
+    } catch (e) {
+      toast()
+      console.error(e)
+    }
+  }
 
   return (
     <VStack flex="1">
@@ -58,9 +95,10 @@ export const ClubPage: React.VFC<ClubPageProps> = (props) => {
           最終更新: {data?.updatedAt}
         </Flex>
         <FavoriteButton
-          userUUID={props.userUUID}
-          clubUUID={data?.clubUuid}
-          isDisabled={props.userUUID === undefined}
+          isDisabled={props.userUUID === undefined || favs.isError}
+          isRegistered={favs.data?.status}
+          isLoading={props.userUUID ? favs.isLoading : false}
+          onClick={onClick}
         />
       </HStack>
       <Grid

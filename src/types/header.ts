@@ -1,3 +1,5 @@
+import type { Session } from "./api"
+
 export type HeaderProps = {
-  avatar: string | null
+  session: Session
 }

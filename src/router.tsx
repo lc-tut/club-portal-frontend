@@ -32,7 +32,7 @@ const AnimatedRouter: React.VFC<{}> = () => {
 
   return (
     <Flex direction="column" minH="100vh">
-      <Header avatar={session === null ? null : session.avatar} />
+      <Header session={session} />
       <Flex p="0" flex="1">
         <AnimatePresence exitBeforeEnter initial={false}>
           <Routes location={location} key={location.pathname}>

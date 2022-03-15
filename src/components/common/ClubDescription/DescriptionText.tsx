@@ -7,28 +7,23 @@ import {
   BsYoutube,
 } from "react-icons/bs"
 import type { DescriptionProps, SNSType } from "../../../types/description"
+import { isRegisteredSNS } from "../../../utils/functions"
 
-const isRegisteredSNS = (label: string): label is SNSType =>
-  label === "Twitter" ||
-  label === "Instagram" ||
-  label === "YouTube" ||
-  label === "Discord"
-
-const fgColorMap: { [key in SNSType]: string } = {
+const fgColorMap: { [key in SNSType]?: string } = {
   Twitter: "#fff",
   Instagram: "#fff",
   YouTube: "#fff",
   Discord: "#fff",
 }
 
-const bgColorMap: { [key in SNSType]: string } = {
+const bgColorMap: { [key in SNSType]?: string } = {
   Twitter: "#2E94DA",
   Instagram: "#D35CCA",
   YouTube: "#FF0000",
   Discord: "#5865F2",
 }
 
-const iconMap: { [key in SNSType]: JSX.Element } = {
+const iconMap: { [key in SNSType]?: JSX.Element } = {
   Twitter: <BsTwitter />,
   Instagram: <BsInstagram />,
   YouTube: <BsYoutube />,

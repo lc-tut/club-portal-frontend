@@ -9,26 +9,27 @@ import {
   useBoolean,
   VStack,
 } from "@chakra-ui/react"
-import axios from "axios"
 import { BsBoxArrowRight, BsPencil } from "react-icons/bs"
 import { Link, useLocation } from "react-router-dom"
-import { useSession } from "../../../hooks/useSession"
+import { useSWRConfig } from "swr"
 import type { HeaderProps } from "../../../types/header"
+import { axiosFetcher } from "../../../utils/axios"
 import { PortalButton } from "../../common/Button"
 import { DefaultUserIcon } from "../../common/Icon"
 
 export const UserMenu: React.VFC<HeaderProps> = (props) => {
   const [isOpen, setIsOpen] = useBoolean(false)
   const loc = useLocation()
-  const { session } = useSession()
+  const { mutate } = useSWRConfig()
+  const { session } = props
 
   const onLogout = async () => {
     try {
-      await axios.post(`/api/auth/destroy`)
+      await mutate("/api/auth", null, false)
+      await axiosFetcher<unknown>("/api/auth/destroy", { method: "post" })
+      await mutate("/api/auth")
     } catch (e) {
-      // TODO: code errors
-    } finally {
-      window.location.reload()
+      console.error(e)
     }
   }
 
@@ -51,8 +52,8 @@ export const UserMenu: React.VFC<HeaderProps> = (props) => {
           _active={{}}
           _focus={{}}
         >
-          {props.avatar ? (
-            <Avatar src={props.avatar} {...avatarProps} />
+          {session ? (
+            <Avatar src={session.avatar} {...avatarProps} />
           ) : (
             <DefaultUserIcon {...avatarProps} />
           )}
@@ -60,11 +61,11 @@ export const UserMenu: React.VFC<HeaderProps> = (props) => {
       </PopoverTrigger>
       <PopoverContent>
         <PopoverBody>
-          {props.avatar ? (
+          {session ? (
             <VStack py="1rem">
               <Text>ログインしています</Text>
-              {session?.name && <Text>{session?.name}</Text>}
-              {session?.role == "general" && (
+              <Text>{session.name}</Text>
+              {session.role == "general" && (
                 <Link to="/users/club/edit">
                   <PortalButton leftIcon={<BsPencil />}>
                     サークル編集
