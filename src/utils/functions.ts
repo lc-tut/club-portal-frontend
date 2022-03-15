@@ -11,4 +11,7 @@ export function toAbsolutePath(path: string): string {
 export const getCampus = (num: number): BadgeCampus => CAMPUS[num]
 export const getActivity = (num: number): BadgeActivity => ACTIVITY[num]
 export const isRegisteredSNS = (label: string): label is SNSType =>
-  label === "Twitter" || label === "Instagram" // || label === "Discord" || label === "YouTube" || label === "LINE" || label === "Blog"
+  label === "Twitter" ||
+  label === "Instagram" ||
+  label === "Discord" ||
+  label === "YouTube" // || label === "LINE" || label === "Blog"

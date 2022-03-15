@@ -13,11 +13,12 @@ import { BsClockHistory, BsMegaphone, BsSearch, BsStar } from "react-icons/bs"
 import { Link } from "react-router-dom"
 import { MenuButton } from "../components/common/Button"
 import { PortalLogo } from "../components/common/Icon"
+import { PADDING_BEFORE_FOOTER } from "../utils/consts"
 
 const AnimatedTop: React.VFC<{}> = () => {
   return (
     <Flex flex="1" bgGradient="radial(#ffffff, green.100)">
-      <VStack flex="1" spacing="4rem">
+      <VStack flex="1" spacing="4rem" pb={PADDING_BEFORE_FOOTER}>
         <VStack alignItems="end" spacing="0">
           <Heading
             pt="5rem"
@@ -39,7 +40,6 @@ const AnimatedTop: React.VFC<{}> = () => {
           templateColumns="repeat(2, 1fr)"
           columnGap="2.5rem"
           rowGap="1rem"
-          pt="4rem"
         >
           {/* ----- left content ----- */}
           <GridItem rowSpan={3}>

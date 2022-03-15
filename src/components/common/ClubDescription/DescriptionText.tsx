@@ -1,21 +1,33 @@
 import { GridItem, VStack, Text, HStack, Link, Button } from "@chakra-ui/react"
-import { BsInstagram, BsLink, BsTwitter } from "react-icons/bs"
+import {
+  BsDiscord,
+  BsInstagram,
+  BsLink,
+  BsTwitter,
+  BsYoutube,
+} from "react-icons/bs"
 import type { DescriptionProps, SNSType } from "../../../types/description"
 import { isRegisteredSNS } from "../../../utils/functions"
 
 const fgColorMap: { [key in SNSType]?: string } = {
   Twitter: "#fff",
   Instagram: "#fff",
+  YouTube: "#fff",
+  Discord: "#fff",
 }
 
 const bgColorMap: { [key in SNSType]?: string } = {
   Twitter: "#2E94DA",
   Instagram: "#D35CCA",
+  YouTube: "#FF0000",
+  Discord: "#5865F2",
 }
 
 const iconMap: { [key in SNSType]?: JSX.Element } = {
   Twitter: <BsTwitter />,
   Instagram: <BsInstagram />,
+  YouTube: <BsYoutube />,
+  Discord: <BsDiscord />,
 }
 
 export const DescriptionText: React.VFC<DescriptionProps> = (props) => {
@@ -33,7 +45,7 @@ export const DescriptionText: React.VFC<DescriptionProps> = (props) => {
             const label = link.label
             const registerdSNS = isRegisteredSNS(label)
             return (
-              <Link href={link.path} key={link.path} isExternal>
+              <Link href={link.path} key={link.path} isExternal _hover={{}}>
                 <Button
                   color={registerdSNS ? fgColorMap[label] : "button.text.gray"}
                   backgroundColor={
@@ -44,6 +56,11 @@ export const DescriptionText: React.VFC<DescriptionProps> = (props) => {
                   borderRadius="2px"
                   height="2rem"
                   minWidth="6rem"
+                  _hover={{
+                    opacity: 0.6,
+                  }}
+                  _focus={{}}
+                  _active={{}}
                 >
                   {link.label}
                 </Button>
