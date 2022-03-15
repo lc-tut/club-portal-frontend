@@ -50,7 +50,7 @@ export const DescriptionText: React.VFC<DescriptionProps> = (props) => {
             const label = link.label
             const registerdSNS = isRegisteredSNS(label)
             return (
-              <Link href={link.path} key={link.path} isExternal>
+              <Link href={link.path} key={link.path} isExternal _hover={{}}>
                 <Button
                   color={registerdSNS ? fgColorMap[label] : "button.text.gray"}
                   backgroundColor={
@@ -61,6 +61,11 @@ export const DescriptionText: React.VFC<DescriptionProps> = (props) => {
                   borderRadius="2px"
                   height="2rem"
                   minWidth="6rem"
+                  _hover={{
+                    opacity: 0.6,
+                  }}
+                  _focus={{}}
+                  _active={{}}
                 >
                   {link.label}
                 </Button>
