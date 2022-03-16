@@ -3,12 +3,12 @@ import type { IntroductionVideoProps } from "../../../types/description"
 
 export const IntroductionVideo: React.VFC<IntroductionVideoProps> = (props) => {
   return props.videoPath ? (
-    <GridItem colSpan={12} width="50%" justifySelf="center">
-      <VStack spacing="1rem">
+    <GridItem colSpan={12} justifySelf="center">
+      <VStack spacing="1rem" w="100%">
         <Text fontSize="1.5rem" color="text.main">
           紹介動画
         </Text>
-        <AspectRatio ratio={16 / 9} width="100%">
+        <AspectRatio ratio={16 / 9} width={{ sm: "60vw", lg: "40vw" }}>
           <iframe
             width="100%"
             height="100%"
