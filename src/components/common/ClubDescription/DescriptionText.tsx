@@ -31,7 +31,7 @@ const iconMap: { [key in SNSType]?: JSX.Element } = {
   Instagram: <BsInstagram />,
   YouTube: <BsYoutube />,
   Discord: <BsDiscord />,
-  LINE: <BsLine />
+  LINE: <BsLine />,
 }
 
 export const DescriptionText: React.VFC<DescriptionProps> = (props) => {
