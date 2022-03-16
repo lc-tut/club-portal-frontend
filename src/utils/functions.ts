@@ -14,4 +14,5 @@ export const isRegisteredSNS = (label: string): label is SNSType =>
   label === "Twitter" ||
   label === "Instagram" ||
   label === "Discord" ||
-  label === "YouTube" // || label === "LINE" || label === "Blog"
+  label === "YouTube" ||
+  label === "LINE" // || label === "Blog"

@@ -2,6 +2,7 @@ import { GridItem, VStack, Text, HStack, Link, Button } from "@chakra-ui/react"
 import {
   BsDiscord,
   BsInstagram,
+  BsLine,
   BsLink,
   BsTwitter,
   BsYoutube,
@@ -14,6 +15,7 @@ const fgColorMap: { [key in SNSType]?: string } = {
   Instagram: "#fff",
   YouTube: "#fff",
   Discord: "#fff",
+  LINE: "#fff",
 }
 
 const bgColorMap: { [key in SNSType]?: string } = {
@@ -21,6 +23,7 @@ const bgColorMap: { [key in SNSType]?: string } = {
   Instagram: "#D35CCA",
   YouTube: "#FF0000",
   Discord: "#5865F2",
+  LINE: "#29C755",
 }
 
 const iconMap: { [key in SNSType]?: JSX.Element } = {
@@ -28,6 +31,7 @@ const iconMap: { [key in SNSType]?: JSX.Element } = {
   Instagram: <BsInstagram />,
   YouTube: <BsYoutube />,
   Discord: <BsDiscord />,
+  LINE: <BsLine />
 }
 
 export const DescriptionText: React.VFC<DescriptionProps> = (props) => {
