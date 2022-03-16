@@ -5,7 +5,9 @@ import {
   HStack,
   Icon,
   Text,
+  Tooltip,
   VStack,
+  Wrap,
 } from "@chakra-ui/react"
 import { AxiosRequestConfig } from "axios"
 import { BsClock } from "react-icons/bs"
@@ -106,12 +108,19 @@ export const ClubPage: React.VFC<ClubPageProps> = (props) => {
           <Icon as={BsClock} mr="5px" />
           最終更新: {data?.updatedAt}
         </Flex>
-        <FavoriteButton
-          isDisabled={props.userUUID === undefined || favs.isError}
-          isRegistered={favs.data?.status}
-          isLoading={props.userUUID ? favs.isLoading : false}
-          onClick={onClick}
-        />
+        <Tooltip
+          label="利用するには学生用Gmailアカウントでログインして下さい"
+          isDisabled={props.userUUID !== undefined && !favs.isError}
+        >
+          <Wrap>
+            <FavoriteButton
+              isDisabled={props.userUUID === undefined || favs.isError}
+              isRegistered={favs.data?.status}
+              isLoading={props.userUUID ? favs.isLoading : false}
+              onClick={onClick}
+            />
+          </Wrap>
+        </Tooltip>
       </HStack>
       <Grid
         templateColumns="repeat(12, 1fr)"
