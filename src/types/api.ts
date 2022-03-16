@@ -87,11 +87,11 @@ export type ClubPageInternal = {
 }
 
 export type ActivityDetail = {
-  timeId: number
+  timeId?: number
   date: DateType
   time: string
   timeRemark?: string
-  placeId: number
+  placeId?: number
   place: string
   placeRemark?: string
 }

@@ -21,12 +21,26 @@ export const MONTHS: ReadonlyArray<number> = [
 ]
 
 export const BUILDING_ID_MAP: { [key in number]: string } = {
-  1: "サークル棟",
-  10: "研究棟A",
-  11: "研究棟B",
-  12: "研究棟C",
-  13: "研究棟D",
-  20: "講義実験棟",
+  110: "講義棟A",
+  111: "講義棟D",
+  120: "研究棟A",
+  130: "片柳研究棟",
+  131: "片柳研究棟KC",
+  132: "片柳研究棟KE",
+  133: "片柳研究棟KW",
+  140: "講義実験棟",
+  150: "サークル棟",
+  160: "メディアホール",
+  161: "厚生棟2階学生ラウンジ",
+  170: "体育館稽古場",
+  171: "演劇稽古場",
+  172: "体育館裏プレハブ棟",
+  173: "体育館アリーナ",
+  174: "弓道場",
+  180: "総合グラウンド",
+  181: "多目的グラウンド",
+  182: "テニスコート",
+  300: "その他",
 }
 
 export const DATE_MAP: { [key in DateType]: string } = {
@@ -39,4 +53,16 @@ export const DATE_MAP: { [key in DateType]: string } = {
   Sun: "日",
   Day: "平日",
   Etc: "その他",
+}
+
+export const DATE_NUMBER_MAP: { [key in DateType]: number } = {
+  Mon: 10,
+  Tue: 11,
+  Wed: 12,
+  Thu: 13,
+  Fri: 14,
+  Sat: 15,
+  Sun: 16,
+  Day: 17,
+  Etc: 20,
 }

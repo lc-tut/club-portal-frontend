@@ -1,5 +1,5 @@
 import { Flex, Grid, HStack, Icon, VStack } from "@chakra-ui/react"
-import { AxiosRequestConfig } from "axios"
+import type { AxiosRequestConfig } from "axios"
 import { BsClock } from "react-icons/bs"
 import { useLocation } from "react-router-dom"
 import { FavoriteButton } from "../components/common/Button"

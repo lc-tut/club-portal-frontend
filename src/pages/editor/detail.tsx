@@ -190,7 +190,6 @@ export const DetailEditor: React.VFC<{}> = () => {
                   <FormLabel color="text.main" pl="0.2rem" fontSize="1.2rem">
                     連絡先のメールアドレス
                   </FormLabel>
-
                   <Input
                     placeholder={"メールアドレスを入力して下さい"}
                     w="20rem"

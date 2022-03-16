@@ -1,9 +1,10 @@
 export type TimePlaceStateType = {
+  isDateDisabled: boolean
   isTimeDisabled: boolean
   isPlaceDisabled: boolean
   isRoomDisabled: boolean
 }
 
 export type TimePlaceActionType = {
-  type: "time" | "place" | "room"
+  type: "date" | "time" | "place" | "room"
 }
