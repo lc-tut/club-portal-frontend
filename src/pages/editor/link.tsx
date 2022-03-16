@@ -63,6 +63,8 @@ export const LinkEditor: React.VFC<{}> = () => {
   const values = watch()
 
   const onAdd = () => {
+    console.log(values)
+
     let err = false
     if (values.label === "" && !isOther) {
       err = true
@@ -75,7 +77,7 @@ export const LinkEditor: React.VFC<{}> = () => {
     }
 
     if (isOther) {
-      if (values.otherLabel === "") {
+      if (values.otherLabel === "" || values.otherLabel === undefined) {
         err = true
         setError("otherLabel", {
           type: "required",
@@ -204,10 +206,12 @@ export const LinkEditor: React.VFC<{}> = () => {
                       backgroundColor="#fff"
                       textColor="text.main"
                       placeholder="その他のSNSを入力"
+                      defaultValue=""
                       {...register("otherLabel", {
                         required: isOther,
-                        disabled: !isOther,
                       })}
+                      // ↓registerに含めると不具合発生
+                      disabled={!isOther}
                     />
                     <Wrap h="1.2rem">
                       <FormErrorMessage w="12rem">
