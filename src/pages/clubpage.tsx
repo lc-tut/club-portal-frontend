@@ -114,7 +114,7 @@ export const ClubPage: React.VFC<ClubPageProps> = (props) => {
         </Flex>
         <Tooltip
           label="利用するには学生用Gmailアカウントでログインして下さい"
-          isDisabled={session.session?.role !== "domain"}
+          isDisabled={session.session?.role === "domain"}
         >
           <Wrap>
             <FavoriteButton
