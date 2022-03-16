@@ -9,7 +9,7 @@ import {
   VStack,
   Wrap,
 } from "@chakra-ui/react"
-import { useEffect, useState } from "react"
+import { ChangeEvent, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { EditorBase } from "../../components/common/Editor/EditorBase"
@@ -63,8 +63,6 @@ export const LinkEditor: React.VFC<{}> = () => {
   const values = watch()
 
   const onAdd = () => {
-    console.log(values)
-
     let err = false
     if (values.label === "" && !isOther) {
       err = true
@@ -99,7 +97,7 @@ export const LinkEditor: React.VFC<{}> = () => {
       }
 
       if (!err) {
-        values.label = "Sonota"
+        values.label = values.otherLabel
       }
     }
 
@@ -111,6 +109,21 @@ export const LinkEditor: React.VFC<{}> = () => {
       })
     } else {
       clearErrors("url")
+    }
+
+    let isExist = false
+    for (const item of items) {
+      if (values.label === item.label && values.url === item.url) {
+        console.log(values.label, values.url)
+        isExist = true
+      }
+    }
+    if (isExist) {
+      err = true
+      setError("url", {
+        type: "validate",
+        message: "既に登録済みです"
+      })
     }
 
     if (!err) {
@@ -158,11 +171,12 @@ export const LinkEditor: React.VFC<{}> = () => {
                     <Select
                       backgroundColor="#fff"
                       w="12rem"
-                      {...register("label")}
+                      {...register("label", {
+                        onChange: (e: ChangeEvent<HTMLSelectElement>) => {
+                          setIsOther(e.target.value === "other")
+                        },
+                      })}
                       defaultValue=""
-                      onChange={(e) => {
-                        setIsOther(e.target.value === "other")
-                      }}
                     >
                       <option value="" hidden>
                         -
@@ -225,7 +239,7 @@ export const LinkEditor: React.VFC<{}> = () => {
             <Stack w="100%">
               {items.map((item) => {
                 return (
-                  <HStack key={item.label} textColor="text.main">
+                  <HStack key={item.label + item.url} textColor="text.main">
                     <EditorButton
                       icon="remove"
                       onClick={() => onRemove(item)}
