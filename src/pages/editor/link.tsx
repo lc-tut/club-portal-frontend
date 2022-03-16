@@ -122,7 +122,7 @@ export const LinkEditor: React.VFC<{}> = () => {
       err = true
       setError("url", {
         type: "validate",
-        message: "既に登録済みです"
+        message: "既に登録済みです",
       })
     }
 
