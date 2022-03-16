@@ -138,6 +138,7 @@ export const LinkEditor: React.VFC<{}> = () => {
                         </option>
                       )
                     })}
+                    <option>その他</option>
                   </Select>
                   <Wrap h="1.2rem">
                     <FormErrorMessage>
