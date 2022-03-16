@@ -1,4 +1,4 @@
-import { Box, FormLabel, Text, TextProps, Wrap } from "@chakra-ui/react"
+import { Box, FormLabel, Text, TextProps } from "@chakra-ui/react"
 
 export const EditorText: React.VFC<TextProps> = (props) => {
   return (
