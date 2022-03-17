@@ -55,8 +55,12 @@ const AnimatedClubs: React.VFC<{}> = () => {
     sortedClubs.map((club) => {
       // exclude by name, short_description
       if (
-        !club.name.includes(filter.keyword) &&
-        !club.shortDescription.includes(filter.keyword)
+        !club.name
+          .toLocaleLowerCase()
+          .includes(filter.keyword.toLocaleLowerCase()) &&
+        !club.shortDescription
+          .toLocaleLowerCase()
+          .includes(filter.keyword.toLocaleLowerCase())
       )
         return
 
