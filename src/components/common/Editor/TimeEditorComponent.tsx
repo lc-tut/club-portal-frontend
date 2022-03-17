@@ -12,6 +12,7 @@ import {
   Spacer,
   Stack,
   Switch,
+  VStack,
   Wrap,
 } from "@chakra-ui/react"
 import { EditorLabel, EditorText } from "./EditorInput"
@@ -47,152 +48,156 @@ export const TimeInput: React.VFC<TimePlaceInputProps> = (props) => {
   )
 
   return (
-    <HStack textColor="text.main" mb="1.2rem">
-      <FormControl w="10rem" isInvalid={errors.date !== undefined}>
+    <>
+      <HStack textColor="text.main">
+        <FormControl w="10rem" isInvalid={errors.date !== undefined}>
+          <Stack spacing="0">
+            <EditorLabel label="曜日" />
+            <Select
+              w="10rem"
+              backgroundColor="#fff"
+              textColor="text.main"
+              {...register("date", { disabled: state.isDateDisabled })}
+            >
+              <option value="" hidden>
+                -
+              </option>
+              {options.map((item, index) => {
+                return item.value !== "Etc" ? (
+                  <option key={index} value={item.value}>
+                    {item.displayName}
+                  </option>
+                ) : (
+                  <Fragment key={index}></Fragment>
+                )
+              })}
+            </Select>
+            <Wrap h="1.2rem">
+              <FormErrorMessage>
+                {errors.date && errors.date.message}
+              </FormErrorMessage>
+            </Wrap>
+          </Stack>
+        </FormControl>
         <Stack spacing="0">
-          <EditorLabel label="曜日" />
-          <Select
-            w="10rem"
-            backgroundColor="#fff"
-            textColor="text.main"
-            {...register("date", { disabled: state.isDateDisabled })}
+          <EditorLabel label="開始時間" />
+          <NumberInput
+            width="5rem"
+            min={0}
+            max={23}
+            defaultValue={19}
+            isDisabled={state.isTimeDisabled}
           >
-            <option value="" hidden>
-              -
-            </option>
-            {options.map((item, index) => {
-              return item.value !== "Etc" ? (
-                <option key={index} value={item.value}>
-                  {item.displayName}
-                </option>
-              ) : (
-                <Fragment key={index}></Fragment>
-              )
-            })}
-          </Select>
-          <Wrap h="1.2rem">
-            <FormErrorMessage>
-              {errors.date && errors.date.message}
-            </FormErrorMessage>
-          </Wrap>
+            <NumberInputField
+              backgroundColor="#fff"
+              {...register("start.hour")}
+            />
+            <NumberInputStepper>
+              <NumberIncrementStepper />
+              <NumberDecrementStepper />
+            </NumberInputStepper>
+          </NumberInput>
+          <Wrap h="1.2rem" />
         </Stack>
-      </FormControl>
-      <Stack spacing="0">
-        <EditorLabel label="開始時間" />
-        <NumberInput
-          width="5rem"
-          min={0}
-          max={23}
-          defaultValue={19}
-          isDisabled={state.isTimeDisabled}
-        >
-          <NumberInputField
-            backgroundColor="#fff"
-            {...register("start.hour")}
-          />
-          <NumberInputStepper>
-            <NumberIncrementStepper />
-            <NumberDecrementStepper />
-          </NumberInputStepper>
-        </NumberInput>
+        <Stack spacing="0">
+          <EditorText>:</EditorText>
+          <Wrap h="1.2rem" />
+        </Stack>
         <Wrap h="1.2rem" />
-      </Stack>
-      <Stack spacing="0">
-        <EditorText>:</EditorText>
+        <Stack spacing="0">
+          <Wrap pt="1.2rem" />
+          <NumberInput
+            width="5rem"
+            min={0}
+            max={59}
+            defaultValue={0}
+            isDisabled={state.isTimeDisabled}
+          >
+            <NumberInputField
+              backgroundColor="#fff"
+              {...register("start.minute")}
+            />
+            <NumberInputStepper>
+              <NumberIncrementStepper />
+              <NumberDecrementStepper />
+            </NumberInputStepper>
+          </NumberInput>
+          <Wrap pt="1.2rem" />
+        </Stack>
+        <Stack spacing="0">
+          <EditorText>~</EditorText>
+          <Wrap h="1.2rem" />
+        </Stack>
+        <Stack spacing="0">
+          <EditorLabel label="終了時間" />
+          <NumberInput
+            width="5rem"
+            min={0}
+            max={23}
+            defaultValue={21}
+            isDisabled={state.isTimeDisabled}
+          >
+            <NumberInputField
+              backgroundColor="#fff"
+              {...register("end.hour")}
+            />
+            <NumberInputStepper>
+              <NumberIncrementStepper />
+              <NumberDecrementStepper />
+            </NumberInputStepper>
+          </NumberInput>
+          <Wrap pt="1.2rem" />
+        </Stack>
+        <Stack spacing="0">
+          <EditorText>:</EditorText>
+          <Wrap h="1.2rem" />
+        </Stack>
         <Wrap h="1.2rem" />
-      </Stack>
-      <Wrap h="1.2rem" />
-      <Stack spacing="0">
-        <Wrap pt="1.2rem" />
-        <NumberInput
-          width="5rem"
-          min={0}
-          max={59}
-          defaultValue={0}
-          isDisabled={state.isTimeDisabled}
-        >
-          <NumberInputField
-            backgroundColor="#fff"
-            {...register("start.minute")}
-          />
-          <NumberInputStepper>
-            <NumberIncrementStepper />
-            <NumberDecrementStepper />
-          </NumberInputStepper>
-        </NumberInput>
-        <Wrap pt="1.2rem" />
-      </Stack>
-      <Stack spacing="0">
-        <EditorText>~</EditorText>
-        <Wrap h="1.2rem" />
-      </Stack>
-      <Stack spacing="0">
-        <EditorLabel label="終了時間" />
-        <NumberInput
-          width="5rem"
-          min={0}
-          max={23}
-          defaultValue={21}
-          isDisabled={state.isTimeDisabled}
-        >
-          <NumberInputField backgroundColor="#fff" {...register("end.hour")} />
-          <NumberInputStepper>
-            <NumberIncrementStepper />
-            <NumberDecrementStepper />
-          </NumberInputStepper>
-        </NumberInput>
-        <Wrap pt="1.2rem" />
-      </Stack>
-      <Stack spacing="0">
-        <EditorText>:</EditorText>
-        <Wrap h="1.2rem" />
-      </Stack>
-      <Wrap h="1.2rem" />
-      <Stack spacing="0">
-        <Wrap pt="1.2rem" />
-        <NumberInput
-          width="5rem"
-          min={0}
-          max={23}
-          defaultValue={0}
-          isDisabled={state.isTimeDisabled}
-        >
-          <NumberInputField
-            backgroundColor="#fff"
-            {...register("end.minute")}
-          />
-          <NumberInputStepper>
-            <NumberIncrementStepper />
-            <NumberDecrementStepper />
-          </NumberInputStepper>
-        </NumberInput>
-        <Wrap pt="1.2rem" />
-      </Stack>
-      <Spacer w="0.5rem" />
-      <Stack spacing="0">
-        <EditorLabel label="曜日を「その他」にする" />
-        <Flex h="40px" alignItems="center">
-          <Switch
-            colorScheme="green"
-            size="lg"
-            isChecked={state.isDateDisabled}
-            onChange={() => dispatch({ type: "date" })}
-          />
-        </Flex>
-        <Wrap pt="1.2rem" />
-      </Stack>
-      <Stack spacing="0">
-        <EditorLabel label="時間を「その他」にする" />
-        <Flex h="40px" alignItems="center">
-          <Switch
-            colorScheme="green"
-            size="lg"
-            isChecked={state.isTimeDisabled}
-            onChange={() => dispatch({ type: "time" })}
-          />
-        </Flex>
-        <Wrap pt="1.2rem" />
-      </Stack>
-    </HStack>
+        <Stack spacing="0">
+          <Wrap pt="1.2rem" />
+          <NumberInput
+            width="5rem"
+            min={0}
+            max={23}
+            defaultValue={0}
+            isDisabled={state.isTimeDisabled}
+          >
+            <NumberInputField
+              backgroundColor="#fff"
+              {...register("end.minute")}
+            />
+            <NumberInputStepper>
+              <NumberIncrementStepper />
+              <NumberDecrementStepper />
+            </NumberInputStepper>
+          </NumberInput>
+          <Wrap pt="1.2rem" />
+        </Stack>
+      </HStack>
+      <HStack pb="1.2rem" spacing="1.5rem">
+        <VStack spacing="0">
+          <EditorLabel label="曜日を「その他」にする" />
+          <Flex h="40px" alignItems="center">
+            <Switch
+              colorScheme="green"
+              size="lg"
+              isChecked={state.isDateDisabled}
+              onChange={() => dispatch({ type: "date" })}
+            />
+          </Flex>
+        </VStack>
+        <VStack spacing="0">
+          <EditorLabel label="時間を「その他」にする" />
+          <Flex h="40px" alignItems="center">
+            <Switch
+              colorScheme="green"
+              size="lg"
+              isChecked={state.isTimeDisabled}
+              onChange={() => dispatch({ type: "time" })}
+            />
+          </Flex>
+        </VStack>
+      </HStack>
+    </>
   )
 }
