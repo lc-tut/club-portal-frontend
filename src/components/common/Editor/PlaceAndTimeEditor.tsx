@@ -172,9 +172,9 @@ export const PlaceAndTimeEditor: React.VFC<PlaceAndTimeEditorProps> = (
           const isDate = item.date !== "Day" && item.date !== "Etc"
 
           return (
-            <HStack key={index} alignItems="start" textColor="text.main">
+            <HStack key={index} alignItems="center" textColor="text.main">
               <EditorButton icon="remove" onClick={() => onRemove(item)} />
-              <Stack>
+              <Stack spacing="0" pt="1.2rem">
                 <HStack h="40px">
                   <Text>
                     {isDate
