@@ -49,7 +49,7 @@ const EditorMenuButton: React.VFC<
 
 export const EditorMenu: React.VFC<EditorMenuProps> = (props) => {
   return (
-    <EditorBase>
+    <EditorBase noBackButton>
       <Grid
         // TODO: ブレークポイントをモバイルにする
         templateColumns={{ base: "repeat(1. 1fr)", md: "repeat(2, 1fr)" }}

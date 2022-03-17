@@ -2,25 +2,26 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
+  Stack,
   Textarea,
   VStack,
 } from "@chakra-ui/react"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { AxiosRequestConfig } from "axios"
+import { useEffect, useState } from "react"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
 import { PortalButton } from "../../components/common/Button"
 import { EditorBase } from "../../components/common/Editor/EditorBase"
 import { TitleArea } from "../../components/global/Header/TitleArea"
+import { Loading } from "../../components/global/LoadingPage"
 import { useAPI } from "../../hooks/useAPI"
+import { useErrorToast } from "../../hooks/useErrorToast"
 import { useOutletUser } from "../../hooks/useOutletUser"
 import type { Description } from "../../types/api"
-import { PADDING_BEFORE_FOOTER } from "../../utils/consts"
-import * as z from "zod"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Loading } from "../../components/global/LoadingPage"
-import { ErrorPage } from "../error"
 import { axiosWithPayload } from "../../utils/axios"
-import { AxiosRequestConfig } from "axios"
-import { useErrorToast } from "../../hooks/useErrorToast"
-import { useEffect, useState } from "react"
+import { PADDING_BEFORE_FOOTER } from "../../utils/consts"
+import { ErrorPage } from "../error"
 
 const schema = z.object({
   desciption: z.string(),
@@ -71,33 +72,35 @@ export const DescriptionEditor: React.VFC<{}> = () => {
   return (
     <VStack flex="1" pb={PADDING_BEFORE_FOOTER}>
       <TitleArea>サークル説明文の編集</TitleArea>
-      <form onSubmit={onSubmit}>
-        <EditorBase>
-          <FormControl isInvalid={errors.description !== undefined}>
-            <FormLabel fontSize="0.8rem" color="text.sub">
-              サークルの説明文
-            </FormLabel>
-            <Textarea
-              {...(register("description"),
-              {
-                required: true,
-                minLength: 1,
-              })}
-              backgroundColor="#fff"
-              color="text.main"
-              w="30rem"
-              h="10rem"
-              placeholder="サークルの説明文を入力して下さい"
-              defaultValue={desc}
-              resize="none"
-            />
-            <FormErrorMessage>
-              {errors.description && errors.description.message}
-            </FormErrorMessage>
-          </FormControl>
-          <PortalButton type="submit">保存</PortalButton>
-        </EditorBase>
-      </form>
+      <Stack>
+        <form onSubmit={onSubmit}>
+          <EditorBase>
+            <FormControl isInvalid={errors.description !== undefined}>
+              <FormLabel fontSize="0.8rem" color="text.sub">
+                サークルの説明文
+              </FormLabel>
+              <Textarea
+                {...(register("description"),
+                {
+                  required: true,
+                  minLength: 1,
+                })}
+                backgroundColor="#fff"
+                color="text.main"
+                w="30rem"
+                h="10rem"
+                placeholder="サークルの説明文を入力して下さい"
+                defaultValue={desc}
+                resize="none"
+              />
+              <FormErrorMessage>
+                {errors.description && errors.description.message}
+              </FormErrorMessage>
+            </FormControl>
+            <PortalButton type="submit">保存</PortalButton>
+          </EditorBase>
+        </form>
+      </Stack>
     </VStack>
   )
 }
