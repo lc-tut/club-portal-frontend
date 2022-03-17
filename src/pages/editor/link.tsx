@@ -32,7 +32,7 @@ import { EditorLabel } from "../../components/common/Editor/EditorInput"
 const schema = z.object({
   label: z.string(),
   url: z.string().url(),
-  otherLabel: z.string().optional()
+  otherLabel: z.string().optional(),
 })
 
 export const LinkEditor: React.VFC<{}> = () => {
@@ -112,7 +112,7 @@ export const LinkEditor: React.VFC<{}> = () => {
 
     let isExist = false
     for (const item of items) {
-      const label =  isOther ? values.otherLabel!.trim() : values.label.trim()
+      const label = isOther ? values.otherLabel!.trim() : values.label.trim()
       if (label === item.label && values.url.trim() === item.url) {
         isExist = true
       }
@@ -126,7 +126,10 @@ export const LinkEditor: React.VFC<{}> = () => {
     }
 
     if (!err) {
-      const v: Link = { label: isOther ? values.otherLabel!.trim() : values.label.trim(), url: values.url }
+      const v: Link = {
+        label: isOther ? values.otherLabel!.trim() : values.label.trim(),
+        url: values.url,
+      }
       setItems([v, ...items])
     }
   }
@@ -204,7 +207,7 @@ export const LinkEditor: React.VFC<{}> = () => {
                       textColor="text.main"
                       placeholder="その他のSNSを入力"
                       {...register("otherLabel", {
-                        disabled: !isOther
+                        disabled: !isOther,
                       })}
                     />
                     <Wrap h="1.2rem">
