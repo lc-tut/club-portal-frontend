@@ -25,7 +25,7 @@ export const toTimeID = (
   endMinuteTime: number
 ) => {
   const subTime =
-    (endHourTime - startHourTime) * 60 + endMinuteTime - startMinuteTime
+  (endHourTime - startHourTime) * 60 + (endMinuteTime - startMinuteTime)
   return Number(
     `${DATE_NUMBER_MAP[date]}${startHourTime
       .toString()
