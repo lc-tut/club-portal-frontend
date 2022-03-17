@@ -25,7 +25,6 @@ import { TitleArea } from "../components/global/Header/TitleArea"
 import { Loading } from "../components/global/LoadingPage"
 import { useAPI } from "../hooks/useAPI"
 import { useErrorToast } from "../hooks/useErrorToast"
-import { useSession } from "../hooks/useSession"
 import type {
   ClubPageInternal,
   FavoriteClubStatus,
@@ -42,8 +41,6 @@ type ClubPageProps = {
 // TODO: アニメーションをつける
 export const ClubPage: React.VFC<ClubPageProps> = (props) => {
   const clubSlug = useLocation()
-  const session = useSession()
-  const loc = useLocation()
   const { data, isLoading, isError } = useAPI<ClubPageInternal | null>(
     !clubSlug.pathname.startsWith("/clubs/")
       ? null
@@ -92,10 +89,8 @@ export const ClubPage: React.VFC<ClubPageProps> = (props) => {
   }
 
   const onLogin = () => {
-    window.location.href = `/api/auth/signin?redirect_url=${loc.pathname}`
+    window.location.href = `/api/auth/signin?redirect_url=${clubSlug.pathname}`
   }
-
-  console.log(session.session)
 
   return (
     <VStack flex="1">
@@ -114,7 +109,7 @@ export const ClubPage: React.VFC<ClubPageProps> = (props) => {
         </Flex>
         <Tooltip
           label="利用するには学生用Gmailアカウントでログインして下さい"
-          isDisabled={session.session?.role === "domain"}
+          isDisabled={props.userUUID === undefined}
         >
           <Wrap>
             <FavoriteButton
@@ -141,9 +136,9 @@ export const ClubPage: React.VFC<ClubPageProps> = (props) => {
             .filter((link) => link.label !== "HP" && link.label !== "Email")
             .map((link) => ({ label: link.label, path: link.url }))}
           content={data?.description ?? ""}
-          fullWidth={session.session === null}
+          fullWidth={props.userUUID === undefined}
         />
-        {session.session !== null ? (
+        {props.userUUID !== null ? (
           <>
             <DetailInformation
               activity={data?.contents.map((cont) => cont.content) ?? []}
