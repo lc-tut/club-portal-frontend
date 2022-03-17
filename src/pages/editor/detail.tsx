@@ -39,10 +39,11 @@ type FormType = {
 }
 
 const schema = z.object({
-  email: z.string().email(),
-  homePage: z.string().url().optional(),
+  email: z.string().email("正しいメールアドレスを入力してください。"),
+  homePage: z.string().url("正しいURLを入力してください。").optional(),
 })
 
+// FIXME: should rewrite
 export const DetailEditor: React.VFC<{}> = () => {
   const { clubUuid } = useOutletUser()
   const achievementResponse = useAPI<Array<Achievement>>(

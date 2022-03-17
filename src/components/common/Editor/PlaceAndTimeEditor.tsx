@@ -50,6 +50,8 @@ export const PlaceAndTimeEditor: React.VFC<PlaceAndTimeEditorProps> = (
   const watchAll = watch()
 
   const onAdd = () => {
+    const startTime = watchAll.start
+    const endTime = watchAll.end
     let err = false
     if (!state.isDateDisabled && watchAll.date === "") {
       err = true
@@ -90,11 +92,15 @@ export const PlaceAndTimeEditor: React.VFC<PlaceAndTimeEditorProps> = (
     } else {
       clearErrors("placeRemark")
     }
+    if (
+      !state.isTimeDisabled &&
+      (startTime.hour > endTime.hour ||
+        (startTime.hour == endTime.hour && startTime.minute > endTime.minute))
+    )
+      return
     if (!err) {
       if (watchAll.date === undefined) return // 何故か undefined になる (よくわからない…)
       const selectedDate = watchAll.date as DateType
-      const startTime = watchAll.start
-      const endTime = watchAll.end
       const placeObj = watchAll.place
       setItems([
         {

@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 import {
   Flex,
   FormControl,
@@ -85,11 +83,12 @@ export const PlaceInput: React.VFC<TimePlaceInputProps> = (props) => {
             min={0}
             max={2000}
             defaultValue={0}
-            {...register("place.room", {
-              disabled: state.isPlaceDisabled || state.isRoomDisabled,
-            })}
+            isDisabled={state.isPlaceDisabled || state.isRoomDisabled}
           >
-            <NumberInputField backgroundColor="#fff" />
+            <NumberInputField
+              backgroundColor="#fff"
+              {...register("place.room")}
+            />
             <NumberInputStepper>
               <NumberIncrementStepper />
               <NumberDecrementStepper />

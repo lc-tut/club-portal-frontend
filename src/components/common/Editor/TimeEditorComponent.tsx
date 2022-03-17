@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 import {
   Flex,
   FormControl,
@@ -86,9 +84,12 @@ export const TimeInput: React.VFC<TimePlaceInputProps> = (props) => {
           min={0}
           max={23}
           defaultValue={19}
-          {...register("start.hour", { disabled: state.isTimeDisabled })}
+          isDisabled={state.isTimeDisabled}
         >
-          <NumberInputField backgroundColor="#fff" />
+          <NumberInputField
+            backgroundColor="#fff"
+            {...register("start.hour")}
+          />
           <NumberInputStepper>
             <NumberIncrementStepper />
             <NumberDecrementStepper />
@@ -108,9 +109,12 @@ export const TimeInput: React.VFC<TimePlaceInputProps> = (props) => {
           min={0}
           max={59}
           defaultValue={0}
-          {...register("start.minute", { disabled: state.isTimeDisabled })}
+          isDisabled={state.isTimeDisabled}
         >
-          <NumberInputField backgroundColor="#fff" />
+          <NumberInputField
+            backgroundColor="#fff"
+            {...register("start.minute")}
+          />
           <NumberInputStepper>
             <NumberIncrementStepper />
             <NumberDecrementStepper />
@@ -129,9 +133,9 @@ export const TimeInput: React.VFC<TimePlaceInputProps> = (props) => {
           min={0}
           max={23}
           defaultValue={21}
-          {...register("end.hour", { disabled: state.isTimeDisabled })}
+          isDisabled={state.isTimeDisabled}
         >
-          <NumberInputField backgroundColor="#fff" />
+          <NumberInputField backgroundColor="#fff" {...register("end.hour")} />
           <NumberInputStepper>
             <NumberIncrementStepper />
             <NumberDecrementStepper />
@@ -151,9 +155,12 @@ export const TimeInput: React.VFC<TimePlaceInputProps> = (props) => {
           min={0}
           max={23}
           defaultValue={0}
-          {...register("end.minute", { disabled: state.isTimeDisabled })}
+          isDisabled={state.isTimeDisabled}
         >
-          <NumberInputField backgroundColor="#fff" />
+          <NumberInputField
+            backgroundColor="#fff"
+            {...register("end.minute")}
+          />
           <NumberInputStepper>
             <NumberIncrementStepper />
             <NumberDecrementStepper />
