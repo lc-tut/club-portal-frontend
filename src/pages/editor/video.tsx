@@ -148,7 +148,7 @@ export const VideoEditor: React.VFC<{}> = () => {
 
   const onSubmit = handleSubmit(async (data) => {
     const requestConfig: AxiosRequestConfig<Array<Video>> = {
-      url: `/api/v1/uuid/${clubUuid!}/video`,
+      url: `/api/v1/clubs/uuid/${clubUuid!}/video`,
       method: "put",
       data: [data],
     }
