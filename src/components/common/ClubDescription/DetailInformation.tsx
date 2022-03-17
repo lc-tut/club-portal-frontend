@@ -21,7 +21,6 @@ import type {
   DetailInformationProps,
   RowComponentProps,
 } from "../../../types/description"
-import { DATE_MAP } from "../../../utils/consts"
 import { ActivityRemarkButton } from "./ActivityRemarkButton"
 import { Remark } from "./Remark"
 
