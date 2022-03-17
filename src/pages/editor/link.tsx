@@ -9,7 +9,7 @@ import {
   VStack,
   Wrap,
 } from "@chakra-ui/react"
-import { useEffect, useState } from "react"
+import { ChangeEvent, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { EditorBase } from "../../components/common/Editor/EditorBase"
@@ -32,6 +32,7 @@ import { EditorLabel } from "../../components/common/Editor/EditorInput"
 const schema = z.object({
   label: z.string(),
   url: z.string().url(),
+  otherLabel: z.string().optional(),
 })
 
 export const LinkEditor: React.VFC<{}> = () => {
@@ -46,11 +47,12 @@ export const LinkEditor: React.VFC<{}> = () => {
     setError,
     clearErrors,
     formState: { errors },
-  } = useForm<Link>({
+  } = useForm<Link & { otherLabel?: string }>({
     resolver: zodResolver(schema),
   })
   const [items, setItems] = useState<Array<Link>>([])
   const toast = useErrorToast("データの保存に失敗しました。")
+  const [isOther, setIsOther] = useState<boolean>(false)
 
   useEffect(() => {
     if (data) {
@@ -63,7 +65,7 @@ export const LinkEditor: React.VFC<{}> = () => {
 
   const onAdd = () => {
     let err = false
-    if (values.label === "") {
+    if (values.label === "" && !isOther) {
       err = true
       setError("label", {
         type: "required",
@@ -72,6 +74,32 @@ export const LinkEditor: React.VFC<{}> = () => {
     } else {
       clearErrors("label")
     }
+
+    if (isOther) {
+      if (values.otherLabel === undefined || values.otherLabel === "") {
+        err = true
+        setError("otherLabel", {
+          type: "required",
+          message: "その他のSNSを入力してください",
+        })
+      } else if (
+        !z
+          .string()
+          .regex(/^[A-Z]/)
+          .safeParse(values.otherLabel).success
+      ) {
+        err = true
+        setError("otherLabel", {
+          type: "required",
+          message: "先頭大文字の半角英数字で入力して下さい",
+        })
+      } else {
+        clearErrors("otherLabel")
+      }
+    } else {
+      clearErrors("otherLabel")
+    }
+
     if (values.url === "" || !z.string().url().safeParse(values.url).success) {
       err = true
       setError("url", {
@@ -81,8 +109,28 @@ export const LinkEditor: React.VFC<{}> = () => {
     } else {
       clearErrors("url")
     }
+
+    let isExist = false
+    for (const item of items) {
+      const label = isOther ? values.otherLabel!.trim() : values.label.trim()
+      if (label === item.label && values.url.trim() === item.url) {
+        isExist = true
+      }
+    }
+    if (isExist) {
+      err = true
+      setError("url", {
+        type: "validate",
+        message: "既に登録済みです",
+      })
+    }
+
     if (!err) {
-      setItems([values, ...items])
+      const v: Link = {
+        label: isOther ? values.otherLabel!.trim() : values.label.trim(),
+        url: values.url,
+      }
+      setItems([v, ...items])
     }
   }
 
@@ -92,7 +140,7 @@ export const LinkEditor: React.VFC<{}> = () => {
 
   const onSubmit = handleSubmit(async () => {
     const requestConfig: AxiosRequestConfig<Array<Link>> = {
-      url: `/api/v1/uuid/${clubUuid!}/link`,
+      url: `/api/v1/clubs/uuid/${clubUuid!}/link`,
       method: "put",
       data: items,
     }
@@ -118,32 +166,56 @@ export const LinkEditor: React.VFC<{}> = () => {
         <EditorBase>
           <Stack>
             <HStack alignItems="start">
-              <EditorButton icon="add" onClick={() => onAdd()} />
+              <EditorButton icon="add" onClick={onAdd} />
               <Stack spacing="0">
                 <FormControl isInvalid={errors.label !== undefined}>
                   <EditorLabel label="SNS" />
-                  <Select
-                    backgroundColor="#fff"
-                    w="12rem"
-                    {...register("label")}
-                    defaultValue=""
-                  >
-                    <option value="" hidden>
-                      -
-                    </option>
-                    {VALID_SNS_LIST.map((item: SNSType) => {
-                      return (
-                        <option key={item} value={item}>
-                          {item}
-                        </option>
-                      )
-                    })}
-                  </Select>
-                  <Wrap h="1.2rem">
-                    <FormErrorMessage>
-                      {errors.label && errors.label.message}
-                    </FormErrorMessage>
-                  </Wrap>
+                  <Stack>
+                    <Select
+                      backgroundColor="#fff"
+                      w="12rem"
+                      {...register("label", {
+                        onChange: (e: ChangeEvent<HTMLSelectElement>) => {
+                          setIsOther(e.target.value === "other")
+                        },
+                      })}
+                    >
+                      <option value="" hidden>
+                        -
+                      </option>
+                      {VALID_SNS_LIST.map((item: SNSType) => {
+                        return (
+                          <option key={item} value={item}>
+                            {item}
+                          </option>
+                        )
+                      })}
+                      <option value="other">その他</option>
+                    </Select>
+                    <Wrap h="1.2rem">
+                      <FormErrorMessage>
+                        {errors.label && errors.label.message}
+                      </FormErrorMessage>
+                    </Wrap>
+                  </Stack>
+                </FormControl>
+                <FormControl isInvalid={errors.otherLabel !== undefined}>
+                  <Stack>
+                    <Input
+                      w="12rem"
+                      backgroundColor="#fff"
+                      textColor="text.main"
+                      placeholder="その他のSNSを入力"
+                      {...register("otherLabel", {
+                        disabled: !isOther,
+                      })}
+                    />
+                    <Wrap h="1.2rem">
+                      <FormErrorMessage w="12rem">
+                        {errors.otherLabel && errors.otherLabel.message}
+                      </FormErrorMessage>
+                    </Wrap>
+                  </Stack>
                 </FormControl>
               </Stack>
               <Stack spacing="0">
@@ -157,7 +229,7 @@ export const LinkEditor: React.VFC<{}> = () => {
                       required: true,
                     })}
                   />
-                  <Wrap h="1.2rem">
+                  <Wrap h="2.2rem">
                     <FormErrorMessage>
                       {errors.url && errors.url.message}
                     </FormErrorMessage>
@@ -168,7 +240,7 @@ export const LinkEditor: React.VFC<{}> = () => {
             <Stack w="100%">
               {items.map((item) => {
                 return (
-                  <HStack key={item.label} textColor="text.main">
+                  <HStack key={item.label + item.url} textColor="text.main">
                     <EditorButton
                       icon="remove"
                       onClick={() => onRemove(item)}

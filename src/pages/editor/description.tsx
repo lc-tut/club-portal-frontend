@@ -49,7 +49,7 @@ export const DescriptionEditor: React.VFC<{}> = () => {
 
   const onSubmit = handleSubmit(async (data) => {
     const requestConfig: AxiosRequestConfig<Description> = {
-      url: `/api/v1/uuid/${clubUuid!}/description`,
+      url: `/api/v1/clubs/uuid/${clubUuid!}/description`,
       method: "put",
       data: data,
     }
