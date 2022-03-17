@@ -121,7 +121,7 @@ export const TitleArea: React.VFC<
             <PortalBanner alignSelf="center" />
           </Link>
         )}
-        {isMobile && (
+        {/* {isMobile && (
           <Breadcrumb
             separator={<BsChevronRight />}
             fontSize="0.8rem"
@@ -138,7 +138,7 @@ export const TitleArea: React.VFC<
               <BreadcrumbLink href="#">PageB</BreadcrumbLink>
             </BreadcrumbItem>
           </Breadcrumb>
-        )}
+        )} */}
       </VStack>
       <VStack flex="1">
         <Heading
