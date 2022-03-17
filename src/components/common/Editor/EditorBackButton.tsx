@@ -1,10 +1,15 @@
 import { Link } from "react-router-dom"
-import { Text } from "@chakra-ui/react"
+import { Link as ChakraLink } from "@chakra-ui/react"
 
-export const EditorBackButton: React.VFC<{}> = (props) => {
+export const EditorBackButton: React.VFC<{}> = () => {
   return (
-    <Text color="green.600" fontSize="1.2rem" _hover={{ borderBottom: "1px" }}>
-      <Link to="/users/club/edit">←戻る</Link>
-    </Text>
+    <ChakraLink
+      as={Link}
+      color="green.600"
+      fontSize="1.2rem"
+      to="/users/club/edit"
+    >
+      ←戻る
+    </ChakraLink>
   )
 }

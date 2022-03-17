@@ -198,6 +198,7 @@ export const DetailEditor: React.VFC<{}> = () => {
                     textColor="text.main"
                     defaultValue={email}
                     {...methods.register("email", {
+                      value: email,
                       required: {
                         value: true,
                         message: "メールアドレスが空白です！",

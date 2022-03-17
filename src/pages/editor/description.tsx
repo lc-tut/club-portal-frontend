@@ -24,7 +24,7 @@ import { PADDING_BEFORE_FOOTER } from "../../utils/consts"
 import { ErrorPage } from "../error"
 
 const schema = z.object({
-  desciption: z.string(),
+  description: z.string().nonempty(),
 })
 
 export const DescriptionEditor: React.VFC<{}> = () => {
@@ -49,6 +49,7 @@ export const DescriptionEditor: React.VFC<{}> = () => {
   }, [data])
 
   const onSubmit = handleSubmit(async (data) => {
+    console.log(data)
     const requestConfig: AxiosRequestConfig<Description> = {
       url: `/api/v1/clubs/uuid/${clubUuid!}/description`,
       method: "put",
@@ -80,10 +81,10 @@ export const DescriptionEditor: React.VFC<{}> = () => {
                 サークルの説明文
               </FormLabel>
               <Textarea
-                {...(register("description"),
-                {
+                {...register("description", {
                   required: true,
                   minLength: 1,
+                  value: data?.description,
                 })}
                 backgroundColor="#fff"
                 color="text.main"

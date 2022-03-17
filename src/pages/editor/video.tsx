@@ -20,7 +20,7 @@ import {
   VStack,
   Wrap,
 } from "@chakra-ui/react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { BsQuestionCircle } from "react-icons/bs"
 import { PortalButton } from "../../components/common/Button"
@@ -32,6 +32,9 @@ import { useErrorToast } from "../../hooks/useErrorToast"
 import type { AxiosRequestConfig } from "axios"
 import { useOutletUser } from "../../hooks/useOutletUser"
 import { axiosWithPayload } from "../../utils/axios"
+import { useAPI } from "../../hooks/useAPI"
+import { Loading } from "../../components/global/LoadingPage"
+import { ErrorPage } from "../error"
 
 const parseVideoId = (
   input: string
@@ -131,10 +134,17 @@ export const VideoEditor: React.VFC<{}> = () => {
     clearErrors,
     formState: { errors },
   } = useForm<Video>()
-  const [videoID, setVideoID] = useState("")
+  const { data, isLoading, isError } = useAPI<Array<Video>>(`/api/v1/clubs/uuid/${clubUuid!}/video`)
+  const [videoID, setVideoID] = useState<string>("")
   const toast = useErrorToast("データの保存に失敗しました。")
 
   const watchPath = watch("path")
+
+  useEffect(() => {
+    if (data) {
+      data.length === 0 ? undefined : setVideoID(data[0].path)
+    }
+  }, [data])
 
   const onConfirm = () => {
     const res = parseVideoId(watchPath)
@@ -146,11 +156,11 @@ export const VideoEditor: React.VFC<{}> = () => {
     }
   }
 
-  const onSubmit = handleSubmit(async (data) => {
+  const onSubmit = handleSubmit(async () => {
     const requestConfig: AxiosRequestConfig<Array<Video>> = {
       url: `/api/v1/clubs/uuid/${clubUuid!}/video`,
       method: "put",
-      data: [data],
+      data: [{path:videoID}],
     }
     try {
       await axiosWithPayload<Array<Video>, Array<Video>>(requestConfig)
@@ -158,6 +168,14 @@ export const VideoEditor: React.VFC<{}> = () => {
       toast()
     }
   })
+
+  if (isLoading) {
+    return <Loading fullScreen />
+  }
+
+  if (isError) {
+    return <ErrorPage />
+  }
 
   return (
     <VStack flex="1" pb={PADDING_BEFORE_FOOTER}>
@@ -213,7 +231,7 @@ export const VideoEditor: React.VFC<{}> = () => {
           <VStack textColor="text.main">
             <PortalButton
               type="submit"
-              isDisabled={videoID === "" || errors.path === undefined}
+              isDisabled={videoID === "" || errors.path !== undefined}
             >
               保存
             </PortalButton>
