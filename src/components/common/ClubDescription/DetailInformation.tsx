@@ -21,6 +21,7 @@ import type {
   DetailInformationProps,
   RowComponentProps,
 } from "../../../types/description"
+import { DATE_MAP } from "../../../utils/consts"
 import { ActivityRemarkButton } from "./ActivityRemarkButton"
 import { Remark } from "./Remark"
 
@@ -70,7 +71,7 @@ export const DetailInformation: React.VFC<DetailInformationProps> = (props) => {
                 return (
                   <Fragment key={i}>
                     <GridItem>
-                      <Text>{pat.date}</Text>
+                      <Text>{DATE_MAP[pat.date]}</Text>
                     </GridItem>
                     <GridItem>
                       <HStack>
