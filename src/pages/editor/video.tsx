@@ -187,7 +187,7 @@ export const VideoEditor: React.VFC<{}> = () => {
               </Wrap>
             </FormControl>
           </Stack>
-          <PortalButton pbstyle="solid" onClick={() => onConfirm()}>
+          <PortalButton pbstyle="solid" onClick={onConfirm}>
             確認
           </PortalButton>
           <VStack>

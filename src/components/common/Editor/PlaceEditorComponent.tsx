@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 import {
   Flex,
   FormControl,
@@ -12,6 +10,8 @@ import {
   Select,
   Stack,
   Switch,
+  Wrap,
+  FormErrorMessage,
 } from "@chakra-ui/react"
 import { EditorLabel } from "./EditorInput"
 import { BUILDING_ID_MAP } from "../../../utils/consts"
@@ -20,6 +20,7 @@ import type {
   TimePlaceInputProps,
 } from "../../../types/editor"
 import { useFormContext } from "react-hook-form"
+import { Fragment } from "react"
 
 type FormPlaceType = {
   place: {
@@ -29,7 +30,10 @@ type FormPlaceType = {
 }
 
 export const PlaceInput: React.VFC<TimePlaceInputProps> = (props) => {
-  const { register } = useFormContext<FormPlaceType>()
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext<FormPlaceType>()
   const { state, dispatch } = props
   const options: Array<EditorSelectOptionItem> = Object.entries(
     BUILDING_ID_MAP
@@ -37,7 +41,12 @@ export const PlaceInput: React.VFC<TimePlaceInputProps> = (props) => {
 
   return (
     <HStack>
-      <FormControl w="10rem">
+      <FormControl
+        w="10rem"
+        isInvalid={
+          errors.place !== undefined && errors.place.building !== undefined
+        }
+      >
         <Stack spacing="0">
           <EditorLabel label="活動場所" />
           <Select
@@ -50,13 +59,20 @@ export const PlaceInput: React.VFC<TimePlaceInputProps> = (props) => {
               -
             </option>
             {options.map((item, index) => {
-              return (
+              return item.value !== "300" ? (
                 <option key={index} value={item.value}>
                   {item.displayName}
                 </option>
+              ) : (
+                <Fragment key={index}></Fragment>
               )
             })}
           </Select>
+          <Wrap h="1.2rem">
+            <FormErrorMessage>
+              {errors.place?.building && errors.place.building.message}
+            </FormErrorMessage>
+          </Wrap>
         </Stack>
       </FormControl>
       <FormControl w="8rem">
@@ -67,16 +83,18 @@ export const PlaceInput: React.VFC<TimePlaceInputProps> = (props) => {
             min={0}
             max={2000}
             defaultValue={0}
-            {...register("place.room", {
-              disabled: state.isPlaceDisabled || state.isRoomDisabled,
-            })}
+            isDisabled={state.isPlaceDisabled || state.isRoomDisabled}
           >
-            <NumberInputField backgroundColor="#fff" />
+            <NumberInputField
+              backgroundColor="#fff"
+              {...register("place.room")}
+            />
             <NumberInputStepper>
               <NumberIncrementStepper />
               <NumberDecrementStepper />
             </NumberInputStepper>
           </NumberInput>
+          <Wrap h="1.2rem" />
         </Stack>
       </FormControl>
       <Stack spacing="0" pl="2rem">
@@ -89,6 +107,7 @@ export const PlaceInput: React.VFC<TimePlaceInputProps> = (props) => {
             onChange={() => dispatch({ type: "room" })}
           />
         </Flex>
+        <Wrap h="1.2rem" />
       </Stack>
       <Stack spacing="0" pl="1rem">
         <EditorLabel label="場所を「その他」にする" />
@@ -100,6 +119,7 @@ export const PlaceInput: React.VFC<TimePlaceInputProps> = (props) => {
             onChange={() => dispatch({ type: "place" })}
           />
         </Flex>
+        <Wrap h="1.2rem" />
       </Stack>
     </HStack>
   )

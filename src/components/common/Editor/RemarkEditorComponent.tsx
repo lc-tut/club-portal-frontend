@@ -12,7 +12,7 @@ import { EditorLabel } from "./EditorInput"
 type RemarkInputProps = {
   label: string
   remarkKey: "placeRemark" | "timeRemark"
-  isDisabled: boolean
+  isRequired: boolean
 }
 
 type FormRemarkType = {
@@ -28,7 +28,7 @@ export const RemarkInput: React.VFC<RemarkInputProps> = (props) => {
 
   return (
     <FormControl
-      isInvalid={props.isDisabled && errors[props.remarkKey] !== undefined}
+      isInvalid={props.isRequired && errors[props.remarkKey] !== undefined}
     >
       <Stack spacing="0">
         <Box minH="1.2rem">

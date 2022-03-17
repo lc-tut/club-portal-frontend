@@ -6,22 +6,24 @@ export const timePlaceReducer: Reducer<
   TimePlaceActionType
 > = (state: TimePlaceStateType, action: TimePlaceActionType) => {
   switch (action.type) {
+    case "date":
+      return {
+        ...state,
+        isDateDisabled: !state.isDateDisabled,
+      }
     case "time":
       return {
+        ...state,
         isTimeDisabled: !state.isTimeDisabled,
-        isPlaceDisabled: state.isPlaceDisabled,
-        isRoomDisabled: state.isRoomDisabled,
       }
     case "place":
       return {
-        isTimeDisabled: state.isTimeDisabled,
+        ...state,
         isPlaceDisabled: !state.isPlaceDisabled,
-        isRoomDisabled: state.isRoomDisabled,
       }
     case "room":
       return {
-        isTimeDisabled: state.isTimeDisabled,
-        isPlaceDisabled: state.isPlaceDisabled,
+        ...state,
         isRoomDisabled: !state.isRoomDisabled,
       }
   }

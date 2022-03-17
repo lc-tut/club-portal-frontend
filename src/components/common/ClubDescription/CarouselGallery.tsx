@@ -2,11 +2,7 @@ import {
   GridItem,
   Image,
   AspectRatio,
-  Text,
-  Flex,
-  Box,
   Center,
-  HStack,
   useMediaQuery,
 } from "@chakra-ui/react"
 import SwiperCore, { Navigation, Pagination } from "swiper"
