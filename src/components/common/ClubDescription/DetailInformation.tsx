@@ -65,30 +65,34 @@ export const DetailInformation: React.VFC<DetailInformationProps> = (props) => {
               columnGap="1rem"
               textColor="text.main"
             >
-              {props.activityDetail.map((pat, i) => (
-                <Fragment key={i}>
-                  <GridItem>
-                    <Text>{DATE_MAP[pat.date]}</Text>
-                  </GridItem>
-                  <GridItem>
-                    <HStack>
-                      <Text w="9rem">{pat.time}</Text>
-                      {pat.timeRemark && (
-                        <ActivityRemarkButton text={pat.timeRemark} />
-                      )}
-                    </HStack>
-                  </GridItem>
-                  <GridItem />
-                  <GridItem>
-                    <HStack>
-                      <Text w="9rem">{pat.place}</Text>
-                      {pat.placeRemark && (
-                        <ActivityRemarkButton text={pat.placeRemark} />
-                      )}
-                    </HStack>
-                  </GridItem>
-                </Fragment>
-              ))}
+              {props.activityDetail.map((pat, i) => {
+                const time = pat.time === "00:00-00:00" ? "未定" : pat.time
+
+                return (
+                  <Fragment key={i}>
+                    <GridItem>
+                      <Text>{pat.date}</Text>
+                    </GridItem>
+                    <GridItem>
+                      <HStack>
+                        <Text w="9rem">{time}</Text>
+                        {pat.timeRemark && (
+                          <ActivityRemarkButton text={pat.timeRemark} />
+                        )}
+                      </HStack>
+                    </GridItem>
+                    <GridItem />
+                    <GridItem>
+                      <HStack>
+                        <Text w="9rem">{pat.place}</Text>
+                        {pat.placeRemark && (
+                          <ActivityRemarkButton text={pat.placeRemark} />
+                        )}
+                      </HStack>
+                    </GridItem>
+                  </Fragment>
+                )
+              })}
             </Grid>
           </RowComponent>
           <RowComponent icon={BsTrophy} label="実績">
