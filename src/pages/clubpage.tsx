@@ -71,9 +71,11 @@ export const ClubPage: React.VFC<ClubPageProps> = (props) => {
 
   const schedule: { [key in number]: string } = {}
 
-  data?.schedules.map((sch) => {
-    schedule[sch.month] = sch.schedule
-  })
+  if (session !== null) {
+    data?.schedules.map((sch) => {
+      schedule[sch.month] = sch.schedule
+    })
+  }
 
   const onClick = async () => {
     try {
@@ -145,7 +147,7 @@ export const ClubPage: React.VFC<ClubPageProps> = (props) => {
             .filter((link) => link.label !== "HP" && link.label !== "Email")
             .map((link) => ({ label: link.label, path: link.url }))}
           content={data?.description ?? ""}
-          fullWidth={props.userUUID === null}
+          fullWidth={session === null}
         />
         {session !== null ? (
           <>
