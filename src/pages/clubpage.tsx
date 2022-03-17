@@ -109,7 +109,7 @@ export const ClubPage: React.VFC<ClubPageProps> = (props) => {
         </Flex>
         <Tooltip
           label="利用するには学生用Gmailアカウントでログインして下さい"
-          isDisabled={props.userUUID === undefined}
+          isDisabled={props.userUUID !== undefined}
         >
           <Wrap>
             <FavoriteButton
@@ -138,7 +138,7 @@ export const ClubPage: React.VFC<ClubPageProps> = (props) => {
           content={data?.description ?? ""}
           fullWidth={props.userUUID === undefined}
         />
-        {props.userUUID !== null ? (
+        {props.userUUID !== undefined ? (
           <>
             <DetailInformation
               activity={data?.contents.map((cont) => cont.content) ?? []}
