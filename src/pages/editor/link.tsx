@@ -32,6 +32,7 @@ import { EditorLabel } from "../../components/common/Editor/EditorInput"
 const schema = z.object({
   label: z.string(),
   url: z.string().url(),
+  otherLabel: z.string().optional()
 })
 
 export const LinkEditor: React.VFC<{}> = () => {
@@ -46,7 +47,7 @@ export const LinkEditor: React.VFC<{}> = () => {
     setError,
     clearErrors,
     formState: { errors },
-  } = useForm<Link & { otherLabel: string }>({
+  } = useForm<Link & { otherLabel?: string }>({
     resolver: zodResolver(schema),
   })
   const [items, setItems] = useState<Array<Link>>([])
@@ -63,8 +64,6 @@ export const LinkEditor: React.VFC<{}> = () => {
   const values = watch()
 
   const onAdd = () => {
-    console.log(values)
-
     let err = false
     if (values.label === "" && !isOther) {
       err = true
@@ -77,7 +76,7 @@ export const LinkEditor: React.VFC<{}> = () => {
     }
 
     if (isOther) {
-      if (values.otherLabel === "" || values.otherLabel === undefined) {
+      if (values.otherLabel === undefined || values.otherLabel === "") {
         err = true
         setError("otherLabel", {
           type: "required",
@@ -86,7 +85,7 @@ export const LinkEditor: React.VFC<{}> = () => {
       } else if (
         !z
           .string()
-          .regex(/^[A-Z][A-Za-z0-9]*$/)
+          .regex(/^[A-Z]/)
           .safeParse(values.otherLabel).success
       ) {
         err = true
@@ -97,10 +96,8 @@ export const LinkEditor: React.VFC<{}> = () => {
       } else {
         clearErrors("otherLabel")
       }
-
-      if (!err) {
-        values.label = values.otherLabel
-      }
+    } else {
+      clearErrors("otherLabel")
     }
 
     if (values.url === "" || !z.string().url().safeParse(values.url).success) {
@@ -115,8 +112,8 @@ export const LinkEditor: React.VFC<{}> = () => {
 
     let isExist = false
     for (const item of items) {
-      if (values.label === item.label && values.url === item.url) {
-        console.log(values.label, values.url)
+      const label =  isOther ? values.otherLabel!.trim() : values.label.trim()
+      if (label === item.label && values.url.trim() === item.url) {
         isExist = true
       }
     }
@@ -129,7 +126,8 @@ export const LinkEditor: React.VFC<{}> = () => {
     }
 
     if (!err) {
-      setItems([values, ...items])
+      const v: Link = { label: isOther ? values.otherLabel!.trim() : values.label.trim(), url: values.url }
+      setItems([v, ...items])
     }
   }
 
@@ -139,7 +137,7 @@ export const LinkEditor: React.VFC<{}> = () => {
 
   const onSubmit = handleSubmit(async () => {
     const requestConfig: AxiosRequestConfig<Array<Link>> = {
-      url: `/api/v1/uuid/${clubUuid!}/link`,
+      url: `/api/v1/clubs/uuid/${clubUuid!}/link`,
       method: "put",
       data: items,
     }
@@ -165,7 +163,7 @@ export const LinkEditor: React.VFC<{}> = () => {
         <EditorBase>
           <Stack>
             <HStack alignItems="start">
-              <EditorButton icon="add" onClick={() => onAdd()} />
+              <EditorButton icon="add" onClick={onAdd} />
               <Stack spacing="0">
                 <FormControl isInvalid={errors.label !== undefined}>
                   <EditorLabel label="SNS" />
@@ -178,7 +176,6 @@ export const LinkEditor: React.VFC<{}> = () => {
                           setIsOther(e.target.value === "other")
                         },
                       })}
-                      defaultValue=""
                     >
                       <option value="" hidden>
                         -
@@ -206,12 +203,9 @@ export const LinkEditor: React.VFC<{}> = () => {
                       backgroundColor="#fff"
                       textColor="text.main"
                       placeholder="その他のSNSを入力"
-                      defaultValue=""
                       {...register("otherLabel", {
-                        required: isOther,
+                        disabled: !isOther
                       })}
-                      // ↓registerに含めると不具合発生
-                      disabled={!isOther}
                     />
                     <Wrap h="1.2rem">
                       <FormErrorMessage w="12rem">
