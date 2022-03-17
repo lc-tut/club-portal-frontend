@@ -194,6 +194,7 @@ export const DetailEditor: React.VFC<{}> = () => {
                     placeholder={"メールアドレスを入力して下さい"}
                     w="20rem"
                     backgroundColor="#fff"
+                    textColor="text.main"
                     defaultValue={email}
                     {...methods.register("email", {
                       required: {
@@ -220,6 +221,7 @@ export const DetailEditor: React.VFC<{}> = () => {
                   placeholder={"HPのURLを入力して下さい"}
                   w="20rem"
                   backgroundColor="#fff"
+                  textColor="text.main"
                   defaultValue={HP}
                   {...methods.register("homePage")}
                 />
