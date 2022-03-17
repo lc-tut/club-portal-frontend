@@ -25,6 +25,7 @@ import { TitleArea } from "../components/global/Header/TitleArea"
 import { Loading } from "../components/global/LoadingPage"
 import { useAPI } from "../hooks/useAPI"
 import { useErrorToast } from "../hooks/useErrorToast"
+import { useSession } from "../hooks/useSession"
 import type {
   ClubPageInternal,
   FavoriteClubStatus,
@@ -40,6 +41,7 @@ type ClubPageProps = {
 
 // TODO: アニメーションをつける
 export const ClubPage: React.VFC<ClubPageProps> = (props) => {
+  const { session } = useSession()
   const clubSlug = useLocation()
   const { data, isLoading, isError } = useAPI<ClubPageInternal | null>(
     !clubSlug.pathname.startsWith("/clubs/")
@@ -143,9 +145,9 @@ export const ClubPage: React.VFC<ClubPageProps> = (props) => {
             .filter((link) => link.label !== "HP" && link.label !== "Email")
             .map((link) => ({ label: link.label, path: link.url }))}
           content={data?.description ?? ""}
-          fullWidth={props.userUUID === undefined}
+          fullWidth={props.userUUID === null}
         />
-        {props.userUUID !== undefined ? (
+        {session !== null ? (
           <>
             <DetailInformation
               activity={data?.contents.map((cont) => cont.content) ?? []}
