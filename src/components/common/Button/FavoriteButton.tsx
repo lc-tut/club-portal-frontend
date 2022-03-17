@@ -18,6 +18,9 @@ export const FavoriteButton: React.VFC<FavoriteButtonProps> = (props) => {
       isDisabled={props.isDisabled}
       onClick={props.onClick}
       isLoading={isLoading}
+      _hover={{
+        opacity: 0.6,
+      }}
     >
       {text}
     </Button>

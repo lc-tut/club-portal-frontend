@@ -1,14 +1,24 @@
-import { Flex, Grid, HStack, Icon, VStack } from "@chakra-ui/react"
+import {
+  Flex,
+  Grid,
+  GridItem,
+  HStack,
+  Icon,
+  Text,
+  Tooltip,
+  VStack,
+  Wrap,
+} from "@chakra-ui/react"
 import { AxiosRequestConfig } from "axios"
 import { BsClock } from "react-icons/bs"
 import { useLocation } from "react-router-dom"
-import { FavoriteButton } from "../components/common/Button"
+import { FavoriteButton, PortalButton } from "../components/common/Button"
 import {
-  IntroductionVideo,
+  AnnualPlan,
   CarouselGallery,
   DescriptionText,
   DetailInformation,
-  AnnualPlan,
+  IntroductionVideo,
 } from "../components/common/ClubDescription"
 import { ClubTypeBadge } from "../components/common/Clubs/ClubTypeBadge"
 import { TitleArea } from "../components/global/Header/TitleArea"
@@ -78,6 +88,10 @@ export const ClubPage: React.VFC<ClubPageProps> = (props) => {
     }
   }
 
+  const onLogin = () => {
+    window.location.href = `/api/auth/signin?redirect_url=${clubSlug.pathname}`
+  }
+
   return (
     <VStack flex="1">
       <TitleArea subtitle={data?.shortDescription}>{data?.name}</TitleArea>
@@ -93,12 +107,19 @@ export const ClubPage: React.VFC<ClubPageProps> = (props) => {
           <Icon as={BsClock} mr="5px" />
           最終更新: {data?.updatedAt}
         </Flex>
-        <FavoriteButton
-          isDisabled={props.userUUID === undefined || favs.isError}
-          isRegistered={favs.data?.status}
-          isLoading={props.userUUID ? favs.isLoading : false}
-          onClick={onClick}
-        />
+        <Tooltip
+          label="利用するには学生用Gmailアカウントでログインして下さい"
+          isDisabled={props.userUUID !== undefined}
+        >
+          <Wrap>
+            <FavoriteButton
+              isDisabled={props.userUUID === undefined || favs.isError}
+              isRegistered={favs.data?.status}
+              isLoading={props.userUUID ? favs.isLoading : false}
+              onClick={onClick}
+            />
+          </Wrap>
+        </Tooltip>
       </HStack>
       <Grid
         templateColumns="repeat(12, 1fr)"
@@ -115,30 +136,44 @@ export const ClubPage: React.VFC<ClubPageProps> = (props) => {
             .filter((link) => link.label !== "HP" && link.label !== "Email")
             .map((link) => ({ label: link.label, path: link.url }))}
           content={data?.description ?? ""}
+          fullWidth={props.userUUID === undefined}
         />
-        <DetailInformation
-          activity={data?.contents.map((cont) => cont.content) ?? []}
-          activityDetail={
-            data?.activityDetails.map((tp) => ({
-              timeId: tp.timeId,
-              date: tp.date,
-              time: tp.time,
-              timeRemark: tp.timeRemark,
-              placeId: tp.placeId,
-              place: tp.place,
-              placeRemark: tp.placeRemark,
-            })) ?? []
-          }
-          achievements={data?.achievements.map((ach) => ach.achievement)}
-          mail={data?.links
-            .filter((link) => link.label === "Email")
-            .map((link) => link.url)}
-          website={data?.links
-            .filter((link) => link.label === "HP")
-            .map((link) => link.url)}
-          remark={data?.clubRemark}
-        />
-        <AnnualPlan schedules={schedule} remark={data?.scheduleRemark} />
+        {props.userUUID !== undefined ? (
+          <>
+            <DetailInformation
+              activity={data?.contents.map((cont) => cont.content) ?? []}
+              activityDetail={
+                data?.activityDetails.map((tp) => ({
+                  timeId: tp.timeId,
+                  date: tp.date,
+                  time: tp.time,
+                  timeRemark: tp.timeRemark,
+                  placeId: tp.placeId,
+                  place: tp.place,
+                  placeRemark: tp.placeRemark,
+                })) ?? []
+              }
+              achievements={data?.achievements.map((ach) => ach.achievement)}
+              mail={data?.links
+                .filter((link) => link.label === "Email")
+                .map((link) => link.url)}
+              website={data?.links
+                .filter((link) => link.label === "HP")
+                .map((link) => link.url)}
+              remark={data?.clubRemark}
+            />
+            <AnnualPlan schedules={schedule} remark={data?.scheduleRemark} />
+          </>
+        ) : (
+          <GridItem colSpan={12}>
+            <VStack>
+              <Text textColor="text.main">
+                大学Gmailアカウントでログインすると、全ての情報を閲覧することができます。
+              </Text>
+              <PortalButton onClick={onLogin}>ログイン</PortalButton>
+            </VStack>
+          </GridItem>
+        )}
       </Grid>
     </VStack>
   )
