@@ -88,6 +88,7 @@ export const ImageEditor: React.VFC<{}> = () => {
   const [existImages, setExistImages] = useState<Array<Image>>([])
   const [newImages, setNewImages] = useState<Array<File>>([])
   const [currentImage, setCurrentImage] = useState<string>("")
+  const [isUpdated, setIsUpdated] = useState<boolean>(false)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const inputRef = useRef<HTMLInputElement>(null)
   const toast = useErrorToast("データの保存に失敗しました。")
@@ -116,6 +117,7 @@ export const ImageEditor: React.VFC<{}> = () => {
     } else {
       setExistImages(existImages.filter((image) => !Object.is(image, item)))
     }
+    setIsUpdated(true)
   }
 
   const onPreviewClick = (imagePath: string) => {
@@ -140,7 +142,7 @@ export const ImageEditor: React.VFC<{}> = () => {
       headers: {
         "Content-Type": "multipart/form-data",
       },
-      url: `/api/v1/upload/images`,
+      url: `/api/v1/upload/images/`,
       method: "post",
       data: formData,
     }
@@ -149,16 +151,12 @@ export const ImageEditor: React.VFC<{}> = () => {
         uploadRequestConfig
       )
       res.data.map((d) => imageIDs.push({ imageId: d.imageId }))
-    } catch (e) {
-      toast()
-      return
-    }
-
-    const updateRequestConfig: AxiosRequestConfig<UpdateImagePayload> = {
-      url: `/api/v1/clubs/uuid/${clubUuid!}/image`,
-      data: imageIDs,
-    }
-    try {
+      console.log(imageIDs)
+      const updateRequestConfig: AxiosRequestConfig<UpdateImagePayload> = {
+        url: `/api/v1/clubs/uuid/${clubUuid!}/image`,
+        method: "put",
+        data: imageIDs,
+      }
       await axiosWithPayload<UpdateImagePayload, Array<Image>>(
         updateRequestConfig
       )
@@ -223,7 +221,7 @@ export const ImageEditor: React.VFC<{}> = () => {
             />
           </VStack>
           <VStack>
-            <PortalButton type="submit" isDisabled={newImages.length === 0}>
+            <PortalButton type="submit" isDisabled={newImages.length === 0 && !isUpdated}>
               保存
             </PortalButton>
             <Text color="text.main">
