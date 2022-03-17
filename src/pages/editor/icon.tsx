@@ -39,6 +39,7 @@ type ResizeModalProps = {
   setImage: StateDispatch<HTMLImageElement>
   setCrop: StateDispatch<Crop>
   setIcon: StateDispatch<string>
+  setNewImage: StateDispatch<Blob>
 }
 
 const defaultCrop: Crop = {
@@ -81,7 +82,10 @@ const ResizeModal: React.VFC<ResizeModalProps> = (props) => {
     )
 
     canvas.toBlob((b) => {
-      if (b) props.setIcon(URL.createObjectURL(b))
+      if (b) {
+        props.setNewImage(b)
+        props.setIcon(URL.createObjectURL(b))
+      }
     })
 
     props.onClose()
@@ -128,6 +132,8 @@ export const IconEditor: React.VFC<{}> = () => {
   )
   const toast = useErrorToast("データの保存に失敗しました。")
   const [icon, setIcon] = useState<string>("")
+  const [newImage, setNewImage] = useState<Blob>(new File([], ""))
+  const [filename, setFileName] = useState<string>("")
   const [inputImage, setInputImage] = useState<HTMLImageElement>(new Image())
   const [crop, setCrop] = useState<Crop>(defaultCrop)
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -145,6 +151,7 @@ export const IconEditor: React.VFC<{}> = () => {
     }
     const reader = new FileReader()
     reader.readAsDataURL(e.target.files[0])
+    setFileName(e.target.files[0].name)
     reader.onload = () => {
       const result = reader.result?.toString()
       if (!result) {
@@ -179,13 +186,13 @@ export const IconEditor: React.VFC<{}> = () => {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = new FormData()
-    formData.append("file", inputRef.current!.files![0])
+    formData.append("file", newImage, filename)
     const requestConfig: AxiosRequestConfig<FormData> = {
       headers: {
         "Content-Type": "multipart/form-data",
       },
       url: `/api/v1/upload/thumbnail/clubs/${clubUuid!}`,
-      method: "put",
+      method: data?.thumbnailId === 1 ? "post" : "put",
       data: formData,
     }
     try {
@@ -223,6 +230,7 @@ export const IconEditor: React.VFC<{}> = () => {
           crop={crop}
           setCrop={setCrop}
           setIcon={setIcon}
+          setNewImage={setNewImage}
         />
         <EditorBase>
           {icon !== "" ? (
