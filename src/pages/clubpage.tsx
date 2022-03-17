@@ -54,6 +54,11 @@ export const ClubPage: React.VFC<ClubPageProps> = (props) => {
   )
   const toast = useErrorToast("お気に入りの設定に失敗しました。")
 
+  const updatedTimeArr = data?.updatedAt.split("T")[0].split("-")
+  const updatedTime = updatedTimeArr
+    ? updatedTimeArr[0] + " " + updatedTimeArr[1] + "/" + updatedTimeArr[2]
+    : undefined
+
   if (isLoading) return <Loading fullScreen />
 
   if (isError || favs.isError)
@@ -103,10 +108,12 @@ export const ClubPage: React.VFC<ClubPageProps> = (props) => {
             badgetype="page"
           />
         </Flex>
-        <Flex color="text.sub" alignItems="center">
-          <Icon as={BsClock} mr="5px" />
-          最終更新: {data?.updatedAt}
-        </Flex>
+        {updatedTime && (
+          <Flex color="text.sub" alignItems="center">
+            <Icon as={BsClock} mr="5px" />
+            最終更新: {updatedTime}
+          </Flex>
+        )}
         <Tooltip
           label="利用するには学生用Gmailアカウントでログインして下さい"
           isDisabled={props.userUUID !== undefined}
