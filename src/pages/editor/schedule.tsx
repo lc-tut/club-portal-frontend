@@ -1,4 +1,12 @@
-import { Grid, GridItem, Stack, Text, Textarea, VStack, Input } from "@chakra-ui/react"
+import {
+  Grid,
+  GridItem,
+  Stack,
+  Text,
+  Textarea,
+  VStack,
+  Input,
+} from "@chakra-ui/react"
 import { PortalButton } from "../../components/common/Button"
 import { EditorBase } from "../../components/common/Editor/EditorBase"
 import { TitleArea } from "../../components/global/Header/TitleArea"
@@ -13,6 +21,7 @@ import { axiosWithPayload } from "../../utils/axios"
 import type { AxiosRequestConfig } from "axios"
 import { useErrorToast } from "../../hooks/useErrorToast"
 import { useEffect, useState } from "react"
+import { useSuccessToast } from "../../hooks/useSuccessToast"
 
 type MonthInputAreaProps = {
   month: number
@@ -28,14 +37,19 @@ const MonthInputArea: React.VFC<MonthInputAreaProps> = (props) => {
         width={0}
         height={0}
         value={props.month}
-        {...register(`schedules.${props.month - 1}.month`, {value: props.month, valueAsNumber: true})}
+        {...register(`schedules.${props.month - 1}.month`, {
+          value: props.month,
+          valueAsNumber: true,
+        })}
         hidden
       />
       <Text pl="0.2rem" color="text.main">
         {props.month.toString() + "月"}
       </Text>
       <Textarea
-        {...register(`schedules.${props.month - 1}.schedule`, {value: props.value})}
+        {...register(`schedules.${props.month - 1}.schedule`, {
+          value: props.value,
+        })}
         w="20rem"
         h="4rem"
         textColor="text.main"
@@ -59,7 +73,8 @@ export const ScheduleEditor: React.VFC<{}> = () => {
     `/api/v1/clubs/uuid/${clubUuid!}/schedule`
   )
   const methods = useForm<FormScheduleType>()
-  const toast = useErrorToast("データの保存に失敗しました。")
+  const errorToast = useErrorToast("データの保存に失敗しました。")
+  const successToast = useSuccessToast("データの保存が完了しました！")
   const [schedule, setSchedule] = useState<scheduleObjType>({})
 
   useEffect(() => {
@@ -84,8 +99,9 @@ export const ScheduleEditor: React.VFC<{}> = () => {
     }
     try {
       await axiosWithPayload<Array<Schedule>, Array<Schedule>>(requestConfig)
+      successToast()
     } catch (e) {
-      toast()
+      errorToast()
     }
   })
 

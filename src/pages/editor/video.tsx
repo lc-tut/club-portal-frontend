@@ -35,6 +35,7 @@ import { axiosWithPayload } from "../../utils/axios"
 import { useAPI } from "../../hooks/useAPI"
 import { Loading } from "../../components/global/LoadingPage"
 import { ErrorPage } from "../error"
+import { useSuccessToast } from "../../hooks/useSuccessToast"
 
 const parseVideoId = (
   input: string
@@ -134,9 +135,12 @@ export const VideoEditor: React.VFC<{}> = () => {
     clearErrors,
     formState: { errors },
   } = useForm<Video>()
-  const { data, isLoading, isError } = useAPI<Array<Video>>(`/api/v1/clubs/uuid/${clubUuid!}/video`)
+  const { data, isLoading, isError } = useAPI<Array<Video>>(
+    `/api/v1/clubs/uuid/${clubUuid!}/video`
+  )
   const [videoID, setVideoID] = useState<string>("")
-  const toast = useErrorToast("データの保存に失敗しました。")
+  const errorToast = useErrorToast("データの保存に失敗しました。")
+  const successToast = useSuccessToast("データの保存が完了しました！")
 
   const watchPath = watch("path")
 
@@ -160,12 +164,13 @@ export const VideoEditor: React.VFC<{}> = () => {
     const requestConfig: AxiosRequestConfig<Array<Video>> = {
       url: `/api/v1/clubs/uuid/${clubUuid!}/video`,
       method: "put",
-      data: [{path:videoID}],
+      data: [{ path: videoID }],
     }
     try {
       await axiosWithPayload<Array<Video>, Array<Video>>(requestConfig)
+      successToast()
     } catch (e) {
-      toast()
+      errorToast()
     }
   })
 

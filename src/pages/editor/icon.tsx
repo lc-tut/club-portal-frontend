@@ -24,6 +24,7 @@ import { Loading } from "../../components/global/LoadingPage"
 import { useAPI } from "../../hooks/useAPI"
 import { useErrorToast } from "../../hooks/useErrorToast"
 import { useOutletUser } from "../../hooks/useOutletUser"
+import { useSuccessToast } from "../../hooks/useSuccessToast"
 import type { Thumbnail } from "../../types/api"
 import type { StateDispatch } from "../../types/utils"
 import { axiosWithPayload } from "../../utils/axios"
@@ -130,7 +131,8 @@ export const IconEditor: React.VFC<{}> = () => {
   const { data, isLoading, isError } = useAPI<Thumbnail>(
     `/api/v1/upload/thumbnail/clubs/${clubUuid!}`
   )
-  const toast = useErrorToast("データの保存に失敗しました。")
+  const errorToast = useErrorToast("データの保存に失敗しました。")
+  const successToast = useSuccessToast("データの保存が完了しました！")
   const [icon, setIcon] = useState<string>("")
   const [newImage, setNewImage] = useState<Blob>(new File([], ""))
   const [filename, setFileName] = useState<string>("")
@@ -197,8 +199,9 @@ export const IconEditor: React.VFC<{}> = () => {
     }
     try {
       await axiosWithPayload<FormData, unknown>(requestConfig)
+      successToast()
     } catch (e) {
-      toast()
+      errorToast()
     }
   }
 

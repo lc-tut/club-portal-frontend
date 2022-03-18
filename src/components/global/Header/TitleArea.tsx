@@ -1,8 +1,5 @@
 import {
   Box,
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
   Button,
   Center,
   Heading,
@@ -13,7 +10,6 @@ import {
 } from "@chakra-ui/react"
 import { IconType } from "react-icons"
 import {
-  BsChevronRight,
   BsClockHistory,
   BsMegaphone,
   BsSearch,

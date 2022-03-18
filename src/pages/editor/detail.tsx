@@ -32,6 +32,7 @@ import { Loading } from "../../components/global/LoadingPage"
 import { useErrorToast } from "../../hooks/useErrorToast"
 import { axiosWithPayload } from "../../utils/axios"
 import type { AxiosRequestConfig } from "axios"
+import { useSuccessToast } from "../../hooks/useSuccessToast"
 
 type FormType = {
   email: string
@@ -59,7 +60,8 @@ export const DetailEditor: React.VFC<{}> = () => {
     `/api/v1/clubs/uuid/${clubUuid!}/link`
   )
   const methods = useForm<FormType>({ resolver: zodResolver(schema) })
-  const toast = useErrorToast("データの保存に失敗しました。")
+  const errorToast = useErrorToast("データの保存に失敗しました。")
+  const successToast = useSuccessToast("データの保存が完了しました！")
   const [achievements, setAchievements] = useState<Array<string>>([])
   const [contents, setContents] = useState<Array<string>>([])
   const [email, setEmail] = useState<string>("")
@@ -145,8 +147,9 @@ export const DetailEditor: React.VFC<{}> = () => {
         axiosWithPayload<Array<Content>, Array<Content>>(contentRequestConfig),
         axiosWithPayload<Array<Link>, Array<Link>>(linkRequestConfig),
       ])
+      successToast()
     } catch {
-      toast()
+      errorToast()
     }
   })
 

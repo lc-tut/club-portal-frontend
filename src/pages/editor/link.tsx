@@ -28,6 +28,7 @@ import type { AxiosRequestConfig } from "axios"
 import { axiosWithPayload } from "../../utils/axios"
 import { useErrorToast } from "../../hooks/useErrorToast"
 import { EditorLabel } from "../../components/common/Editor/EditorInput"
+import { useSuccessToast } from "../../hooks/useSuccessToast"
 
 const schema = z.object({
   label: z.string(),
@@ -51,7 +52,8 @@ export const LinkEditor: React.VFC<{}> = () => {
     resolver: zodResolver(schema),
   })
   const [items, setItems] = useState<Array<Link>>([])
-  const toast = useErrorToast("データの保存に失敗しました。")
+  const errorToast = useErrorToast("データの保存に失敗しました。")
+  const successToast = useSuccessToast("データの保存が完了しました！")
   const [isOther, setIsOther] = useState<boolean>(false)
 
   useEffect(() => {
@@ -146,8 +148,9 @@ export const LinkEditor: React.VFC<{}> = () => {
     }
     try {
       await axiosWithPayload<Array<Link>, Array<Link>>(requestConfig)
+      successToast()
     } catch (e) {
-      toast()
+      errorToast()
     }
   })
 

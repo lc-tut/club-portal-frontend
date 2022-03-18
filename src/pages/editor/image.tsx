@@ -30,6 +30,7 @@ import { toAbsolutePath } from "../../utils/functions"
 import type { AxiosRequestConfig } from "axios"
 import { axiosWithPayload } from "../../utils/axios"
 import { useErrorToast } from "../../hooks/useErrorToast"
+import { useSuccessToast } from "../../hooks/useSuccessToast"
 
 type ImageModalProps = {
   image: string | undefined
@@ -91,7 +92,8 @@ export const ImageEditor: React.VFC<{}> = () => {
   const [isUpdated, setIsUpdated] = useState<boolean>(false)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const inputRef = useRef<HTMLInputElement>(null)
-  const toast = useErrorToast("データの保存に失敗しました。")
+  const errorToast = useErrorToast("データの保存に失敗しました。")
+  const successToast = useSuccessToast("データの保存が完了しました！")
 
   useEffect(() => {
     if (data) {
@@ -160,8 +162,9 @@ export const ImageEditor: React.VFC<{}> = () => {
       await axiosWithPayload<UpdateImagePayload, Array<Image>>(
         updateRequestConfig
       )
+      successToast()
     } catch (e) {
-      toast()
+      errorToast()
     }
   }
 
@@ -221,7 +224,10 @@ export const ImageEditor: React.VFC<{}> = () => {
             />
           </VStack>
           <VStack>
-            <PortalButton type="submit" isDisabled={newImages.length === 0 && !isUpdated}>
+            <PortalButton
+              type="submit"
+              isDisabled={newImages.length === 0 && !isUpdated}
+            >
               保存
             </PortalButton>
             <Text color="text.main">

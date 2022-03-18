@@ -95,7 +95,7 @@ export const PlaceAndTimeEditor: React.VFC<PlaceAndTimeEditorProps> = (
     if (
       !state.isTimeDisabled &&
       (startTime.hour > endTime.hour ||
-        (startTime.hour == endTime.hour && startTime.minute > endTime.minute))
+        (startTime.hour === endTime.hour && startTime.minute > endTime.minute))
     )
       return
     if (!err) {

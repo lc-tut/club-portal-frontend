@@ -18,6 +18,7 @@ import { Loading } from "../../components/global/LoadingPage"
 import { useAPI } from "../../hooks/useAPI"
 import { useErrorToast } from "../../hooks/useErrorToast"
 import { useOutletUser } from "../../hooks/useOutletUser"
+import { useSuccessToast } from "../../hooks/useSuccessToast"
 import type { Description } from "../../types/api"
 import { axiosWithPayload } from "../../utils/axios"
 import { PADDING_BEFORE_FOOTER } from "../../utils/consts"
@@ -40,7 +41,8 @@ export const DescriptionEditor: React.VFC<{}> = () => {
   } = useForm<Description>({
     resolver: zodResolver(schema),
   })
-  const toast = useErrorToast("データの保存に失敗しました。")
+  const errorToast = useErrorToast("データの保存に失敗しました。")
+  const successToast = useSuccessToast("データの保存が完了しました！")
 
   useEffect(() => {
     if (data) {
@@ -57,8 +59,9 @@ export const DescriptionEditor: React.VFC<{}> = () => {
     }
     try {
       await axiosWithPayload<Description, Description>(requestConfig)
+      successToast()
     } catch (e) {
-      toast()
+      errorToast()
     }
   })
 

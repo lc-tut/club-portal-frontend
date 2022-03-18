@@ -9,7 +9,6 @@ import {
   NumberInputField,
   NumberInputStepper,
   Select,
-  Spacer,
   Stack,
   Switch,
   VStack,
