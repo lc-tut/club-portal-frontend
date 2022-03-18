@@ -44,7 +44,7 @@
     "zod": "3.13.4"
   },
   "devDependencies": {
-    "@babel/core": "7.17.7",
+    "@babel/core": "7.17.8",
     "@emotion/babel-plugin": "11.7.2",
     "@emotion/babel-preset-css-prop": "11.2.0",
     "@storybook/addon-actions": "6.4.19",
