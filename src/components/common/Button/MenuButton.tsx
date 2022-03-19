@@ -9,8 +9,7 @@ export const MenuButton: React.VFC<React.PropsWithChildren<MenuButtonProps>> = (
   let width = ""
   if (!props.width) {
     width = type === "main" ? "20rem" : "100%"
-  }
-  else {
+  } else {
     width = props.width
   }
 
