@@ -2,26 +2,26 @@ import {
   Box,
   Grid,
   GridItem,
-  HStack,
   Stack,
   Text,
+  useMediaQuery,
   VStack,
 } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { ClubCard } from "../components/common/Clubs/ClubCard"
-import type { Filter } from "../components/common/Clubs/ClubFilter"
-import {
-  ClubFilter,
-  defaultFilter,
-} from "../components/common/Clubs/ClubFilter"
 import { ClubSortOptionSelect } from "../components/common/Clubs/ClubSortOptionSelect"
+import {
+  BrowserClubFilter,
+  defaultFilter,
+  Filter,
+} from "../components/common/Clubs/ClubFilter"
 import { TitleArea } from "../components/global/Header/TitleArea"
 import { Loading } from "../components/global/LoadingPage"
 import { useAPI } from "../hooks/useAPI"
-import { PADDING_BEFORE_FOOTER } from "../utils/consts"
 import type { ClubPageExternal } from "../types/api"
-import { getCampus, getActivity } from "../utils/functions"
+import { PADDING_BEFORE_FOOTER } from "../utils/consts"
+import { getActivity, getCampus } from "../utils/functions"
 import { ErrorPage } from "./error"
 
 const AnimatedClubs: React.VFC<{}> = () => {
@@ -32,6 +32,8 @@ const AnimatedClubs: React.VFC<{}> = () => {
   const [filterInputData, setFilterInputData] = useState<Filter>(defaultFilter)
   const [filter, setFilter] = useState<Filter>(defaultFilter)
   const [sortOption, setSortOption] = useState<string>("name-asc")
+
+  const [isMobileLayout] = useMediaQuery("(max-width: 62em)")
 
   // sort clubs
   useEffect(() => {
@@ -92,11 +94,26 @@ const AnimatedClubs: React.VFC<{}> = () => {
     >
       {/* TODO: TitleAreaはHeaderに含めたい */}
       <TitleArea>サークル一覧</TitleArea>
-      <HStack width="100%" height="100%" spacing="0">
-        <ClubFilter
-          filterInputData={filterInputData}
-          setFilterInputData={setFilterInputData}
-          setFilter={setFilter}
+      <Stack
+        width="100%"
+        height="100%"
+        spacing="0"
+        direction={isMobileLayout ? "column" : "row"}
+      >
+        <BrowserClubFilter
+          filter={filterInputData}
+          setFilter={setFilterInputData}
+          onReset={() => {
+            const newFilterInput = { ...defaultFilter }
+            newFilterInput.flags = { ...defaultFilter.flags }
+            setFilterInputData(newFilterInput)
+            setFilter(newFilterInput)
+          }}
+          onApply={() => {
+            const newFilter = { ...filterInputData }
+            setFilter(newFilter)
+          }}
+          isMobileLayout={isMobileLayout}
         />
         <Box
           py="2rem"
@@ -120,7 +137,10 @@ const AnimatedClubs: React.VFC<{}> = () => {
                   columnGap="2rem"
                 >
                   {getFilteredClubs().map((club, i) => (
-                    <GridItem colSpan={{ xl: 4, lg: 6, sm: 12 }} key={i}>
+                    <GridItem
+                      colSpan={{ base: 12, sm: 12, lg: 6, xl: 4 }}
+                      key={i}
+                    >
                       <Link to={club.clubSlug}>
                         <ClubCard
                           name={club.name}
@@ -144,7 +164,7 @@ const AnimatedClubs: React.VFC<{}> = () => {
             )}
           </Stack>
         </Box>
-      </HStack>
+      </Stack>
     </VStack>
   )
 }

@@ -57,7 +57,7 @@ export const PortalButton: React.VFC<
   // define hover style
   const hoverStyle: CSSObject = { opacity: 0.8 }
   if (isSolid(style)) {
-    hoverStyle.bg = "#fff"
+    hoverStyle.opacity = "0.8"
   }
 
   return (
@@ -78,6 +78,7 @@ export const PortalButton: React.VFC<
           onClick={props.onClick}
           _hover={hoverStyle}
           _focus={{}}
+          _active={{backgroundColor: bgColor}}
         >
           {props.children}
         </Button>
