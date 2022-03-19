@@ -20,13 +20,16 @@ import { TitleArea } from "../components/global/Header/TitleArea"
 import { Loading } from "../components/global/LoadingPage"
 import { useAPI } from "../hooks/useAPI"
 import { PADDING_BEFORE_FOOTER } from "../utils/consts"
-import type { ClubPageExternal } from "../types/api"
+import { ClubPageExternal, ClubPageInternal } from "../types/api"
 import { getCampus, getActivity } from "../utils/functions"
 import { ErrorPage } from "./error"
 
 const AnimatedClubs: React.VFC<{}> = () => {
-  const { data, isLoading, isError } =
-    useAPI<Array<ClubPageExternal>>("/api/v1/clubs")
+  const {
+    data: clubs,
+    isLoading: isClubsLoading,
+    isError: isClubsError,
+  } = useAPI<Array<ClubPageExternal>>("/api/v1/clubs")
   const [sortedClubs, setSortedClubs] = useState<Array<ClubPageExternal>>([])
 
   const [filterInputData, setFilterInputData] = useState<Filter>(defaultFilter)
@@ -35,8 +38,8 @@ const AnimatedClubs: React.VFC<{}> = () => {
 
   // sort clubs
   useEffect(() => {
-    if (data) {
-      data.sort((val1, val2) => {
+    if (clubs) {
+      clubs.sort((val1, val2) => {
         if (sortOption == "name-asc") {
           return val1.name.localeCompare(val2.name)
         } else if (sortOption == "name-desc") {
@@ -45,25 +48,14 @@ const AnimatedClubs: React.VFC<{}> = () => {
           return 0
         }
       })
-      setSortedClubs(data)
+      setSortedClubs(clubs)
     }
-  }, [data, sortOption])
+  }, [clubs, sortOption])
 
   // filter clubs
   function getFilteredClubs() {
     const filteredClubs: Array<ClubPageExternal> = []
     sortedClubs.map((club) => {
-      // exclude by name, short_description
-      if (
-        !club.name
-          .toLocaleLowerCase()
-          .includes(filter.keyword.toLocaleLowerCase()) &&
-        !club.shortDescription
-          .toLocaleLowerCase()
-          .includes(filter.keyword.toLocaleLowerCase())
-      )
-        return
-
       // exclude by campus
       if (club.campus == 0 && !filter.flags.inHachioji) return
       else if (club.campus == 1 && !filter.flags.inKamata) return
@@ -73,13 +65,30 @@ const AnimatedClubs: React.VFC<{}> = () => {
       else if (club.clubType == 1 && !filter.flags.isCulture) return
       else if (club.clubType == 2 && !filter.flags.isCommittee) return
 
+      // exclude by internal information
+      const matchInternal = false
+      const {data, isLoading, isError} = useAPI<ClubPageInternal>("/api/v1/clubs/slug/" + club.clubSlug)
+
+      // exclude by external information
+      const matchExternal =
+        club.name
+          .toLocaleLowerCase()
+          .includes(filter.keyword.toLocaleLowerCase()) ||
+        club.shortDescription
+          .toLocaleLowerCase()
+          .includes(filter.keyword.toLocaleLowerCase())
+
+      if (!matchInternal && !matchExternal) {
+        return
+      }
+
       filteredClubs.push({ ...club })
     })
 
     return filteredClubs
   }
 
-  if (isError) {
+  if (isClubsError) {
     return <ErrorPage />
   }
 
@@ -112,7 +121,7 @@ const AnimatedClubs: React.VFC<{}> = () => {
               sortOption={sortOption}
               setSortOption={setSortOption}
             />
-            {!isLoading ? (
+            {!isClubsLoading ? (
               <>
                 <Grid
                   templateColumns="repeat(12, 1fr)"
