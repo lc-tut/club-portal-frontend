@@ -1,7 +1,8 @@
-import { Icon, useMediaQuery } from "@chakra-ui/react"
+import { Icon } from "@chakra-ui/react"
 import { BsList } from "react-icons/bs"
 import { MobileHamburgerMenu } from "./MobileHamburgerMenu"
 import { BrowserHamburgerMenu } from "./BrowserHamburgerMenu"
+import { useIsMobile } from "../../../utils/functions"
 
 // label: url
 export const menuItems: { [key: string]: string } = {
@@ -21,7 +22,7 @@ export const HamburgerIcon: React.VFC<{}> = () => {
 
 export const HamburgerMenu: React.VFC<{}> = () => {
   // TODO: 独自BreakPoint化
-  const [isMobile] = useMediaQuery("(max-width: 500px)")
+  const isMobile = useIsMobile()
 
   return (
     <>

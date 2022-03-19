@@ -18,9 +18,9 @@ export const AnimatedFavorites: React.VFC<{}> = () => {
     `/api/v1/users/${userUuid}/favs`
   )
   const [is1col, is2col, is3col] = useMediaQuery([
-    "(min-width: 440px)",
-    "(min-width: 980px)",
-    "(min-width: 1480px)",
+    "(min-width: 27.5em)",
+    "(min-width: 62em)",
+    "(min-width: 92em)",
   ])
   let templateColumns = ""
   if (is3col) templateColumns = "repeat(3, 1fr)"
