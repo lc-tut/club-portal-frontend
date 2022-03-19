@@ -8,6 +8,8 @@ import {
   VStack,
   Wrap,
   Text,
+  useMediaQuery,
+  Stack,
 } from "@chakra-ui/react"
 import type { AxiosRequestConfig } from "axios"
 import { BsClock } from "react-icons/bs"
@@ -41,6 +43,11 @@ type ClubPageProps = {
 
 // TODO: アニメーションをつける
 export const ClubPage: React.VFC<ClubPageProps> = (props) => {
+  const [isMobile, isSmallMobile] = useMediaQuery([
+    "(max-width: 40em)",
+    "(max-width: 28em)",
+  ])
+
   const { session } = useSession()
   const clubSlug = useLocation()
   const { data, isLoading, isError } = useAPI<ClubPageInternal | null>(
@@ -103,21 +110,40 @@ export const ClubPage: React.VFC<ClubPageProps> = (props) => {
 
   return (
     <VStack flex="1">
-      <TitleArea subtitle={data?.shortDescription}>{data?.name}</TitleArea>
-      <HStack spacing="2rem" pb="3rem">
-        <Flex gap="10px" width="12rem" justifyContent="end">
-          <ClubTypeBadge content={CAMPUS[data?.campus ?? 0]} badgetype="page" />
-          <ClubTypeBadge
-            content={ACTIVITY[data?.clubType ?? 0]}
-            badgetype="page"
-          />
-        </Flex>
-        {updatedTime && (
-          <Flex color="text.sub" alignItems="center">
-            <Icon as={BsClock} mr="5px" />
-            最終更新: {updatedTime}
-          </Flex>
-        )}
+      {!isMobile && (
+        <TitleArea subtitle={data?.shortDescription}>{data?.name}</TitleArea>
+      )}
+      <Stack
+        w={isMobile ? "100%" : "38rem"}
+        px={isMobile ? "2rem" : undefined}
+        py="2rem"
+        alignItems="center"
+        justifyContent="space-between"
+        direction={isSmallMobile ? "column" : "row"}
+        spacing={isSmallMobile ? "1rem" : undefined}
+      >
+        <Stack
+          direction={isMobile ? "column" : "row-reverse"}
+          alignItems="center"
+          spacing={isMobile ? "0.5rem" : "2rem"}
+        >
+          {updatedTime && (
+            <Flex color="text.sub" alignItems="center">
+              <Icon as={BsClock} mr="5px" />
+              最終更新: {updatedTime}
+            </Flex>
+          )}
+          <HStack>
+            <ClubTypeBadge
+              content={CAMPUS[data?.campus ?? 0]}
+              badgetype="page"
+            />
+            <ClubTypeBadge
+              content={ACTIVITY[data?.clubType ?? 0]}
+              badgetype="page"
+            />
+          </HStack>
+        </Stack>
         <Tooltip
           label="利用するには学生用Gmailアカウントでログインして下さい"
           isDisabled={props.userUUID !== undefined}
@@ -131,13 +157,21 @@ export const ClubPage: React.VFC<ClubPageProps> = (props) => {
             />
           </Wrap>
         </Tooltip>
-      </HStack>
+      </Stack>
+
+      {isMobile && (
+        <Wrap py="2rem">
+          <TitleArea subtitle={data?.shortDescription}>{data?.name}</TitleArea>
+        </Wrap>
+      )}
+
       <Grid
         templateColumns="repeat(12, 1fr)"
         width={{ base: "80%", xl: "60%", lg: "80%" }}
         columnGap="1rem"
         rowGap="3rem"
         pb="6rem"
+        pt="2rem"
         alignItems="center"
       >
         <IntroductionVideo videoPath={data?.videos[0]?.path} />
