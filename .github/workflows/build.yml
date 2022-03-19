@@ -1,0 +1,29 @@
+name: build
+
+on:
+  release:
+    types:
+      - published
+  workflow_dispatch:
+
+jobs:
+  build-prod:
+    name: build production
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+          cache: yarn
+
+      - uses: bahmutov/npm-install@v1
+
+      - name: build - production
+        run: yarn run build:prod
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: release-${{ github.event.release.tag_name }}
+          path: dist/
