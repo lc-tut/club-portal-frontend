@@ -34,6 +34,7 @@ const AnimatedClubs: React.VFC<{}> = () => {
   const [sortOption, setSortOption] = useState<string>("name-asc")
 
   const [isMobileLayout] = useMediaQuery("(max-width: 62em)")
+  const [isSmallPadding] = useMediaQuery("(max-width: 30em)")
 
   // sort clubs
   useEffect(() => {
@@ -117,7 +118,7 @@ const AnimatedClubs: React.VFC<{}> = () => {
         />
         <Box
           py="2rem"
-          px="3rem"
+          px={isSmallPadding ? "0.5rem" : "3rem"}
           pb={PADDING_BEFORE_FOOTER}
           flex="1"
           height="100%"
@@ -132,13 +133,17 @@ const AnimatedClubs: React.VFC<{}> = () => {
             {!isLoading ? (
               <>
                 <Grid
-                  templateColumns="repeat(12, 1fr)"
+                  templateColumns={{
+                    base: "repeat(1, 1fr)",
+                    lg: "repeat(2, 1fr)",
+                    xl: "repeat(3, 1fr)",
+                  }}
                   rowGap="1rem"
                   columnGap="2rem"
                 >
                   {getFilteredClubs().map((club, i) => (
                     <GridItem
-                      colSpan={{ base: 12, sm: 12, lg: 6, xl: 4 }}
+                      colSpan={1}
                       key={i}
                     >
                       <Link to={club.clubSlug}>

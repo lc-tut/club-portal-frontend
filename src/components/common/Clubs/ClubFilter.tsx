@@ -51,8 +51,7 @@ export const BrowserClubFilter: React.VFC<ClubFilterProps> = (props) => {
   let inputWidth = ""
   if (props.isMobileLayout) {
     inputWidth = adjustWidth ? "90vw" : "20rem"
-  }
-  else {
+  } else {
     inputWidth = "18rem"
   }
 
@@ -111,6 +110,7 @@ export const BrowserClubFilter: React.VFC<ClubFilterProps> = (props) => {
             w={adjustWidth ? "90vw" : "20rem"}
             backgroundColor="background.main"
             textColor="text.main"
+            fontSize={adjustWidth ? "0.8rem" : "1rem"}
             border="1px"
             borderColor="form.frame"
             borderRadius="5px"
@@ -146,7 +146,7 @@ export const BrowserClubFilter: React.VFC<ClubFilterProps> = (props) => {
             </HStack>
           </Box>
           <HStack
-            w="100%"
+            w="1"
             px="2rem"
             pt="1.5rem"
             justifyContent={props.isMobileLayout ? "center" : "space-between"}
@@ -161,7 +161,10 @@ export const BrowserClubFilter: React.VFC<ClubFilterProps> = (props) => {
           </HStack>
           <Modal isOpen={props.isMobileLayout && isOpen} onClose={onClose}>
             <ModalOverlay />
-            <ModalContent w="20rem" backgroundColor="background.modal">
+            <ModalContent
+              w={adjustWidth ? "90vw" : "20rem"}
+              backgroundColor="background.modal"
+            >
               <ModalHeader pt="2rem" pb="0">
                 <Center
                   color="text.modal.main"
@@ -183,12 +186,15 @@ export const BrowserClubFilter: React.VFC<ClubFilterProps> = (props) => {
                     px="2rem"
                     pt="1.5rem"
                     justifyContent="center"
-                    spacing="2rem"
+                    spacing={adjustWidth ? undefined : "2rem"}
                   >
                     <PortalButton
                       pbstyle="solid"
                       width="7rem"
-                      onClick={props.onReset}
+                      onClick={() => {
+                        props.onReset()
+                        onClose()
+                      }}
                     >
                       リセット
                     </PortalButton>
