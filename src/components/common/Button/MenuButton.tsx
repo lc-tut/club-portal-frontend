@@ -6,7 +6,13 @@ export const MenuButton: React.VFC<React.PropsWithChildren<MenuButtonProps>> = (
 ) => {
   const type = props.mbtype ?? "main"
   const height = type === "main" ? "4.25rem" : "3rem"
-  const width = type === "main" ? "20rem" : "100%"
+  let width = ""
+  if (!props.width) {
+    width = type === "main" ? "20rem" : "100%"
+  }
+  else {
+    width = props.width
+  }
 
   return (
     <PortalButton

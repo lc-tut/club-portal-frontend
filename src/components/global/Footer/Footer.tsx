@@ -2,8 +2,10 @@ import {
   Button,
   Center,
   HStack,
+  Stack,
   Text,
   useDisclosure,
+  useMediaQuery,
   VStack,
 } from "@chakra-ui/react"
 import { useState } from "react"
@@ -42,6 +44,7 @@ const elements: { [key in elementKeysType]: elementValueType } = {
 export const Footer: React.VFC<{}> = () => {
   const [elementKey, setElementKey] = useState<elementKeysType>("about")
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const [isStackVertical] = useMediaQuery("(max-width: 26em)")
 
   const onClickLinkButton = (k: elementKeysType) => {
     setElementKey(k)
@@ -66,7 +69,10 @@ export const Footer: React.VFC<{}> = () => {
             </Center>
           </VStack>
         </Link>
-        <HStack spacing={8}>
+        <Stack
+          spacing={isStackVertical ? "1rem" : "2rem"}
+          direction={isStackVertical ? "column" : "row"}
+        >
           {elementKeysArray.map((k) => (
             <Button
               color="white"
@@ -78,7 +84,7 @@ export const Footer: React.VFC<{}> = () => {
               {elements[k].title}
             </Button>
           ))}
-        </HStack>
+        </Stack>
         <Center>
           <Text color="white" fontSize="0.8rem">
             Made by LinuxClub under MIT License.
