@@ -1,4 +1,11 @@
-import { Flex, HStack, VStack, Text, Image, useMediaQuery } from "@chakra-ui/react"
+import {
+  Flex,
+  HStack,
+  VStack,
+  Text,
+  Image,
+  useMediaQuery,
+} from "@chakra-ui/react"
 import type { ClubCardProps } from "../../../types/clubs"
 import { toAbsolutePath } from "../../../utils/functions"
 import { ClubTypeBadge } from "./ClubTypeBadge"
@@ -24,10 +31,18 @@ export const ClubCard: React.VFC<ClubCardProps> = (props) => {
             <ClubTypeBadge content={props.campus} />
             <ClubTypeBadge content={props.activity} />
           </HStack>
-          <Text fontSize={isSmallCard ? "1rem" : "1.2rem"} color="text.card.main" pt="0.5rem">
+          <Text
+            fontSize={isSmallCard ? "1rem" : "1.2rem"}
+            color="text.card.main"
+            pt="0.5rem"
+          >
             {props.name}
           </Text>
-          <Text fontSize={isSmallCard ? "0.7rem" : "0.8rem"} color="text.card.sub" pt="0.2rem">
+          <Text
+            fontSize={isSmallCard ? "0.7rem" : "0.8rem"}
+            color="text.card.sub"
+            pt="0.2rem"
+          >
             {props.brief}
           </Text>
         </VStack>

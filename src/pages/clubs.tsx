@@ -142,10 +142,7 @@ const AnimatedClubs: React.VFC<{}> = () => {
                   columnGap="2rem"
                 >
                   {getFilteredClubs().map((club, i) => (
-                    <GridItem
-                      colSpan={1}
-                      key={i}
-                    >
+                    <GridItem colSpan={1} key={i}>
                       <Link to={club.clubSlug}>
                         <ClubCard
                           name={club.name}
