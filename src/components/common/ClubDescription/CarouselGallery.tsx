@@ -39,7 +39,7 @@ export const CarouselGallery: React.VFC<CarouselGalleryProps> = (props) => {
             <Center>
               <AspectRatio
                 ratio={16 / 9}
-                w={{ sm: "90%", md: "70%", lg: "60%" }}
+                w={{ base: "90%", md: "70%", lg: "60%" }}
               >
                 <Image src={`${location.protocol}//${location.host}/${path}`} />
               </AspectRatio>

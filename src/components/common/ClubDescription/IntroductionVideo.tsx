@@ -8,7 +8,7 @@ export const IntroductionVideo: React.VFC<IntroductionVideoProps> = (props) => {
         <Text fontSize="1.5rem" color="text.main">
           紹介動画
         </Text>
-        <AspectRatio ratio={16 / 9} width={{ sm: "60vw", lg: "40vw" }}>
+        <AspectRatio ratio={16 / 9} width={{ base: "60vw", lg: "40vw" }}>
           <iframe
             width="100%"
             height="100%"

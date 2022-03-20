@@ -56,7 +56,7 @@ export const DescriptionText: React.VFC<DescriptionProps> = (props) => {
           <Text color="text.main" px="1rem">
             {props.content}
           </Text>
-          <HStack alignSelf="start" px="1rem">
+          <HStack alignSelf="start" px="1rem" flexWrap="wrap">
             {props.links?.map((link) => {
               const label = link.label
               const registerdSNS = isRegisteredSNS(label)
@@ -74,6 +74,7 @@ export const DescriptionText: React.VFC<DescriptionProps> = (props) => {
                     borderRadius="2px"
                     height="2rem"
                     minWidth="6rem"
+                    py="1rem"
                     _hover={{
                       opacity: 0.6,
                     }}
