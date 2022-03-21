@@ -10,8 +10,8 @@ import {
 } from "@chakra-ui/react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { AxiosRequestConfig } from "axios"
-import { useEffect, useMemo, useState } from "react"
-import { FormProvider, useForm, useFormContext } from "react-hook-form"
+import { useEffect, useState } from "react"
+import { FormProvider, useForm } from "react-hook-form"
 import * as z from "zod"
 import { PortalButton } from "../../components/common/Button"
 import { AchievementEditor } from "../../components/common/Editor/AchievementEditor"
@@ -41,7 +41,10 @@ type FormType = {
 
 const schema = z.object({
   email: z.string().email("正しいメールアドレスを入力してください。"),
-  homePage: z.string().url("正しいURLを入力してください。"),
+  homePage: z.union([
+    z.string().url("正しいURLを入力してください。"),
+    z.string().length(0),
+  ]),
 })
 
 // FIXME: should rewrite
@@ -119,27 +122,6 @@ export const DetailEditor: React.VFC<{}> = () => {
   ])
 
   const onSubmit = methods.handleSubmit(async (data) => {
-    // let err = false
-    // if (!z.string().email().safeParse(data.email).success) {
-    //   err = true
-    //   console.log("email invalid", data.email)
-    //   methods.setError("email", {
-    //     type: "validate",
-    //     message: "メールアドレスが正しくありません。",
-    //   })
-    // }
-    // if (!z.string().url().safeParse(data.homePage).success) {
-    //   err = true
-    //   console.log("email invalid")
-    //   methods.setError("homePage", {
-    //     type: "validate",
-    //     message: "URLの形式が正しくありません。",
-    //   })
-    // }
-    // if (err) {
-    //   return
-    // }
-
     const achievementRequestConfig: AxiosRequestConfig<Array<Achievement>> = {
       url: `/api/v1/clubs/uuid/${clubUuid!}/achievement`,
       method: "put",
