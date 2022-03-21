@@ -27,7 +27,7 @@ import { ErrorPage } from "../error"
 import type { AxiosRequestConfig } from "axios"
 import { axiosWithPayload } from "../../utils/axios"
 import { useErrorToast } from "../../hooks/useErrorToast"
-import { EditorLabel } from "../../components/common/Editor/EditorInput"
+import { EditorLabel } from "../../components/common/Editor/CommonEditorComponent"
 import { useSuccessToast } from "../../hooks/useSuccessToast"
 
 const schema = z.object({
