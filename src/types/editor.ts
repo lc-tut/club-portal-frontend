@@ -4,7 +4,7 @@ import type {
   SwitchProps,
   NumberInputProps,
 } from "@chakra-ui/react"
-import type { Dispatch } from "react"
+import type { Dispatch, SetStateAction } from "react"
 import type { UseFormRegisterReturn } from "react-hook-form"
 import type { TimePlaceActionType, TimePlaceStateType } from "./reducer"
 
@@ -64,7 +64,13 @@ export type EditorInputProps = CommonEditorControlledProps & {
   element: JSX.Element
 }
 
-export type TimePlaceInputProps = {
+type TimePlaceInputCommonProps = {
   state: TimePlaceStateType
   dispatch: Dispatch<TimePlaceActionType>
+}
+
+export type TimeInputProps = TimePlaceInputCommonProps
+
+export type PlaceInputProps = TimePlaceInputCommonProps & {
+  setIsPlaceEtc: Dispatch<SetStateAction<boolean>>
 }

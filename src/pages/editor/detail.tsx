@@ -5,34 +5,35 @@ import {
   Grid,
   GridItem,
   Input,
+  Text,
   VStack,
   Wrap,
 } from "@chakra-ui/react"
+import { zodResolver } from "@hookform/resolvers/zod"
+import type { AxiosRequestConfig } from "axios"
 import { useEffect, useState } from "react"
+import { FormProvider, useForm } from "react-hook-form"
+import * as z from "zod"
 import { PortalButton } from "../../components/common/Button"
-import { EditorBase } from "../../components/common/Editor/EditorBase"
-import { TitleArea } from "../../components/global/Header/TitleArea"
-import { PADDING_BEFORE_FOOTER } from "../../utils/consts"
 import { AchievementEditor } from "../../components/common/Editor/AchievementEditor"
 import { ContentEditor } from "../../components/common/Editor/ContentEditor"
+import { EditorBase } from "../../components/common/Editor/EditorBase"
 import { PlaceAndTimeEditor } from "../../components/common/Editor/PlaceAndTimeEditor"
-import { useOutletUser } from "../../hooks/useOutletUser"
-import { FormProvider, useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
+import { TitleArea } from "../../components/global/Header/TitleArea"
+import { Loading } from "../../components/global/LoadingPage"
 import { useAPI } from "../../hooks/useAPI"
+import { useErrorToast } from "../../hooks/useErrorToast"
+import { useOutletUser } from "../../hooks/useOutletUser"
+import { useSuccessToast } from "../../hooks/useSuccessToast"
 import type {
   Achievement,
   ActivityDetail,
   Content,
   Link,
 } from "../../types/api"
-import { ErrorPage } from "../error"
-import { Loading } from "../../components/global/LoadingPage"
-import { useErrorToast } from "../../hooks/useErrorToast"
 import { axiosWithPayload } from "../../utils/axios"
-import type { AxiosRequestConfig } from "axios"
-import { useSuccessToast } from "../../hooks/useSuccessToast"
+import { PADDING_BEFORE_FOOTER } from "../../utils/consts"
+import { ErrorPage } from "../error"
 
 type FormType = {
   email: string
@@ -64,7 +65,7 @@ export const DetailEditor: React.VFC<{}> = () => {
   const successToast = useSuccessToast("データの保存が完了しました！")
   const [achievements, setAchievements] = useState<Array<string>>([])
   const [contents, setContents] = useState<Array<string>>([])
-  const [email, setEmail] = useState<string>("")
+  const [email, setEmail] = useState<string | undefined>()
   const [HP, setHP] = useState<string | undefined>()
   const [activityDetails, setActivityDetails] = useState<Array<ActivityDetail>>(
     []
@@ -112,6 +113,8 @@ export const DetailEditor: React.VFC<{}> = () => {
   ])
 
   const onSubmit = methods.handleSubmit(async (data) => {
+    console.log(activityDetails)
+
     const achievementRequestConfig: AxiosRequestConfig<Array<Achievement>> = {
       url: `/api/v1/clubs/uuid/${clubUuid!}/achievement`,
       method: "put",
@@ -195,11 +198,6 @@ export const DetailEditor: React.VFC<{}> = () => {
                     連絡先のメールアドレス
                   </FormLabel>
                   <Input
-                    placeholder={"メールアドレスを入力して下さい"}
-                    w="20rem"
-                    backgroundColor="#fff"
-                    textColor="text.main"
-                    defaultValue={email}
                     {...methods.register("email", {
                       value: email,
                       required: {
@@ -207,6 +205,11 @@ export const DetailEditor: React.VFC<{}> = () => {
                         message: "メールアドレスが空白です！",
                       },
                     })}
+                    placeholder={"メールアドレスを入力して下さい"}
+                    w="20rem"
+                    backgroundColor="#fff"
+                    textColor="text.main"
+                    defaultValue={email}
                   />
                   <Wrap h="1.2rem">
                     <FormErrorMessage>
@@ -228,7 +231,10 @@ export const DetailEditor: React.VFC<{}> = () => {
                   backgroundColor="#fff"
                   textColor="text.main"
                   defaultValue={HP}
-                  {...methods.register("homePage")}
+                  {...methods.register("homePage", {
+                    value: HP,
+                    required: false,
+                  })}
                 />
               </GridItem>
             </Grid>

@@ -16,11 +16,6 @@ export const timePlaceReducer: Reducer<
         ...state,
         isTimeDisabled: !state.isTimeDisabled,
       }
-    case "place":
-      return {
-        ...state,
-        isPlaceDisabled: !state.isPlaceDisabled,
-      }
     case "room":
       return {
         ...state,
