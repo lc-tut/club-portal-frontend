@@ -167,7 +167,7 @@ export const ClubPage: React.VFC<ClubPageProps> = (props) => {
 
       <Grid
         templateColumns="repeat(12, 1fr)"
-        width={{ base: "80%", xl: "60%", lg: "80%" }}
+        width={{ base: "90%", sm: "80%", xl: "60%", lg: "80%" }}
         columnGap="1rem"
         rowGap="3rem"
         pb="6rem"

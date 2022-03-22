@@ -15,12 +15,8 @@ SwiperCore.use([Pagination, Navigation])
 export const CarouselGallery: React.VFC<CarouselGalleryProps> = (props) => {
   const numImages = props.imagePaths.length
 
-  const [is1slides, is2slides] = useMediaQuery([
-    "(min-width: 30em)",
-    "(min-width: 48em)",
-  ])
-  let slidesPerView = 0
-  if (is1slides) slidesPerView = 1
+  const [is2slides] = useMediaQuery(["(min-width: 48em)"])
+  let slidesPerView = 1
   if (is2slides && numImages >= 2) slidesPerView = 2
 
   return (
@@ -39,7 +35,7 @@ export const CarouselGallery: React.VFC<CarouselGalleryProps> = (props) => {
             <Center>
               <AspectRatio
                 ratio={16 / 9}
-                w={{ base: "90%", md: "70%", lg: "60%" }}
+                w={{ base: "90vw", md: "70vw", lg: "50vw", xl: "40vw" }}
               >
                 <Image src={`${location.protocol}//${location.host}/${path}`} />
               </AspectRatio>

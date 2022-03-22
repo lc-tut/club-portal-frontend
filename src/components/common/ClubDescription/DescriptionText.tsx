@@ -6,6 +6,7 @@ import {
   Link,
   Button,
   Center,
+  useMediaQuery,
 } from "@chakra-ui/react"
 import {
   BsDiscord,
@@ -61,7 +62,13 @@ export const DescriptionText: React.VFC<DescriptionProps> = (props) => {
               const label = link.label
               const registerdSNS = isRegisteredSNS(label)
               return (
-                <Link href={link.path} key={link.path} isExternal _hover={{}}>
+                <Link
+                  pt="1rem"
+                  href={link.path}
+                  key={link.path}
+                  isExternal
+                  _hover={{}}
+                >
                   <Button
                     color={
                       registerdSNS ? fgColorMap[label] : "button.text.gray"
