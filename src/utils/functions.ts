@@ -22,14 +22,16 @@ export const toTimeID = (
   startHourTime: number,
   startMinuteTime: number,
   endHourTime: number,
-  endMinuteTime: number
+  endMinuteTime: number,
+  isTimeEtc: boolean
 ) => {
   const subTime =
     (endHourTime - startHourTime) * 60 + (endMinuteTime - startMinuteTime)
+
   return Number(
-    `${DATE_NUMBER_MAP[date]}${startHourTime
-      .toString()
-      .padStart(2, "0")}${startMinuteTime.toString().padStart(2, "0")}${subTime
+    `${DATE_NUMBER_MAP[date]}${
+      isTimeEtc ? 0 : startHourTime.toString().padStart(2, "0")
+    }${startMinuteTime.toString().padStart(2, "0")}${subTime
       .toString()
       .padStart(3, "0")}`
   )

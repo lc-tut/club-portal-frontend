@@ -1,5 +1,5 @@
 import { HStack, Stack, Text } from "@chakra-ui/react"
-import React, { useReducer } from "react"
+import React, { useReducer, useState } from "react"
 import { EditorButton } from "./EditorButton"
 import { BUILDING_ID_MAP, DATE_MAP } from "../../../utils/consts"
 import { PlaceInput } from "./PlaceEditorComponent"
@@ -43,13 +43,16 @@ export const PlaceAndTimeEditor: React.VFC<PlaceAndTimeEditorProps> = (
   const [state, dispatch] = useReducer(timePlaceReducer, {
     isDateDisabled: false,
     isTimeDisabled: false,
-    isPlaceDisabled: false,
     isRoomDisabled: false,
   })
+  const [isPlaceEtc, setIsPlaceEtc] = useState<boolean>(false)
 
   const watchAll = watch()
 
   const onAdd = () => {
+    console.log(watchAll)
+    console.log(isPlaceEtc)
+
     const startTime = watchAll.start
     const endTime = watchAll.end
     let err = false
@@ -62,7 +65,7 @@ export const PlaceAndTimeEditor: React.VFC<PlaceAndTimeEditorProps> = (
     } else {
       clearErrors("date")
     }
-    if (!state.isPlaceDisabled && !watchAll.place.building) {
+    if (!watchAll.place.building) {
       err = true
       setError("place.building", {
         type: "required",
@@ -78,16 +81,17 @@ export const PlaceAndTimeEditor: React.VFC<PlaceAndTimeEditorProps> = (
       err = true
       setError("timeRemark", {
         type: "required",
-        message: "「その他」を選択している場合は備考は必須です。",
+        message: "「その他」を選択している場合は備考が必須です。",
       })
     } else {
       clearErrors("timeRemark")
     }
-    if (state.isPlaceDisabled && watchAll.placeRemark === "") {
+    if (isPlaceEtc && watchAll.placeRemark === "") {
+      console.log("場所を明記していない場合は備考が必須です。")
       err = true
       setError("placeRemark", {
-        type: "required",
-        message: "「その他」を選択している場合は備考は必須です。",
+        type: "invalid",
+        message: "場所を明記していない場合は備考が必須です。",
       })
     } else {
       clearErrors("placeRemark")
@@ -99,21 +103,18 @@ export const PlaceAndTimeEditor: React.VFC<PlaceAndTimeEditorProps> = (
     )
       return
     if (!err) {
-      if (watchAll.date === undefined) return // 何故か undefined になる (よくわからない…)
-      const selectedDate = watchAll.date as DateType
+      const selectedDate = (watchAll.date ?? "Etc") as DateType
       const placeObj = watchAll.place
       setItems([
         {
-          timeId:
-            state.isTimeDisabled || state.isDateDisabled
-              ? undefined
-              : toTimeID(
-                  selectedDate,
-                  startTime.hour,
-                  startTime.minute,
-                  endTime.hour,
-                  endTime.minute
-                ),
+          timeId: toTimeID(
+            selectedDate,
+            startTime.hour,
+            startTime.minute,
+            endTime.hour,
+            endTime.minute,
+            state.isTimeDisabled
+          ),
           date: state.isDateDisabled ? "Etc" : selectedDate,
           time: state.isTimeDisabled
             ? "その他"
@@ -126,18 +127,12 @@ export const PlaceAndTimeEditor: React.VFC<PlaceAndTimeEditorProps> = (
                 .padStart(2, "0")}`,
           timeRemark:
             watchAll.timeRemark === "" ? undefined : watchAll.timeRemark,
-          placeId: state.isPlaceDisabled
-            ? undefined
-            : toPlaceID(
-                placeObj.building,
-                state.isRoomDisabled ? 0 : placeObj.room
-              ),
-          place: `${
-            state.isPlaceDisabled
-              ? "その他"
-              : BUILDING_ID_MAP[placeObj.building]
-          }${
-            state.isRoomDisabled || state.isPlaceDisabled ? "" : placeObj.room
+          placeId: toPlaceID(
+            placeObj.building,
+            state.isRoomDisabled ? 0 : placeObj.room
+          ),
+          place: `${BUILDING_ID_MAP[placeObj.building]}${
+            state.isRoomDisabled ? "" : placeObj.room
           }`,
           placeRemark:
             watchAll.placeRemark === "" ? undefined : watchAll.placeRemark,
@@ -166,11 +161,15 @@ export const PlaceAndTimeEditor: React.VFC<PlaceAndTimeEditorProps> = (
               remarkKey="timeRemark"
               isRequired={state.isTimeDisabled || state.isDateDisabled}
             />
-            <PlaceInput state={state} dispatch={dispatch} />
+            <PlaceInput
+              state={state}
+              dispatch={dispatch}
+              setIsPlaceEtc={setIsPlaceEtc}
+            />
             <RemarkInput
               label="場所に関する備考(任意)"
               remarkKey="placeRemark"
-              isRequired={state.isPlaceDisabled}
+              isRequired={isPlaceEtc}
             />
           </Stack>
         </HStack>

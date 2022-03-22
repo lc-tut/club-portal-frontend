@@ -149,11 +149,13 @@ export const ImageEditor: React.VFC<{}> = () => {
       data: formData,
     }
     try {
-      const res = await axiosWithPayload<FormData, Array<Image>>(
-        uploadRequestConfig
-      )
-      res.data.map((d) => imageIDs.push({ imageId: d.imageId }))
-      console.log(imageIDs)
+      const res =
+        newImages.length > 0
+          ? await axiosWithPayload<FormData, Array<Image>>(uploadRequestConfig)
+          : undefined
+      if (res) {
+        res.data.map((d) => imageIDs.push({ imageId: d.imageId }))
+      }
       const updateRequestConfig: AxiosRequestConfig<UpdateImagePayload> = {
         url: `/api/v1/clubs/uuid/${clubUuid!}/image`,
         method: "put",

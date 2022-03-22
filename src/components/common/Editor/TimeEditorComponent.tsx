@@ -14,10 +14,10 @@ import {
   VStack,
   Wrap,
 } from "@chakra-ui/react"
-import { EditorLabel, EditorText } from "./EditorInput"
+import { EditorLabel, EditorText } from "./CommonEditorComponent"
 import type {
   EditorSelectOptionItem,
-  TimePlaceInputProps,
+  TimeInputProps,
 } from "../../../types/editor"
 import { DATE_MAP } from "../../../utils/consts"
 import type { DateType } from "../../../types/description"
@@ -36,7 +36,7 @@ type FormTimeType = {
   }
 }
 
-export const TimeInput: React.VFC<TimePlaceInputProps> = (props) => {
+export const TimeInput: React.VFC<TimeInputProps> = (props) => {
   const {
     register,
     formState: { errors },
