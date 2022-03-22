@@ -1,26 +1,25 @@
 import {
-  FormControl,
-  FormLabel,
+  Box,
+  Center,
+  Flex,
   HStack,
   Input,
-  Spacer,
-  Stack,
-  Switch,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
   Text,
+  useDisclosure,
+  useMediaQuery,
   VStack,
+  Wrap,
 } from "@chakra-ui/react"
 import { StateDispatch } from "../../../types/utils"
 import { PADDING_BEFORE_FOOTER } from "../../../utils/consts"
 import { PortalButton } from "../Button"
-
-const filterFlagKeyList = [
-  "inHachioji",
-  "inKamata",
-  "isCulture",
-  "isSports",
-  "isCommittee",
-] as const
-type FilterFlagKey = typeof filterFlagKeyList[number]
+import { FilterFlagKey, FilterSwitch } from "./FilterSwitch"
 
 export type Filter = {
   keyword: string
@@ -38,117 +37,177 @@ export const defaultFilter: Filter = {
   },
 }
 
-type FilterAreaProps = {
-  filterInputData: Filter
-  setFilterInputData: StateDispatch<Filter>
+type ClubFilterProps = {
+  filter: Filter
   setFilter: StateDispatch<Filter>
+  onReset: () => void
+  onApply: () => void
+  isMobileLayout: boolean
 }
 
-type FilterItemProps = {
-  label: string
-  flagKey: FilterFlagKey
-  filterInputData: Filter
-  isChecked: boolean
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-}
-
-const FilterItem: React.VFC<FilterItemProps> = (props) => {
-  return (
-    <FormControl display="flex" pl="1rem">
-      <FormLabel width="8rem" fontSize="1.25rem" mb="0">
-        {props.label}
-      </FormLabel>
-      <Switch
-        colorScheme="green"
-        size="lg"
-        isChecked={props.isChecked}
-        onChange={(e) => props.onChange(e)}
-      />
-    </FormControl>
-  )
-}
-
-export const ClubFilter: React.VFC<FilterAreaProps> = (props) => {
-  const onFlagChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    flagKey: FilterFlagKey
-  ) => {
-    const newFilterInput = { ...props.filterInputData }
-    newFilterInput.flags = { ...props.filterInputData.flags }
-    newFilterInput.flags[flagKey] = e.target.checked
-    props.setFilterInputData(newFilterInput)
+export const BrowserClubFilter: React.VFC<ClubFilterProps> = (props) => {
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const [adjustWidth] = useMediaQuery("(max-width: 20em)")
+  let inputWidth = ""
+  if (props.isMobileLayout) {
+    inputWidth = adjustWidth ? "90vw" : "20rem"
+  } else {
+    inputWidth = "18rem"
   }
+
   const onKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newFilterInput = { ...props.filterInputData }
+    const newFilterInput = { ...props.filter }
     newFilterInput.keyword = e.target.value
-    props.setFilterInputData(newFilterInput)
-  }
-  const onReset = () => {
-    const newFilterInput = { ...defaultFilter }
-    newFilterInput.flags = { ...defaultFilter.flags }
-    props.setFilterInputData(newFilterInput)
     props.setFilter(newFilterInput)
-  }
-  const onSearch = () => {
-    const newFilter = { ...props.filterInputData }
-    props.setFilter(newFilter)
-  }
-
-  const filterItemWrapper = (label: string, flagKey: FilterFlagKey) => {
-    return (
-      <FilterItem
-        label={label}
-        flagKey={flagKey}
-        filterInputData={props.filterInputData}
-        isChecked={props.filterInputData.flags[flagKey]}
-        onChange={(e) => onFlagChange(e, flagKey)}
-      />
-    )
   }
 
   return (
     <VStack
-      width="20rem"
+      width={props.isMobileLayout ? "100%" : "20rem"}
       height="100%"
       pt="2rem"
-      pb={PADDING_BEFORE_FOOTER}
+      pb={props.isMobileLayout ? "2rem" : PADDING_BEFORE_FOOTER}
       backgroundColor="form.background"
     >
       <Input
-        width="18rem"
+        width={inputWidth}
         backgroundColor="#fff"
         borderColor="form.frame"
         textColor="text.main"
         placeholder="検索キーワード"
-        value={props.filterInputData.keyword}
+        value={props.filter.keyword}
         onChange={onKeywordChange}
         _placeholder={{
           color: "text.sub",
         }}
       />
 
-      <Stack alignSelf="start" spacing="0.5rem" pt="1rem" pl="3rem">
-        <Text color="text.modal.sub" pb="0.5rem" pt="1rem">
-          キャンパス
-        </Text>
-        {filterItemWrapper("八王子", "inHachioji")}
-        {filterItemWrapper("蒲田", "inKamata")}
-        <Text color="text.modal.sub" pb="0.5rem" pt="1rem">
-          分類
-        </Text>
-        {filterItemWrapper("文化系", "isCulture")}
-        {filterItemWrapper("体育系", "isSports")}
-        {filterItemWrapper("委員会", "isCommittee")}
-      </Stack>
-      <HStack w="80%" pt="1.5rem">
-        <PortalButton pbstyle="solid" width="7rem" onClick={onReset}>
-          リセット
-        </PortalButton>
-        <Spacer flex="1" />
-        <PortalButton width="7rem" onClick={onSearch}>
-          検索
-        </PortalButton>
-      </HStack>
+      {/* Browser */}
+      {!props.isMobileLayout && (
+        <>
+          <FilterSwitch filter={props.filter} setFilter={props.setFilter} />
+          <HStack
+            w="100%"
+            px="2rem"
+            pt="1.5rem"
+            justifyContent={props.isMobileLayout ? "center" : "space-between"}
+            spacing={props.isMobileLayout ? "2rem" : undefined}
+          >
+            <PortalButton pbstyle="solid" width="7rem" onClick={props.onReset}>
+              リセット
+            </PortalButton>
+            <PortalButton width="7rem" onClick={props.onApply}>
+              検索
+            </PortalButton>
+          </HStack>
+        </>
+      )}
+
+      {/* Mobile */}
+      {props.isMobileLayout && (
+        <>
+          <Box
+            w={adjustWidth ? "90vw" : "20rem"}
+            backgroundColor="background.main"
+            textColor="text.main"
+            fontSize={adjustWidth ? "0.8rem" : "1rem"}
+            border="1px"
+            borderColor="form.frame"
+            borderRadius="5px"
+          >
+            <HStack>
+              <Flex
+                w="6.2rem"
+                h="2rem"
+                pl="1rem"
+                borderTopLeftRadius="5px"
+                backgroundColor="background.cards"
+                alignItems="center"
+              >
+                <Text>キャンパス</Text>
+              </Flex>
+              {props.filter.flags.inHachioji && <Text>八王子</Text>}
+              {props.filter.flags.inKamata && <Text>蒲田</Text>}
+            </HStack>
+            <HStack>
+              <Flex
+                w="6.2rem"
+                h="2rem"
+                pl="1rem"
+                borderBottomLeftRadius="5px"
+                backgroundColor="background.cards"
+                alignItems="center"
+              >
+                <Text>分類</Text>
+              </Flex>
+              {props.filter.flags.isCulture && <Text>文化系</Text>}
+              {props.filter.flags.isSports && <Text>体育系</Text>}
+              {props.filter.flags.isCommittee && <Text>委員会</Text>}
+            </HStack>
+          </Box>
+          <HStack
+            w="1"
+            px="2rem"
+            pt="1.5rem"
+            justifyContent={props.isMobileLayout ? "center" : "space-between"}
+            spacing={props.isMobileLayout ? "2rem" : undefined}
+          >
+            <PortalButton pbstyle="solid" width="7rem" onClick={onOpen}>
+              条件変更
+            </PortalButton>
+            <PortalButton width="7rem" onClick={props.onApply}>
+              検索
+            </PortalButton>
+          </HStack>
+          <Modal isOpen={props.isMobileLayout && isOpen} onClose={onClose}>
+            <ModalOverlay />
+            <ModalContent
+              w={adjustWidth ? "90vw" : "20rem"}
+              backgroundColor="background.modal"
+            >
+              <ModalHeader pt="2rem" pb="0">
+                <Center
+                  color="text.modal.main"
+                  fontWeight="bold"
+                  fontSize="1.5rem"
+                >
+                  条件絞り込み
+                </Center>
+              </ModalHeader>
+              <ModalCloseButton />
+              <ModalBody pt="0" pb="2rem">
+                <VStack>
+                  <FilterSwitch
+                    filter={props.filter}
+                    setFilter={props.setFilter}
+                  />
+                  <HStack
+                    w="100%"
+                    px="2rem"
+                    pt="1.5rem"
+                    justifyContent="center"
+                    spacing={adjustWidth ? undefined : "2rem"}
+                  >
+                    <PortalButton
+                      pbstyle="solid"
+                      width="7rem"
+                      onClick={() => {
+                        props.onReset()
+                        onClose()
+                      }}
+                    >
+                      リセット
+                    </PortalButton>
+                    <PortalButton width="7rem" onClick={onClose}>
+                      適用
+                    </PortalButton>
+                  </HStack>
+                </VStack>
+              </ModalBody>
+            </ModalContent>
+          </Modal>
+        </>
+      )}
     </VStack>
   )
 }

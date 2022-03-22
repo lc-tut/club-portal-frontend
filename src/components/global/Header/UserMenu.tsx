@@ -7,6 +7,7 @@ import {
   PopoverTrigger,
   Text,
   useBoolean,
+  useMediaQuery,
   VStack,
 } from "@chakra-ui/react"
 import { BsBoxArrowRight, BsPencil } from "react-icons/bs"
@@ -22,6 +23,7 @@ export const UserMenu: React.VFC<HeaderProps> = (props) => {
   const loc = useLocation()
   const { mutate } = useSWRConfig()
   const { session } = props
+  const [adjustPopoverWidth] = useMediaQuery("(max-width: 21em)")
 
   const onLogout = async () => {
     try {
@@ -43,7 +45,12 @@ export const UserMenu: React.VFC<HeaderProps> = (props) => {
   }
 
   return (
-    <Popover isOpen={isOpen} onOpen={setIsOpen.on} onClose={setIsOpen.off}>
+    <Popover
+      isOpen={isOpen}
+      onOpen={setIsOpen.on}
+      onClose={setIsOpen.off}
+      placement="bottom-end"
+    >
       <PopoverTrigger>
         <Button
           p="0"
@@ -59,7 +66,7 @@ export const UserMenu: React.VFC<HeaderProps> = (props) => {
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent>
+      <PopoverContent w={adjustPopoverWidth ? "90vw" : "20em"}>
         <PopoverBody>
           {session ? (
             <VStack py="1rem">

@@ -68,6 +68,7 @@ const theme = extendTheme({
       main: "#FFFFFC",
       cards: "#F7F1E5",
       remark: "#F8F8F8",
+      modal: "#D9D9D9",
     },
     badge: {
       text: {

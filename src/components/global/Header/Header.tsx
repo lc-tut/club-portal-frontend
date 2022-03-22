@@ -1,4 +1,4 @@
-import { Center, Flex, Spacer } from "@chakra-ui/react"
+import { Center, Flex, HStack, Spacer } from "@chakra-ui/react"
 import type { HeaderProps } from "../../../types/header"
 import { HamburgerMenu } from "./HamburgerMenu"
 import { UserMenu } from "./UserMenu"
@@ -7,15 +7,17 @@ export const headerHeight = "3rem"
 
 export const Header: React.VFC<HeaderProps> = (props) => {
   return (
-    <Flex px="1rem" h={headerHeight} w="100%" backgroundColor="green.200">
+    <HStack
+      px="1rem"
+      h={headerHeight}
+      backgroundColor="green.200"
+      justifyContent="space-between"
+    >
       <HamburgerMenu />
-      <Spacer />
       {/* <Center mr="1rem">
         <Icon as={BsBellFill} boxSize="2em" color="text.title.sub" />
       </Center> */}
-      <Center>
-        <UserMenu session={props.session} />
-      </Center>
-    </Flex>
+      <UserMenu session={props.session} />
+    </HStack>
   )
 }

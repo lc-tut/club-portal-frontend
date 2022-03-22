@@ -102,12 +102,12 @@ const BrowserGlobalNav: React.VFC<{}> = () => {
 export const TitleArea: React.VFC<
   React.PropsWithChildren<{ subtitle?: string }>
 > = (props) => {
-  const [isMobile] = useMediaQuery(["(min-width: 80rem)"])
+  const [isTitleOnly] = useMediaQuery(["(min-width: 80em)"])
 
   return (
     <HStack mt="2rem" px="3rem" justifyContent="center" width="100%">
       <VStack spacing="1rem">
-        {isMobile && (
+        {isTitleOnly && (
           <Link to="/">
             <PortalBanner alignSelf="center" />
           </Link>
@@ -145,7 +145,7 @@ export const TitleArea: React.VFC<
           {props.subtitle}
         </Text>
       </VStack>
-      {isMobile && <BrowserGlobalNav />}
+      {isTitleOnly && <BrowserGlobalNav />}
     </HStack>
   )
 }
