@@ -1,4 +1,4 @@
-import { AspectRatio, GridItem, Text, VStack, Wrap } from "@chakra-ui/react"
+import { AspectRatio, GridItem, Text, VStack } from "@chakra-ui/react"
 import type { IntroductionVideoProps } from "../../../types/description"
 
 export const IntroductionVideo: React.VFC<IntroductionVideoProps> = (props) => {

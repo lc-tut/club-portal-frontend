@@ -1,12 +1,11 @@
 import {
-  GridItem,
-  VStack,
-  Text,
-  HStack,
-  Link,
   Button,
   Center,
-  useMediaQuery,
+  GridItem,
+  HStack,
+  Link,
+  Text,
+  VStack,
 } from "@chakra-ui/react"
 import {
   BsDiscord,
