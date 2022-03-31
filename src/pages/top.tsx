@@ -7,9 +7,17 @@ import {
   Spacer,
   Text,
   VStack,
+  Link as ChakraLink,
+  HStack,
 } from "@chakra-ui/react"
 import React from "react"
-import { BsClockHistory, BsMegaphone, BsSearch, BsStar } from "react-icons/bs"
+import {
+  BsBoxArrowUpRight,
+  BsClockHistory,
+  BsMegaphone,
+  BsSearch,
+  BsStar,
+} from "react-icons/bs"
 import { Link } from "react-router-dom"
 import { MenuButton } from "../components/common/Button"
 import { PortalLogo } from "../components/common/Icon"
@@ -105,6 +113,12 @@ const AnimatedTop: React.VFC<{}> = () => {
             </Flex>
           </GridItem>
         </Grid>
+        <ChakraLink href="https://tutkamata-sinkan.jp" color="green.800">
+          <HStack>
+            <Text>蒲田キャンパスのサークル紹介はこちら</Text>
+            <BsBoxArrowUpRight />
+          </HStack>
+        </ChakraLink>
       </VStack>
     </Flex>
   )
