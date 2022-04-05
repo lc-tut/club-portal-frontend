@@ -14,7 +14,11 @@ import {
   FormErrorMessage,
 } from "@chakra-ui/react"
 import { EditorLabel } from "./EditorInput"
-import { BUILDING_ID_MAP } from "../../../utils/consts"
+import {
+  BUILDING_ID_MAP,
+  TOGGLE_PLACE,
+  TOGGLE_ROOM,
+} from "../../../utils/consts"
 import type {
   EditorSelectOptionItem,
   TimePlaceInputProps,
@@ -104,7 +108,7 @@ export const PlaceInput: React.VFC<TimePlaceInputProps> = (props) => {
             colorScheme="green"
             size="lg"
             isChecked={state.isRoomDisabled}
-            onChange={() => dispatch({ type: "room" })}
+            onChange={() => dispatch({ type: TOGGLE_ROOM })}
           />
         </Flex>
         <Wrap h="1.2rem" />
@@ -116,7 +120,7 @@ export const PlaceInput: React.VFC<TimePlaceInputProps> = (props) => {
             colorScheme="green"
             size="lg"
             isChecked={state.isPlaceDisabled}
-            onChange={() => dispatch({ type: "place" })}
+            onChange={() => dispatch({ type: TOGGLE_PLACE })}
           />
         </Flex>
         <Wrap h="1.2rem" />

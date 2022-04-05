@@ -1,9 +1,10 @@
 import { Select } from "@chakra-ui/react"
-import type { StateDispatch } from "../../../types/utils"
+import type { Dispatch } from "react"
+import type { FilterActionType, FilterStateType, SET_NAME_ASC_ACTION, SET_NAME_DESC_ACTION } from "../../../types/reducer"
 
 type ClubSortOptionSelectProps = {
-  sortOption: string
-  setSortOption: StateDispatch<string>
+  isAscending: FilterStateType["isAscending"]
+  dispatchIsAscending: Dispatch<FilterActionType>
 }
 
 export const ClubSortOptionSelect: React.VFC<ClubSortOptionSelectProps> = (
@@ -16,13 +17,13 @@ export const ClubSortOptionSelect: React.VFC<ClubSortOptionSelectProps> = (
       color="text.main"
       borderColor="text.card.main"
       iconColor="text.card.main"
-      value={props.sortOption}
+      value={props.isAscending ? "SET_NAME_ASC" : "SET_NAME_DESC"}
       onChange={(e) => {
-        props.setSortOption(e.target.value)
+        props.dispatchIsAscending({ type: e.target.value as unknown as SET_NAME_ASC_ACTION | SET_NAME_DESC_ACTION })
       }}
     >
-      <option value="name-asc">名前 昇順</option>
-      <option value="name-desc">名前 降順</option>
+      <option value="SET_NAME_ASC">名前 - 昇順</option>
+      <option value="SET_NAME_DESC">名前 - 降順</option>
     </Select>
   )
 }
