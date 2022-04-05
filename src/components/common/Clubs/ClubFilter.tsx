@@ -9,47 +9,24 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react"
-import { StateDispatch } from "../../../types/utils"
+import type { Dispatch } from "react"
+import { useForm } from "react-hook-form"
+import type { FilterActionType, FilterStateType } from "../../../types/reducer"
+import type { StateDispatch } from "../../../types/utils"
 import { PADDING_BEFORE_FOOTER } from "../../../utils/consts"
 import { PortalButton } from "../Button"
 
-const filterFlagKeyList = [
-  "inHachioji",
-  "inKamata",
-  "isCulture",
-  "isSports",
-  "isCommittee",
-] as const
-type FilterFlagKey = typeof filterFlagKeyList[number]
-
-export type Filter = {
-  keyword: string
-  flags: { [key in FilterFlagKey]: boolean }
-}
-
-export const defaultFilter: Filter = {
-  keyword: "",
-  flags: {
-    inHachioji: true,
-    inKamata: true,
-    isCulture: true,
-    isSports: true,
-    isCommittee: true,
-  },
-}
-
 type FilterAreaProps = {
-  filterInputData: Filter
-  setFilterInputData: StateDispatch<Filter>
-  setFilter: StateDispatch<Filter>
+  filterValues: FilterStateType
+  dispatchFilterValues: Dispatch<FilterActionType>
+  setKeyword: StateDispatch<string>
 }
 
 type FilterItemProps = {
   label: string
-  flagKey: FilterFlagKey
-  filterInputData: Filter
   isChecked: boolean
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  action: FilterActionType["type"]
+  dispatcher: Dispatch<FilterActionType>
 }
 
 const FilterItem: React.VFC<FilterItemProps> = (props) => {
@@ -62,49 +39,22 @@ const FilterItem: React.VFC<FilterItemProps> = (props) => {
         colorScheme="green"
         size="lg"
         isChecked={props.isChecked}
-        onChange={(e) => props.onChange(e)}
+        onChange={() => props.dispatcher({ type: props.action })}
       />
     </FormControl>
   )
 }
 
-export const ClubFilter: React.VFC<FilterAreaProps> = (props) => {
-  const onFlagChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    flagKey: FilterFlagKey
-  ) => {
-    const newFilterInput = { ...props.filterInputData }
-    newFilterInput.flags = { ...props.filterInputData.flags }
-    newFilterInput.flags[flagKey] = e.target.checked
-    props.setFilterInputData(newFilterInput)
-  }
-  const onKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newFilterInput = { ...props.filterInputData }
-    newFilterInput.keyword = e.target.value
-    props.setFilterInputData(newFilterInput)
-  }
-  const onReset = () => {
-    const newFilterInput = { ...defaultFilter }
-    newFilterInput.flags = { ...defaultFilter.flags }
-    props.setFilterInputData(newFilterInput)
-    props.setFilter(newFilterInput)
-  }
-  const onSearch = () => {
-    const newFilter = { ...props.filterInputData }
-    props.setFilter(newFilter)
-  }
+type KeywordFormType = {
+  keyword: string
+}
 
-  const filterItemWrapper = (label: string, flagKey: FilterFlagKey) => {
-    return (
-      <FilterItem
-        label={label}
-        flagKey={flagKey}
-        filterInputData={props.filterInputData}
-        isChecked={props.filterInputData.flags[flagKey]}
-        onChange={(e) => onFlagChange(e, flagKey)}
-      />
-    )
-  }
+export const ClubFilter: React.VFC<FilterAreaProps> = (props) => {
+  const { register, handleSubmit } = useForm<KeywordFormType>()
+
+  const onSubmit = handleSubmit((data) => {
+    props.setKeyword(data.keyword)
+  })
 
   return (
     <VStack
@@ -114,41 +64,71 @@ export const ClubFilter: React.VFC<FilterAreaProps> = (props) => {
       pb={PADDING_BEFORE_FOOTER}
       backgroundColor="form.background"
     >
-      <Input
-        width="18rem"
-        backgroundColor="#fff"
-        borderColor="form.frame"
-        textColor="text.main"
-        placeholder="検索キーワード"
-        value={props.filterInputData.keyword}
-        onChange={onKeywordChange}
-        _placeholder={{
-          color: "text.sub",
-        }}
-      />
+      <form onSubmit={onSubmit}>
+        <Input
+          width="18rem"
+          backgroundColor="#fff"
+          borderColor="form.frame"
+          textColor="text.main"
+          placeholder="検索キーワード"
+          _placeholder={{
+            color: "text.sub",
+          }}
+          {...register("keyword")}
+        />
 
-      <Stack alignSelf="start" spacing="0.5rem" pt="1rem" pl="3rem">
-        <Text color="text.modal.sub" pb="0.5rem" pt="1rem">
-          キャンパス
-        </Text>
-        {filterItemWrapper("八王子", "inHachioji")}
-        {filterItemWrapper("蒲田", "inKamata")}
-        <Text color="text.modal.sub" pb="0.5rem" pt="1rem">
-          分類
-        </Text>
-        {filterItemWrapper("文化系", "isCulture")}
-        {filterItemWrapper("体育系", "isSports")}
-        {filterItemWrapper("委員会", "isCommittee")}
-      </Stack>
-      <HStack w="80%" pt="1.5rem">
-        <PortalButton pbstyle="solid" width="7rem" onClick={onReset}>
-          リセット
-        </PortalButton>
-        <Spacer flex="1" />
-        <PortalButton width="7rem" onClick={onSearch}>
-          検索
-        </PortalButton>
-      </HStack>
+        <Stack alignSelf="start" spacing="0.5rem" pt="1rem" pl="3rem">
+          <Text color="text.modal.sub" pb="0.5rem" pt="1rem">
+            キャンパス
+          </Text>
+          <FilterItem
+            label="八王子"
+            isChecked={props.filterValues.isHachiojiCampus}
+            action="TOGGLE_IS_HACHIOJI_CAMPUS"
+            dispatcher={props.dispatchFilterValues}
+          />
+          <FilterItem
+            label="蒲田"
+            isChecked={props.filterValues.isKamataCampus}
+            action="TOGGLE_IS_KAMATA_CAMPUS"
+            dispatcher={props.dispatchFilterValues}
+          />
+          <Text color="text.modal.sub" pb="0.5rem" pt="1rem">
+            分類
+          </Text>
+          <FilterItem
+            label="文化系"
+            isChecked={props.filterValues.isCultureClub}
+            action="TOGGLE_IS_CULTURE_CLUB"
+            dispatcher={props.dispatchFilterValues}
+          />
+          <FilterItem
+            label="体育系"
+            isChecked={props.filterValues.isSportsClub}
+            action="TOGGLE_IS_SPORTS_CLUB"
+            dispatcher={props.dispatchFilterValues}
+          />
+          <FilterItem
+            label="委員会"
+            isChecked={props.filterValues.isCommittee}
+            action="TOGGLE_IS_COMMITTEE"
+            dispatcher={props.dispatchFilterValues}
+          />
+        </Stack>
+        <HStack w="80%" pt="1.5rem">
+          <PortalButton
+            pbstyle="solid"
+            width="7rem"
+            onClick={() => props.dispatchFilterValues({ type: "RESET_FILTER" })}
+          >
+            リセット
+          </PortalButton>
+          <Spacer flex="1" />
+          <PortalButton width="7rem" type="submit">
+            検索
+          </PortalButton>
+        </HStack>
+      </form>
     </VStack>
   )
 }

@@ -1,5 +1,19 @@
 import type { BadgeActivity, BadgeCampus } from "../types/badge"
-import { DateType, SNSType } from "../types/description"
+import type { DateType, SNSType } from "../types/description"
+import type {
+  RESET_FILTER_ACTION,
+  SET_NAME_ASC_ACTION,
+  SET_NAME_DESC_ACTION,
+  TOGGLE_DATE_ACITON,
+  TOGGLE_IS_COMMITTEE_ACTION,
+  TOGGLE_IS_CULTURE_CLUB_ACTION,
+  TOGGLE_IS_HACHIOJI_CAMPUS_ACTION,
+  TOGGLE_IS_KAMATA_CAMPUS_ACTION,
+  TOGGLE_IS_SPORTS_CLUB_ACTION,
+  TOGGLE_PLACE_ACTION,
+  TOGGLE_ROOM_ACTION,
+  TOGGLE_TIME_ACTION,
+} from "../types/reducer"
 
 export const PADDING_BEFORE_FOOTER = "6rem"
 export const VALID_SNS_LIST: ReadonlyArray<SNSType> = [
@@ -12,8 +26,8 @@ export const VALID_SNS_LIST: ReadonlyArray<SNSType> = [
 ]
 export const CAMPUS: ReadonlyArray<BadgeCampus> = ["hachioji", "kamata"]
 export const ACTIVITY: ReadonlyArray<BadgeActivity> = [
-  "sports",
   "culture",
+  "sports",
   "committee",
 ]
 export const MONTHS: ReadonlyArray<number> = [
@@ -66,3 +80,22 @@ export const DATE_NUMBER_MAP: { [key in DateType]: number } = {
   Day: 17,
   Etc: 20,
 }
+
+export const TOGGLE_DATE: TOGGLE_DATE_ACITON = "TOGGLE_DATE"
+export const TOGGLE_TIME: TOGGLE_TIME_ACTION = "TOGGLE_TIME"
+export const TOGGLE_PLACE: TOGGLE_PLACE_ACTION = "TOGGLE_PLACE"
+export const TOGGLE_ROOM: TOGGLE_ROOM_ACTION = "TOGGLE_ROOM"
+
+export const TOGGLE_IS_HACHIOJI_CAMPUS: TOGGLE_IS_HACHIOJI_CAMPUS_ACTION =
+  "TOGGLE_IS_HACHIOJI_CAMPUS"
+export const TOGGLE_IS_KAMATA_CAMPUS: TOGGLE_IS_KAMATA_CAMPUS_ACTION =
+  "TOGGLE_IS_KAMATA_CAMPUS"
+export const TOGGLE_IS_SPORTS_CLUB: TOGGLE_IS_SPORTS_CLUB_ACTION =
+  "TOGGLE_IS_SPORTS_CLUB"
+export const TOGGLE_IS_CULTURE_CLUB: TOGGLE_IS_CULTURE_CLUB_ACTION =
+  "TOGGLE_IS_CULTURE_CLUB"
+export const TOGGLE_IS_COMMITTEE: TOGGLE_IS_COMMITTEE_ACTION =
+  "TOGGLE_IS_COMMITTEE"
+export const SET_NAME_ASC: SET_NAME_ASC_ACTION = "SET_NAME_ASC"
+export const SET_NAME_DESC: SET_NAME_DESC_ACTION = "SET_NAME_DESC"
+export const RESET_FILTER: RESET_FILTER_ACTION = "RESET_FILTER"

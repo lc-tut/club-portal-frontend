@@ -2,6 +2,7 @@ import {
   Grid,
   GridItem,
   HStack,
+  Link,
   List,
   ListItem,
   Stack,
@@ -113,7 +114,7 @@ export const DetailInformation: React.VFC<DetailInformationProps> = (props) => {
             <List>
               {props.website?.map((item, i) => (
                 <ListItem key={i} textColor="green.600">
-                  {item}
+                  <Link href={item}>{item}</Link>
                 </ListItem>
               ))}
             </List>
