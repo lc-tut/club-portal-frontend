@@ -181,7 +181,7 @@ export const ClubPage: React.VFC<ClubPageProps> = (props) => {
             .filter((link) => link.label !== "HP" && link.label !== "Email")
             .map((link) => ({ label: link.label, path: link.url }))}
           content={data?.description ?? ""}
-          fullWidth={session === null}
+          halfWidth={session === null && !isMobile}
         />
         {session !== null ? (
           <>

@@ -43,8 +43,8 @@ const iconMap: { [key in SNSType]?: JSX.Element } = {
 }
 
 export const DescriptionText: React.VFC<DescriptionProps> = (props) => {
-  const colSpan = props.fullWidth ? 12 : { base: 12, md: 6 }
-  const width = props.fullWidth ? "50%" : "100%"
+  const colSpan = props.halfWidth ? 12 : { base: 12, md: 6 }
+  const width = props.halfWidth ? "50%" : "100%"
 
   return (
     <GridItem colSpan={colSpan}>
