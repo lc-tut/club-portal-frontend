@@ -11,11 +11,7 @@ import { useReducer, useState } from "react"
 import { Link } from "react-router-dom"
 import { ClubCard } from "../components/common/Clubs/ClubCard"
 import { ClubSortOptionSelect } from "../components/common/Clubs/ClubSortOptionSelect"
-import {
-  BrowserClubFilter,
-  defaultFilter,
-  Filter,
-} from "../components/common/Clubs/ClubFilter"
+import { ClubFilter } from "../components/common/Clubs/ClubFilter"
 import { TitleArea } from "../components/global/Header/TitleArea"
 import { Loading } from "../components/global/LoadingPage"
 import { useAPI } from "../hooks/useAPI"
@@ -38,6 +34,8 @@ const AnimatedClubs: React.VFC<{}> = () => {
     isAscending: true,
   })
   const [keyword, setKeyword] = useState<string>("")
+  const [isMobileLayout] = useMediaQuery("(max-width: 62em)")
+  const [isSmallPadding] = useMediaQuery("(max-width: 30em)")
   const sortedClubs = useClubDisplay(data, state, keyword)
 
   if (isError) {
@@ -59,19 +57,10 @@ const AnimatedClubs: React.VFC<{}> = () => {
         spacing="0"
         direction={isMobileLayout ? "column" : "row"}
       >
-        <BrowserClubFilter
-          filter={filterInputData}
-          setFilter={setFilterInputData}
-          onReset={() => {
-            const newFilterInput = { ...defaultFilter }
-            newFilterInput.flags = { ...defaultFilter.flags }
-            setFilterInputData(newFilterInput)
-            setFilter(newFilterInput)
-          }}
-          onApply={() => {
-            const newFilter = { ...filterInputData }
-            setFilter(newFilter)
-          }}
+        <ClubFilter
+          filterValues={state}
+          dispatchFilterValues={dispatch}
+          setKeyword={setKeyword}
           isMobileLayout={isMobileLayout}
         />
         <Box
@@ -100,7 +89,7 @@ const AnimatedClubs: React.VFC<{}> = () => {
                   columnGap="2rem"
                 >
                   {sortedClubs.map((club, i) => (
-                    <<GridItem colSpan={1} key={i}>
+                    <GridItem colSpan={1} key={i}>
                       <Link to={club.clubSlug}>
                         <ClubCard
                           name={club.name}
