@@ -13,10 +13,9 @@ import { useForm } from "react-hook-form"
 import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { Content } from "../../../types/api"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useErrorToast } from "../../../hooks/useErrorToast"
 import { useSuccessToast } from "../../../hooks/useSuccessToast"
-import { useEffect } from "@storybook/addons"
 import { useAPI } from "../../../hooks/useAPI"
 import { useOutletUser } from "../../../hooks/useOutletUser"
 import type { AxiosRequestConfig } from "axios"
@@ -81,8 +80,8 @@ export const ContentEditor: React.VFC<{}> = () => {
       data: filteredContents,
     }
     try {
-      await axiosWithPayload<Array<Content>, Array<Content>>(requestConfig),
-        successRemoveToast()
+      await axiosWithPayload<Array<Content>, Array<Content>>(requestConfig)
+      successRemoveToast()
       setContents(filteredContents)
     } catch (e) {
       errorRemoveToast()
@@ -104,10 +103,7 @@ export const ContentEditor: React.VFC<{}> = () => {
                   backgroundColor="#fff"
                   textColor="text.main"
                   placeholder="活動内容を1つ入力して下さい"
-                  {...(register("content"),
-                  {
-                    minLength: 1,
-                  })}
+                  {...register("content")}
                 />
                 <Wrap h="1.2rem">
                   <FormErrorMessage>
@@ -126,7 +122,7 @@ export const ContentEditor: React.VFC<{}> = () => {
                     onClick={() => onRemove(item)}
                     paddingTop="0"
                   />
-                  <Text>{item}</Text>
+                  <Text>{item.content}</Text>
                 </HStack>
               )
             })}

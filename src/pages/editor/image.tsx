@@ -24,8 +24,6 @@ import { PADDING_BEFORE_FOOTER } from "../../utils/consts"
 import { useOutletUser } from "../../hooks/useOutletUser"
 import { useAPI } from "../../hooks/useAPI"
 import type { Image, UpdateImagePayload } from "../../types/api"
-import { Loading } from "../../components/global/LoadingPage"
-import { ErrorPage } from "../error"
 import { toAbsolutePath } from "../../utils/functions"
 import type { AxiosRequestConfig } from "axios"
 import { axiosWithPayload } from "../../utils/axios"
@@ -83,7 +81,7 @@ const ImagePreviews: React.VFC<ImagePreviewsProps> = (props) => {
 
 export const ImageEditor: React.VFC<{}> = () => {
   const { clubUuid } = useOutletUser()
-  const { data, isLoading, isError } = useAPI<Array<Image>>(
+  const { data } = useAPI<Array<Image>>(
     `/api/v1/clubs/uuid/${clubUuid!}/image`
   )
   const [existImages, setExistImages] = useState<Array<Image>>([])
@@ -125,14 +123,6 @@ export const ImageEditor: React.VFC<{}> = () => {
   const onPreviewClick = (imagePath: string) => {
     setCurrentImage(imagePath)
     onOpen()
-  }
-
-  if (isLoading) {
-    return <Loading fullScreen />
-  }
-
-  if (isError) {
-    return <ErrorPage />
   }
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

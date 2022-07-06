@@ -22,8 +22,6 @@ import type { SNSType } from "../../types/description"
 import { useAPI } from "../../hooks/useAPI"
 import type { Link } from "../../types/api"
 import { useOutletUser } from "../../hooks/useOutletUser"
-import { Loading } from "../../components/global/LoadingPage"
-import { ErrorPage } from "../error"
 import type { AxiosRequestConfig } from "axios"
 import { axiosWithPayload } from "../../utils/axios"
 import { useErrorToast } from "../../hooks/useErrorToast"
@@ -39,7 +37,7 @@ const schema = z.object({
 // TODO: refactor logics
 export const LinkEditor: React.VFC<{}> = () => {
   const { clubUuid } = useOutletUser()
-  const { data, isLoading, isError } = useAPI<Array<Link>>(
+  const { data } = useAPI<Array<Link>>(
     `/api/v1/clubs/uuid/${clubUuid!}/link`
   )
   const {
@@ -150,14 +148,6 @@ export const LinkEditor: React.VFC<{}> = () => {
       errorToast()
     }
   })
-
-  if (isLoading) {
-    return <Loading fullScreen />
-  }
-
-  if (isError) {
-    return <ErrorPage />
-  }
 
   return (
     <VStack flex="1" pb={PADDING_BEFORE_FOOTER}>

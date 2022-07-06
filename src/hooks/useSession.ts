@@ -14,7 +14,7 @@ export const useSession = () => {
   const isLoading = !error && data === undefined
 
   useEffect(() => {
-    if (isLoading || error) {
+    if (!isLoading || error) {
       setLoadingState.setIsLoading(isLoading)
       setLoadingState.setIsError(error)
     }

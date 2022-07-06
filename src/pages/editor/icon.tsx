@@ -20,7 +20,6 @@ import { PortalButton } from "../../components/common/Button"
 import { EditorBase } from "../../components/common/Editor/EditorBase"
 import { PortalLogo } from "../../components/common/Icon"
 import { TitleArea } from "../../components/global/Header/TitleArea"
-import { Loading } from "../../components/global/LoadingPage"
 import { useAPI } from "../../hooks/useAPI"
 import { useErrorToast } from "../../hooks/useErrorToast"
 import { useOutletUser } from "../../hooks/useOutletUser"
@@ -30,7 +29,6 @@ import type { StateDispatch } from "../../types/utils"
 import { axiosWithPayload } from "../../utils/axios"
 import { PADDING_BEFORE_FOOTER } from "../../utils/consts"
 import { toAbsolutePath } from "../../utils/functions"
-import { ErrorPage } from "../error"
 
 type ResizeModalProps = {
   isOpen: boolean
@@ -128,7 +126,7 @@ const ResizeModal: React.VFC<ResizeModalProps> = (props) => {
 
 export const IconEditor: React.VFC<{}> = () => {
   const { clubUuid } = useOutletUser()
-  const { data, isLoading, isError } = useAPI<Thumbnail>(
+  const { data } = useAPI<Thumbnail>(
     `/api/v1/upload/thumbnail/clubs/${clubUuid!}`
   )
   const errorToast = useErrorToast("データの保存に失敗しました。")
@@ -203,14 +201,6 @@ export const IconEditor: React.VFC<{}> = () => {
     } catch (e) {
       errorToast()
     }
-  }
-
-  if (isLoading) {
-    return <Loading fullScreen />
-  }
-
-  if (isError) {
-    return <ErrorPage />
   }
 
   return (

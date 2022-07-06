@@ -15,8 +15,6 @@ import { FormProvider, useForm, useFormContext } from "react-hook-form"
 import type { Schedule } from "../../types/api"
 import { useOutletUser } from "../../hooks/useOutletUser"
 import { useAPI } from "../../hooks/useAPI"
-import { Loading } from "../../components/global/LoadingPage"
-import { ErrorPage } from "../error"
 import { axiosWithPayload } from "../../utils/axios"
 import type { AxiosRequestConfig } from "axios"
 import { useErrorToast } from "../../hooks/useErrorToast"
@@ -69,7 +67,7 @@ type FormScheduleType = {
 
 export const ScheduleEditor: React.VFC<{}> = () => {
   const { clubUuid } = useOutletUser()
-  const { data, isLoading, isError } = useAPI<Array<Schedule>>(
+  const { data } = useAPI<Array<Schedule>>(
     `/api/v1/clubs/uuid/${clubUuid!}/schedule`
   )
   const methods = useForm<FormScheduleType>()
@@ -102,14 +100,6 @@ export const ScheduleEditor: React.VFC<{}> = () => {
       errorToast()
     }
   })
-
-  if (isLoading) {
-    return <Loading fullScreen />
-  }
-
-  if (isError) {
-    return <ErrorPage />
-  }
 
   return (
     <VStack flex="1" pb={PADDING_BEFORE_FOOTER}>

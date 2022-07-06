@@ -26,7 +26,7 @@ export const useAPI = <R extends APIResponse | null>(
   const isLoading = !error && data === undefined
 
   useEffect(() => {
-    if (isLoading || error) {
+    if (!isLoading || error) {
       setLoadingState.setIsLoading(isLoading)
       setLoadingState.setIsError(error)
     }

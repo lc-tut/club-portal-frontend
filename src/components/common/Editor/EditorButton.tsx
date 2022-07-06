@@ -19,6 +19,7 @@ export const EditorButton: React.VFC<EditorButtonProps> = (props) => {
       p="0"
       mt={props.paddingTop ?? "1.2rem"}
       onClick={props.onClick}
+      type={props.type}
     >
       <Icon as={iconMap[props.icon]} color="text.main" />
     </Button>

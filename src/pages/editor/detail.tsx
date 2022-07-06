@@ -1,5 +1,4 @@
 import { Grid, GridItem, VStack } from "@chakra-ui/react"
-import { PortalButton } from "../../components/common/Button"
 import { TitleArea } from "../../components/global/Header/TitleArea"
 import { PADDING_BEFORE_FOOTER } from "../../utils/consts"
 import { AchievementEditor } from "../../components/common/Editor/AchievementEditor"
@@ -28,7 +27,6 @@ export const DetailEditor: React.VFC<{}> = () => {
         </GridItem>
         <DetailLinkEditor />
       </Grid>
-      <PortalButton type="submit">保存</PortalButton>
     </VStack>
   )
 }
