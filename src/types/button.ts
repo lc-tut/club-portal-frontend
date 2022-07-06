@@ -18,6 +18,7 @@ type CommonProps = CommonPickedProps & {
 type MenuButtonInternalProps = {
   mbtype?: "main" | "sub"
   isPreparing?: boolean
+  width?: string
 }
 
 export type MenuButtonProps = CommonProps & MenuButtonInternalProps

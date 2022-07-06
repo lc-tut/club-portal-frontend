@@ -14,7 +14,7 @@ import {
   VStack,
   Wrap,
 } from "@chakra-ui/react"
-import { EditorLabel, EditorText } from "./EditorInput"
+import { EditorLabel, EditorText } from "./CommonEditorComponent"
 import type {
   EditorSelectOptionItem,
   TimePlaceInputProps,

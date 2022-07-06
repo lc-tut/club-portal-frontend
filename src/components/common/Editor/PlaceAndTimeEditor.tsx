@@ -78,7 +78,7 @@ export const PlaceAndTimeEditor: React.VFC<PlaceAndTimeEditorProps> = (
       err = true
       setError("timeRemark", {
         type: "required",
-        message: "「その他」を選択している場合は備考は必須です。",
+        message: "「その他」を選択している場合は備考が必須です。",
       })
     } else {
       clearErrors("timeRemark")
@@ -87,7 +87,7 @@ export const PlaceAndTimeEditor: React.VFC<PlaceAndTimeEditorProps> = (
       err = true
       setError("placeRemark", {
         type: "required",
-        message: "「その他」を選択している場合は備考は必須です。",
+        message: "「その他」を選択している場合は備考が必須です。",
       })
     } else {
       clearErrors("placeRemark")

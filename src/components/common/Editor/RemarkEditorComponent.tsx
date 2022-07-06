@@ -7,7 +7,7 @@ import {
   Wrap,
 } from "@chakra-ui/react"
 import { useFormContext } from "react-hook-form"
-import { EditorLabel } from "./EditorInput"
+import { EditorLabel } from "./CommonEditorComponent"
 
 type RemarkInputProps = {
   label: string

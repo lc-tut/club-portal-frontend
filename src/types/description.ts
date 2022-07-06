@@ -12,7 +12,7 @@ export type IntroductionVideoProps = {
 export type DescriptionProps = {
   content: string
   links?: Array<{ label: string; path: string }>
-  fullWidth: boolean
+  halfWidth: boolean
 }
 
 export type DetailInformationProps = {

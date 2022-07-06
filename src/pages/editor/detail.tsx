@@ -41,7 +41,10 @@ type FormType = {
 
 const schema = z.object({
   email: z.string().email("正しいメールアドレスを入力してください。"),
-  homePage: z.string().url("正しいURLを入力してください。").optional(),
+  homePage: z.union([
+    z.string().url("正しいURLを入力してください。"),
+    z.string().length(0),
+  ]),
 })
 
 // FIXME: should rewrite
@@ -59,7 +62,6 @@ export const DetailEditor: React.VFC<{}> = () => {
   const linkResponse = useAPI<Array<Link>>(
     `/api/v1/clubs/uuid/${clubUuid!}/link`
   )
-  const methods = useForm<FormType>({ resolver: zodResolver(schema) })
   const errorToast = useErrorToast("データの保存に失敗しました。")
   const successToast = useSuccessToast("データの保存が完了しました！")
   const [achievements, setAchievements] = useState<Array<string>>([])
@@ -69,6 +71,14 @@ export const DetailEditor: React.VFC<{}> = () => {
   const [activityDetails, setActivityDetails] = useState<Array<ActivityDetail>>(
     []
   )
+
+  const methods = useForm<FormType>({
+    resolver: zodResolver(schema),
+  })
+  useEffect(() => {
+    methods.reset({ email: email, homePage: HP })
+  }, [email, HP, methods])
+
   const isLoading =
     achievementResponse.isLoading ||
     contentResponse.isLoading ||
@@ -217,19 +227,29 @@ export const DetailEditor: React.VFC<{}> = () => {
                 </FormControl>
               </GridItem>
               <GridItem>
-                <FormControl>
+                <FormControl
+                  isInvalid={methods.formState.errors.homePage !== undefined}
+                >
                   <FormLabel color="text.main" pl="0.2rem" fontSize="1.2rem">
                     HPのURL
                   </FormLabel>
+                  <Input
+                    placeholder={"HPのURLを入力して下さい"}
+                    w="20rem"
+                    backgroundColor="#fff"
+                    textColor="text.main"
+                    {...methods.register("homePage", {
+                      value: HP,
+                      required: false,
+                    })}
+                  />
+                  <Wrap h="1.2rem">
+                    <FormErrorMessage>
+                      {methods.formState.errors.homePage &&
+                        methods.formState.errors.homePage.message}
+                    </FormErrorMessage>
+                  </Wrap>
                 </FormControl>
-                <Input
-                  placeholder={"HPのURLを入力して下さい"}
-                  w="20rem"
-                  backgroundColor="#fff"
-                  textColor="text.main"
-                  defaultValue={HP}
-                  {...methods.register("homePage")}
-                />
               </GridItem>
             </Grid>
             <PortalButton type="submit">保存</PortalButton>

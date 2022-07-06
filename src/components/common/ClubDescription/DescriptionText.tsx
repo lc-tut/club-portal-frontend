@@ -1,11 +1,11 @@
 import {
-  GridItem,
-  VStack,
-  Text,
-  HStack,
-  Link,
   Button,
   Center,
+  GridItem,
+  HStack,
+  Link,
+  Text,
+  VStack,
 } from "@chakra-ui/react"
 import {
   BsDiscord,
@@ -43,8 +43,8 @@ const iconMap: { [key in SNSType]?: JSX.Element } = {
 }
 
 export const DescriptionText: React.VFC<DescriptionProps> = (props) => {
-  const colSpan = props.fullWidth ? 12 : { base: 12, md: 6 }
-  const width = props.fullWidth ? "50%" : "100%"
+  const colSpan = props.halfWidth ? 12 : { base: 12, md: 6 }
+  const width = props.halfWidth ? "50%" : "100%"
 
   return (
     <GridItem colSpan={colSpan}>
@@ -56,12 +56,18 @@ export const DescriptionText: React.VFC<DescriptionProps> = (props) => {
           <Text color="text.main" px="1rem">
             {props.content}
           </Text>
-          <HStack alignSelf="start" px="1rem">
+          <HStack alignSelf="start" px="1rem" flexWrap="wrap">
             {props.links?.map((link) => {
               const label = link.label
               const registerdSNS = isRegisteredSNS(label)
               return (
-                <Link href={link.path} key={link.path} isExternal _hover={{}}>
+                <Link
+                  pt="1rem"
+                  href={link.path}
+                  key={link.path}
+                  isExternal
+                  _hover={{}}
+                >
                   <Button
                     color={
                       registerdSNS ? fgColorMap[label] : "button.text.gray"
@@ -74,6 +80,7 @@ export const DescriptionText: React.VFC<DescriptionProps> = (props) => {
                     borderRadius="2px"
                     height="2rem"
                     minWidth="6rem"
+                    py="1rem"
                     _hover={{
                       opacity: 0.6,
                     }}

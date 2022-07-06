@@ -68,6 +68,7 @@ export const DetailInformation: React.VFC<DetailInformationProps> = (props) => {
             >
               {props.activityDetail.map((pat, i) => {
                 const time = pat.time === "00:00-00:00" ? "未定" : pat.time
+                const isLast = props.activityDetail.length - 1 === i
 
                 return (
                   <Fragment key={i}>
@@ -76,16 +77,16 @@ export const DetailInformation: React.VFC<DetailInformationProps> = (props) => {
                     </GridItem>
                     <GridItem>
                       <HStack>
-                        <Text w="9rem">{time}</Text>
+                        <Text>{time}</Text>
                         {pat.timeRemark && (
                           <ActivityRemarkButton text={pat.timeRemark} />
                         )}
                       </HStack>
                     </GridItem>
                     <GridItem />
-                    <GridItem>
+                    <GridItem pb={isLast ? "0" : "0.8rem"}>
                       <HStack>
-                        <Text w="9rem">{pat.place}</Text>
+                        <Text>{pat.place}</Text>
                         {pat.placeRemark && (
                           <ActivityRemarkButton text={pat.placeRemark} />
                         )}
@@ -104,7 +105,7 @@ export const DetailInformation: React.VFC<DetailInformationProps> = (props) => {
             </UnorderedList>
           </RowComponent>
           <RowComponent icon={BsEnvelope} label="メール">
-            <List textColor="text.main">
+            <List textColor="text.main" wordBreak="break-all">
               {props.mail?.map((item, i) => (
                 <ListItem key={i}>{item}</ListItem>
               ))}
