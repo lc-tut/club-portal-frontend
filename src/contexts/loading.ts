@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import React, { useContext } from "react"
 import type { ErrorType, StateDispatch } from "../types/utils"
 
@@ -16,7 +17,6 @@ export const LoadingStateContext = React.createContext<LoadingState>({
   isError: undefined,
 })
 
-// eslint-disable-next-line @typescript-eslint/no-empty-function
 export const SetLoadingStateContext = React.createContext<SetLoadingState>({
   setIsLoading: () => {},
   setIsError: () => {},

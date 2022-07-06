@@ -37,11 +37,11 @@ const MonthInputArea: React.VFC<MonthInputAreaProps> = (props) => {
         width={0}
         height={0}
         value={props.month}
+        hidden
         {...register(`schedules.${props.month - 1}.month`, {
           value: props.month,
           valueAsNumber: true,
         })}
-        hidden
       />
       <Text pl="0.2rem" color="text.main">
         {props.month.toString() + "月"}

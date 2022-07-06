@@ -13,7 +13,7 @@ import {
   Wrap,
   FormErrorMessage,
 } from "@chakra-ui/react"
-import { EditorLabel } from "./CommonEditorComponent"
+import { EditorLabel } from "./CommonEditor"
 import {
   BUILDING_ID_MAP,
   TOGGLE_PLACE,

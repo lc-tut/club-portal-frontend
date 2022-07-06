@@ -1,169 +1,13 @@
-import {
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  Grid,
-  GridItem,
-  Input,
-  VStack,
-  Wrap,
-} from "@chakra-ui/react"
-import { useEffect, useState } from "react"
+import { Grid, GridItem, VStack } from "@chakra-ui/react"
 import { PortalButton } from "../../components/common/Button"
 import { TitleArea } from "../../components/global/Header/TitleArea"
 import { PADDING_BEFORE_FOOTER } from "../../utils/consts"
 import { AchievementEditor } from "../../components/common/Editor/AchievementEditor"
 import { ContentEditor } from "../../components/common/Editor/ContentEditor"
-import { PlaceAndTimeEditor } from "../../components/common/Editor/PlaceAndTimeEditor"
-import { useOutletUser } from "../../hooks/useOutletUser"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
-import { useAPI } from "../../hooks/useAPI"
-import type {
-  Achievement,
-  ActivityDetail,
-  Content,
-  Link,
-} from "../../types/api"
-import { ErrorPage } from "../error"
-import { Loading } from "../../components/global/LoadingPage"
-import { useErrorToast } from "../../hooks/useErrorToast"
-import { axiosWithPayload } from "../../utils/axios"
-import type { AxiosRequestConfig } from "axios"
-import { useSuccessToast } from "../../hooks/useSuccessToast"
+import { TimePlaceEditor } from "../../components/common/Editor/TimePlaceEditor"
+import { DetailLinkEditor } from "../../components/common/Editor/DetailLinkEditor"
 
-type FormType = {
-  email: string
-  homePage: string
-}
-
-const schema = z.object({
-  email: z.string().email("正しいメールアドレスを入力してください。"),
-  homePage: z.union([
-    z.string().url("正しいURLを入力してください。"),
-    z.string().length(0),
-  ]),
-})
-
-// FIXME: should rewrite
 export const DetailEditor: React.VFC<{}> = () => {
-  const { clubUuid } = useOutletUser()
-  const timePlaceResponse = useAPI<Array<ActivityDetail>>(
-    `/api/v1/clubs/uuid/${clubUuid!}/activity_detail`
-  )
-  const linkResponse = useAPI<Array<Link>>(
-    `/api/v1/clubs/uuid/${clubUuid!}/link`
-  )
-  const errorToast = useErrorToast("データの保存に失敗しました。")
-  const successToast = useSuccessToast("データの保存が完了しました！")
-  const [achievements, setAchievements] = useState<Array<string>>([])
-  const [contents, setContents] = useState<Array<string>>([])
-  const [email, setEmail] = useState<string>("")
-  const [HP, setHP] = useState<string | undefined>()
-  const [activityDetails, setActivityDetails] = useState<Array<ActivityDetail>>(
-    []
-  )
-
-  const methods = useForm<FormType>({
-    resolver: zodResolver(schema),
-  })
-  useEffect(() => {
-    methods.reset({ email: email, homePage: HP })
-  }, [email, HP, methods])
-
-  const isLoading =
-    achievementResponse.isLoading ||
-    contentResponse.isLoading ||
-    linkResponse.isLoading ||
-    timePlaceResponse.isLoading
-  const isError =
-    achievementResponse.isError ||
-    contentResponse.isError ||
-    linkResponse.isError ||
-    timePlaceResponse.isError
-
-  useEffect(() => {
-    if (achievementResponse.data) {
-      setAchievements(
-        achievementResponse.data.map((achivement) => achivement.achievement)
-      )
-    }
-    if (contentResponse.data) {
-      setContents(contentResponse.data.map((content) => content.content))
-    }
-    if (linkResponse.data) {
-      setEmail(
-        linkResponse.data
-          .filter((link) => link.label === "Email")
-          .map((link) => link.url)[0]
-      )
-      setHP(
-        linkResponse.data
-          .filter((link) => link.label === "HP")
-          .map((link) => link.url)?.[0]
-      )
-    }
-    if (timePlaceResponse.data) {
-      setActivityDetails(timePlaceResponse.data)
-    }
-  }, [
-    achievementResponse.data,
-    contentResponse.data,
-    linkResponse.data,
-    timePlaceResponse.data,
-  ])
-
-  const onSubmit = methods.handleSubmit(async (data) => {
-    const achievementRequestConfig: AxiosRequestConfig<Array<Achievement>> = {
-      url: `/api/v1/clubs/uuid/${clubUuid!}/achievement`,
-      method: "put",
-      data: achievements.map((achievement) => ({ achievement: achievement })),
-    }
-    const activityDetailRequestConfig: AxiosRequestConfig<
-      Array<ActivityDetail>
-    > = {
-      url: `/api/v1/clubs/uuid/${clubUuid!}/activity_detail`,
-      method: "put",
-      data: activityDetails,
-    }
-    const contentRequestConfig: AxiosRequestConfig<Array<Content>> = {
-      url: `/api/v1/clubs/uuid/${clubUuid!}/content`,
-      method: "put",
-      data: contents.map((content) => ({ content: content })),
-    }
-    const links: Array<Link> = [{ label: "Email", url: data.email }]
-    if (data.homePage) links.push({ label: "HP", url: data.homePage })
-    const linkRequestConfig: AxiosRequestConfig<Array<Link>> = {
-      url: `/api/v1/clubs/uuid/${clubUuid!}/link`,
-      method: "put",
-      data: links,
-    }
-    try {
-      await Promise.all([
-        axiosWithPayload<Array<Achievement>, Array<Achievement>>(
-          achievementRequestConfig
-        ),
-        axiosWithPayload<Array<ActivityDetail>, Array<ActivityDetail>>(
-          activityDetailRequestConfig
-        ),
-        axiosWithPayload<Array<Content>, Array<Content>>(contentRequestConfig),
-        axiosWithPayload<Array<Link>, Array<Link>>(linkRequestConfig),
-      ])
-      successToast()
-    } catch {
-      errorToast()
-    }
-  })
-
-  if (isLoading) {
-    return <Loading fullScreen />
-  }
-
-  if (isError) {
-    return <ErrorPage />
-  }
-
   return (
     <VStack flex="1" pb={PADDING_BEFORE_FOOTER}>
       <TitleArea>詳細情報の編集</TitleArea>
@@ -174,69 +18,15 @@ export const DetailEditor: React.VFC<{}> = () => {
         rowGap="3rem"
       >
         <GridItem colSpan={{ base: 1, md: 2 }}>
-          <ContentEditor items={contents} setItems={setContents} />
+          <ContentEditor />
         </GridItem>
         <GridItem colSpan={{ base: 1, md: 2 }}>
-          <PlaceAndTimeEditor
-            items={activityDetails}
-            setItems={setActivityDetails}
-          />
+          <TimePlaceEditor />
         </GridItem>
         <GridItem colSpan={{ base: 1, md: 2 }}>
-          <AchievementEditor items={achievements} setItems={setAchievements} />
+          <AchievementEditor />
         </GridItem>
-        <GridItem>
-          <FormControl isInvalid={methods.formState.errors.email !== undefined}>
-            <FormLabel color="text.main" pl="0.2rem" fontSize="1.2rem">
-              連絡先のメールアドレス
-            </FormLabel>
-            <Input
-              placeholder={"メールアドレスを入力して下さい"}
-              w="20rem"
-              backgroundColor="#fff"
-              textColor="text.main"
-              defaultValue={email}
-              {...methods.register("email", {
-                value: email,
-                required: {
-                  value: true,
-                  message: "メールアドレスが空白です！",
-                },
-              })}
-            />
-            <Wrap h="1.2rem">
-              <FormErrorMessage>
-                {methods.formState.errors.email &&
-                  methods.formState.errors.email.message}
-              </FormErrorMessage>
-            </Wrap>
-          </FormControl>
-        </GridItem>
-        <GridItem>
-          <FormControl
-            isInvalid={methods.formState.errors.homePage !== undefined}
-          >
-            <FormLabel color="text.main" pl="0.2rem" fontSize="1.2rem">
-              HPのURL
-            </FormLabel>
-            <Input
-              placeholder={"HPのURLを入力して下さい"}
-              w="20rem"
-              backgroundColor="#fff"
-              textColor="text.main"
-              {...methods.register("homePage", {
-                value: HP,
-                required: false,
-              })}
-            />
-            <Wrap h="1.2rem">
-              <FormErrorMessage>
-                {methods.formState.errors.homePage &&
-                  methods.formState.errors.homePage.message}
-              </FormErrorMessage>
-            </Wrap>
-          </FormControl>
-        </GridItem>
+        <DetailLinkEditor />
       </Grid>
       <PortalButton type="submit">保存</PortalButton>
     </VStack>

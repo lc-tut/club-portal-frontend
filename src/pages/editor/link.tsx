@@ -27,7 +27,7 @@ import { ErrorPage } from "../error"
 import type { AxiosRequestConfig } from "axios"
 import { axiosWithPayload } from "../../utils/axios"
 import { useErrorToast } from "../../hooks/useErrorToast"
-import { EditorLabel } from "../../components/common/Editor/CommonEditorComponent"
+import { EditorLabel } from "../../components/common/Editor/CommonEditor"
 import { useSuccessToast } from "../../hooks/useSuccessToast"
 
 const schema = z.object({
@@ -36,6 +36,7 @@ const schema = z.object({
   otherLabel: z.string().optional(),
 })
 
+// TODO: refactor logics
 export const LinkEditor: React.VFC<{}> = () => {
   const { clubUuid } = useOutletUser()
   const { data, isLoading, isError } = useAPI<Array<Link>>(
@@ -82,7 +83,7 @@ export const LinkEditor: React.VFC<{}> = () => {
         err = true
         setError("otherLabel", {
           type: "required",
-          message: "その他のSNSを入力してください",
+          message: "その他のSNSを入力してください。",
         })
       } else if (
         !z
@@ -93,7 +94,7 @@ export const LinkEditor: React.VFC<{}> = () => {
         err = true
         setError("otherLabel", {
           type: "required",
-          message: "先頭大文字の半角英数字で入力して下さい",
+          message: "先頭大文字の半角英数字で入力して下さい。",
         })
       } else {
         clearErrors("otherLabel")

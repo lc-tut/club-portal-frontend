@@ -104,9 +104,10 @@ export const ContentEditor: React.VFC<{}> = () => {
                   backgroundColor="#fff"
                   textColor="text.main"
                   placeholder="活動内容を1つ入力して下さい"
-                  {...register("content"), {
+                  {...(register("content"),
+                  {
                     minLength: 1,
-                  }}
+                  })}
                 />
                 <Wrap h="1.2rem">
                   <FormErrorMessage>
