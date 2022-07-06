@@ -17,7 +17,7 @@ import {
 import { EditorLabel, EditorText } from "./CommonEditorComponent"
 import type {
   EditorSelectOptionItem,
-  TimeInputProps,
+  TimePlaceInputProps,
 } from "../../../types/editor"
 import { DATE_MAP } from "../../../utils/consts"
 import type { DateType } from "../../../types/description"
@@ -36,7 +36,7 @@ type FormTimeType = {
   }
 }
 
-export const TimeInput: React.VFC<TimeInputProps> = (props) => {
+export const TimeInput: React.VFC<TimePlaceInputProps> = (props) => {
   const {
     register,
     formState: { errors },

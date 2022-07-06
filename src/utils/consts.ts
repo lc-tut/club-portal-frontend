@@ -40,8 +40,7 @@ export const BUILDING_ID_MAP: { [key in number]: string } = {
   180: "総合グラウンド",
   181: "多目的グラウンド",
   182: "テニスコート",
-  301: "外部",
-  302: "未定",
+  300: "その他",
 }
 
 export const DATE_MAP: { [key in DateType]: string } = {

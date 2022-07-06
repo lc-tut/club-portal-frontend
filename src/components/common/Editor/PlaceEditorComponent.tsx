@@ -17,10 +17,10 @@ import { EditorLabel } from "./CommonEditorComponent"
 import { BUILDING_ID_MAP } from "../../../utils/consts"
 import type {
   EditorSelectOptionItem,
-  PlaceInputProps,
+  TimePlaceInputProps,
 } from "../../../types/editor"
 import { useFormContext } from "react-hook-form"
-import { ChangeEvent } from "react"
+import { Fragment } from "react"
 
 type FormPlaceType = {
   place: {
@@ -29,7 +29,7 @@ type FormPlaceType = {
   }
 }
 
-export const PlaceInput: React.VFC<PlaceInputProps> = (props) => {
+export const PlaceInput: React.VFC<TimePlaceInputProps> = (props) => {
   const {
     register,
     formState: { errors },
@@ -38,10 +38,6 @@ export const PlaceInput: React.VFC<PlaceInputProps> = (props) => {
   const options: Array<EditorSelectOptionItem> = Object.entries(
     BUILDING_ID_MAP
   ).map((d) => ({ displayName: d[1], value: d[0] }))
-
-  const onBuildingChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    props.setIsPlaceEtc(Math.floor(Number(e.target.value) / 100) === 3)
-  }
 
   return (
     <HStack>
@@ -57,18 +53,18 @@ export const PlaceInput: React.VFC<PlaceInputProps> = (props) => {
             w="10rem"
             backgroundColor="#fff"
             textColor="text.main"
-            {...register("place.building", {
-              onChange: onBuildingChange,
-            })}
+            {...register("place.building", { disabled: state.isPlaceDisabled })}
           >
             <option value="" hidden>
               -
             </option>
             {options.map((item, index) => {
-              return (
+              return item.value !== "300" ? (
                 <option key={index} value={item.value}>
                   {item.displayName}
                 </option>
+              ) : (
+                <Fragment key={index}></Fragment>
               )
             })}
           </Select>
@@ -87,7 +83,7 @@ export const PlaceInput: React.VFC<PlaceInputProps> = (props) => {
             min={0}
             max={2000}
             defaultValue={0}
-            isDisabled={state.isRoomDisabled}
+            isDisabled={state.isPlaceDisabled || state.isRoomDisabled}
           >
             <NumberInputField
               backgroundColor="#fff"
@@ -109,6 +105,18 @@ export const PlaceInput: React.VFC<PlaceInputProps> = (props) => {
             size="lg"
             isChecked={state.isRoomDisabled}
             onChange={() => dispatch({ type: "room" })}
+          />
+        </Flex>
+        <Wrap h="1.2rem" />
+      </Stack>
+      <Stack spacing="0" pl="1rem">
+        <EditorLabel label="場所を「その他」にする" />
+        <Flex h="40px" alignItems="center">
+          <Switch
+            colorScheme="green"
+            size="lg"
+            isChecked={state.isPlaceDisabled}
+            onChange={() => dispatch({ type: "place" })}
           />
         </Flex>
         <Wrap h="1.2rem" />
