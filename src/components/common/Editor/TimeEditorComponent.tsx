@@ -19,7 +19,7 @@ import type {
   EditorSelectOptionItem,
   TimePlaceInputProps,
 } from "../../../types/editor"
-import { DATE_MAP } from "../../../utils/consts"
+import { DATE_MAP, TOGGLE_DATE, TOGGLE_TIME } from "../../../utils/consts"
 import type { DateType } from "../../../types/description"
 import { useFormContext } from "react-hook-form"
 import { Fragment } from "react"
@@ -181,7 +181,7 @@ export const TimeInput: React.VFC<TimePlaceInputProps> = (props) => {
               colorScheme="green"
               size="lg"
               isChecked={state.isDateDisabled}
-              onChange={() => dispatch({ type: "date" })}
+              onChange={() => dispatch({ type: TOGGLE_DATE })}
             />
           </Flex>
         </VStack>
@@ -192,7 +192,7 @@ export const TimeInput: React.VFC<TimePlaceInputProps> = (props) => {
               colorScheme="green"
               size="lg"
               isChecked={state.isTimeDisabled}
-              onChange={() => dispatch({ type: "time" })}
+              onChange={() => dispatch({ type: TOGGLE_TIME })}
             />
           </Flex>
         </VStack>

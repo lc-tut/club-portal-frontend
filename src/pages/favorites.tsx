@@ -1,5 +1,5 @@
 import { Flex, Grid, GridItem, useMediaQuery, VStack } from "@chakra-ui/react"
-import { useEffect, useState } from "react"
+import { useReducer } from "react"
 import { Link } from "react-router-dom"
 import { ClubCard } from "../components/common/Clubs/ClubCard"
 import { ClubSortOptionSelect } from "../components/common/Clubs/ClubSortOptionSelect"
@@ -11,6 +11,8 @@ import { PADDING_BEFORE_FOOTER } from "../utils/consts"
 import type { ClubPageExternal } from "../types/api"
 import { getCampus, getActivity } from "../utils/functions"
 import { ErrorPage } from "./error"
+import { filterReducer } from "../reducer/filter"
+import { useClubDisplay } from "../hooks/useClubDisplay"
 
 export const AnimatedFavorites: React.VFC<{}> = () => {
   const { userUuid } = useOutletUser()
@@ -28,23 +30,15 @@ export const AnimatedFavorites: React.VFC<{}> = () => {
   else if (is1col) templateColumns = "repeat(1, 1fr)"
   else templateColumns = "repeat(1, 1fr)"
 
-  const [sortOption, setSortOption] = useState<string>("name-asc")
-  const [sortedClubs, setSortedClubs] = useState<Array<ClubPageExternal>>([])
-
-  useEffect(() => {
-    if (data) {
-      data.sort((val1, val2) => {
-        if (sortOption == "name-asc") {
-          return val1.name.localeCompare(val2.name)
-        } else if (sortOption == "name-desc") {
-          return val2.name.localeCompare(val1.name)
-        } else {
-          return 0
-        }
-      })
-      setSortedClubs(data)
-    }
-  }, [data, sortOption])
+  const [state, dispatch] = useReducer(filterReducer, {
+    isHachiojiCampus: true,
+    isKamataCampus: true,
+    isSportsClub: true,
+    isCultureClub: true,
+    isCommittee: true,
+    isAscending: true,
+  })
+  const sortedClubs = useClubDisplay(data, state, "")
 
   if (isError) {
     return <ErrorPage />
@@ -64,11 +58,11 @@ export const AnimatedFavorites: React.VFC<{}> = () => {
         <VStack w="80%" spacing="3rem">
           <Flex w="100%">
             <ClubSortOptionSelect
-              sortOption={sortOption}
-              setSortOption={setSortOption}
+              isAscending={state.isAscending}
+              dispatchIsAscending={dispatch}
             />
           </Flex>
-          {!isLoading ? (
+          {!isLoading && sortedClubs ? (
             <Grid
               templateColumns={templateColumns}
               rowGap="1rem"

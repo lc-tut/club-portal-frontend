@@ -11,6 +11,7 @@ Frontend Implementation of 'club-portal'
 - 閲覧履歴機能
 - 通知機能
 
-ブラウザ版を大体完成させることを目標とする\
-編集者用のページは「とりあえず」使えるようにする程度\
-→CSSレイアウトなどは後回し
+# 開発者Wiki
+
+は、このリポジトリのWikiにあります。\
+https://github.com/lc-tut/club-portal-frontend/wiki
