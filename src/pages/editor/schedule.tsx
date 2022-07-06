@@ -47,15 +47,15 @@ const MonthInputArea: React.VFC<MonthInputAreaProps> = (props) => {
         {props.month.toString() + "月"}
       </Text>
       <Textarea
-        {...register(`schedules.${props.month - 1}.schedule`, {
-          value: props.value,
-        })}
         w="20rem"
         h="4rem"
         textColor="text.main"
         backgroundColor="#fff"
         defaultValue={props.value}
         resize="none"
+        {...register(`schedules.${props.month - 1}.schedule`, {
+          value: props.value,
+        })}
       />
     </Stack>
   )
@@ -89,9 +89,7 @@ export const ScheduleEditor: React.VFC<{}> = () => {
   }, [data, methods])
 
   const onSubmit = methods.handleSubmit(async (data) => {
-    console.log(data)
     const payload = data.schedules.filter((d) => d.schedule !== "")
-    console.log(payload)
     const requestConfig: AxiosRequestConfig<Array<Schedule>> = {
       url: `/api/v1/clubs/uuid/${clubUuid!}/schedule`,
       method: "put",

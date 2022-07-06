@@ -10,14 +10,13 @@ import {
 } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import { PortalButton } from "../../components/common/Button"
-import { EditorBase } from "../../components/common/Editor/EditorBase"
 import { TitleArea } from "../../components/global/Header/TitleArea"
 import { PADDING_BEFORE_FOOTER } from "../../utils/consts"
 import { AchievementEditor } from "../../components/common/Editor/AchievementEditor"
 import { ContentEditor } from "../../components/common/Editor/ContentEditor"
 import { PlaceAndTimeEditor } from "../../components/common/Editor/PlaceAndTimeEditor"
 import { useOutletUser } from "../../hooks/useOutletUser"
-import { FormProvider, useForm } from "react-hook-form"
+import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { useAPI } from "../../hooks/useAPI"
@@ -50,14 +49,8 @@ const schema = z.object({
 // FIXME: should rewrite
 export const DetailEditor: React.VFC<{}> = () => {
   const { clubUuid } = useOutletUser()
-  const achievementResponse = useAPI<Array<Achievement>>(
-    `/api/v1/clubs/uuid/${clubUuid!}/achievement`
-  )
   const timePlaceResponse = useAPI<Array<ActivityDetail>>(
     `/api/v1/clubs/uuid/${clubUuid!}/activity_detail`
-  )
-  const contentResponse = useAPI<Array<Content>>(
-    `/api/v1/clubs/uuid/${clubUuid!}/content`
   )
   const linkResponse = useAPI<Array<Link>>(
     `/api/v1/clubs/uuid/${clubUuid!}/link`
@@ -174,88 +167,78 @@ export const DetailEditor: React.VFC<{}> = () => {
   return (
     <VStack flex="1" pb={PADDING_BEFORE_FOOTER}>
       <TitleArea>詳細情報の編集</TitleArea>
-      <FormProvider {...methods}>
-        <form onSubmit={onSubmit}>
-          <EditorBase>
-            <Grid
-              templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)" }}
-              columnGap="1rem"
-              rowGap="3rem"
-            >
-              <GridItem colSpan={{ base: 1, md: 2 }}>
-                <ContentEditor items={contents} setItems={setContents} />
-              </GridItem>
-              <GridItem colSpan={{ base: 1, md: 2 }}>
-                <PlaceAndTimeEditor
-                  items={activityDetails}
-                  setItems={setActivityDetails}
-                />
-              </GridItem>
-              <GridItem colSpan={{ base: 1, md: 2 }}>
-                <AchievementEditor
-                  items={achievements}
-                  setItems={setAchievements}
-                />
-              </GridItem>
-              <GridItem>
-                <FormControl
-                  isInvalid={methods.formState.errors.email !== undefined}
-                >
-                  <FormLabel color="text.main" pl="0.2rem" fontSize="1.2rem">
-                    連絡先のメールアドレス
-                  </FormLabel>
-                  <Input
-                    placeholder={"メールアドレスを入力して下さい"}
-                    w="20rem"
-                    backgroundColor="#fff"
-                    textColor="text.main"
-                    defaultValue={email}
-                    {...methods.register("email", {
-                      value: email,
-                      required: {
-                        value: true,
-                        message: "メールアドレスが空白です！",
-                      },
-                    })}
-                  />
-                  <Wrap h="1.2rem">
-                    <FormErrorMessage>
-                      {methods.formState.errors.email &&
-                        methods.formState.errors.email.message}
-                    </FormErrorMessage>
-                  </Wrap>
-                </FormControl>
-              </GridItem>
-              <GridItem>
-                <FormControl
-                  isInvalid={methods.formState.errors.homePage !== undefined}
-                >
-                  <FormLabel color="text.main" pl="0.2rem" fontSize="1.2rem">
-                    HPのURL
-                  </FormLabel>
-                  <Input
-                    placeholder={"HPのURLを入力して下さい"}
-                    w="20rem"
-                    backgroundColor="#fff"
-                    textColor="text.main"
-                    {...methods.register("homePage", {
-                      value: HP,
-                      required: false,
-                    })}
-                  />
-                  <Wrap h="1.2rem">
-                    <FormErrorMessage>
-                      {methods.formState.errors.homePage &&
-                        methods.formState.errors.homePage.message}
-                    </FormErrorMessage>
-                  </Wrap>
-                </FormControl>
-              </GridItem>
-            </Grid>
-            <PortalButton type="submit">保存</PortalButton>
-          </EditorBase>
-        </form>
-      </FormProvider>
+
+      <Grid
+        templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)" }}
+        columnGap="1rem"
+        rowGap="3rem"
+      >
+        <GridItem colSpan={{ base: 1, md: 2 }}>
+          <ContentEditor items={contents} setItems={setContents} />
+        </GridItem>
+        <GridItem colSpan={{ base: 1, md: 2 }}>
+          <PlaceAndTimeEditor
+            items={activityDetails}
+            setItems={setActivityDetails}
+          />
+        </GridItem>
+        <GridItem colSpan={{ base: 1, md: 2 }}>
+          <AchievementEditor items={achievements} setItems={setAchievements} />
+        </GridItem>
+        <GridItem>
+          <FormControl isInvalid={methods.formState.errors.email !== undefined}>
+            <FormLabel color="text.main" pl="0.2rem" fontSize="1.2rem">
+              連絡先のメールアドレス
+            </FormLabel>
+            <Input
+              placeholder={"メールアドレスを入力して下さい"}
+              w="20rem"
+              backgroundColor="#fff"
+              textColor="text.main"
+              defaultValue={email}
+              {...methods.register("email", {
+                value: email,
+                required: {
+                  value: true,
+                  message: "メールアドレスが空白です！",
+                },
+              })}
+            />
+            <Wrap h="1.2rem">
+              <FormErrorMessage>
+                {methods.formState.errors.email &&
+                  methods.formState.errors.email.message}
+              </FormErrorMessage>
+            </Wrap>
+          </FormControl>
+        </GridItem>
+        <GridItem>
+          <FormControl
+            isInvalid={methods.formState.errors.homePage !== undefined}
+          >
+            <FormLabel color="text.main" pl="0.2rem" fontSize="1.2rem">
+              HPのURL
+            </FormLabel>
+            <Input
+              placeholder={"HPのURLを入力して下さい"}
+              w="20rem"
+              backgroundColor="#fff"
+              textColor="text.main"
+              {...methods.register("homePage", {
+                value: HP,
+                required: false,
+              })}
+            />
+            <Wrap h="1.2rem">
+              <FormErrorMessage>
+                {methods.formState.errors.homePage &&
+                  methods.formState.errors.homePage.message}
+              </FormErrorMessage>
+            </Wrap>
+          </FormControl>
+        </GridItem>
+      </Grid>
+      <PortalButton type="submit">保存</PortalButton>
     </VStack>
   )
 }

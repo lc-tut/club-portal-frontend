@@ -25,8 +25,9 @@ export type EditorMenuButtonProps = {
 
 export type EditorButtonProps = {
   icon: "add" | "remove"
-  onClick: () => void
+  onClick?: () => void
   paddingTop?: string
+  type?: "submit"
 }
 
 export type EditorSelectOptionItem = {

@@ -112,20 +112,16 @@ export const LinkEditor: React.VFC<{}> = () => {
       clearErrors("url")
     }
 
-    let isExist = false
-    for (const item of items) {
+    items.map((item) => {
       const label = isOther ? values.otherLabel!.trim() : values.label.trim()
       if (label === item.label && values.url.trim() === item.url) {
-        isExist = true
+        err = true
+        setError("url", {
+          type: "validate",
+          message: "既に登録済みです",
+        })
       }
-    }
-    if (isExist) {
-      err = true
-      setError("url", {
-        type: "validate",
-        message: "既に登録済みです",
-      })
-    }
+    })
 
     if (!err) {
       const v: Link = {

@@ -51,7 +51,6 @@ export const DescriptionEditor: React.VFC<{}> = () => {
   }, [data])
 
   const onSubmit = handleSubmit(async (data) => {
-    console.log(data)
     const requestConfig: AxiosRequestConfig<Description> = {
       url: `/api/v1/clubs/uuid/${clubUuid!}/description`,
       method: "put",
@@ -84,11 +83,6 @@ export const DescriptionEditor: React.VFC<{}> = () => {
                 サークルの説明文
               </FormLabel>
               <Textarea
-                {...register("description", {
-                  required: true,
-                  minLength: 1,
-                  value: data?.description,
-                })}
                 backgroundColor="#fff"
                 color="text.main"
                 w="30rem"
@@ -96,6 +90,11 @@ export const DescriptionEditor: React.VFC<{}> = () => {
                 placeholder="サークルの説明文を入力して下さい"
                 defaultValue={desc}
                 resize="none"
+                {...register("description", {
+                  required: true,
+                  minLength: 1,
+                  value: data?.description,
+                })}
               />
               <FormErrorMessage>
                 {errors.description && errors.description.message}
