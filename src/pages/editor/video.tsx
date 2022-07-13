@@ -133,9 +133,7 @@ export const VideoEditor: React.VFC<{}> = () => {
     clearErrors,
     formState: { errors },
   } = useForm<Video>()
-  const { data } = useAPI<Array<Video>>(
-    `/api/v1/clubs/uuid/${clubUuid!}/video`
-  )
+  const { data } = useAPI<Array<Video>>(`/api/v1/clubs/uuid/${clubUuid!}/video`)
   const [videoID, setVideoID] = useState<string>("")
   const errorToast = useErrorToast("データの保存に失敗しました。")
   const successToast = useSuccessToast("データの保存が完了しました！")

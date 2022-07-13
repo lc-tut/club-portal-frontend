@@ -89,10 +89,10 @@ export const AchievementEditor: React.VFC<{}> = () => {
   }
 
   return (
-    <Stack spacing="0">
+    <Stack spacing="0" align="center">
       <form onSubmit={onSubmit}>
-        <EditorBase>
-          <FormControl isInvalid={errors.achievement !== undefined}>
+        <EditorBase noBackButton>
+          <FormControl isInvalid={errors.achievement !== undefined} w="45rem">
             <FormLabel color="text.main" fontSize="1.2rem">
               実績
             </FormLabel>

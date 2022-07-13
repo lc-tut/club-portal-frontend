@@ -89,10 +89,10 @@ export const ContentEditor: React.VFC<{}> = () => {
   }
 
   return (
-    <Stack spacing="0">
-      <form onSubmit={onSubmit}>
-        <EditorBase>
-          <FormControl isInvalid={errors.content !== undefined}>
+    <Stack spacing="0" align="center">
+      <EditorBase>
+        <form onSubmit={onSubmit}>
+          <FormControl isInvalid={errors.content !== undefined} w="45rem">
             <FormLabel color="text.main" fontSize="1.2rem">
               活動内容
             </FormLabel>
@@ -127,8 +127,8 @@ export const ContentEditor: React.VFC<{}> = () => {
               )
             })}
           </Stack>
-        </EditorBase>
-      </form>
+        </form>
+      </EditorBase>
     </Stack>
   )
 }

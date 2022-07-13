@@ -81,9 +81,7 @@ const ImagePreviews: React.VFC<ImagePreviewsProps> = (props) => {
 
 export const ImageEditor: React.VFC<{}> = () => {
   const { clubUuid } = useOutletUser()
-  const { data } = useAPI<Array<Image>>(
-    `/api/v1/clubs/uuid/${clubUuid!}/image`
-  )
+  const { data } = useAPI<Array<Image>>(`/api/v1/clubs/uuid/${clubUuid!}/image`)
   const [existImages, setExistImages] = useState<Array<Image>>([])
   const [newImages, setNewImages] = useState<Array<File>>([])
   const [currentImage, setCurrentImage] = useState<string>("")

@@ -188,12 +188,12 @@ export const TimePlaceEditor: React.VFC<{}> = () => {
   }
 
   return (
-    <Stack>
-      <EditorBase>
+    <Stack align="center">
+      <EditorBase noBackButton>
         <Text color="text.main" fontSize="1.2rem">
           時間・場所
         </Text>
-        <Stack spacing="1.5rem">
+        <Stack spacing="1.5rem" w="45rem">
           <HStack alignItems="start">
             <FormProvider {...methods}>
               <form onSubmit={onSubmit}>

@@ -22,8 +22,7 @@ import { filterReducer } from "../reducer/filter"
 import { useClubDisplay } from "../hooks/useClubDisplay"
 
 const AnimatedClubs: React.VFC<{}> = () => {
-  const { data, isLoading } =
-    useAPI<Array<ClubPageExternal>>("/api/v1/clubs")
+  const { data, isLoading } = useAPI<Array<ClubPageExternal>>("/api/v1/clubs")
   const [state, dispatch] = useReducer(filterReducer, {
     isHachiojiCampus: true,
     isKamataCampus: true,

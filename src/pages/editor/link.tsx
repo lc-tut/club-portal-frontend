@@ -37,9 +37,7 @@ const schema = z.object({
 // TODO: refactor logics
 export const LinkEditor: React.VFC<{}> = () => {
   const { clubUuid } = useOutletUser()
-  const { data } = useAPI<Array<Link>>(
-    `/api/v1/clubs/uuid/${clubUuid!}/link`
-  )
+  const { data } = useAPI<Array<Link>>(`/api/v1/clubs/uuid/${clubUuid!}/link`)
   const {
     handleSubmit,
     register,
