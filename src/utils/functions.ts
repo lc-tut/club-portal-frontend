@@ -1,4 +1,3 @@
-import { useMediaQuery } from "@chakra-ui/react"
 import type { BadgeCampus, BadgeActivity } from "../types/badge"
 import type { DateType, SNSType } from "../types/description"
 import { CAMPUS, ACTIVITY, DATE_NUMBER_MAP } from "./consts"
@@ -38,9 +37,4 @@ export const toTimeID = (
 
 export const toPlaceID = (buildingID: number, roomNumber: number) => {
   return Number(`${buildingID}${roomNumber.toString().padStart(6, "0")}`)
-}
-
-export const useIsMobile = () => {
-  const [isMobile] = useMediaQuery("(max-width: 32em)")
-  return isMobile
 }
