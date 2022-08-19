@@ -1,12 +1,10 @@
 import {
-  Flex,
   FormControl,
   FormErrorMessage,
   HStack,
   Input,
   Select,
   Stack,
-  Switch,
   Text,
   VStack,
   Wrap,
@@ -43,6 +41,7 @@ export const LinkEditor: React.VFC<{}> = () => {
     handleSubmit,
     register,
     setError,
+    setValue,
     clearErrors,
     formState: { errors },
   } = useForm<Link & { otherLabel?: string }>({
@@ -122,7 +121,7 @@ export const LinkEditor: React.VFC<{}> = () => {
 
   return (
     <VStack flex="1" pb={PADDING_BEFORE_FOOTER}>
-      <TitleArea>SNSリンクの編集</TitleArea>
+      <TitleArea>リンクの編集</TitleArea>
       <form onSubmit={onSubmit}>
         <EditorBase>
           <Stack>
@@ -130,26 +129,32 @@ export const LinkEditor: React.VFC<{}> = () => {
               <EditorButton icon="add" type="submit" />
               <Stack spacing="0">
                 <FormControl isInvalid={errors.label !== undefined}>
-                  <EditorLabel label="SNS" />
+                  <EditorLabel label="リンク" />
                   <Stack>
                     <Select
                       backgroundColor="#fff"
                       w="12rem"
-                      {...(register("label"),
+                      {...register("label"),
                       {
-                        disabled: isOther,
-                      })}
+                        defaultValue: "",
+                        onChange: (e) => {
+                          // FIXME: ここで強制的に値を設定しないと label の値が undefined になる (ライブラリのバグ？)
+                          setValue("label", e.target.value)
+                          setIsOther(e.target.value === "other")
+                        }
+                      }}
                     >
                       <option value="" hidden>
                         -
                       </option>
-                      {VALID_SNS_LIST.map((item: LinkType) => {
+                      {VALID_SNS_LIST.map((item: LinkType, index) => {
                         return (
-                          <option key={item} value={item}>
+                          <option key={index} value={item}>
                             {item}
                           </option>
                         )
                       })}
+                      <option value="other">その他</option>
                     </Select>
                     <Wrap h="1.2rem">
                       <FormErrorMessage>
@@ -212,15 +217,6 @@ export const LinkEditor: React.VFC<{}> = () => {
               })}
             </Stack>
           </Stack>
-          <EditorLabel label="曜日を「その他」にする" />
-          <Flex h="40px" alignItems="center">
-            <Switch
-              colorScheme="green"
-              size="lg"
-              isChecked={isOther}
-              onChange={() => setIsOther(!isOther)}
-            />
-          </Flex>
         </EditorBase>
       </form>
     </VStack>
