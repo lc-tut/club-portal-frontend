@@ -1,5 +1,5 @@
 import type { BadgeActivity, BadgeCampus } from "../types/badge"
-import type { DateType, SNSType } from "../types/description"
+import type { DateType, LinkType } from "../types/description"
 import type {
   RESET_FILTER_ACTION,
   SET_NAME_ASC_ACTION,
@@ -16,13 +16,14 @@ import type {
 } from "../types/reducer"
 
 export const PADDING_BEFORE_FOOTER = "6rem"
-export const VALID_SNS_LIST: ReadonlyArray<SNSType> = [
+export const VALID_SNS_LIST: ReadonlyArray<LinkType> = [
   "Twitter",
   "Instagram",
   "Discord",
   "LINE",
   "YouTube",
   "Blog",
+  "HP",
 ]
 export const CAMPUS: ReadonlyArray<BadgeCampus> = ["hachioji", "kamata"]
 export const ACTIVITY: ReadonlyArray<BadgeActivity> = [

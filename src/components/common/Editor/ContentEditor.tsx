@@ -62,8 +62,8 @@ export const ContentEditor: React.VFC<{}> = () => {
       data: resultData,
     }
     try {
-      await axiosWithPayload<Array<Content>, Array<Content>>(requestConfig),
-        successAddToast()
+      await axiosWithPayload<Array<Content>, Array<Content>>(requestConfig)
+      successAddToast()
       setContents(resultData)
     } catch (e) {
       errorAddToast()

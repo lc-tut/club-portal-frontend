@@ -24,9 +24,5 @@ export const HamburgerMenu: React.VFC<{}> = () => {
   // TODO: 独自BreakPoint化
   const isMobile = useMobileMediaQuery()
 
-  return (
-    <>
-      {isMobile ? <MobileHamburgerMenu /> : <BrowserHamburgerMenu />}
-    </>
-  )
+  return <>{isMobile ? <MobileHamburgerMenu /> : <BrowserHamburgerMenu />}</>
 }

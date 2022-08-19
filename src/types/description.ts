@@ -41,13 +41,14 @@ export type ActivityRemarkButtonProps = {
   text: string
 }
 
-export type SNSType =
+export type LinkType =
   | "Twitter"
   | "Instagram"
   | "Discord"
   | "LINE"
   | "YouTube"
   | "Blog"
+  | "HP"
 
 export type RemarkProps = {
   text: string

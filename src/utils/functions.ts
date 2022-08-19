@@ -1,5 +1,5 @@
 import type { BadgeCampus, BadgeActivity } from "../types/badge"
-import type { DateType, SNSType } from "../types/description"
+import type { DateType, LinkType } from "../types/description"
 import { CAMPUS, ACTIVITY, DATE_NUMBER_MAP } from "./consts"
 
 export const toAbsolutePath = (path: string) => {
@@ -10,7 +10,7 @@ export const toAbsolutePath = (path: string) => {
 
 export const getCampus = (num: number): BadgeCampus => CAMPUS[num]
 export const getActivity = (num: number): BadgeActivity => ACTIVITY[num]
-export const isRegisteredSNS = (label: string): label is SNSType =>
+export const isRegisteredSNS = (label: string): label is LinkType =>
   label === "Twitter" ||
   label === "Instagram" ||
   label === "Discord" ||
