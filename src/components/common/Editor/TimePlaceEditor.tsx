@@ -50,7 +50,7 @@ const schema = z.object({
   }),
   timeRemark: z.string().optional(),
   place: z.object({
-    building: z.number(),
+    building: z.string().transform((v) => Number(v)),
     room: z.number(),
   }),
   placeRemark: z.string().optional(),
@@ -63,7 +63,6 @@ export const TimePlaceEditor: React.VFC<{}> = () => {
   const [state, dispatch] = useReducer(timePlaceReducer, {
     isDateDisabled: false,
     isTimeDisabled: false,
-    isPlaceDisabled: false,
     isRoomDisabled: false,
   })
   const { clubUuid } = useOutletUser()
@@ -100,7 +99,8 @@ export const TimePlaceEditor: React.VFC<{}> = () => {
     } else {
       methods.clearErrors("timeRemark")
     }
-    if (state.isPlaceDisabled && data.placeRemark === "") {
+    const building = data.place.building
+    if ((building === 301 || building === 302) && data.placeRemark === "") {
       err = true
       methods.setError("placeRemark", {
         type: "required",
@@ -138,14 +138,12 @@ export const TimePlaceEditor: React.VFC<{}> = () => {
               .toString()
               .padStart(2, "0")}:${endTime.minute.toString().padStart(2, "0")}`,
         timeRemark: data.timeRemark === "" ? undefined : data.timeRemark,
-        placeId: state.isPlaceDisabled
-          ? undefined
-          : toPlaceID(
-              placeObj.building,
-              state.isRoomDisabled ? 0 : placeObj.room
-            ),
+        placeId: toPlaceID(
+          placeObj.building,
+          state.isRoomDisabled ? 0 : placeObj.room
+        ),
         place: `${BUILDING_ID_MAP[placeObj.building]}${
-          state.isRoomDisabled || state.isPlaceDisabled ? "" : placeObj.room
+          state.isRoomDisabled ? "" : placeObj.room
         }`,
         placeRemark: data.placeRemark === "" ? undefined : data.placeRemark,
       }
@@ -209,7 +207,7 @@ export const TimePlaceEditor: React.VFC<{}> = () => {
                   <RemarkInput
                     label="場所に関する備考(任意)"
                     remarkKey="placeRemark"
-                    isRequired={state.isPlaceDisabled}
+                    isRequired={state.isRoomDisabled}
                   />
                 </Stack>
               </form>

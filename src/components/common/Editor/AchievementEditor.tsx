@@ -90,8 +90,8 @@ export const AchievementEditor: React.VFC<{}> = () => {
 
   return (
     <Stack spacing="0" align="center">
-      <form onSubmit={onSubmit}>
-        <EditorBase noBackButton>
+      <EditorBase noBackButton>
+        <form onSubmit={onSubmit}>
           <FormControl isInvalid={errors.achievement !== undefined} w="45rem">
             <FormLabel color="text.main" fontSize="1.2rem">
               実績
@@ -130,8 +130,8 @@ export const AchievementEditor: React.VFC<{}> = () => {
               )
             })}
           </Stack>
-        </EditorBase>
-      </form>
+        </form>
+      </EditorBase>
     </Stack>
   )
 }

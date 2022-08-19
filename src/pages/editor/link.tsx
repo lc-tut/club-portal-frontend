@@ -134,15 +134,15 @@ export const LinkEditor: React.VFC<{}> = () => {
                     <Select
                       backgroundColor="#fff"
                       w="12rem"
-                      {...register("label"),
+                      {...(register("label"),
                       {
                         defaultValue: "",
                         onChange: (e) => {
                           // FIXME: ここで強制的に値を設定しないと label の値が undefined になる (ライブラリのバグ？)
                           setValue("label", e.target.value)
                           setIsOther(e.target.value === "other")
-                        }
-                      }}
+                        },
+                      })}
                     >
                       <option value="" hidden>
                         -

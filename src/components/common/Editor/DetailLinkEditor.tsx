@@ -4,7 +4,6 @@ import {
   Input,
   Wrap,
   FormErrorMessage,
-  GridItem,
 } from "@chakra-ui/react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { AxiosRequestConfig } from "axios"
@@ -17,6 +16,8 @@ import { useOutletUser } from "../../../hooks/useOutletUser"
 import { useSuccessToast } from "../../../hooks/useSuccessToast"
 import type { Link } from "../../../types/api"
 import { axiosWithPayload } from "../../../utils/axios"
+import { PortalButton } from "../Button"
+import { EditorBase } from "./EditorBase"
 
 type FormType = {
   email: string
@@ -66,7 +67,7 @@ export const DetailLinkEditor: React.VFC<{}> = () => {
 
   return (
     <form onSubmit={onSubmit}>
-      <GridItem>
+      <EditorBase noBackButton>
         <FormControl isInvalid={errors.email !== undefined}>
           <FormLabel color="text.main" pl="0.2rem" fontSize="1.2rem">
             連絡先のメールアドレス
@@ -91,7 +92,8 @@ export const DetailLinkEditor: React.VFC<{}> = () => {
             </FormErrorMessage>
           </Wrap>
         </FormControl>
-      </GridItem>
+        <PortalButton type="submit">保存</PortalButton>
+      </EditorBase>
     </form>
   )
 }

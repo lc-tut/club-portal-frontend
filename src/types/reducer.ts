@@ -1,21 +1,15 @@
 export type TimePlaceStateType = {
   isDateDisabled: boolean
   isTimeDisabled: boolean
-  isPlaceDisabled: boolean
   isRoomDisabled: boolean
 }
 
 export type TOGGLE_DATE_ACITON = "TOGGLE_DATE"
 export type TOGGLE_TIME_ACTION = "TOGGLE_TIME"
-export type TOGGLE_PLACE_ACTION = "TOGGLE_PLACE"
 export type TOGGLE_ROOM_ACTION = "TOGGLE_ROOM"
 
 export type TimePlaceActionType = {
-  type:
-    | TOGGLE_DATE_ACITON
-    | TOGGLE_TIME_ACTION
-    | TOGGLE_PLACE_ACTION
-    | TOGGLE_ROOM_ACTION
+  type: TOGGLE_DATE_ACITON | TOGGLE_TIME_ACTION | TOGGLE_ROOM_ACTION
 }
 
 export type FilterStateType = {

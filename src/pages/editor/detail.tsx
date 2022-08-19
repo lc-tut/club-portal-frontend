@@ -25,7 +25,9 @@ export const DetailEditor: React.VFC<{}> = () => {
         <GridItem colSpan={{ base: 1, md: 2 }}>
           <AchievementEditor />
         </GridItem>
-        <DetailLinkEditor />
+        <GridItem>
+          <DetailLinkEditor />
+        </GridItem>
       </Grid>
     </VStack>
   )
