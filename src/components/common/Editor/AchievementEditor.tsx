@@ -103,8 +103,7 @@ export const AchievementEditor: React.VFC<{}> = () => {
                   backgroundColor="#fff"
                   textColor="text.main"
                   placeholder="実績を入力して下さい"
-                  {...(register("achievement"),
-                  {
+                  {...register("achievement", {
                     minLength: 1,
                   })}
                 />

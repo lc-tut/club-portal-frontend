@@ -28,12 +28,13 @@ import { EditorLabel } from "../../components/common/Editor/CommonEditor"
 import { useSuccessToast } from "../../hooks/useSuccessToast"
 
 const schema = z.object({
-  label: z.string().nonempty(),
+  label: z
+    .string()
+    .refine((v) => VALID_SNS_LIST.includes(v as LinkType) || v === "other"),
   url: z.string().url().nonempty(),
   otherLabel: z.string().optional(),
 })
 
-// TODO: refactor logics
 export const LinkEditor: React.VFC<{}> = () => {
   const { clubUuid } = useOutletUser()
   const { data } = useAPI<Array<Link>>(`/api/v1/clubs/uuid/${clubUuid!}/link`)
@@ -41,7 +42,6 @@ export const LinkEditor: React.VFC<{}> = () => {
     handleSubmit,
     register,
     setError,
-    setValue,
     clearErrors,
     formState: { errors },
   } = useForm<Link & { otherLabel?: string }>({
@@ -134,14 +134,8 @@ export const LinkEditor: React.VFC<{}> = () => {
                     <Select
                       backgroundColor="#fff"
                       w="12rem"
-                      {...(register("label"),
-                      {
-                        defaultValue: "",
-                        onChange: (e) => {
-                          // FIXME: ここで強制的に値を設定しないと label の値が undefined になる (ライブラリのバグ？)
-                          setValue("label", e.target.value)
-                          setIsOther(e.target.value === "other")
-                        },
+                      {...register("label", {
+                        onChange: (e) => setIsOther(e.target.value === "other"),
                       })}
                     >
                       <option value="" hidden>
