@@ -9,7 +9,7 @@ import {
   VStack,
   Wrap,
 } from "@chakra-ui/react"
-import { useEffect, useState } from "react"
+import { ChangeEvent, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { EditorBase } from "../../components/common/Editor/EditorBase"
@@ -135,7 +135,7 @@ export const LinkEditor: React.VFC<{}> = () => {
                       backgroundColor="#fff"
                       w="12rem"
                       {...register("label", {
-                        onChange: (e) => setIsOther(e.target.value === "other"),
+                        onChange: (e: ChangeEvent<HTMLSelectElement>) => setIsOther(e.target.value === "other"),
                       })}
                     >
                       <option value="" hidden>
