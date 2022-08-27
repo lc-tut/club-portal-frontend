@@ -135,7 +135,8 @@ export const LinkEditor: React.VFC<{}> = () => {
                       backgroundColor="#fff"
                       w="12rem"
                       {...register("label", {
-                        onChange: (e: ChangeEvent<HTMLSelectElement>) => setIsOther(e.target.value === "other"),
+                        onChange: (e: ChangeEvent<HTMLSelectElement>) =>
+                          setIsOther(e.target.value === "other"),
                       })}
                     >
                       <option value="" hidden>
