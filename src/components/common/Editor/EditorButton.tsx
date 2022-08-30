@@ -3,7 +3,7 @@ import type { IconType } from "react-icons"
 import { BsCheck2Circle, BsPlusCircle, BsTrash } from "react-icons/bs"
 import type { EditorButtonProps } from "../../../types/editor"
 
-type MapKeys = "add" | "remove" |  "check"
+type MapKeys = "add" | "remove" | "check"
 
 const iconMap: { [key in MapKeys]: IconType } = {
   add: BsPlusCircle,
