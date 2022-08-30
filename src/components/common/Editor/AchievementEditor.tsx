@@ -16,7 +16,6 @@ import { EditorButton } from "./EditorButton"
 import * as z from "zod"
 import { useEffect, useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { EditorBase } from "./EditorBase"
 import { AxiosRequestConfig } from "axios"
 import { axiosWithPayload } from "../../../utils/axios"
 import { useSuccessToast } from "../../../hooks/useSuccessToast"
@@ -90,47 +89,51 @@ export const AchievementEditor: React.VFC<{}> = () => {
 
   return (
     <Stack spacing="0" align="center">
-      <EditorBase noBackButton>
-        <form onSubmit={onSubmit}>
-          <FormControl isInvalid={errors.achievement !== undefined} w="45rem">
-            <FormLabel color="text.main" fontSize="1.2rem">
-              実績
-            </FormLabel>
-            <HStack alignItems="start">
-              <EditorButton icon="add" paddingTop="0" type="submit" />
-              <Stack spacing="0" flex="1">
-                <Input
-                  backgroundColor="#fff"
-                  textColor="text.main"
-                  placeholder="実績を入力して下さい"
-                  {...register("achievement", {
-                    minLength: 1,
-                  })}
+      <form onSubmit={onSubmit}>
+        <FormControl isInvalid={errors.achievement !== undefined} w="45rem">
+          <FormLabel
+            color="text.main"
+            fontSize="1.6rem"
+            textAlign="center"
+            m="0"
+            pb="2rem"
+          >
+            実績
+          </FormLabel>
+          <HStack alignItems="start">
+            <EditorButton icon="add" paddingTop="0" type="submit" />
+            <Stack spacing="0" flex="1">
+              <Input
+                backgroundColor="#fff"
+                textColor="text.main"
+                placeholder="実績を入力して下さい"
+                {...register("achievement", {
+                  minLength: 1,
+                })}
+              />
+              <Wrap h="1.2rem">
+                <FormErrorMessage>
+                  {errors.achievement && errors.achievement.message}
+                </FormErrorMessage>
+              </Wrap>
+            </Stack>
+          </HStack>
+        </FormControl>
+        <Stack>
+          {achievements.map((item, index) => {
+            return (
+              <HStack key={index} textColor="text.main">
+                <EditorButton
+                  icon="remove"
+                  onClick={() => onRemove(item)}
+                  paddingTop="0"
                 />
-                <Wrap h="1.2rem">
-                  <FormErrorMessage>
-                    {errors.achievement && errors.achievement.message}
-                  </FormErrorMessage>
-                </Wrap>
-              </Stack>
-            </HStack>
-          </FormControl>
-          <Stack>
-            {achievements.map((item, index) => {
-              return (
-                <HStack key={index} textColor="text.main">
-                  <EditorButton
-                    icon="remove"
-                    onClick={() => onRemove(item)}
-                    paddingTop="0"
-                  />
-                  <Text>{item.achievement}</Text>
-                </HStack>
-              )
-            })}
-          </Stack>
-        </form>
-      </EditorBase>
+                <Text>{item.achievement}</Text>
+              </HStack>
+            )
+          })}
+        </Stack>
+      </form>
     </Stack>
   )
 }

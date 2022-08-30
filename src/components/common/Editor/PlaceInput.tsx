@@ -39,7 +39,7 @@ export const PlaceInput: React.VFC<TimePlaceInputProps> = (props) => {
   ).map((d) => ({ displayName: d[1], value: d[0] }))
 
   return (
-    <HStack>
+    <HStack pl="50px">
       <FormControl
         w="10rem"
         isInvalid={
@@ -71,7 +71,7 @@ export const PlaceInput: React.VFC<TimePlaceInputProps> = (props) => {
         </Stack>
       </FormControl>
       <FormControl w="8rem">
-        <Stack spacing="0">
+        <Stack spacing="0" pb="1.2rem">
           <EditorLabel label="部屋番号" />
           <NumberInput
             width="8rem"
@@ -89,10 +89,9 @@ export const PlaceInput: React.VFC<TimePlaceInputProps> = (props) => {
               <NumberDecrementStepper />
             </NumberInputStepper>
           </NumberInput>
-          <Wrap h="1.2rem" />
         </Stack>
       </FormControl>
-      <Stack spacing="0" pl="2rem">
+      <Stack spacing="0" pl="2rem" pb="1.2rem">
         <EditorLabel label="部屋番号なし" />
         <Flex h="40px" alignItems="center">
           <Switch
@@ -102,7 +101,6 @@ export const PlaceInput: React.VFC<TimePlaceInputProps> = (props) => {
             onChange={() => dispatch({ type: TOGGLE_ROOM })}
           />
         </Flex>
-        <Wrap h="1.2rem" />
       </Stack>
     </HStack>
   )

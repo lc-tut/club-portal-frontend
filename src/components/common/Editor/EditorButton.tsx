@@ -1,13 +1,14 @@
 import { Button, Icon } from "@chakra-ui/react"
 import type { IconType } from "react-icons"
-import { BsPlusCircle, BsTrash } from "react-icons/bs"
+import { BsCheck2Circle, BsPlusCircle, BsTrash } from "react-icons/bs"
 import type { EditorButtonProps } from "../../../types/editor"
 
-type MapKeys = "add" | "remove"
+type MapKeys = "add" | "remove" |  "check"
 
 const iconMap: { [key in MapKeys]: IconType } = {
   add: BsPlusCircle,
   remove: BsTrash,
+  check: BsCheck2Circle,
 }
 
 export const EditorButton: React.VFC<EditorButtonProps> = (props) => {

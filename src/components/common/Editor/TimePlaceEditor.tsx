@@ -1,4 +1,4 @@
-import { HStack, Stack, Text } from "@chakra-ui/react"
+import { Flex, FormLabel, HStack, Stack, Text } from "@chakra-ui/react"
 import React, { useEffect, useReducer, useState } from "react"
 import { EditorButton } from "./EditorButton"
 import { BUILDING_ID_MAP, DATE_MAP } from "../../../utils/consts"
@@ -10,7 +10,6 @@ import { FormProvider, useForm } from "react-hook-form"
 import type { ActivityDetail } from "../../../types/api"
 import { timePlaceReducer } from "../../../reducer/timeplace"
 import { toPlaceID, toTimeID } from "../../../utils/functions"
-import { EditorBase } from "./EditorBase"
 import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useAPI } from "../../../hooks/useAPI"
@@ -186,63 +185,75 @@ export const TimePlaceEditor: React.VFC<{}> = () => {
   }
 
   return (
-    <Stack align="center">
-      <EditorBase noBackButton>
-        <Text color="text.main" fontSize="1.2rem">
-          時間・場所
-        </Text>
-        <Stack spacing="1.5rem" w="45rem">
-          <HStack alignItems="start">
-            <FormProvider {...methods}>
-              <form onSubmit={onSubmit}>
-                <EditorButton icon="add" type="submit" />
-                <Stack flex="1">
+    <Stack align="center" spacing="0">
+      <FormLabel
+        color="text.main"
+        fontSize="1.6rem"
+        textAlign="center"
+        m="0"
+        pb="2rem"
+      >
+        時間・場所
+      </FormLabel>
+      <Stack spacing="0.2rem" w="45rem">
+        <HStack alignItems="start">
+          <FormProvider {...methods}>
+            <form onSubmit={onSubmit}>
+              <Stack flex="1">
+                <HStack spacing="10px">
+                  <Flex alignSelf="start">
+                    <EditorButton icon="add" type="submit" />
+                  </Flex>
                   <TimeInput state={state} dispatch={dispatch} />
-                  <RemarkInput
-                    label="時間に関する備考(任意)"
-                    remarkKey="timeRemark"
-                    isRequired={state.isTimeDisabled || state.isDateDisabled}
-                  />
-                  <PlaceInput state={state} dispatch={dispatch} />
-                  <RemarkInput
-                    label="場所に関する備考(任意)"
-                    remarkKey="placeRemark"
-                    isRequired={state.isRoomDisabled}
-                  />
-                </Stack>
-              </form>
-            </FormProvider>
-          </HStack>
-          {activityDetails.map((item, index) => {
-            const isDate = item.date !== "Day" && item.date !== "Etc"
+                </HStack>
+                <RemarkInput
+                  label="時間に関する備考(任意)"
+                  remarkKey="timeRemark"
+                  isRequired={state.isTimeDisabled || state.isDateDisabled}
+                />
+                <PlaceInput state={state} dispatch={dispatch} />
+                <RemarkInput
+                  label="場所に関する備考(任意)"
+                  remarkKey="placeRemark"
+                  isRequired={state.isRoomDisabled}
+                />
+              </Stack>
+            </form>
+          </FormProvider>
+        </HStack>
+        {activityDetails.map((item, index) => {
+          const isDate = item.date !== "Day" && item.date !== "Etc"
 
-            return (
-              <HStack key={index} alignItems="center" textColor="text.main">
-                <EditorButton icon="remove" onClick={() => onRemove(item)} />
-                <Stack spacing="0" pt="1.2rem">
-                  <HStack h="40px">
-                    <Text>
-                      {isDate
-                        ? `${DATE_MAP[item.date]}曜日`
-                        : DATE_MAP[item.date]}
-                    </Text>
-                    <Text>{item.time}</Text>
-                    <Text>{item.place}</Text>
-                  </HStack>
-                  <Stack textColor="text.sub">
-                    {item.timeRemark && (
-                      <Text>備考(時間) - {item.timeRemark}</Text>
-                    )}
-                    {item.placeRemark && (
-                      <Text>備考(場所) - {item.placeRemark}</Text>
-                    )}
-                  </Stack>
+          return (
+            <HStack key={index} alignItems="center" textColor="text.main">
+              <EditorButton
+                icon="remove"
+                onClick={() => onRemove(item)}
+                paddingTop="0"
+              />
+              <Stack spacing="0">
+                <HStack h="40px">
+                  <Text>
+                    {isDate
+                      ? `${DATE_MAP[item.date]}曜日`
+                      : DATE_MAP[item.date]}
+                  </Text>
+                  <Text>{item.time}</Text>
+                  <Text>{item.place}</Text>
+                </HStack>
+                <Stack textColor="text.sub">
+                  {item.timeRemark && (
+                    <Text>備考(時間) - {item.timeRemark}</Text>
+                  )}
+                  {item.placeRemark && (
+                    <Text>備考(場所) - {item.placeRemark}</Text>
+                  )}
                 </Stack>
-              </HStack>
-            )
-          })}
-        </Stack>
-      </EditorBase>
+              </Stack>
+            </HStack>
+          )
+        })}
+      </Stack>
     </Stack>
   )
 }

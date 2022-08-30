@@ -20,7 +20,6 @@ import { useAPI } from "../../../hooks/useAPI"
 import { useOutletUser } from "../../../hooks/useOutletUser"
 import type { AxiosRequestConfig } from "axios"
 import { axiosWithPayload } from "../../../utils/axios"
-import { EditorBase } from "./EditorBase"
 
 type ContentType = {
   content: string
@@ -90,45 +89,49 @@ export const ContentEditor: React.VFC<{}> = () => {
 
   return (
     <Stack spacing="0" align="center">
-      <EditorBase>
-        <form onSubmit={onSubmit}>
-          <FormControl isInvalid={errors.content !== undefined} w="45rem">
-            <FormLabel color="text.main" fontSize="1.2rem">
-              活動内容
-            </FormLabel>
-            <HStack alignItems="start">
-              <EditorButton icon="add" paddingTop="0" type="submit" />
-              <Stack spacing="0" flex="1">
-                <Input
-                  backgroundColor="#fff"
-                  textColor="text.main"
-                  placeholder="活動内容を1つ入力して下さい"
-                  {...register("content")}
+      <form onSubmit={onSubmit}>
+        <FormControl isInvalid={errors.content !== undefined} w="45rem">
+          <FormLabel
+            color="text.main"
+            fontSize="1.6rem"
+            textAlign="center"
+            m="0"
+            pb="2rem"
+          >
+            活動内容
+          </FormLabel>
+          <HStack alignItems="start">
+            <EditorButton icon="add" paddingTop="0" type="submit" />
+            <Stack spacing="0" flex="1">
+              <Input
+                backgroundColor="#fff"
+                textColor="text.main"
+                placeholder="活動内容を1つ入力して下さい"
+                {...register("content")}
+              />
+              <Wrap h="1.2rem">
+                <FormErrorMessage>
+                  {errors.content && errors.content.message}
+                </FormErrorMessage>
+              </Wrap>
+            </Stack>
+          </HStack>
+        </FormControl>
+        <Stack>
+          {contents.map((item, index) => {
+            return (
+              <HStack key={index} textColor="text.main">
+                <EditorButton
+                  icon="remove"
+                  onClick={() => onRemove(item)}
+                  paddingTop="0"
                 />
-                <Wrap h="1.2rem">
-                  <FormErrorMessage>
-                    {errors.content && errors.content.message}
-                  </FormErrorMessage>
-                </Wrap>
-              </Stack>
-            </HStack>
-          </FormControl>
-          <Stack>
-            {contents.map((item, index) => {
-              return (
-                <HStack key={index} textColor="text.main">
-                  <EditorButton
-                    icon="remove"
-                    onClick={() => onRemove(item)}
-                    paddingTop="0"
-                  />
-                  <Text>{item.content}</Text>
-                </HStack>
-              )
-            })}
-          </Stack>
-        </form>
-      </EditorBase>
+                <Text>{item.content}</Text>
+              </HStack>
+            )
+          })}
+        </Stack>
+      </form>
     </Stack>
   )
 }

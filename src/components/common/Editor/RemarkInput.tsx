@@ -28,6 +28,7 @@ export const RemarkInput: React.VFC<RemarkInputProps> = (props) => {
 
   return (
     <FormControl
+      pl="50px"
       isInvalid={props.isRequired && errors[props.remarkKey] !== undefined}
     >
       <Stack spacing="0">
