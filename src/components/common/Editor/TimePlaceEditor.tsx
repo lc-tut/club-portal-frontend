@@ -38,7 +38,10 @@ type TimePlaceType = {
 }
 
 const schema = z.object({
-  date: z.string().nonempty(),
+  date: z
+    .string()
+    .refine((v) => v !== "")
+    .optional(),
   start: z.object({
     hour: z.number().min(0).max(23),
     minute: z.number().min(0).max(59),
@@ -49,7 +52,10 @@ const schema = z.object({
   }),
   timeRemark: z.string().optional(),
   place: z.object({
-    building: z.string().transform((v) => Number(v)),
+    building: z
+      .string()
+      .nonempty()
+      .transform((v) => Number(v)),
     room: z.number(),
   }),
   placeRemark: z.string().optional(),

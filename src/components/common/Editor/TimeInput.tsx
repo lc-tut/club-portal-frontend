@@ -89,7 +89,7 @@ export const TimeInput: React.VFC<TimePlaceInputProps> = (props) => {
           >
             <NumberInputField
               backgroundColor="#fff"
-              {...register("start.hour")}
+              {...register("start.hour", { valueAsNumber: true })}
             />
             <NumberInputStepper>
               <NumberIncrementStepper />
@@ -110,7 +110,7 @@ export const TimeInput: React.VFC<TimePlaceInputProps> = (props) => {
           >
             <NumberInputField
               backgroundColor="#fff"
-              {...register("start.minute")}
+              {...register("start.minute", { valueAsNumber: true })}
             />
             <NumberInputStepper>
               <NumberIncrementStepper />
@@ -132,7 +132,7 @@ export const TimeInput: React.VFC<TimePlaceInputProps> = (props) => {
           >
             <NumberInputField
               backgroundColor="#fff"
-              {...register("end.hour")}
+              {...register("end.hour", { valueAsNumber: true })}
             />
             <NumberInputStepper>
               <NumberIncrementStepper />
@@ -153,7 +153,7 @@ export const TimeInput: React.VFC<TimePlaceInputProps> = (props) => {
           >
             <NumberInputField
               backgroundColor="#fff"
-              {...register("end.minute")}
+              {...register("end.minute", { valueAsNumber: true })}
             />
             <NumberInputStepper>
               <NumberIncrementStepper />

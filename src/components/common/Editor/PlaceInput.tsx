@@ -23,7 +23,7 @@ import { useFormContext } from "react-hook-form"
 
 type FormPlaceType = {
   place: {
-    building: number
+    building: string
     room: number
   }
 }
@@ -82,7 +82,7 @@ export const PlaceInput: React.VFC<TimePlaceInputProps> = (props) => {
           >
             <NumberInputField
               backgroundColor="#fff"
-              {...register("place.room")}
+              {...register("place.room", { valueAsNumber: true })}
             />
             <NumberInputStepper>
               <NumberIncrementStepper />
