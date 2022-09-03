@@ -15,8 +15,6 @@ import { FormProvider, useForm, useFormContext } from "react-hook-form"
 import type { Schedule } from "../../types/api"
 import { useOutletUser } from "../../hooks/useOutletUser"
 import { useAPI } from "../../hooks/useAPI"
-import { Loading } from "../../components/global/LoadingPage"
-import { ErrorPage } from "../error"
 import { axiosWithPayload } from "../../utils/axios"
 import type { AxiosRequestConfig } from "axios"
 import { useErrorToast } from "../../hooks/useErrorToast"
@@ -37,25 +35,25 @@ const MonthInputArea: React.VFC<MonthInputAreaProps> = (props) => {
         width={0}
         height={0}
         value={props.month}
+        hidden
         {...register(`schedules.${props.month - 1}.month`, {
           value: props.month,
           valueAsNumber: true,
         })}
-        hidden
       />
       <Text pl="0.2rem" color="text.main">
         {props.month.toString() + "月"}
       </Text>
       <Textarea
-        {...register(`schedules.${props.month - 1}.schedule`, {
-          value: props.value,
-        })}
         w="20rem"
         h="4rem"
         textColor="text.main"
         backgroundColor="#fff"
         defaultValue={props.value}
         resize="none"
+        {...register(`schedules.${props.month - 1}.schedule`, {
+          value: props.value,
+        })}
       />
     </Stack>
   )
@@ -69,7 +67,7 @@ type FormScheduleType = {
 
 export const ScheduleEditor: React.VFC<{}> = () => {
   const { clubUuid } = useOutletUser()
-  const { data, isLoading, isError } = useAPI<Array<Schedule>>(
+  const { data } = useAPI<Array<Schedule>>(
     `/api/v1/clubs/uuid/${clubUuid!}/schedule`
   )
   const methods = useForm<FormScheduleType>()
@@ -89,9 +87,7 @@ export const ScheduleEditor: React.VFC<{}> = () => {
   }, [data, methods])
 
   const onSubmit = methods.handleSubmit(async (data) => {
-    console.log(data)
     const payload = data.schedules.filter((d) => d.schedule !== "")
-    console.log(payload)
     const requestConfig: AxiosRequestConfig<Array<Schedule>> = {
       url: `/api/v1/clubs/uuid/${clubUuid!}/schedule`,
       method: "put",
@@ -104,14 +100,6 @@ export const ScheduleEditor: React.VFC<{}> = () => {
       errorToast()
     }
   })
-
-  if (isLoading) {
-    return <Loading fullScreen />
-  }
-
-  if (isError) {
-    return <ErrorPage />
-  }
 
   return (
     <VStack flex="1" pb={PADDING_BEFORE_FOOTER}>

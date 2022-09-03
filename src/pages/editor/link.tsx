@@ -17,178 +17,134 @@ import { EditorButton } from "../../components/common/Editor/EditorButton"
 import { TitleArea } from "../../components/global/Header/TitleArea"
 import { PADDING_BEFORE_FOOTER, VALID_SNS_LIST } from "../../utils/consts"
 import * as z from "zod"
-import { PortalButton } from "../../components/common/Button"
-import type { SNSType } from "../../types/description"
+import type { LinkType } from "../../types/description"
 import { useAPI } from "../../hooks/useAPI"
 import type { Link } from "../../types/api"
 import { useOutletUser } from "../../hooks/useOutletUser"
-import { Loading } from "../../components/global/LoadingPage"
-import { ErrorPage } from "../error"
 import type { AxiosRequestConfig } from "axios"
 import { axiosWithPayload } from "../../utils/axios"
 import { useErrorToast } from "../../hooks/useErrorToast"
-import { EditorLabel } from "../../components/common/Editor/CommonEditorComponent"
+import { EditorLabel } from "../../components/common/Editor/CommonEditor"
 import { useSuccessToast } from "../../hooks/useSuccessToast"
 
 const schema = z.object({
-  label: z.string(),
-  url: z.string().url(),
+  label: z
+    .string()
+    .refine((v) => VALID_SNS_LIST.includes(v as LinkType) || v === "other"),
+  url: z.string().url().nonempty(),
   otherLabel: z.string().optional(),
 })
 
 export const LinkEditor: React.VFC<{}> = () => {
   const { clubUuid } = useOutletUser()
-  const { data, isLoading, isError } = useAPI<Array<Link>>(
-    `/api/v1/clubs/uuid/${clubUuid!}/link`
-  )
+  const { data } = useAPI<Array<Link>>(`/api/v1/clubs/uuid/${clubUuid!}/link`)
   const {
     handleSubmit,
     register,
-    watch,
     setError,
     clearErrors,
     formState: { errors },
   } = useForm<Link & { otherLabel?: string }>({
     resolver: zodResolver(schema),
   })
-  const [items, setItems] = useState<Array<Link>>([])
-  const errorToast = useErrorToast("データの保存に失敗しました。")
-  const successToast = useSuccessToast("データの保存が完了しました！")
+  const [links, setLinks] = useState<Array<Link>>([])
   const [isOther, setIsOther] = useState<boolean>(false)
+  const errorAddToast = useErrorToast("データの追加に失敗しました。")
+  const errorRemoveToast = useErrorToast("データの削除に失敗しました。")
+  const successAddToast = useSuccessToast("データの追加が完了しました！")
+  const successRemoveToast = useSuccessToast("データの削除が完了しました！")
 
   useEffect(() => {
     if (data) {
-      const v = data.filter((d) => d.label !== "HP" && d.label !== "Email")
-      setItems(v)
+      const v = data.filter((d) => d.label !== "Email")
+      setLinks(v)
     }
   }, [data])
 
-  const values = watch()
-
-  const onAdd = () => {
-    let err = false
-    if (values.label === "" && !isOther) {
-      err = true
-      setError("label", {
-        type: "required",
-        message: "SNSを選択してください。",
-      })
-    } else {
-      clearErrors("label")
+  const onRemove = async (item: Link) => {
+    const filteredLinks = links.filter((obj) => !Object.is(obj, item))
+    const requestConfig: AxiosRequestConfig<Array<Link>> = {
+      url: `/api/v1/clubs/uuid/${clubUuid!}/link`,
+      method: "put",
+      data: filteredLinks,
     }
+    try {
+      await axiosWithPayload<Array<Link>, Array<Link>>(requestConfig)
+      successRemoveToast()
+      setLinks(filteredLinks)
+    } catch (e) {
+      errorRemoveToast()
+    }
+  }
 
+  const onSubmit = handleSubmit(async (data) => {
+    let newData: Link
     if (isOther) {
-      if (values.otherLabel === undefined || values.otherLabel === "") {
-        err = true
+      if (data.otherLabel === undefined || data.otherLabel === "") {
         setError("otherLabel", {
           type: "required",
-          message: "その他のSNSを入力してください",
+          message: "その他のリンクを入力してください。",
         })
+        return
       } else if (
         !z
           .string()
           .regex(/^[A-Z]/)
-          .safeParse(values.otherLabel).success
+          .safeParse(data.otherLabel).success
       ) {
-        err = true
         setError("otherLabel", {
           type: "required",
-          message: "先頭大文字の半角英数字で入力して下さい",
+          message: "先頭大文字の半角英数字で入力して下さい。",
         })
+        return
       } else {
+        newData = { label: data.otherLabel.trim(), url: data.url.trim() }
         clearErrors("otherLabel")
       }
     } else {
-      clearErrors("otherLabel")
+      newData = { label: data.label, url: data.url }
     }
-
-    if (values.url === "" || !z.string().url().safeParse(values.url).success) {
-      err = true
-      setError("url", {
-        type: "validate",
-        message: "有効なURLではありません。",
-      })
-    } else {
-      clearErrors("url")
-    }
-
-    let isExist = false
-    for (const item of items) {
-      const label = isOther ? values.otherLabel!.trim() : values.label.trim()
-      if (label === item.label && values.url.trim() === item.url) {
-        isExist = true
-      }
-    }
-    if (isExist) {
-      err = true
-      setError("url", {
-        type: "validate",
-        message: "既に登録済みです",
-      })
-    }
-
-    if (!err) {
-      const v: Link = {
-        label: isOther ? values.otherLabel!.trim() : values.label.trim(),
-        url: values.url,
-      }
-      setItems([v, ...items])
-    }
-  }
-
-  const onRemove = (item: Link) => {
-    setItems(items.filter((obj) => !Object.is(obj, item)))
-  }
-
-  const onSubmit = handleSubmit(async () => {
+    const resultData = [newData, ...links]
     const requestConfig: AxiosRequestConfig<Array<Link>> = {
       url: `/api/v1/clubs/uuid/${clubUuid!}/link`,
       method: "put",
-      data: items,
+      data: resultData,
     }
     try {
       await axiosWithPayload<Array<Link>, Array<Link>>(requestConfig)
-      successToast()
+      successAddToast()
+      setLinks(resultData)
     } catch (e) {
-      errorToast()
+      errorAddToast()
     }
   })
 
-  if (isLoading) {
-    return <Loading fullScreen />
-  }
-
-  if (isError) {
-    return <ErrorPage />
-  }
-
   return (
     <VStack flex="1" pb={PADDING_BEFORE_FOOTER}>
-      <TitleArea>SNSリンクの編集</TitleArea>
+      <TitleArea>リンクの編集</TitleArea>
       <form onSubmit={onSubmit}>
         <EditorBase>
           <Stack>
             <HStack alignItems="start">
-              <EditorButton icon="add" onClick={onAdd} />
+              <EditorButton icon="add" type="submit" />
               <Stack spacing="0">
                 <FormControl isInvalid={errors.label !== undefined}>
-                  <EditorLabel label="SNS" />
+                  <EditorLabel label="リンク" />
                   <Stack>
                     <Select
                       backgroundColor="#fff"
                       w="12rem"
                       {...register("label", {
-                        onChange: (e: ChangeEvent<HTMLSelectElement>) => {
-                          setIsOther(e.target.value === "other")
-                        },
+                        onChange: (e: ChangeEvent<HTMLSelectElement>) =>
+                          setIsOther(e.target.value === "other"),
                       })}
                     >
                       <option value="" hidden>
                         -
                       </option>
-                      {VALID_SNS_LIST.map((item: SNSType) => {
+                      {VALID_SNS_LIST.map((item: LinkType, index) => {
                         return (
-                          <option key={item} value={item}>
+                          <option key={index} value={item}>
                             {item}
                           </option>
                         )
@@ -208,7 +164,7 @@ export const LinkEditor: React.VFC<{}> = () => {
                       w="12rem"
                       backgroundColor="#fff"
                       textColor="text.main"
-                      placeholder="その他のSNSを入力"
+                      placeholder="その他のリンクを入力"
                       {...register("otherLabel", {
                         disabled: !isOther,
                       })}
@@ -241,7 +197,7 @@ export const LinkEditor: React.VFC<{}> = () => {
               </Stack>
             </HStack>
             <Stack w="100%">
-              {items.map((item) => {
+              {links.map((item) => {
                 return (
                   <HStack key={item.label + item.url} textColor="text.main">
                     <EditorButton
@@ -256,7 +212,6 @@ export const LinkEditor: React.VFC<{}> = () => {
               })}
             </Stack>
           </Stack>
-          <PortalButton type="submit">保存</PortalButton>
         </EditorBase>
       </form>
     </VStack>

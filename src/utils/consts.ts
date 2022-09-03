@@ -1,5 +1,5 @@
 import type { BadgeActivity, BadgeCampus } from "../types/badge"
-import type { DateType, SNSType } from "../types/description"
+import type { DateType, LinkType } from "../types/description"
 import type {
   RESET_FILTER_ACTION,
   SET_NAME_ASC_ACTION,
@@ -10,19 +10,19 @@ import type {
   TOGGLE_IS_HACHIOJI_CAMPUS_ACTION,
   TOGGLE_IS_KAMATA_CAMPUS_ACTION,
   TOGGLE_IS_SPORTS_CLUB_ACTION,
-  TOGGLE_PLACE_ACTION,
   TOGGLE_ROOM_ACTION,
   TOGGLE_TIME_ACTION,
 } from "../types/reducer"
 
 export const PADDING_BEFORE_FOOTER = "6rem"
-export const VALID_SNS_LIST: ReadonlyArray<SNSType> = [
+export const VALID_SNS_LIST: ReadonlyArray<LinkType> = [
   "Twitter",
   "Instagram",
   "Discord",
   "LINE",
   "YouTube",
   "Blog",
+  "HP",
 ]
 export const CAMPUS: ReadonlyArray<BadgeCampus> = ["hachioji", "kamata"]
 export const ACTIVITY: ReadonlyArray<BadgeActivity> = [
@@ -84,7 +84,6 @@ export const DATE_NUMBER_MAP: { [key in DateType]: number } = {
 
 export const TOGGLE_DATE: TOGGLE_DATE_ACITON = "TOGGLE_DATE"
 export const TOGGLE_TIME: TOGGLE_TIME_ACTION = "TOGGLE_TIME"
-export const TOGGLE_PLACE: TOGGLE_PLACE_ACTION = "TOGGLE_PLACE"
 export const TOGGLE_ROOM: TOGGLE_ROOM_ACTION = "TOGGLE_ROOM"
 
 export const TOGGLE_IS_HACHIOJI_CAMPUS: TOGGLE_IS_HACHIOJI_CAMPUS_ACTION =

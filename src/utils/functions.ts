@@ -1,6 +1,5 @@
-import { useMediaQuery } from "@chakra-ui/react"
 import type { BadgeCampus, BadgeActivity } from "../types/badge"
-import type { DateType, SNSType } from "../types/description"
+import type { DateType, LinkType } from "../types/description"
 import { CAMPUS, ACTIVITY, DATE_NUMBER_MAP } from "./consts"
 
 export const toAbsolutePath = (path: string) => {
@@ -11,7 +10,7 @@ export const toAbsolutePath = (path: string) => {
 
 export const getCampus = (num: number): BadgeCampus => CAMPUS[num]
 export const getActivity = (num: number): BadgeActivity => ACTIVITY[num]
-export const isRegisteredSNS = (label: string): label is SNSType =>
+export const isRegisteredSNS = (label: string): label is LinkType =>
   label === "Twitter" ||
   label === "Instagram" ||
   label === "Discord" ||
@@ -38,9 +37,4 @@ export const toTimeID = (
 
 export const toPlaceID = (buildingID: number, roomNumber: number) => {
   return Number(`${buildingID}${roomNumber.toString().padStart(6, "0")}`)
-}
-
-export const useIsMobile = () => {
-  const [isMobile] = useMediaQuery("(max-width: 32em)")
-  return isMobile
 }

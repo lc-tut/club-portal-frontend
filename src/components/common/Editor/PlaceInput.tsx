@@ -13,22 +13,17 @@ import {
   Wrap,
   FormErrorMessage,
 } from "@chakra-ui/react"
-import { EditorLabel } from "./CommonEditorComponent"
-import {
-  BUILDING_ID_MAP,
-  TOGGLE_PLACE,
-  TOGGLE_ROOM,
-} from "../../../utils/consts"
+import { EditorLabel } from "./CommonEditor"
+import { BUILDING_ID_MAP, TOGGLE_ROOM } from "../../../utils/consts"
 import type {
   EditorSelectOptionItem,
   TimePlaceInputProps,
 } from "../../../types/editor"
 import { useFormContext } from "react-hook-form"
-import { Fragment } from "react"
 
 type FormPlaceType = {
   place: {
-    building: number
+    building: string
     room: number
   }
 }
@@ -44,7 +39,7 @@ export const PlaceInput: React.VFC<TimePlaceInputProps> = (props) => {
   ).map((d) => ({ displayName: d[1], value: d[0] }))
 
   return (
-    <HStack>
+    <HStack pl="50px">
       <FormControl
         w="10rem"
         isInvalid={
@@ -57,20 +52,16 @@ export const PlaceInput: React.VFC<TimePlaceInputProps> = (props) => {
             w="10rem"
             backgroundColor="#fff"
             textColor="text.main"
-            {...register("place.building", { disabled: state.isPlaceDisabled })}
+            {...register("place.building")}
           >
             <option value="" hidden>
               -
             </option>
-            {options.map((item, index) => {
-              return item.value !== "300" ? (
-                <option key={index} value={item.value}>
-                  {item.displayName}
-                </option>
-              ) : (
-                <Fragment key={index}></Fragment>
-              )
-            })}
+            {options.map((item, index) => (
+              <option key={index} value={item.value}>
+                {item.displayName}
+              </option>
+            ))}
           </Select>
           <Wrap h="1.2rem">
             <FormErrorMessage>
@@ -80,28 +71,27 @@ export const PlaceInput: React.VFC<TimePlaceInputProps> = (props) => {
         </Stack>
       </FormControl>
       <FormControl w="8rem">
-        <Stack spacing="0">
+        <Stack spacing="0" pb="1.2rem">
           <EditorLabel label="部屋番号" />
           <NumberInput
             width="8rem"
             min={0}
             max={2000}
             defaultValue={0}
-            isDisabled={state.isPlaceDisabled || state.isRoomDisabled}
+            isDisabled={state.isRoomDisabled}
           >
             <NumberInputField
               backgroundColor="#fff"
-              {...register("place.room")}
+              {...register("place.room", { valueAsNumber: true })}
             />
             <NumberInputStepper>
               <NumberIncrementStepper />
               <NumberDecrementStepper />
             </NumberInputStepper>
           </NumberInput>
-          <Wrap h="1.2rem" />
         </Stack>
       </FormControl>
-      <Stack spacing="0" pl="2rem">
+      <Stack spacing="0" pl="2rem" pb="1.2rem">
         <EditorLabel label="部屋番号なし" />
         <Flex h="40px" alignItems="center">
           <Switch
@@ -111,19 +101,6 @@ export const PlaceInput: React.VFC<TimePlaceInputProps> = (props) => {
             onChange={() => dispatch({ type: TOGGLE_ROOM })}
           />
         </Flex>
-        <Wrap h="1.2rem" />
-      </Stack>
-      <Stack spacing="0" pl="1rem">
-        <EditorLabel label="場所を「その他」にする" />
-        <Flex h="40px" alignItems="center">
-          <Switch
-            colorScheme="green"
-            size="lg"
-            isChecked={state.isPlaceDisabled}
-            onChange={() => dispatch({ type: TOGGLE_PLACE })}
-          />
-        </Flex>
-        <Wrap h="1.2rem" />
       </Stack>
     </HStack>
   )

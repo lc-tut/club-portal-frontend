@@ -33,8 +33,6 @@ import type { AxiosRequestConfig } from "axios"
 import { useOutletUser } from "../../hooks/useOutletUser"
 import { axiosWithPayload } from "../../utils/axios"
 import { useAPI } from "../../hooks/useAPI"
-import { Loading } from "../../components/global/LoadingPage"
-import { ErrorPage } from "../error"
 import { useSuccessToast } from "../../hooks/useSuccessToast"
 
 const parseVideoId = (
@@ -135,9 +133,7 @@ export const VideoEditor: React.VFC<{}> = () => {
     clearErrors,
     formState: { errors },
   } = useForm<Video>()
-  const { data, isLoading, isError } = useAPI<Array<Video>>(
-    `/api/v1/clubs/uuid/${clubUuid!}/video`
-  )
+  const { data } = useAPI<Array<Video>>(`/api/v1/clubs/uuid/${clubUuid!}/video`)
   const [videoID, setVideoID] = useState<string>("")
   const errorToast = useErrorToast("データの保存に失敗しました。")
   const successToast = useSuccessToast("データの保存が完了しました！")
@@ -173,14 +169,6 @@ export const VideoEditor: React.VFC<{}> = () => {
       errorToast()
     }
   })
-
-  if (isLoading) {
-    return <Loading fullScreen />
-  }
-
-  if (isError) {
-    return <ErrorPage />
-  }
 
   return (
     <VStack flex="1" pb={PADDING_BEFORE_FOOTER}>

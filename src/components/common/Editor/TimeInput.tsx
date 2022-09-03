@@ -14,7 +14,7 @@ import {
   VStack,
   Wrap,
 } from "@chakra-ui/react"
-import { EditorLabel, EditorText } from "./CommonEditorComponent"
+import { EditorLabel, EditorText } from "./CommonEditor"
 import type {
   EditorSelectOptionItem,
   TimePlaceInputProps,
@@ -47,7 +47,7 @@ export const TimeInput: React.VFC<TimePlaceInputProps> = (props) => {
   )
 
   return (
-    <>
+    <Stack>
       <HStack textColor="text.main">
         <FormControl w="10rem" isInvalid={errors.date !== undefined}>
           <Stack spacing="0">
@@ -78,7 +78,7 @@ export const TimeInput: React.VFC<TimePlaceInputProps> = (props) => {
             </Wrap>
           </Stack>
         </FormControl>
-        <Stack spacing="0">
+        <Stack spacing="0" pb="1.2rem">
           <EditorLabel label="開始時間" />
           <NumberInput
             width="5rem"
@@ -89,22 +89,18 @@ export const TimeInput: React.VFC<TimePlaceInputProps> = (props) => {
           >
             <NumberInputField
               backgroundColor="#fff"
-              {...register("start.hour")}
+              {...register("start.hour", { valueAsNumber: true })}
             />
             <NumberInputStepper>
               <NumberIncrementStepper />
               <NumberDecrementStepper />
             </NumberInputStepper>
           </NumberInput>
-          <Wrap h="1.2rem" />
         </Stack>
-        <Stack spacing="0">
-          <EditorText>:</EditorText>
-          <Wrap h="1.2rem" />
+        <Stack spacing="0" pb="1.2rem">
+          <EditorText pb="1.2rem">:</EditorText>
         </Stack>
-        <Wrap h="1.2rem" />
-        <Stack spacing="0">
-          <Wrap pt="1.2rem" />
+        <Stack spacing="0" py="1.2rem">
           <NumberInput
             width="5rem"
             min={0}
@@ -114,20 +110,18 @@ export const TimeInput: React.VFC<TimePlaceInputProps> = (props) => {
           >
             <NumberInputField
               backgroundColor="#fff"
-              {...register("start.minute")}
+              {...register("start.minute", { valueAsNumber: true })}
             />
             <NumberInputStepper>
               <NumberIncrementStepper />
               <NumberDecrementStepper />
             </NumberInputStepper>
           </NumberInput>
-          <Wrap pt="1.2rem" />
         </Stack>
-        <Stack spacing="0">
+        <Stack spacing="0" pb="1.2rem">
           <EditorText>~</EditorText>
-          <Wrap h="1.2rem" />
         </Stack>
-        <Stack spacing="0">
+        <Stack spacing="0" pb="1.2rem">
           <EditorLabel label="終了時間" />
           <NumberInput
             width="5rem"
@@ -138,22 +132,18 @@ export const TimeInput: React.VFC<TimePlaceInputProps> = (props) => {
           >
             <NumberInputField
               backgroundColor="#fff"
-              {...register("end.hour")}
+              {...register("end.hour", { valueAsNumber: true })}
             />
             <NumberInputStepper>
               <NumberIncrementStepper />
               <NumberDecrementStepper />
             </NumberInputStepper>
           </NumberInput>
-          <Wrap pt="1.2rem" />
         </Stack>
-        <Stack spacing="0">
+        <Stack spacing="0" pb="1.2rem">
           <EditorText>:</EditorText>
-          <Wrap h="1.2rem" />
         </Stack>
-        <Wrap h="1.2rem" />
-        <Stack spacing="0">
-          <Wrap pt="1.2rem" />
+        <Stack spacing="0" py="1.2rem">
           <NumberInput
             width="5rem"
             min={0}
@@ -163,17 +153,16 @@ export const TimeInput: React.VFC<TimePlaceInputProps> = (props) => {
           >
             <NumberInputField
               backgroundColor="#fff"
-              {...register("end.minute")}
+              {...register("end.minute", { valueAsNumber: true })}
             />
             <NumberInputStepper>
               <NumberIncrementStepper />
               <NumberDecrementStepper />
             </NumberInputStepper>
           </NumberInput>
-          <Wrap pt="1.2rem" />
         </Stack>
       </HStack>
-      <HStack pb="1.2rem" spacing="1.5rem">
+      <HStack pb="1rem" spacing="1.5rem">
         <VStack spacing="0">
           <EditorLabel label="曜日を「その他」にする" />
           <Flex h="40px" alignItems="center">
@@ -197,6 +186,6 @@ export const TimeInput: React.VFC<TimePlaceInputProps> = (props) => {
           </Flex>
         </VStack>
       </HStack>
-    </>
+    </Stack>
   )
 }

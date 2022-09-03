@@ -18,13 +18,11 @@ import { useAPI } from "../hooks/useAPI"
 import type { ClubPageExternal } from "../types/api"
 import { PADDING_BEFORE_FOOTER } from "../utils/consts"
 import { getActivity, getCampus } from "../utils/functions"
-import { ErrorPage } from "./error"
 import { filterReducer } from "../reducer/filter"
 import { useClubDisplay } from "../hooks/useClubDisplay"
 
 const AnimatedClubs: React.VFC<{}> = () => {
-  const { data, isLoading, isError } =
-    useAPI<Array<ClubPageExternal>>("/api/v1/clubs")
+  const { data, isLoading } = useAPI<Array<ClubPageExternal>>("/api/v1/clubs")
   const [state, dispatch] = useReducer(filterReducer, {
     isHachiojiCampus: true,
     isKamataCampus: true,
@@ -37,10 +35,6 @@ const AnimatedClubs: React.VFC<{}> = () => {
   const [isMobileLayout] = useMediaQuery("(max-width: 62em)")
   const [isSmallPadding] = useMediaQuery("(max-width: 30em)")
   const sortedClubs = useClubDisplay(data, state, keyword)
-
-  if (isError) {
-    return <ErrorPage />
-  }
 
   return (
     <VStack

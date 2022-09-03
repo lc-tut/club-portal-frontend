@@ -10,13 +10,12 @@ import { useOutletUser } from "../hooks/useOutletUser"
 import { PADDING_BEFORE_FOOTER } from "../utils/consts"
 import type { ClubPageExternal } from "../types/api"
 import { getCampus, getActivity } from "../utils/functions"
-import { ErrorPage } from "./error"
 import { filterReducer } from "../reducer/filter"
 import { useClubDisplay } from "../hooks/useClubDisplay"
 
 export const AnimatedFavorites: React.VFC<{}> = () => {
   const { userUuid } = useOutletUser()
-  const { data, isLoading, isError } = useAPI<Array<ClubPageExternal>>(
+  const { data, isLoading } = useAPI<Array<ClubPageExternal>>(
     `/api/v1/users/${userUuid}/favs`
   )
   const [is1col, is2col, is3col] = useMediaQuery([
@@ -39,10 +38,6 @@ export const AnimatedFavorites: React.VFC<{}> = () => {
     isAscending: true,
   })
   const sortedClubs = useClubDisplay(data, state, "")
-
-  if (isError) {
-    return <ErrorPage />
-  }
 
   return (
     <VStack flex="1" spacing="2rem">

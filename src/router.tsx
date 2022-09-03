@@ -11,10 +11,12 @@ import { Flex } from "@chakra-ui/react"
 import { UserRouteElement } from "./components/global/Route/UserRoute"
 import { ClubRouteElement } from "./components/global/Route/ClubRoute"
 import { DomainUserRouteElement } from "./components/global/Route/DomainUserRoute"
+import { useLoadingStateContext } from "./contexts/loading"
 
 const AnimatedRouter: React.VFC<{}> = () => {
   const location = useLocation()
-  const { session, isLoading, isError } = useSession()
+  const { session } = useSession()
+  const { isLoading, isError } = useLoadingStateContext()
 
   if (isError) {
     if (axios.isAxiosError(isError)) {

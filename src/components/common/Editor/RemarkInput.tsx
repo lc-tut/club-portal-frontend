@@ -7,7 +7,7 @@ import {
   Wrap,
 } from "@chakra-ui/react"
 import { useFormContext } from "react-hook-form"
-import { EditorLabel } from "./CommonEditorComponent"
+import { EditorLabel } from "./CommonEditor"
 
 type RemarkInputProps = {
   label: string
@@ -28,6 +28,7 @@ export const RemarkInput: React.VFC<RemarkInputProps> = (props) => {
 
   return (
     <FormControl
+      pl="50px"
       isInvalid={props.isRequired && errors[props.remarkKey] !== undefined}
     >
       <Stack spacing="0">

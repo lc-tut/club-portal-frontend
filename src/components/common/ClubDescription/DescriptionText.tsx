@@ -15,10 +15,10 @@ import {
   BsTwitter,
   BsYoutube,
 } from "react-icons/bs"
-import type { DescriptionProps, SNSType } from "../../../types/description"
+import type { DescriptionProps, LinkType } from "../../../types/description"
 import { isRegisteredSNS } from "../../../utils/functions"
 
-const fgColorMap: { [key in SNSType]?: string } = {
+const fgColorMap: { [key in LinkType]?: string } = {
   Twitter: "#fff",
   Instagram: "#fff",
   YouTube: "#fff",
@@ -26,7 +26,7 @@ const fgColorMap: { [key in SNSType]?: string } = {
   LINE: "#fff",
 }
 
-const bgColorMap: { [key in SNSType]?: string } = {
+const bgColorMap: { [key in LinkType]?: string } = {
   Twitter: "#2E94DA",
   Instagram: "#D35CCA",
   YouTube: "#FF0000",
@@ -34,7 +34,7 @@ const bgColorMap: { [key in SNSType]?: string } = {
   LINE: "#29C755",
 }
 
-const iconMap: { [key in SNSType]?: JSX.Element } = {
+const iconMap: { [key in LinkType]?: JSX.Element } = {
   Twitter: <BsTwitter />,
   Instagram: <BsInstagram />,
   YouTube: <BsYoutube />,
