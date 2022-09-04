@@ -18,8 +18,8 @@ const AnimatedRouter: React.VFC<{}> = () => {
   const { session, isLoading, isError } = useSession()
 
   useEffect(() => {
-    window.scrollTo(0, 0); // ページ遷移時にスクロールをトップに戻す
-  }, [location]);
+    window.scrollTo(0, 0) // ページ遷移時にスクロールをトップに戻す
+  }, [location])
 
   if (isError) {
     if (axios.isAxiosError(isError)) {
