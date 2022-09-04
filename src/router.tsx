@@ -1,6 +1,7 @@
 import { AnimatePresence } from "framer-motion"
 import { Route, Routes, BrowserRouter, useLocation } from "react-router-dom"
 import { useSession } from "./hooks/useSession"
+import { useEffect } from "react"
 import * as page from "./pages"
 import { Loading } from "./components/global/LoadingPage"
 import { Header } from "./components/global/Header/Header"
@@ -15,6 +16,10 @@ import { DomainUserRouteElement } from "./components/global/Route/DomainUserRout
 const AnimatedRouter: React.VFC<{}> = () => {
   const location = useLocation()
   const { session, isLoading, isError } = useSession()
+
+  useEffect(() => {
+    window.scrollTo(0, 0); // ページ遷移時にスクロールをトップに戻す
+  }, [location]);
 
   if (isError) {
     if (axios.isAxiosError(isError)) {
