@@ -11,12 +11,20 @@ module.exports = {
     "@storybook/addon-links",
     "@storybook/addon-essentials"
   ],
+  features: {
+    storyStoreV7: true,
+  },
   framework: "@storybook/react",
   typescript: {
     reactDocgen: false,
   },
   core: {
     builder: "webpack5",
+    disableTelemetry: true,
+  },
+  options: {
+    lazyCompilation: true,
+    fsCache: true
   },
   webpackFinal: async (config) => {
     config.resolve.extensions.push('.svg')
