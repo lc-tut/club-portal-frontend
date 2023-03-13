@@ -7410,7 +7410,7 @@ __metadata:
     react-hook-form: 7.28.1
     react-icons: 4.3.1
     react-image-crop: 9.1.1
-    react-router-dom: 6.2.2
+    react-router-dom: 6.9.0
     style-loader: 3.3.1
     swiper: 8.0.7
     swr: 1.2.2
@@ -10545,15 +10545,6 @@ __metadata:
   dependencies:
     "@babel/runtime": ^7.7.6
   checksum: 14eab13619b4d297eeda0ae7adcf2dd8e6cec48fc9fac903b8dfb626337f8f6fc12743c286be819885c71f522daf0e9e7f814aa126ae5e1b01ab4a3d6801b5f5
-  languageName: node
-  linkType: hard
-
-"history@npm:^5.2.0":
-  version: 5.3.0
-  resolution: "history@npm:5.3.0"
-  dependencies:
-    "@babel/runtime": ^7.7.6
-  checksum: d73c35df49d19ac172f9547d30a21a26793e83f16a78386d99583b5bf1429cc980799fcf1827eb215d31816a6600684fba9686ce78104e23bd89ec239e7c726f
   languageName: node
   linkType: hard
 
@@ -14894,20 +14885,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-router-dom@npm:6.2.2":
-  version: 6.2.2
-  resolution: "react-router-dom@npm:6.2.2"
-  dependencies:
-    history: ^5.2.0
-    react-router: 6.2.2
-  peerDependencies:
-    react: ">=16.8"
-    react-dom: ">=16.8"
-  checksum: 83c5105af923c4f8af65a6de98283a95f46ffa643fd0c1a5005647c2c3deb946dae52dda32dc00cfcc3659517b08be806ff02ff03173361dba3d824850053e99
-  languageName: node
-  linkType: hard
-
-"react-router-dom@npm:^6.0.0":
+"react-router-dom@npm:6.9.0, react-router-dom@npm:^6.0.0":
   version: 6.9.0
   resolution: "react-router-dom@npm:6.9.0"
   dependencies:
@@ -14917,17 +14895,6 @@ __metadata:
     react: ">=16.8"
     react-dom: ">=16.8"
   checksum: 4d593491ab8db5611feda70002c62902baebb84d5c1c5e5b6172496f31f91130deee132bf4240dea634a88cb86c76d6da348f15b9cd5e5197be455efd88edf72
-  languageName: node
-  linkType: hard
-
-"react-router@npm:6.2.2":
-  version: 6.2.2
-  resolution: "react-router@npm:6.2.2"
-  dependencies:
-    history: ^5.2.0
-  peerDependencies:
-    react: ">=16.8"
-  checksum: 1a2e7006d4d56bfae8ff11dd5ec15e8049578864dfb2764652510eb0ce4af26a8949790a3732c4f7beb14bcb6500469ea18841b8cfc953e09828e4e4113922f0
   languageName: node
   linkType: hard
 
