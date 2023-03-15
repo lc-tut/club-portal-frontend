@@ -35,7 +35,7 @@ const schema = z.object({
   otherLabel: z.string().optional(),
 })
 
-export const LinkEditor: React.VFC<{}> = () => {
+export const LinkEditor: React.FC<{}> = () => {
   const { clubUuid } = useOutletUser()
   const { data } = useAPI<Array<Link>>(`/api/v1/clubs/uuid/${clubUuid!}/link`)
   const {

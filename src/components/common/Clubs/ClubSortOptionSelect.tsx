@@ -12,7 +12,7 @@ type ClubSortOptionSelectProps = {
   dispatchIsAscending: Dispatch<FilterActionType>
 }
 
-export const ClubSortOptionSelect: React.VFC<ClubSortOptionSelectProps> = (
+export const ClubSortOptionSelect: React.FC<ClubSortOptionSelectProps> = (
   props
 ) => {
   return (

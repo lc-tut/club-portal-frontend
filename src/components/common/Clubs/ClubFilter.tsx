@@ -44,7 +44,7 @@ type FilterItemProps = {
   dispatcher: Dispatch<FilterActionType>
 }
 
-const FilterItem: React.VFC<FilterItemProps> = (props) => {
+const FilterItem: React.FC<FilterItemProps> = (props) => {
   return (
     <FormControl display="flex" pl="1rem">
       <FormLabel width="8rem" fontSize="1.25rem" mb="0">
@@ -64,7 +64,7 @@ type KeywordFormType = {
   keyword: string
 }
 
-const FilterSwitch: React.VFC<FilterSwitchProps> = (props) => {
+const FilterSwitch: React.FC<FilterSwitchProps> = (props) => {
   return (
     <Stack alignSelf="start" spacing="0.5rem" pt="1rem" pl="3rem">
       <Text color="text.modal.sub" pb="0.5rem" pt="1rem">
@@ -107,7 +107,7 @@ const FilterSwitch: React.VFC<FilterSwitchProps> = (props) => {
   )
 }
 
-export const ClubFilter: React.VFC<FilterAreaProps> = (props) => {
+export const ClubFilter: React.FC<FilterAreaProps> = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [adjustWidth] = useMediaQuery("(max-width: 20em)")
   const { register, handleSubmit } = useForm<KeywordFormType>()

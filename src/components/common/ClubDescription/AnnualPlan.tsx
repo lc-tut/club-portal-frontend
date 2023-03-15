@@ -3,7 +3,7 @@ import { MONTHS } from "../../../utils/consts"
 import type { AnnualPlanProps } from "../../../types/description"
 import { Remark } from "./Remark"
 
-export const AnnualPlan: React.VFC<AnnualPlanProps> = (props) => {
+export const AnnualPlan: React.FC<AnnualPlanProps> = (props) => {
   return (
     <GridItem colSpan={12}>
       <VStack>

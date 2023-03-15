@@ -41,7 +41,7 @@ const elements: { [key in elementKeysType]: elementValueType } = {
 }
 
 // TODO: サイトページの説明用のページ/コンポーネントを作成する
-export const Footer: React.VFC<{}> = () => {
+export const Footer: React.FC<{}> = () => {
   const [elementKey, setElementKey] = useState<elementKeysType>("about")
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [isStackVertical] = useMediaQuery("(max-width: 26em)")

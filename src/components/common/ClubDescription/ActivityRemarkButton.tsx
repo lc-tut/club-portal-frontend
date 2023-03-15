@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react"
 import type { ActivityRemarkButtonProps } from "../../../types/description"
 
-export const ActivityRemarkButton: React.VFC<ActivityRemarkButtonProps> = (
+export const ActivityRemarkButton: React.FC<ActivityRemarkButtonProps> = (
   props
 ) => {
   return (

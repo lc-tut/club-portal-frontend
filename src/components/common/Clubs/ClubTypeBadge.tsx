@@ -10,7 +10,7 @@ const isCampusContent = (content: BadgeContent): content is BadgeCampus => {
   return content === "hachioji" || content === "kamata"
 }
 
-export const ClubTypeBadge: React.VFC<ClubTypeBadgeProp> = (props) => {
+export const ClubTypeBadge: React.FC<ClubTypeBadgeProp> = (props) => {
   const sizeMap: {
     [key in BadgeSize]: {
       height: string

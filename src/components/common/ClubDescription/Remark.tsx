@@ -1,7 +1,7 @@
 import { Box, Text } from "@chakra-ui/react"
 import type { RemarkProps } from "../../../types/description"
 
-export const Remark: React.VFC<RemarkProps> = (props) => {
+export const Remark: React.FC<RemarkProps> = (props) => {
   return (
     <Box
       width="100%"

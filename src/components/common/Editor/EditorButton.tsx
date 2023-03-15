@@ -11,7 +11,7 @@ const iconMap: { [key in MapKeys]: IconType } = {
   check: BsCheck2Circle,
 }
 
-export const EditorButton: React.VFC<EditorButtonProps> = (props) => {
+export const EditorButton: React.FC<EditorButtonProps> = (props) => {
   return (
     <Button
       backgroundColor="#fff"

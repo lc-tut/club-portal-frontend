@@ -6,7 +6,7 @@ type EditorBaseProps = {
   noBackButton?: boolean
 }
 
-export const EditorBase: React.VFC<PropsWithChildren<EditorBaseProps>> = (
+export const EditorBase: React.FC<PropsWithChildren<EditorBaseProps>> = (
   props
 ) => {
   return (

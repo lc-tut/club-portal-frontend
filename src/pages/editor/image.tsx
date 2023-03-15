@@ -36,7 +36,7 @@ type ImageModalProps = {
   onClose: () => void
 }
 
-const ImageModal: React.VFC<ImageModalProps> = (props) => {
+const ImageModal: React.FC<ImageModalProps> = (props) => {
   return (
     <Modal isOpen={props.isOpen} onClose={props.onClose} isCentered>
       <ModalOverlay />
@@ -58,7 +58,7 @@ type ImagePreviewsProps = {
   onRemove: (item: Image | File, isNew?: boolean) => void
 }
 
-const ImagePreviews: React.VFC<ImagePreviewsProps> = (props) => {
+const ImagePreviews: React.FC<ImagePreviewsProps> = (props) => {
   return (
     <GridItem>
       <HStack>
@@ -79,7 +79,7 @@ const ImagePreviews: React.VFC<ImagePreviewsProps> = (props) => {
   )
 }
 
-export const ImageEditor: React.VFC<{}> = () => {
+export const ImageEditor: React.FC<{}> = () => {
   const { clubUuid } = useOutletUser()
   const { data } = useAPI<Array<Image>>(`/api/v1/clubs/uuid/${clubUuid!}/image`)
   const [existImages, setExistImages] = useState<Array<Image>>([])

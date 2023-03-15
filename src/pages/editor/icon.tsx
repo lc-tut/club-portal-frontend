@@ -50,7 +50,7 @@ const defaultCrop: Crop = {
   aspect: 1,
 }
 
-const ResizeModal: React.VFC<ResizeModalProps> = (props) => {
+const ResizeModal: React.FC<ResizeModalProps> = (props) => {
   const onCancel = () => {
     props.setCrop(defaultCrop)
     props.onClose()
@@ -124,7 +124,7 @@ const ResizeModal: React.VFC<ResizeModalProps> = (props) => {
   )
 }
 
-export const IconEditor: React.VFC<{}> = () => {
+export const IconEditor: React.FC<{}> = () => {
   const { clubUuid } = useOutletUser()
   const { data } = useAPI<Thumbnail>(
     `/api/v1/upload/thumbnail/clubs/${clubUuid!}`

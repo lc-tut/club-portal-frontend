@@ -3,7 +3,7 @@ import { EditorMenu } from "../../components/common/Editor/EditorMenu"
 import { TitleArea } from "../../components/global/Header/TitleArea"
 import { PADDING_BEFORE_FOOTER } from "../../utils/consts"
 
-export const EditorList: React.VFC<{}> = () => {
+export const EditorList: React.FC<{}> = () => {
   return (
     <VStack flex="1" pb={PADDING_BEFORE_FOOTER}>
       <TitleArea>編集者メニュー</TitleArea>

@@ -10,7 +10,7 @@ import type { ClubCardProps } from "../../../types/clubs"
 import { toAbsolutePath } from "../../../utils/functions"
 import { ClubTypeBadge } from "./ClubTypeBadge"
 
-export const ClubCard: React.VFC<ClubCardProps> = (props) => {
+export const ClubCard: React.FC<ClubCardProps> = (props) => {
   const [isSmallCard] = useMediaQuery("(max-width: 30em)")
 
   return (

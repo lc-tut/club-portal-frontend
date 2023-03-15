@@ -26,7 +26,7 @@ const schema = z.object({
   description: z.string().nonempty(),
 })
 
-export const DescriptionEditor: React.VFC<{}> = () => {
+export const DescriptionEditor: React.FC<{}> = () => {
   const { clubUuid } = useOutletUser()
   const { data } = useAPI<Description>(
     `/api/v1/clubs/uuid/${clubUuid!}/description`

@@ -42,7 +42,7 @@ type ClubPageProps = {
 }
 
 // TODO: アニメーションをつける
-export const ClubPage: React.VFC<ClubPageProps> = (props) => {
+export const ClubPage: React.FC<ClubPageProps> = (props) => {
   const [isMobile, isSmallMobile] = useMediaQuery([
     "(max-width: 40em)",
     "(max-width: 28em)",

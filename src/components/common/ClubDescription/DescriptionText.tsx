@@ -42,7 +42,7 @@ const iconMap: { [key in LinkType]?: JSX.Element } = {
   LINE: <BsLine />,
 }
 
-export const DescriptionText: React.VFC<DescriptionProps> = (props) => {
+export const DescriptionText: React.FC<DescriptionProps> = (props) => {
   const colSpan = props.halfWidth ? 12 : { base: 12, md: 6 }
   const width = props.halfWidth ? "50%" : "100%"
 

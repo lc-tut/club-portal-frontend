@@ -25,7 +25,7 @@ const schema = z.object({
   achievement: z.string().nonempty(),
 })
 
-export const AchievementEditor: React.VFC<{}> = () => {
+export const AchievementEditor: React.FC<{}> = () => {
   const { clubUuid } = useOutletUser()
   const { data } = useAPI<Array<Achievement>>(
     `/api/v1/clubs/uuid/${clubUuid!}/achievement`

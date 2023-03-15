@@ -29,7 +29,7 @@ const schema = z.object({
   email: z.string().email("正しいメールアドレスを入力してください。"),
 })
 
-export const DetailLinkEditor: React.VFC<{}> = () => {
+export const DetailLinkEditor: React.FC<{}> = () => {
   const {
     handleSubmit,
     register,

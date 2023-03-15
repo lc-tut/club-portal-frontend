@@ -29,7 +29,7 @@ const schema = z.object({
   content: z.string().nonempty(),
 })
 
-export const ContentEditor: React.VFC<{}> = () => {
+export const ContentEditor: React.FC<{}> = () => {
   const { clubUuid } = useOutletUser()
   const { data } = useAPI<Array<Content>>(
     `/api/v1/clubs/uuid/${clubUuid!}/content`

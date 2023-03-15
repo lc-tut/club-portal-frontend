@@ -5,7 +5,7 @@ import { useState } from "react"
 import { LoadingStateContext, SetLoadingStateContext } from "./contexts/loading"
 import type { ErrorType } from "./types/utils"
 
-const App: React.VFC<{}> = () => {
+const App: React.FC<{}> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isError, setIsError] = useState<ErrorType>(undefined)
 

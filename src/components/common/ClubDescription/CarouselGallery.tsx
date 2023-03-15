@@ -12,7 +12,7 @@ import "swiper/css/bundle"
 
 SwiperCore.use([Pagination, Navigation])
 
-export const CarouselGallery: React.VFC<CarouselGalleryProps> = (props) => {
+export const CarouselGallery: React.FC<CarouselGalleryProps> = (props) => {
   const numImages = props.imagePaths.length
 
   const [is2slides] = useMediaQuery(["(min-width: 48em)"])

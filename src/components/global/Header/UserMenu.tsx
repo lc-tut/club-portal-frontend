@@ -18,7 +18,7 @@ import { axiosFetcher } from "../../../utils/axios"
 import { PortalButton } from "../../common/Button"
 import { DefaultUserIcon } from "../../common/Icon"
 
-export const UserMenu: React.VFC<HeaderProps> = (props) => {
+export const UserMenu: React.FC<HeaderProps> = (props) => {
   const [isOpen, setIsOpen] = useBoolean(false)
   const loc = useLocation()
   const { mutate } = useSWRConfig()

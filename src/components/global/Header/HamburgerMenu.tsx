@@ -16,11 +16,11 @@ export const menuItems: { [key: string]: string } = {
   //  設定:           "",
 }
 
-export const HamburgerIcon: React.VFC<{}> = () => {
+export const HamburgerIcon: React.FC<{}> = () => {
   return <Icon as={BsList} boxSize="2em" color="text.title.main" />
 }
 
-export const HamburgerMenu: React.VFC<{}> = () => {
+export const HamburgerMenu: React.FC<{}> = () => {
   // TODO: 独自BreakPoint化
   const isMobile = useMobileMediaQuery()
 

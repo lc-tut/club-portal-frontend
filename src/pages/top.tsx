@@ -24,7 +24,7 @@ import { MenuButton } from "../components/common/Button"
 import { PortalLogo } from "../components/common/Icon"
 import { PADDING_BEFORE_FOOTER } from "../utils/consts"
 
-const AnimatedTop: React.VFC<{}> = () => {
+const AnimatedTop: React.FC<{}> = () => {
   const [isTitleSmall] = useMediaQuery(["(max-width: 600px)"])
   const [is1Col] = useMediaQuery(["(max-width: 1000px)"])
   const [isAdjustMenuWidth] = useMediaQuery(["(max-width: 380px)"])
@@ -148,6 +148,6 @@ const AnimatedTop: React.VFC<{}> = () => {
   )
 }
 
-export const Top: React.VFC<{}> = () => {
+export const Top: React.FC<{}> = () => {
   return <AnimatedTop />
 }
