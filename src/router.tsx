@@ -41,7 +41,7 @@ const AnimatedRouter: React.FC<{}> = () => {
     <Flex direction="column" minH="100vh">
       <Header session={session} />
       <Flex p="0" flex="1">
-        <AnimatePresence exitBeforeEnter initial={false}>
+        <AnimatePresence mode="wait" initial={false}>
           <Routes location={location} key={location.pathname}>
             <Route index element={<page.Top />} />
             <Route path="clubs">

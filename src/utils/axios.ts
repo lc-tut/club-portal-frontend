@@ -7,7 +7,7 @@ const client = applyCaseMiddleware(axios.create())
 
 const axiosFetcher = async <
   R extends APIResponse | Session | unknown = APIResponse,
-  T = AxiosRequestConfig
+  T extends AxiosRequestConfig = AxiosRequestConfig
 >(
   url: string,
   args?: T
@@ -20,7 +20,7 @@ const axiosFetcher = async <
 const axiosWithPayload = async <
   D extends APIPayload | FormData,
   R extends APIResponse | unknown,
-  T = AxiosRequestConfig<D>
+  T extends AxiosRequestConfig<D> = AxiosRequestConfig<D>
 >(
   config: T
 ) => {

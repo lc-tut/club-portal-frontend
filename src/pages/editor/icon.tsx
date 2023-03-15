@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react"
 import type { AxiosRequestConfig } from "axios"
 import { useEffect, useRef, useState } from "react"
-import ReactCrop, { Crop } from "react-image-crop"
+import ReactCrop, { type Crop } from "react-image-crop"
 import "react-image-crop/dist/ReactCrop.css"
 import { PortalButton } from "../../components/common/Button"
 import { EditorBase } from "../../components/common/Editor/EditorBase"
@@ -35,6 +35,7 @@ type ResizeModalProps = {
   onClose: () => void
   crop: Crop
   image: HTMLImageElement
+  setChangeFlag: StateDispatch<boolean>
   setImage: StateDispatch<HTMLImageElement>
   setCrop: StateDispatch<Crop>
   setIcon: StateDispatch<string>
@@ -47,7 +48,6 @@ const defaultCrop: Crop = {
   y: 0,
   width: 100,
   height: 100,
-  aspect: 1,
 }
 
 const ResizeModal: React.FC<ResizeModalProps> = (props) => {
@@ -102,12 +102,13 @@ const ResizeModal: React.FC<ResizeModalProps> = (props) => {
             <VStack>
               <Text>画像は400x400[px]に縮小されます</Text>
               <ReactCrop
-                src={props.image.src}
                 crop={props.crop}
+                aspect={1}
                 onChange={(crop) => props.setCrop(crop)}
-                // 正しく動作させる為に必要 消さない
-                onImageLoaded={(image) => props.setImage(image)}
-              />
+              >
+                {/* TODO: setImage の修正 (critical) | onLoad 時に crop がしっかりセットされるように修正する */}
+                <ChakraImage src={props.image.src} onLoad={e => props.setImage(e.currentTarget)} />
+              </ReactCrop>
             </VStack>
           </ModalBody>
           <ModalFooter>
@@ -132,8 +133,9 @@ export const IconEditor: React.FC<{}> = () => {
   const errorToast = useErrorToast("データの保存に失敗しました。")
   const successToast = useSuccessToast("データの保存が完了しました！")
   const [icon, setIcon] = useState<string>("")
+  const [changeFlag, setChangeFlag] = useState<boolean>(false)
   const [newImage, setNewImage] = useState<Blob>(new File([], ""))
-  const [filename, setFileName] = useState<string>("")
+  const [fileName, setFileName] = useState<string>("")
   const [inputImage, setInputImage] = useState<HTMLImageElement>(new Image())
   const [crop, setCrop] = useState<Crop>(defaultCrop)
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -146,12 +148,13 @@ export const IconEditor: React.FC<{}> = () => {
   }, [data])
 
   const onImageLoad = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files || !e.target.files[0]) {
+    if (!(e.target.files && e.target.files.length > 0)) {
       return
     }
     const reader = new FileReader()
-    reader.readAsDataURL(e.target.files[0])
-    setFileName(e.target.files[0].name)
+    const imageFile = e.target.files[0]
+    reader.readAsDataURL(imageFile)
+    setFileName(imageFile.name)
     reader.onload = () => {
       const result = reader.result?.toString()
       if (!result) {
@@ -186,7 +189,7 @@ export const IconEditor: React.FC<{}> = () => {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = new FormData()
-    formData.append("file", newImage, filename)
+    formData.append("file", newImage, fileName)
     const requestConfig: AxiosRequestConfig<FormData> = {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -216,17 +219,18 @@ export const IconEditor: React.FC<{}> = () => {
           onChange={onImageLoad}
         />
         <ResizeModal
-          image={inputImage ?? new Image()}
+          image={inputImage}
           setImage={setInputImage}
           isOpen={isOpen}
           onClose={onClose}
           crop={crop}
+          setChangeFlag={setChangeFlag}
           setCrop={setCrop}
           setIcon={setIcon}
           setNewImage={setNewImage}
         />
         <EditorBase>
-          {icon !== "" ? (
+          {icon !== "" || changeFlag ? (
             <ChakraImage src={toAbsolutePath(icon)} w="10rem" h="auto" />
           ) : (
             <PortalLogo boxSize="10rem" />
@@ -237,7 +241,7 @@ export const IconEditor: React.FC<{}> = () => {
           >
             画像をアップロード
           </PortalButton>
-          <PortalButton type="submit" isDisabled={icon === ""}>
+          <PortalButton type="submit" isDisabled={icon === "" || !changeFlag}>
             保存
           </PortalButton>
         </EditorBase>
