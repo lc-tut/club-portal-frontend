@@ -1,4 +1,4 @@
-import { BadgeCampus, BadgeActivity } from "./badge"
+import type { BadgeCampus, BadgeActivity } from "./badge"
 
 export type ClubCardProps = {
   thumbnail: string
