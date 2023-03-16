@@ -7,7 +7,7 @@ import { TimePlaceEditor } from "../../components/common/Editor/TimePlaceEditor"
 import { DetailLinkEditor } from "../../components/common/Editor/DetailLinkEditor"
 import { EditorBase } from "../../components/common/Editor/EditorBase"
 
-export const DetailEditor: React.VFC<{}> = () => {
+export const DetailEditor: React.FC<{}> = () => {
   return (
     <VStack flex="1" pb={PADDING_BEFORE_FOOTER}>
       <TitleArea>詳細情報の編集</TitleArea>

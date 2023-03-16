@@ -7,7 +7,7 @@ import type { UserInfo } from "../../../types/api"
 import { Loading } from "../LoadingPage"
 
 // TODO: return Unauthorized instead of NotFound
-export const UserRouteElement: React.VFC<{}> = () => {
+export const UserRouteElement: React.FC<{}> = () => {
   const { data, isLoading, isError } = useAPI<UserInfo>("/api/v1/users")
 
   if (isLoading) {

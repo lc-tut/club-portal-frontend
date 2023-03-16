@@ -26,7 +26,7 @@ import { DATE_MAP } from "../../../utils/consts"
 import { ActivityRemarkButton } from "./ActivityRemarkButton"
 import { Remark } from "./Remark"
 
-const RowComponent: React.VFC<PropsWithChildren<RowComponentProps>> = (
+const RowComponent: React.FC<PropsWithChildren<RowComponentProps>> = (
   props
 ) => {
   return (
@@ -45,7 +45,7 @@ const RowComponent: React.VFC<PropsWithChildren<RowComponentProps>> = (
     </HStack>
   )
 }
-export const DetailInformation: React.VFC<DetailInformationProps> = (props) => {
+export const DetailInformation: React.FC<DetailInformationProps> = (props) => {
   return (
     <GridItem colSpan={{ base: 12, md: 6 }}>
       <VStack spacing="1rem">

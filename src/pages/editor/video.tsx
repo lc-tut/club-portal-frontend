@@ -123,7 +123,7 @@ const HelpModal = () => {
   )
 }
 
-export const VideoEditor: React.VFC<{}> = () => {
+export const VideoEditor: React.FC<{}> = () => {
   const { clubUuid } = useOutletUser()
   const {
     handleSubmit,

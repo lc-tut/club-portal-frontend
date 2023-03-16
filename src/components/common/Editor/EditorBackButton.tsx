@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import { Link as ChakraLink } from "@chakra-ui/react"
 
-export const EditorBackButton: React.VFC<{}> = () => {
+export const EditorBackButton: React.FC<{}> = () => {
   return (
     <ChakraLink
       as={Link}

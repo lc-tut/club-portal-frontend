@@ -36,7 +36,7 @@ type FormTimeType = {
   }
 }
 
-export const TimeInput: React.VFC<TimePlaceInputProps> = (props) => {
+export const TimeInput: React.FC<TimePlaceInputProps> = (props) => {
   const {
     register,
     formState: { errors },

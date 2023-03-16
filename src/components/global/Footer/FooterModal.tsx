@@ -16,7 +16,7 @@ export type FooterModalProps = {
   onClose: () => void
 }
 
-export const FooterModal: React.VFC<FooterModalProps> = (props) => {
+export const FooterModal: React.FC<FooterModalProps> = (props) => {
   return (
     <Modal onClose={props.onClose} isOpen={props.isOpen} size="4xl">
       <ModalOverlay />

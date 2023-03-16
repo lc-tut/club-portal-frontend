@@ -2,7 +2,7 @@ import { Button } from "@chakra-ui/react"
 import type { FavoriteButtonProps } from "../../../types/button"
 import { BsStarFill } from "react-icons/bs"
 
-export const FavoriteButton: React.VFC<FavoriteButtonProps> = (props) => {
+export const FavoriteButton: React.FC<FavoriteButtonProps> = (props) => {
   const { isRegistered, isLoading } = props
   const fgColor = isRegistered ? "button.text.gray" : "#fff"
   const bgColor = isRegistered ? "button.gray" : "button.yellow"

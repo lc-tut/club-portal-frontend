@@ -7,7 +7,7 @@ import type {
 } from "../../../types/editor"
 import { EditorBase } from "./EditorBase"
 
-const EditorMenuButton: React.VFC<
+const EditorMenuButton: React.FC<
   React.PropsWithChildren<EditorMenuButtonProps>
 > = (props) => {
   const isNotAvailable = props.isNotAvailable ?? false
@@ -47,7 +47,7 @@ const EditorMenuButton: React.VFC<
   )
 }
 
-export const EditorMenu: React.VFC<EditorMenuProps> = (props) => {
+export const EditorMenu: React.FC<EditorMenuProps> = (props) => {
   return (
     <EditorBase noBackButton>
       <Grid

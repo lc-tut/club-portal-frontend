@@ -12,7 +12,7 @@ import { useState } from "react"
 import { Link } from "react-router-dom"
 import { HamburgerIcon, menuItems } from "./HamburgerMenu"
 
-export const BrowserHamburgerMenu: React.VFC<{}> = () => {
+export const BrowserHamburgerMenu: React.FC<{}> = () => {
   const [isOpen, setIsOpen] = useState(false)
   const open = () => setIsOpen(true)
   const close = () => setIsOpen(false)

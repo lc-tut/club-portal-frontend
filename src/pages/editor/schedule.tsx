@@ -26,7 +26,7 @@ type MonthInputAreaProps = {
   value?: string
 }
 
-const MonthInputArea: React.VFC<MonthInputAreaProps> = (props) => {
+const MonthInputArea: React.FC<MonthInputAreaProps> = (props) => {
   const { register } = useFormContext<FormScheduleType>()
 
   return (
@@ -65,7 +65,7 @@ type FormScheduleType = {
   schedules: Array<Schedule>
 }
 
-export const ScheduleEditor: React.VFC<{}> = () => {
+export const ScheduleEditor: React.FC<{}> = () => {
   const { clubUuid } = useOutletUser()
   const { data } = useAPI<Array<Schedule>>(
     `/api/v1/clubs/uuid/${clubUuid!}/schedule`

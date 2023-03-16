@@ -20,7 +20,7 @@ type FormRemarkType = {
   placeRemark: string
 }
 
-export const RemarkInput: React.VFC<RemarkInputProps> = (props) => {
+export const RemarkInput: React.FC<RemarkInputProps> = (props) => {
   const {
     register,
     formState: { errors },

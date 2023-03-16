@@ -21,7 +21,7 @@ type BrowserGlobalNavItemProps = {
   isNotAvailable?: boolean
 }
 
-const BrowserGlobalNavItem: React.VFC<
+const BrowserGlobalNavItem: React.FC<
   React.PropsWithChildren<BrowserGlobalNavItemProps>
 > = (props) => {
   const borderRight = props.islast ? "1px" : "0"
@@ -63,7 +63,7 @@ const BrowserGlobalNavItem: React.VFC<
   )
 }
 
-const BrowserGlobalNav: React.VFC<{}> = () => {
+const BrowserGlobalNav: React.FC<{}> = () => {
   return (
     <HStack alignItems="start" spacing="0">
       <BrowserGlobalNavItem
@@ -99,7 +99,7 @@ const BrowserGlobalNav: React.VFC<{}> = () => {
   )
 }
 
-export const TitleArea: React.VFC<
+export const TitleArea: React.FC<
   React.PropsWithChildren<{ subtitle?: string }>
 > = (props) => {
   const [isTitleOnly] = useMediaQuery(["(min-width: 80em)"])

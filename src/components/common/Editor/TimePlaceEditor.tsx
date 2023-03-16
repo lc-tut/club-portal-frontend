@@ -61,7 +61,7 @@ const schema = z.object({
   placeRemark: z.string().optional(),
 })
 
-export const TimePlaceEditor: React.VFC<{}> = () => {
+export const TimePlaceEditor: React.FC<{}> = () => {
   const methods = useForm<TimePlaceType>({
     resolver: zodResolver(schema),
   })

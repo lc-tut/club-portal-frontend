@@ -13,7 +13,7 @@ import { getCampus, getActivity } from "../utils/functions"
 import { filterReducer } from "../reducer/filter"
 import { useClubDisplay } from "../hooks/useClubDisplay"
 
-export const AnimatedFavorites: React.VFC<{}> = () => {
+export const AnimatedFavorites: React.FC<{}> = () => {
   const { userUuid } = useOutletUser()
   const { data, isLoading } = useAPI<Array<ClubPageExternal>>(
     `/api/v1/users/${userUuid}/favs`
@@ -87,6 +87,6 @@ export const AnimatedFavorites: React.VFC<{}> = () => {
   )
 }
 
-export const Favorites: React.VFC<{}> = () => {
+export const Favorites: React.FC<{}> = () => {
   return <AnimatedFavorites />
 }

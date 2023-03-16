@@ -14,7 +14,7 @@ import { ClubRouteElement } from "./components/global/Route/ClubRoute"
 import { DomainUserRouteElement } from "./components/global/Route/DomainUserRoute"
 import { useLoadingStateContext } from "./contexts/loading"
 
-const AnimatedRouter: React.VFC<{}> = () => {
+const AnimatedRouter: React.FC<{}> = () => {
   const location = useLocation()
   const { session } = useSession()
   const { isLoading, isError } = useLoadingStateContext()
@@ -41,7 +41,7 @@ const AnimatedRouter: React.VFC<{}> = () => {
     <Flex direction="column" minH="100vh">
       <Header session={session} />
       <Flex p="0" flex="1">
-        <AnimatePresence exitBeforeEnter initial={false}>
+        <AnimatePresence mode="wait" initial={false}>
           <Routes location={location} key={location.pathname}>
             <Route index element={<page.Top />} />
             <Route path="clubs">
@@ -88,7 +88,7 @@ const AnimatedRouter: React.VFC<{}> = () => {
   )
 }
 
-export const PortalRouter: React.VFC<{}> = () => {
+export const PortalRouter: React.FC<{}> = () => {
   return (
     <BrowserRouter>
       <AnimatedRouter />

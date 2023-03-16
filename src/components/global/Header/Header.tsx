@@ -5,7 +5,7 @@ import { UserMenu } from "./UserMenu"
 
 export const headerHeight = "3rem"
 
-export const Header: React.VFC<HeaderProps> = (props) => {
+export const Header: React.FC<HeaderProps> = (props) => {
   return (
     <HStack
       px="1rem"

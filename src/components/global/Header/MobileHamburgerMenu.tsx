@@ -16,7 +16,7 @@ import { headerHeight } from "./Header"
 
 const textColor = "#FFFFFC"
 
-export const MobileHamburgerMenu: React.VFC<{}> = () => {
+export const MobileHamburgerMenu: React.FC<{}> = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const stackContent = []

@@ -26,7 +26,7 @@ const colorMap: { [key in ButtonColor]: string } = {
   yellow: "button.yellow",
 }
 
-export const PortalButton: React.VFC<
+export const PortalButton: React.FC<
   React.PropsWithChildren<PortalButtonProps>
 > = (props) => {
   // default size prop

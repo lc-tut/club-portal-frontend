@@ -3,7 +3,7 @@ import { motion } from "framer-motion"
 import { Link } from "react-router-dom"
 import { TitleArea } from "../components/global/Header/TitleArea"
 
-export const NotFound: React.VFC<{}> = () => {
+export const NotFound: React.FC<{}> = () => {
   return (
     <motion.div>
       <VStack w="100vw">
