@@ -28,52 +28,46 @@ import type { Thumbnail } from "../../types/api"
 import type { StateDispatch } from "../../types/utils"
 import { axiosWithPayload } from "../../utils/axios"
 import { PADDING_BEFORE_FOOTER } from "../../utils/consts"
-import { toAbsolutePath } from "../../utils/functions"
+import { makeCenterCrop, toAbsolutePath } from "../../utils/functions"
 
 type ResizeModalProps = {
+  image: HTMLImageElement
   isOpen: boolean
   onClose: () => void
-  crop: Crop
-  image: HTMLImageElement
-  setChangeFlag: StateDispatch<boolean>
   setImage: StateDispatch<HTMLImageElement>
-  setCrop: StateDispatch<Crop>
+  setChangeFlag: StateDispatch<boolean>
   setIcon: StateDispatch<string>
-  setNewImage: StateDispatch<Blob>
-}
-
-const defaultCrop: Crop = {
-  unit: "%",
-  x: 0,
-  y: 0,
-  width: 100,
-  height: 100,
+  setNewImageBlob: StateDispatch<Blob>
 }
 
 const ResizeModal: React.FC<ResizeModalProps> = (props) => {
-  const onCancel = () => {
-    props.setCrop(defaultCrop)
-    props.onClose()
-  }
+  const [crop, setCrop] = useState<Crop>()
+  const [completedCrop, setCompletedCrop] = useState<Crop>()
 
   const onSave = () => {
     const canvas = document.createElement("canvas")
     canvas.width = 400
     canvas.height = 400
-    const scaleX = props.image.naturalWidth / props.image.width
-    const scaleY = props.image.naturalHeight / props.image.height
+    const { image, setNewImageBlob, setIcon, setChangeFlag, onClose } = props
+    const scaleX = image.naturalWidth / image.width
+    const scaleY = image.naturalHeight / image.height
     const ctx = canvas.getContext("2d")
 
     if (!ctx) {
       throw new Error("No 2d context")
     }
 
+    if (!completedCrop) {
+      console.error("No completedCrop state")
+      return
+    }
+
     ctx.drawImage(
-      props.image,
-      props.crop.x * scaleX,
-      props.crop.y * scaleY,
-      props.crop.width * scaleX,
-      props.crop.height * scaleY,
+      image,
+      completedCrop.x * scaleX,
+      completedCrop.y * scaleY,
+      completedCrop.width * scaleX,
+      completedCrop.height * scaleY,
       0,
       0,
       400,
@@ -82,44 +76,49 @@ const ResizeModal: React.FC<ResizeModalProps> = (props) => {
 
     canvas.toBlob((b) => {
       if (b) {
-        props.setNewImage(b)
-        props.setIcon(URL.createObjectURL(b))
+        setNewImageBlob(b)
+        setIcon(URL.createObjectURL(b))
       }
     })
 
-    props.onClose()
+    setChangeFlag(true)
+    onClose()
+  }
+
+  const onImageLoad: React.ReactEventHandler<HTMLImageElement> = (e) => {
+    const { naturalWidth: imgW, naturalHeight: imgH } = e.currentTarget
+    setCrop(makeCenterCrop(imgW, imgH))
+    props.setImage(e.currentTarget)
   }
 
   return (
     <Modal isOpen={props.isOpen} onClose={props.onClose} isCentered>
       <ModalOverlay />
       <ModalContent>
-        <ModalContent>
-          <ModalHeader alignSelf="center">
-            <Text>画像のリサイズ</Text>
-          </ModalHeader>
-          <ModalBody>
-            <VStack>
-              <Text>画像は400x400[px]に縮小されます</Text>
-              <ReactCrop
-                crop={props.crop}
-                aspect={1}
-                onChange={(crop) => props.setCrop(crop)}
-              >
-                {/* TODO: setImage の修正 (critical) | onLoad 時に crop がしっかりセットされるように修正する */}
-                <ChakraImage src={props.image.src} onLoad={e => props.setImage(e.currentTarget)} />
-              </ReactCrop>
-            </VStack>
-          </ModalBody>
-          <ModalFooter>
-            <HStack>
-              <PortalButton pbstyle="solid" onClick={onCancel}>
-                キャンセル
-              </PortalButton>
-              <PortalButton onClick={onSave}>保存</PortalButton>
-            </HStack>
-          </ModalFooter>
-        </ModalContent>
+        <ModalHeader alignSelf="center">
+          <Text>画像のリサイズ</Text>
+        </ModalHeader>
+        <ModalBody>
+          <VStack>
+            <Text>画像は400x400[px]に縮小されます</Text>
+            <ReactCrop
+              crop={crop}
+              aspect={1}
+              onChange={(_, percentCrop) => setCrop(percentCrop)}
+              onComplete={(c) => setCompletedCrop(c)}
+            >
+              <ChakraImage src={props.image.src} onLoad={onImageLoad} />
+            </ReactCrop>
+          </VStack>
+        </ModalBody>
+        <ModalFooter>
+          <HStack>
+            <PortalButton pbstyle="solid" onClick={props.onClose}>
+              キャンセル
+            </PortalButton>
+            <PortalButton onClick={onSave}>保存</PortalButton>
+          </HStack>
+        </ModalFooter>
       </ModalContent>
     </Modal>
   )
@@ -134,12 +133,11 @@ export const IconEditor: React.FC<{}> = () => {
   const successToast = useSuccessToast("データの保存が完了しました！")
   const [icon, setIcon] = useState<string>("")
   const [changeFlag, setChangeFlag] = useState<boolean>(false)
-  const [newImage, setNewImage] = useState<Blob>(new File([], ""))
+  const [newImageBlob, setNewImageBlob] = useState<Blob>(new File([], ""))
   const [fileName, setFileName] = useState<string>("")
   const [inputImage, setInputImage] = useState<HTMLImageElement>(new Image())
-  const [crop, setCrop] = useState<Crop>(defaultCrop)
-  const { isOpen, onOpen, onClose } = useDisclosure()
   const inputRef = useRef<HTMLInputElement>(null)
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   useEffect(() => {
     if (data) {
@@ -147,7 +145,7 @@ export const IconEditor: React.FC<{}> = () => {
     }
   }, [data])
 
-  const onImageLoad = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!(e.target.files && e.target.files.length > 0)) {
       return
     }
@@ -162,34 +160,15 @@ export const IconEditor: React.FC<{}> = () => {
       }
       const image = new Image()
       image.src = result
-      image.onload = () => {
-        const [imgW, imgH] = [image.naturalWidth, image.naturalHeight]
-        let [cropW, cropH] = [0, 0]
-        if (imgW < imgH) {
-          cropW = 1
-          cropH = imgW / imgH
-        } else {
-          cropW = imgH / imgW
-          cropH = 1
-        }
-        cropW *= 100
-        cropH *= 100
-
-        setInputImage(image)
-        setCrop({
-          ...defaultCrop,
-          width: cropW,
-          height: cropH,
-        })
-        onOpen()
-      }
+      image.onload = () => onOpen()
+      setInputImage(image)
     }
   }
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = new FormData()
-    formData.append("file", newImage, fileName)
+    formData.append("file", newImageBlob, fileName)
     const requestConfig: AxiosRequestConfig<FormData> = {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -216,18 +195,16 @@ export const IconEditor: React.FC<{}> = () => {
           display="none"
           ref={inputRef}
           value=""
-          onChange={onImageLoad}
+          onChange={onSelectFile}
         />
         <ResizeModal
           image={inputImage}
-          setImage={setInputImage}
           isOpen={isOpen}
           onClose={onClose}
-          crop={crop}
           setChangeFlag={setChangeFlag}
-          setCrop={setCrop}
           setIcon={setIcon}
-          setNewImage={setNewImage}
+          setImage={setInputImage}
+          setNewImageBlob={setNewImageBlob}
         />
         <EditorBase>
           {icon !== "" || changeFlag ? (

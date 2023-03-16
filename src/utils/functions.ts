@@ -1,3 +1,4 @@
+import { centerCrop, makeAspectCrop } from "react-image-crop"
 import type { BadgeCampus, BadgeActivity } from "../types/badge"
 import type { DateType, LinkType } from "../types/description"
 import { CAMPUS, ACTIVITY, DATE_NUMBER_MAP } from "./consts"
@@ -38,3 +39,10 @@ export const toTimeID = (
 export const toPlaceID = (buildingID: number, roomNumber: number) => {
   return Number(`${buildingID}${roomNumber.toString().padStart(6, "0")}`)
 }
+
+export const makeCenterCrop = (width: number, height: number) =>
+  centerCrop(
+    makeAspectCrop({ unit: "%", width: 100 }, 1, width, height),
+    width,
+    height
+  )
