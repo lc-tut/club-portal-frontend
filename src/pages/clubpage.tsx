@@ -24,7 +24,6 @@ import {
 } from "../components/common/ClubDescription"
 import { ClubTypeBadge } from "../components/common/Clubs/ClubTypeBadge"
 import { TitleArea } from "../components/global/Header/TitleArea"
-import { Loading } from "../components/global/LoadingPage"
 import { useAPI } from "../hooks/useAPI"
 import { useErrorToast } from "../hooks/useErrorToast"
 import { useSession } from "../hooks/useSession"
@@ -50,7 +49,7 @@ export const ClubPage: React.FC<ClubPageProps> = (props) => {
 
   const { session } = useSession()
   const clubSlug = useLocation()
-  const { data, isLoading, isError } = useAPI<ClubPageInternal | null>(
+  const { data, error } = useAPI<ClubPageInternal | null>(
     !clubSlug.pathname.startsWith("/clubs/")
       ? null
       : `/api/v1/clubs/slug${clubSlug.pathname.replace("/clubs", "")}`,
@@ -68,9 +67,7 @@ export const ClubPage: React.FC<ClubPageProps> = (props) => {
     ? updatedTimeArr[0] + " " + updatedTimeArr[1] + "/" + updatedTimeArr[2]
     : undefined
 
-  if (isLoading) return <Loading fullScreen />
-
-  if (isError || favs.isError)
+  if (error || favs.error)
     return (
       // TODO: 存在しない clubSlug に対しては NotFound ページを出す
       <ErrorPage />
@@ -150,7 +147,7 @@ export const ClubPage: React.FC<ClubPageProps> = (props) => {
         >
           <Wrap>
             <FavoriteButton
-              isDisabled={props.userUUID === undefined || favs.isError}
+              isDisabled={props.userUUID === undefined || favs.error}
               isRegistered={favs.data?.status}
               isLoading={props.userUUID ? favs.isLoading : false}
               onClick={onClick}

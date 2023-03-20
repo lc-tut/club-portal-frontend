@@ -4,22 +4,22 @@ import type { ErrorType, StateDispatch } from "../types/utils"
 
 type LoadingState = {
   isLoading: boolean
-  isError: ErrorType
+  error: ErrorType
 }
 
 type SetLoadingState = {
   setIsLoading: StateDispatch<boolean>
-  setIsError: StateDispatch<ErrorType>
+  setError: StateDispatch<ErrorType>
 }
 
 export const LoadingStateContext = React.createContext<LoadingState>({
-  isLoading: true,
-  isError: undefined,
+  isLoading: false,
+  error: undefined,
 })
 
 export const SetLoadingStateContext = React.createContext<SetLoadingState>({
   setIsLoading: () => {},
-  setIsError: () => {},
+  setError: () => {},
 })
 
 export const useLoadingStateContext = () => useContext(LoadingStateContext)

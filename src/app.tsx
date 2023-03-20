@@ -4,23 +4,38 @@ import { PortalTheme } from "./components/global/Theme"
 import { useState } from "react"
 import { LoadingStateContext, SetLoadingStateContext } from "./contexts/loading"
 import type { ErrorType } from "./types/utils"
+import { axiosFetcher } from "./utils/axios"
+import { SWRConfig } from "swr"
 
 const App: React.FC<{}> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [isError, setIsError] = useState<ErrorType>(undefined)
+  const [error, setError] = useState<ErrorType>(undefined)
 
   return (
-    <ChakraProvider theme={PortalTheme}>
-      <LoadingStateContext.Provider
-        value={{ isLoading: isLoading, isError: isError }}
-      >
+    <SWRConfig
+      value={{
+        fetcher: axiosFetcher,
+        onSuccess: () => {
+          setIsLoading(false)
+        },
+        onError: (err: ErrorType) => {
+          setError(err)
+          setIsLoading(false)
+        },
+      }}
+    >
+      <ChakraProvider theme={PortalTheme}>
         <SetLoadingStateContext.Provider
-          value={{ setIsLoading: setIsLoading, setIsError: setIsError }}
+          value={{ setIsLoading: setIsLoading, setError: setError }}
         >
-          <PortalRouter />
+          <LoadingStateContext.Provider
+            value={{ isLoading: isLoading, error: error }}
+          >
+            <PortalRouter />
+          </LoadingStateContext.Provider>
         </SetLoadingStateContext.Provider>
-      </LoadingStateContext.Provider>
-    </ChakraProvider>
+      </ChakraProvider>
+    </SWRConfig>
   )
 }
 

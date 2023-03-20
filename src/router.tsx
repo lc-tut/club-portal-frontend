@@ -12,19 +12,24 @@ import { Flex } from "@chakra-ui/react"
 import { UserRouteElement } from "./components/global/Route/UserRoute"
 import { ClubRouteElement } from "./components/global/Route/ClubRoute"
 import { DomainUserRouteElement } from "./components/global/Route/DomainUserRoute"
-import { useLoadingStateContext } from "./contexts/loading"
+import {
+  useLoadingStateContext,
+  useSetLoadingStateContext,
+} from "./contexts/loading"
 
 const AnimatedRouter: React.FC<{}> = () => {
   const location = useLocation()
   const { session } = useSession()
-  const { isLoading, isError } = useLoadingStateContext()
+  const { isLoading, error } = useLoadingStateContext()
+  const { setError } = useSetLoadingStateContext()
 
   useEffect(() => {
     window.scrollTo(0, 0) // ページ遷移時にスクロールをトップに戻す
-  }, [location])
+    setError(undefined)
+  }, [location, setError])
 
-  if (isError) {
-    if (axios.isAxiosError(isError)) {
+  if (error) {
+    if (axios.isAxiosError(error)) {
       return <ErrorPage />
     }
   }

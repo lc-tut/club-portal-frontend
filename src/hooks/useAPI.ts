@@ -3,7 +3,6 @@ import { useEffect } from "react"
 import useSWR from "swr"
 import { useSetLoadingStateContext } from "../contexts/loading"
 import type { APIResponse } from "../types/api"
-import { axiosFetcher } from "../utils/axios"
 
 type EndpointArg<T> = T extends null ? null : string
 
@@ -11,9 +10,12 @@ export const useAPI = <R extends APIResponse | null>(
   endpoint: EndpointArg<R> | (() => EndpointArg<R>),
   isImmutable?: boolean
 ) => {
-  const { data, error, mutate } = useSWR<R, AxiosError | Error>(
+  const { setIsLoading } = useSetLoadingStateContext()
+  const { data, error, isLoading, mutate } = useSWR<
+    R | undefined,
+    AxiosError | Error
+  >(
     endpoint,
-    axiosFetcher,
     isImmutable
       ? {
           revalidateIfStale: false,
@@ -22,20 +24,17 @@ export const useAPI = <R extends APIResponse | null>(
         }
       : {}
   )
-  const setLoadingState = useSetLoadingStateContext()
-  const isLoading = !error && data === undefined
 
   useEffect(() => {
-    if (!isLoading || error) {
-      setLoadingState.setIsLoading(isLoading)
-      setLoadingState.setIsError(error)
+    if (isLoading) {
+      setIsLoading(true)
     }
   })
 
   return {
     data: data,
     isLoading: isLoading,
-    isError: error,
+    error: error,
     mutate: mutate,
   }
 }
