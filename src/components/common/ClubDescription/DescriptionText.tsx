@@ -61,12 +61,7 @@ export const DescriptionText: React.FC<DescriptionProps> = (props) => {
               const label = link.label
               const registerdSNS = isRegisteredSNS(label)
               return (
-                <Link
-                  pt="1rem"
-                  href={link.path}
-                  key={link.path}
-                  isExternal
-                >
+                <Link pt="1rem" href={link.path} key={link.path} isExternal>
                   <Button
                     color={
                       registerdSNS ? fgColorMap[label] : "button.text.gray"

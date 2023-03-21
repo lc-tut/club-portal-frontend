@@ -52,10 +52,7 @@ export const UserMenu: React.FC<HeaderProps> = (props) => {
       placement="bottom-end"
     >
       <PopoverTrigger>
-        <Button
-          p="0"
-          backgroundColor="transparent"
-        >
+        <Button p="0" backgroundColor="transparent">
           {session ? (
             <Avatar src={session.avatar} {...avatarProps} />
           ) : (
