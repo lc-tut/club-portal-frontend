@@ -66,7 +66,6 @@ export const DescriptionText: React.FC<DescriptionProps> = (props) => {
                   href={link.path}
                   key={link.path}
                   isExternal
-                  _hover={{}}
                 >
                   <Button
                     color={
@@ -84,8 +83,6 @@ export const DescriptionText: React.FC<DescriptionProps> = (props) => {
                     _hover={{
                       opacity: 0.6,
                     }}
-                    _focus={{}}
-                    _active={{}}
                   >
                     {link.label}
                   </Button>

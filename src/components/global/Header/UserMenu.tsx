@@ -55,9 +55,6 @@ export const UserMenu: React.FC<HeaderProps> = (props) => {
         <Button
           p="0"
           backgroundColor="transparent"
-          _hover={{}}
-          _active={{}}
-          _focus={{}}
         >
           {session ? (
             <Avatar src={session.avatar} {...avatarProps} />

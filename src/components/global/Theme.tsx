@@ -1,12 +1,11 @@
 import { extendTheme } from "@chakra-ui/react"
-import { createBreakpoints } from "@chakra-ui/theme-tools"
 
-const breakpoints = createBreakpoints({
+const breakpoints = {
   sm: "30em",
   md: "48em",
   lg: "80em",
   xl: "100em",
-})
+}
 
 const variantOutlined = () => ({
   field: {

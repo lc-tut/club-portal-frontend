@@ -1,4 +1,4 @@
-import { Button, CSSObject, Tooltip, Wrap } from "@chakra-ui/react"
+import { Button, Tooltip, Wrap, type SystemStyleObject } from "@chakra-ui/react"
 import type {
   ButtonColor,
   ButtonRoundStyle,
@@ -55,10 +55,7 @@ export const PortalButton: React.FC<
   const borderColor = isSolid(style) ? fgColor : "transparent"
 
   // define hover style
-  const hoverStyle: CSSObject = { opacity: 0.8 }
-  if (isSolid(style)) {
-    hoverStyle.opacity = "0.8"
-  }
+  const hoverStyle: SystemStyleObject = { opacity: 0.8 }
 
   return (
     <Tooltip label={props.isPreparing ? "準備中です" : undefined}>
@@ -77,7 +74,6 @@ export const PortalButton: React.FC<
           type={props.type}
           onClick={props.onClick}
           _hover={hoverStyle}
-          _focus={{}}
           _active={{ backgroundColor: bgColor }}
         >
           {props.children}

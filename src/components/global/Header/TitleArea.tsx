@@ -40,8 +40,6 @@ const BrowserGlobalNavItem: React.FC<
               backgroundColor: "transparent",
               opacity: "0.4",
             }}
-            _focus={{}}
-            _active={{}}
           >
             <VStack alignSelf="flex-start" height="100%">
               <props.icon size="2rem" />

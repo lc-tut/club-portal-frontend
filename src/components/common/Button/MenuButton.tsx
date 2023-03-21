@@ -6,11 +6,9 @@ export const MenuButton: React.FC<React.PropsWithChildren<MenuButtonProps>> = (
 ) => {
   const type = props.mbtype ?? "main"
   const height = type === "main" ? "4.25rem" : "3rem"
-  let width = ""
+  let width = props.width
   if (!props.width) {
     width = type === "main" ? "20rem" : "100%"
-  } else {
-    width = props.width
   }
 
   return (

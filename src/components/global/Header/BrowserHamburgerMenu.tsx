@@ -29,8 +29,6 @@ export const BrowserHamburgerMenu: React.FC<{}> = () => {
           w="100%"
           justifyContent="start"
           onClick={close}
-          _focus={{}}
-          _active={{}}
         >
           {key}
         </Button>
@@ -49,7 +47,6 @@ export const BrowserHamburgerMenu: React.FC<{}> = () => {
             _hover={{
               backgroundColor: "transparent",
             }}
-            _focus={{}}
             _active={{
               color: "text.sub",
             }}

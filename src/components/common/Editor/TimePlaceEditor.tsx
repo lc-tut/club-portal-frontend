@@ -1,5 +1,5 @@
 import { Flex, FormLabel, HStack, Stack, Text } from "@chakra-ui/react"
-import React, { useEffect, useReducer, useState } from "react"
+import { useEffect, useReducer, useState } from "react"
 import { EditorButton } from "./EditorButton"
 import { BUILDING_ID_MAP, DATE_MAP } from "../../../utils/consts"
 import { PlaceInput } from "./PlaceInput"

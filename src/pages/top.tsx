@@ -11,7 +11,6 @@ import {
   Link as ChakraLink,
   HStack,
 } from "@chakra-ui/react"
-import React from "react"
 import {
   BsBoxArrowUpRight,
   BsClockHistory,
