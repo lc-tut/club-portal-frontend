@@ -6,9 +6,10 @@ import type { Session } from "../types/api"
 
 export const useSession = () => {
   const { setIsLoading } = useSetLoadingStateContext()
-  const { data, error, isLoading } = useSWR<Session, Error | AxiosError>(
-    "/api/auth"
-  )
+  const { data, error, isLoading, mutate } = useSWR<
+    Session,
+    Error | AxiosError
+  >("/api/auth")
 
   useEffect(() => {
     if (isLoading) {
@@ -20,5 +21,6 @@ export const useSession = () => {
     session: data as Session,
     isLoading: isLoading,
     error: error,
+    mutate: mutate,
   }
 }
