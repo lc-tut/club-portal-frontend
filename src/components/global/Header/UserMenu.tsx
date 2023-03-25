@@ -12,7 +12,9 @@ import {
 } from "@chakra-ui/react"
 import { BsBoxArrowRight, BsPencil } from "react-icons/bs"
 import { Link, useLocation } from "react-router-dom"
-import { useSWRConfig } from "swr"
+import { useSetLoadingStateContext } from "../../../contexts/loading"
+import { useErrorToast } from "../../../hooks/useErrorToast"
+import { useSession } from "../../../hooks/useSession"
 import type { HeaderProps } from "../../../types/header"
 import { axiosFetcher } from "../../../utils/axios"
 import { PortalButton } from "../../common/Button"
@@ -21,17 +23,22 @@ import { DefaultUserIcon } from "../../common/Icon"
 export const UserMenu: React.FC<HeaderProps> = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const loc = useLocation()
-  const { mutate } = useSWRConfig()
+  const { mutate } = useSession()
   const { session } = props
   const [adjustPopoverWidth] = useMediaQuery("(max-width: 21em)")
+  const { setIsLoading } = useSetLoadingStateContext()
+  const errorToast = useErrorToast("正常にログアウトできませんでした")
 
   const onLogout = async () => {
+    setIsLoading(true)
     try {
-      await mutate("/api/auth", null, false)
       await axiosFetcher<unknown>("/api/auth/destroy", { method: "post" })
-      await mutate("/api/auth")
     } catch (e) {
       console.error(e)
+      errorToast()
+    } finally {
+      await mutate()
+      setIsLoading(false)
     }
   }
 
