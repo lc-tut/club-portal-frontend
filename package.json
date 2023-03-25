@@ -55,7 +55,7 @@
     "@storybook/react": "6.5.16",
     "@svgr/webpack": "7.0.0",
     "@types/node": "18.15.9",
-    "@types/react": "18.0.28",
+    "@types/react": "18.0.29",
     "@types/react-dom": "18.0.11",
     "@typescript-eslint/eslint-plugin": "5.56.0",
     "@typescript-eslint/parser": "5.56.0",
