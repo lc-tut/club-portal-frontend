@@ -1,12 +1,11 @@
 import { Flex, Stack, VStack, Wrap } from "@chakra-ui/react"
-import type { PropsWithChildren } from "react"
 import { EditorBackButton } from "./EditorBackButton"
 
 type EditorBaseProps = {
   noBackButton?: boolean
 }
 
-export const EditorBase: React.FC<PropsWithChildren<EditorBaseProps>> = (
+export const EditorBase: React.FC<React.PropsWithChildren<EditorBaseProps>> = (
   props
 ) => {
   return (

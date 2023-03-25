@@ -8,7 +8,7 @@ import {
   useMediaQuery,
   VStack,
 } from "@chakra-ui/react"
-import { IconType } from "react-icons"
+import type { IconType } from "react-icons"
 import { BsClockHistory, BsMegaphone, BsSearch, BsStar } from "react-icons/bs"
 import { Link } from "react-router-dom"
 import { PortalBanner } from "./PortalBanner"

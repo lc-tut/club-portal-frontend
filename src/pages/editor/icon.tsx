@@ -27,7 +27,7 @@ import { useSuccessToast } from "../../hooks/useSuccessToast"
 import type { Thumbnail } from "../../types/api"
 import type { StateDispatch } from "../../types/utils"
 import { axiosWithPayload } from "../../utils/axios"
-import { PADDING_BEFORE_FOOTER } from "../../utils/consts"
+import { PADDING_BEFORE_FOOTER, ICON_SIZE } from "../../utils/consts"
 import { makeCenterCrop, toAbsolutePath } from "../../utils/functions"
 
 type ResizeModalProps = {
@@ -46,8 +46,8 @@ const ResizeModal: React.FC<ResizeModalProps> = (props) => {
 
   const onSave = () => {
     const canvas = document.createElement("canvas")
-    canvas.width = 400
-    canvas.height = 400
+    canvas.width = ICON_SIZE
+    canvas.height = ICON_SIZE
     const { image, setNewImageBlob, setIcon, setChangeFlag, onClose } = props
     const scaleX = image.naturalWidth / image.width
     const scaleY = image.naturalHeight / image.height
@@ -70,8 +70,8 @@ const ResizeModal: React.FC<ResizeModalProps> = (props) => {
       completedCrop.height * scaleY,
       0,
       0,
-      400,
-      400
+      ICON_SIZE,
+      ICON_SIZE
     )
 
     canvas.toBlob((b) => {

@@ -6,7 +6,7 @@ import {
   PopoverContent,
   PopoverTrigger,
   Text,
-  useBoolean,
+  useDisclosure,
   useMediaQuery,
   VStack,
 } from "@chakra-ui/react"
@@ -19,7 +19,7 @@ import { PortalButton } from "../../common/Button"
 import { DefaultUserIcon } from "../../common/Icon"
 
 export const UserMenu: React.FC<HeaderProps> = (props) => {
-  const [isOpen, setIsOpen] = useBoolean(false)
+  const { isOpen, onOpen, onClose } = useDisclosure()
   const loc = useLocation()
   const { mutate } = useSWRConfig()
   const { session } = props
@@ -47,8 +47,8 @@ export const UserMenu: React.FC<HeaderProps> = (props) => {
   return (
     <Popover
       isOpen={isOpen}
-      onOpen={setIsOpen.on}
-      onClose={setIsOpen.off}
+      onOpen={onOpen}
+      onClose={onClose}
       placement="bottom-end"
     >
       <PopoverTrigger>

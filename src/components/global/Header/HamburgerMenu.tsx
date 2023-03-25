@@ -5,6 +5,7 @@ import { BrowserHamburgerMenu } from "./BrowserHamburgerMenu"
 import { useMobileMediaQuery } from "../../../hooks/useMobileQuery"
 
 // label: url
+// TODO: ここの形式を変更する
 export const menuItems: { [key: string]: string } = {
   TOP: "/",
   サークル検索: "/clubs",

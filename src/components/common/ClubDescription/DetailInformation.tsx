@@ -10,7 +10,7 @@ import {
   UnorderedList,
   VStack,
 } from "@chakra-ui/react"
-import { Fragment, PropsWithChildren } from "react"
+import { Fragment } from "react"
 import {
   BsClock,
   BsEnvelope,
@@ -26,7 +26,7 @@ import { DATE_MAP } from "../../../utils/consts"
 import { ActivityRemarkButton } from "./ActivityRemarkButton"
 import { Remark } from "./Remark"
 
-const RowComponent: React.FC<PropsWithChildren<RowComponentProps>> = (
+const RowComponent: React.FC<React.PropsWithChildren<RowComponentProps>> = (
   props
 ) => {
   return (

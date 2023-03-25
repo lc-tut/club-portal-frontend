@@ -1,7 +1,6 @@
-import { Icon } from "@chakra-ui/react"
+import { Icon, type IconProps } from "@chakra-ui/react"
 import IconImage from "../../../static/DefaultUserIcon.svg"
-import type { IconComponent } from "../../../types/icon"
 
-export const DefaultUserIcon: IconComponent = (props) => {
+export const DefaultUserIcon: React.FC<IconProps> = (props) => {
   return <Icon as={IconImage} {...props} />
 }

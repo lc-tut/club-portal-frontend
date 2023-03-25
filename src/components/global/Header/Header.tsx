@@ -1,15 +1,14 @@
 import { HStack } from "@chakra-ui/react"
 import type { HeaderProps } from "../../../types/header"
+import { HEADER_HEIGHT } from "../../../utils/consts"
 import { HamburgerMenu } from "./HamburgerMenu"
 import { UserMenu } from "./UserMenu"
-
-export const headerHeight = "3rem"
 
 export const Header: React.FC<HeaderProps> = (props) => {
   return (
     <HStack
       px="1rem"
-      h={headerHeight}
+      h={HEADER_HEIGHT}
       backgroundColor="green.200"
       justifyContent="space-between"
     >

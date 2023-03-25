@@ -1,7 +1,6 @@
-import { Icon } from "@chakra-ui/react"
+import { Icon, type IconProps } from "@chakra-ui/react"
 import Logo from "../../../static/Logo.svg"
-import type { IconComponent } from "../../../types/icon"
 
-export const PortalLogo: IconComponent = (props) => {
+export const PortalLogo: React.FC<IconProps> = (props) => {
   return <Icon as={Logo} {...props} />
 }

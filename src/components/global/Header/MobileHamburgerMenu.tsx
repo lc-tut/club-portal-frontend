@@ -11,8 +11,8 @@ import {
 } from "@chakra-ui/react"
 import { BsChevronRight } from "react-icons/bs"
 import { Link } from "react-router-dom"
+import { HEADER_HEIGHT } from "../../../utils/consts"
 import { HamburgerIcon, menuItems } from "./HamburgerMenu"
-import { headerHeight } from "./Header"
 
 const textColor = "#FFFFFC"
 
@@ -54,7 +54,7 @@ export const MobileHamburgerMenu: React.FC<{}> = () => {
         <HamburgerIcon />
       </Center>
       <Drawer placement="left" onClose={onClose} isOpen={isOpen} size="full">
-        <DrawerContent mt={headerHeight} backgroundColor="green.500">
+        <DrawerContent mt={HEADER_HEIGHT} backgroundColor="green.500">
           <DrawerHeader textColor={textColor}>Menu</DrawerHeader>
           <DrawerBody p="0">
             <Stack spacing="0">{stackContent}</Stack>
