@@ -7,7 +7,6 @@ import { Loading } from "./components/global/LoadingPage"
 import { Header } from "./components/global/Header/Header"
 import { Footer } from "./components/global/Footer"
 import axios from "axios"
-import { ErrorPage } from "./pages/error"
 import { Flex } from "@chakra-ui/react"
 import { UserRouteElement } from "./components/global/Route/UserRoute"
 import { ClubRouteElement } from "./components/global/Route/ClubRoute"
@@ -17,6 +16,7 @@ import {
   useSetLoadingStateContext,
 } from "./contexts/loading"
 
+// TODO: 存在しない clubSlug には NotFound を出す
 const AnimatedRouter: React.FC<{}> = () => {
   const location = useLocation()
   const { session } = useSession()
@@ -35,7 +35,11 @@ const AnimatedRouter: React.FC<{}> = () => {
           <Header session={session} />
           <Flex p="0" flex="1">
             <AnimatePresence mode="wait" initial={false}>
-              <ErrorPage />
+              {error.response?.status === 401 ? (
+                <page.UnauthorizedPage />
+              ) : (
+                <page.ErrorPage />
+              )}
             </AnimatePresence>
           </Flex>
           <Footer />
