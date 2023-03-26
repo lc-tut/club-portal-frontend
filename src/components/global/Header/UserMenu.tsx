@@ -32,12 +32,19 @@ export const UserMenu: React.FC<HeaderProps> = (props) => {
   const onLogout = async () => {
     setIsLoading(true)
     try {
-      await axiosFetcher<unknown>("/api/auth/destroy", { method: "post" })
+      await mutate(
+        async () => {
+          await axiosFetcher<unknown>("/api/auth/destroy", { method: "post" })
+          return null
+        },
+        {
+          revalidate: false,
+        }
+      )
     } catch (e) {
       console.error(e)
       errorToast()
     } finally {
-      await mutate()
       setIsLoading(false)
     }
   }

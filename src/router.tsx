@@ -30,13 +30,23 @@ const AnimatedRouter: React.FC<{}> = () => {
 
   if (error) {
     if (axios.isAxiosError(error)) {
-      return <ErrorPage />
+      return (
+        <Flex direction="column" minH="100vh">
+          <Header session={session} />
+          <Flex p="0" flex="1">
+            <AnimatePresence mode="wait" initial={false}>
+              <ErrorPage />
+            </AnimatePresence>
+          </Flex>
+          <Footer />
+        </Flex>
+      )
     }
   }
 
   if (isLoading) {
     return (
-      <AnimatePresence>
+      <AnimatePresence mode="wait" initial={false}>
         <Loading fullScreen />
       </AnimatePresence>
     )
