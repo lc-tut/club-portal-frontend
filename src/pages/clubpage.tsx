@@ -34,7 +34,6 @@ import type {
 } from "../types/api"
 import { axiosWithPayload } from "../utils/axios"
 import { ACTIVITY, CAMPUS } from "../utils/consts"
-import { ErrorPage } from "./error"
 
 type ClubPageProps = {
   userUUID?: string
@@ -49,7 +48,7 @@ export const ClubPage: React.FC<ClubPageProps> = (props) => {
 
   const { session } = useSession()
   const clubSlug = useLocation()
-  const { data, error } = useAPI<ClubPageInternal | null>(
+  const { data } = useAPI<ClubPageInternal | null>(
     !clubSlug.pathname.startsWith("/clubs/")
       ? null
       : `/api/v1/clubs/slug${clubSlug.pathname.replace("/clubs", "")}`,
@@ -66,12 +65,6 @@ export const ClubPage: React.FC<ClubPageProps> = (props) => {
   const updatedTime = updatedTimeArr
     ? updatedTimeArr[0] + " " + updatedTimeArr[1] + "/" + updatedTimeArr[2]
     : undefined
-
-  if (error || favs.error)
-    return (
-      // TODO: 存在しない clubSlug に対しては NotFound ページを出す
-      <ErrorPage />
-    )
 
   const schedule: { [key in number]: string } = {}
 
@@ -90,11 +83,18 @@ export const ClubPage: React.FC<ClubPageProps> = (props) => {
         method: "post",
         data: { clubUuid: data!.clubUuid },
       }
-      await favs.mutate({ status: !favs.data?.status })
-      await axiosWithPayload<RegisterFavoriteClubPayload, unknown>(
-        requestConfig
+      await favs.mutate(
+        async (data) => {
+          await axiosWithPayload<RegisterFavoriteClubPayload, unknown>(
+            requestConfig
+          )
+          return { status: !data?.status }
+        },
+        {
+          optimisticData: (data) => ({ status: !data?.status }),
+          revalidate: false,
+        }
       )
-      await favs.mutate()
     } catch (e) {
       toast()
       console.error(e)
@@ -147,7 +147,7 @@ export const ClubPage: React.FC<ClubPageProps> = (props) => {
         >
           <Wrap>
             <FavoriteButton
-              isDisabled={props.userUUID === undefined || favs.error}
+              isDisabled={props.userUUID === undefined}
               isRegistered={favs.data?.status}
               isLoading={props.userUUID ? favs.isLoading : false}
               onClick={onClick}
