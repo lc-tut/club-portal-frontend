@@ -8,11 +8,13 @@ import type {
   PortalButtonProps,
 } from "../../../types/button"
 
-const isSolid = (style: ButtonStyle): style is ButtonSolidStyle =>
-  style === "solid" || style === "round-solid"
+function isSolid(style: ButtonStyle): style is ButtonSolidStyle {
+  return style === "solid" || style === "round-solid"
+}
 
-const isRound = (style: ButtonStyle): style is ButtonRoundStyle =>
-  style === "round-fill" || style === "round-solid"
+function isRound(style: ButtonStyle): style is ButtonRoundStyle {
+  return style === "round-fill" || style === "round-solid"
+}
 
 const sizeMap: { [key in ButtonSize]: string } = {
   normal: "10rem",

@@ -22,6 +22,9 @@ export const SetLoadingStateContext = React.createContext<SetLoadingState>({
   setError: () => {},
 })
 
-export const useLoadingStateContext = () => useContext(LoadingStateContext)
-export const useSetLoadingStateContext = () =>
-  useContext(SetLoadingStateContext)
+export function useLoadingStateContext() {
+  return useContext(LoadingStateContext)
+}
+export function useSetLoadingStateContext() {
+  return useContext(SetLoadingStateContext)
+}

@@ -4,7 +4,7 @@ import useSWR from "swr"
 import { useSetLoadingStateContext } from "../contexts/loading"
 import type { Session } from "../types/api"
 
-export const useSession = () => {
+export function useSession() {
   const { setIsLoading } = useSetLoadingStateContext()
   const { data, error, isLoading, mutate } = useSWR<
     Session,

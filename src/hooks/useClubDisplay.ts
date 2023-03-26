@@ -3,11 +3,11 @@ import type { ClubPageExternal } from "../types/api"
 import type { FilterStateType } from "../types/reducer"
 import { useAPI } from "./useAPI"
 
-export const useClubDisplay = (
+export function useClubDisplay(
   arr: Array<ClubPageExternal> | undefined,
   state: FilterStateType,
   keyword: string
-) => {
+) {
   const { data } = useAPI<Array<ClubPageExternal> | null>(
     keyword === "" ? null : `/api/v1/clubs/search?content=${keyword}`
   )

@@ -5,25 +5,20 @@ import type { APIPayload, APIResponse, Session } from "../types/api"
 
 const client = applyCaseMiddleware(axios.create())
 
-const axiosFetcher = async <
+async function axiosFetcher<
   R extends APIResponse | Session | unknown = APIResponse,
   T extends AxiosRequestConfig = AxiosRequestConfig
->(
-  url: string,
-  args?: T
-) => {
+>(url: string, args?: T) {
   const axiosConfig: AxiosRequestConfig = { url: url, ...args }
   const { data } = await client.request<R>(axiosConfig)
   return data
 }
 
-const axiosWithPayload = async <
+async function axiosWithPayload<
   D extends APIPayload | FormData,
   R extends APIResponse | unknown,
   T extends AxiosRequestConfig<D> = AxiosRequestConfig<D>
->(
-  config: T
-) => {
+>(config: T) {
   const res = await client.request<R, AxiosResponse<R, D>, D>(config)
   return res
 }

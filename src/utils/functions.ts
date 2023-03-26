@@ -3,28 +3,35 @@ import type { BadgeCampus, BadgeActivity } from "../types/badge"
 import type { DateType, LinkType } from "../types/description"
 import { CAMPUS, ACTIVITY, DATE_NUMBER_MAP } from "./consts"
 
-export const toAbsolutePath = (path: string) => {
+export function toAbsolutePath(path: string) {
   return path.startsWith("blob")
     ? path
     : `${location.protocol}//${location.host}/${path}`
 }
 
-export const getCampus = (num: number): BadgeCampus => CAMPUS[num]
-export const getActivity = (num: number): BadgeActivity => ACTIVITY[num]
-export const isRegisteredSNS = (label: string): label is LinkType =>
-  label === "Twitter" ||
-  label === "Instagram" ||
-  label === "Discord" ||
-  label === "YouTube" ||
-  label === "LINE" // || label === "Blog"
+export function getCampus(num: number): BadgeCampus {
+  return CAMPUS[num]
+}
+export function getActivity(num: number): BadgeActivity {
+  return ACTIVITY[num]
+}
+export function isRegisteredSNS(label: string): label is LinkType {
+  return (
+    label === "Twitter" ||
+    label === "Instagram" ||
+    label === "Discord" ||
+    label === "YouTube" ||
+    label === "LINE"
+  )
+} // || label === "Blog"
 
-export const toTimeID = (
+export function toTimeID(
   date: DateType,
   startHourTime: number,
   startMinuteTime: number,
   endHourTime: number,
   endMinuteTime: number
-) => {
+) {
   const subTime =
     (endHourTime - startHourTime) * 60 + (endMinuteTime - startMinuteTime)
   return Number(
@@ -36,13 +43,14 @@ export const toTimeID = (
   )
 }
 
-export const toPlaceID = (buildingID: number, roomNumber: number) => {
+export function toPlaceID(buildingID: number, roomNumber: number) {
   return Number(`${buildingID}${roomNumber.toString().padStart(6, "0")}`)
 }
 
-export const makeCenterCrop = (width: number, height: number) =>
-  centerCrop(
+export function makeCenterCrop(width: number, height: number) {
+  return centerCrop(
     makeAspectCrop({ unit: "%", width: 100 }, 1, width, height),
     width,
     height
   )
+}

@@ -35,9 +35,11 @@ import { axiosWithPayload } from "../../utils/axios"
 import { useAPI } from "../../hooks/useAPI"
 import { useSuccessToast } from "../../hooks/useSuccessToast"
 
-const parseVideoId = (
-  input: string
-): { success: boolean; message: string; videoID: string } => {
+function parseVideoId(input: string): {
+  success: boolean
+  message: string
+  videoID: string
+} {
   if (input === "") {
     return { success: false, message: "URLを入力して下さい。", videoID: "" }
   }
@@ -89,7 +91,7 @@ const parseVideoId = (
   }
 }
 
-const HelpModal = () => {
+const HelpModal: React.FC<{}> = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (

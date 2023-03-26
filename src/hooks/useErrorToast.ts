@@ -1,6 +1,6 @@
 import { useToast } from "@chakra-ui/react"
 
-export const useErrorToast = (desc: string) => {
+export function useErrorToast(desc: string) {
   const toast = useToast()
 
   return () =>

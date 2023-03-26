@@ -1,6 +1,6 @@
 import { useToast } from "@chakra-ui/react"
 
-export const useSuccessToast = (desc: string) => {
+export function useSuccessToast(desc: string) {
   const toast = useToast()
 
   return () =>

@@ -6,7 +6,7 @@ import type {
   BadgeCampus,
 } from "../../../types/badge"
 
-const isCampusContent = (content: BadgeContent): content is BadgeCampus => {
+function isCampusContent(content: BadgeContent): content is BadgeCampus {
   return content === "hachioji" || content === "kamata"
 }
 
