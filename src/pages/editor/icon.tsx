@@ -174,7 +174,7 @@ export const IconEditor: React.FC<{}> = () => {
         "Content-Type": "multipart/form-data",
       },
       url: `/api/v1/upload/thumbnail/clubs/${clubUuid!}`,
-      method: data?.thumbnailId === 1 ? "post" : "put",
+      method: "put",
       data: formData,
     }
     try {
