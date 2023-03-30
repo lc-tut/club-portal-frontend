@@ -28,8 +28,8 @@ export function useClubDisplay(
       } = state
       if (val.campus === 0 && !isHachiojiCampus) return false
       if (val.campus === 1 && !isKamataCampus) return false
-      if (val.clubType === 0 && !isCultureClub) return false
-      if (val.clubType === 1 && !isSportsClub) return false
+      if (val.clubType === 0 && !isSportsClub) return false
+      if (val.clubType === 1 && !isCultureClub) return false
       if (val.clubType === 2 && !isCommittee) return false
       return true
     })
