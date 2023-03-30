@@ -17,7 +17,6 @@ import {
   Switch,
   Text,
   useDisclosure,
-  useMediaQuery,
   VStack,
 } from "@chakra-ui/react"
 import type { Dispatch } from "react"
@@ -109,7 +108,6 @@ const FilterSwitch: React.FC<FilterSwitchProps> = (props) => {
 
 export const ClubFilter: React.FC<FilterAreaProps> = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const [adjustWidth] = useMediaQuery("(max-width: 20em)")
   const { register, handleSubmit } = useForm<KeywordFormType>()
 
   const onSubmit = handleSubmit((data) => {
@@ -118,7 +116,7 @@ export const ClubFilter: React.FC<FilterAreaProps> = (props) => {
 
   return (
     <VStack
-      width="20rem"
+      width={props.isMobileLayout ? "100vw" : "20rem"}
       height="100%"
       pt="2rem"
       pb={PADDING_BEFORE_FOOTER}
@@ -162,10 +160,10 @@ export const ClubFilter: React.FC<FilterAreaProps> = (props) => {
         ) : (
           <>
             <Box
-              w={adjustWidth ? "90vw" : "20rem"}
+              w="90vw"
               backgroundColor="background.main"
               textColor="text.main"
-              fontSize={adjustWidth ? "0.8rem" : "1rem"}
+              fontSize="0.8rem"
               border="1px"
               borderColor="form.frame"
               borderRadius="5px"
@@ -201,11 +199,11 @@ export const ClubFilter: React.FC<FilterAreaProps> = (props) => {
               </HStack>
             </Box>
             <HStack
-              w="1"
+              w="100%"
               px="2rem"
               pt="1.5rem"
-              justifyContent={props.isMobileLayout ? "center" : "space-between"}
-              spacing={props.isMobileLayout ? "2rem" : undefined}
+              justifyContent="center"
+              spacing="2rem"
             >
               <PortalButton pbstyle="solid" width="7rem" onClick={onOpen}>
                 条件変更
@@ -214,12 +212,9 @@ export const ClubFilter: React.FC<FilterAreaProps> = (props) => {
                 検索
               </PortalButton>
             </HStack>
-            <Modal isOpen={props.isMobileLayout && isOpen} onClose={onClose}>
+            <Modal isOpen={isOpen} onClose={onClose}>
               <ModalOverlay />
-              <ModalContent
-                w={adjustWidth ? "90vw" : "20rem"}
-                backgroundColor="background.modal"
-              >
+              <ModalContent w="90vw" backgroundColor="background.modal">
                 <ModalHeader pt="2rem" pb="0">
                   <Center
                     color="text.modal.main"
@@ -241,7 +236,6 @@ export const ClubFilter: React.FC<FilterAreaProps> = (props) => {
                       px="2rem"
                       pt="1.5rem"
                       justifyContent="center"
-                      spacing={adjustWidth ? undefined : "2rem"}
                     >
                       <PortalButton
                         pbstyle="solid"
