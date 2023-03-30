@@ -26,8 +26,8 @@ export const VALID_SNS_LIST: ReadonlyArray<LinkType> = [
 ]
 export const CAMPUS: ReadonlyArray<BadgeCampus> = ["hachioji", "kamata"]
 export const ACTIVITY: ReadonlyArray<BadgeActivity> = [
-  "sports",
   "culture",
+  "sports",
   "committee",
 ]
 export const MONTHS: ReadonlyArray<number> = [
