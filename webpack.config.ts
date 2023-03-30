@@ -13,6 +13,7 @@ const isProduction = process.env.NODE_ENV === "production"
 const commonPlugins: webpack.WebpackPluginInstance[] = [
   new HtmlWebpackPlugin({
     template: "./template/index.html",
+    favicon: "./template/favicon.ico",
   }),
   new ForkTsCheckerWebpackPlugin(),
 ]
@@ -32,7 +33,7 @@ const devServer: Configuration = {
   proxy: {
     "/api": "http://localhost:8080",
     "/thumbnails": "http://localhost:8080",
-    "/images": "http://localhost:8080"
+    "/images": "http://localhost:8080",
   },
 }
 
@@ -104,9 +105,9 @@ const config: webpack.Configuration = {
         test: /\.css$/,
         use: [
           isProduction ? MiniCssExtractPlugin.loader : "style-loader",
-          "css-loader"
+          "css-loader",
         ],
-      }
+      },
     ],
   },
 
@@ -133,11 +134,12 @@ const config: webpack.Configuration = {
             },
           ],
         },
-      })
+      }),
     ],
     splitChunks: {
-      chunks: "all"
-    }
+      chunks: "all",
+    },
+    runtimeChunk: { name: "vendor" },
   },
 
   cache: {
