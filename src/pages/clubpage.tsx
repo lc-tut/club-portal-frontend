@@ -33,7 +33,7 @@ import type {
   RegisterFavoriteClubPayload,
 } from "../types/api"
 import { axiosWithPayload } from "../utils/axios"
-import { ACTIVITY, CAMPUS } from "../utils/consts"
+import { getActivity, getCampus } from "../utils/functions"
 
 type ClubPageProps = {
   userUUID?: string
@@ -132,11 +132,11 @@ export const ClubPage: React.FC<ClubPageProps> = (props) => {
           )}
           <HStack>
             <ClubTypeBadge
-              content={CAMPUS[data?.campus ?? 0]}
+              content={getCampus(data?.campus ?? 0)}
               badgetype="page"
             />
             <ClubTypeBadge
-              content={ACTIVITY[data?.clubType ?? 0]}
+              content={getActivity(data?.clubType ?? 0)}
               badgetype="page"
             />
           </HStack>
