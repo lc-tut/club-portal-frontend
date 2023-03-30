@@ -3,6 +3,7 @@ import type { ClubPageExternal } from "../types/api"
 import type { FilterStateType } from "../types/reducer"
 import { useAPI } from "./useAPI"
 
+// TODO: fix keyword and rendering problem
 export function useClubDisplay(
   arr: Array<ClubPageExternal> | undefined,
   state: FilterStateType,
