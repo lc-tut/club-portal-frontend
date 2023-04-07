@@ -9,6 +9,8 @@ export function useClubDisplay(
   state: FilterStateType,
   keyword: string
 ) {
+  // Call `useAPI` once in club.tsx so that fix that keyword is empty
+  // Remove this because `useAPI` is called repeatly in club.tsx and this
   const { data } = useAPI<Array<ClubPageExternal> | null>(
     keyword === "" ? null : `/api/v1/clubs/search?content=${keyword}`
   )
