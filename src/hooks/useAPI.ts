@@ -8,7 +8,8 @@ type EndpointArg<T> = T extends null ? null : string
 
 export function useAPI<R extends APIResponse | null>(
   endpoint: EndpointArg<R> | (() => EndpointArg<R>),
-  isImmutable?: boolean
+  isImmutable?: boolean,
+  isNotUpdateLoadingState?: boolean
 ) {
   const { setIsLoading } = useSetLoadingStateContext()
   const { data, error, isLoading, mutate } = useSWR<
@@ -26,7 +27,7 @@ export function useAPI<R extends APIResponse | null>(
   )
 
   useEffect(() => {
-    if (isLoading) {
+    if (isLoading && !isNotUpdateLoadingState) {
       setIsLoading(true)
     }
   })

@@ -3,16 +3,15 @@ import type { ClubPageExternal } from "../types/api"
 import type { FilterStateType } from "../types/reducer"
 import { useAPI } from "./useAPI"
 
-// TODO: fix keyword and rendering problem
 export function useClubDisplay(
   arr: Array<ClubPageExternal> | undefined,
   state: FilterStateType,
   keyword: string
 ) {
-  // Call `useAPI` once in club.tsx so that fix that keyword is empty
-  // Remove this because `useAPI` is called repeatly in club.tsx and this
   const { data } = useAPI<Array<ClubPageExternal> | null>(
-    keyword === "" ? null : `/api/v1/clubs/search?content=${keyword}`
+    keyword === "" ? null : `/api/v1/clubs/search?content=${keyword}`,
+    false,
+    true
   )
 
   if (data) {
