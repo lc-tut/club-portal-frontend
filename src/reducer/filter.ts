@@ -1,4 +1,5 @@
 import type { Reducer } from "react"
+
 import type { FilterActionType, FilterStateType } from "../types/reducer"
 import {
   RESET_FILTER,

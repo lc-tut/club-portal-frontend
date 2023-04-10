@@ -1,9 +1,10 @@
 import { Center } from "@chakra-ui/react"
+
 import type {
-  ClubTypeBadgeProp,
-  BadgeSize,
-  BadgeContent,
   BadgeCampus,
+  BadgeContent,
+  BadgeSize,
+  ClubTypeBadgeProp,
 } from "../../../types/badge"
 
 function isCampusContent(content: BadgeContent): content is BadgeCampus {

@@ -1,4 +1,5 @@
 import type { Dispatch } from "react"
+
 import type { TimePlaceActionType, TimePlaceStateType } from "./reducer"
 
 export type EditorMenuProps = {

@@ -1,4 +1,5 @@
 import { Box, Text } from "@chakra-ui/react"
+
 import type { RemarkProps } from "../../../types/description"
 
 export const Remark: React.FC<RemarkProps> = (props) => {

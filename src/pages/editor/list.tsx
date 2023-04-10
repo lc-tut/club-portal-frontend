@@ -1,4 +1,5 @@
 import { VStack } from "@chakra-ui/react"
+
 import { EditorMenu } from "../../components/common/Editor/EditorMenu"
 import { TitleArea } from "../../components/global/Header/TitleArea"
 import { PADDING_BEFORE_FOOTER } from "../../utils/consts"

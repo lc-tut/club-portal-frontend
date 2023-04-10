@@ -8,18 +8,19 @@ import {
   Text,
   Wrap,
 } from "@chakra-ui/react"
-import { EditorButton } from "./EditorButton"
+import { zodResolver } from "@hookform/resolvers/zod"
+import type { AxiosRequestConfig } from "axios"
+import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
-import { zodResolver } from "@hookform/resolvers/zod"
-import type { Content } from "../../../types/api"
-import { useState, useEffect } from "react"
-import { useErrorToast } from "../../../hooks/useErrorToast"
-import { useSuccessToast } from "../../../hooks/useSuccessToast"
+
 import { useAPI } from "../../../hooks/useAPI"
+import { useErrorToast } from "../../../hooks/useErrorToast"
 import { useOutletUser } from "../../../hooks/useOutletUser"
-import type { AxiosRequestConfig } from "axios"
+import { useSuccessToast } from "../../../hooks/useSuccessToast"
+import type { Content } from "../../../types/api"
 import { axiosWithPayload } from "../../../utils/axios"
+import { EditorButton } from "./EditorButton"
 
 type ContentType = {
   content: string

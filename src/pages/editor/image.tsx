@@ -15,20 +15,21 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react"
+import type { AxiosRequestConfig } from "axios"
 import { useEffect, useRef, useState } from "react"
+
 import { PortalButton } from "../../components/common/Button"
 import { EditorBase } from "../../components/common/Editor/EditorBase"
 import { EditorButton } from "../../components/common/Editor/EditorButton"
 import { TitleArea } from "../../components/global/Header/TitleArea"
-import { PADDING_BEFORE_FOOTER } from "../../utils/consts"
-import { useOutletUser } from "../../hooks/useOutletUser"
 import { useAPI } from "../../hooks/useAPI"
-import type { Image, UpdateImagePayload } from "../../types/api"
-import { toAbsolutePath } from "../../utils/functions"
-import type { AxiosRequestConfig } from "axios"
-import { axiosWithPayload } from "../../utils/axios"
 import { useErrorToast } from "../../hooks/useErrorToast"
+import { useOutletUser } from "../../hooks/useOutletUser"
 import { useSuccessToast } from "../../hooks/useSuccessToast"
+import type { Image, UpdateImagePayload } from "../../types/api"
+import { axiosWithPayload } from "../../utils/axios"
+import { PADDING_BEFORE_FOOTER } from "../../utils/consts"
+import { toAbsolutePath } from "../../utils/functions"
 
 type ImageModalProps = {
   image: string | undefined

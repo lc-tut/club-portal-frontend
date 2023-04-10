@@ -4,12 +4,12 @@ import {
   Grid,
   GridItem,
   Heading,
+  HStack,
+  Link as ChakraLink,
   Spacer,
   Text,
   useMediaQuery,
   VStack,
-  Link as ChakraLink,
-  HStack,
 } from "@chakra-ui/react"
 import {
   BsBoxArrowUpRight,
@@ -19,6 +19,7 @@ import {
   BsStar,
 } from "react-icons/bs"
 import { Link } from "react-router-dom"
+
 import { MenuButton } from "../components/common/Button"
 import { PortalLogo } from "../components/common/Icon"
 import { PADDING_BEFORE_FOOTER } from "../utils/consts"

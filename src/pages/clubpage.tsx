@@ -4,16 +4,17 @@ import {
   GridItem,
   HStack,
   Icon,
+  Stack,
+  Text,
   Tooltip,
+  useMediaQuery,
   VStack,
   Wrap,
-  Text,
-  useMediaQuery,
-  Stack,
 } from "@chakra-ui/react"
 import type { AxiosRequestConfig } from "axios"
 import { BsClock } from "react-icons/bs"
 import { useLocation } from "react-router-dom"
+
 import { FavoriteButton, PortalButton } from "../components/common/Button"
 import {
   AnnualPlan,

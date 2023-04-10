@@ -1,5 +1,6 @@
 import { Select } from "@chakra-ui/react"
 import type { Dispatch } from "react"
+
 import type {
   FilterActionType,
   FilterStateType,

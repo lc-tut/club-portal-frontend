@@ -1,6 +1,6 @@
-import { DefaultUserIcon } from "."
+import type { ComponentMeta, ComponentStory } from "@storybook/react"
 
-import type { ComponentStory, ComponentMeta } from "@storybook/react"
+import { DefaultUserIcon } from "."
 
 export default {
   title: "Club Portal/Icon/DefaultUserIcon",

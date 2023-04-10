@@ -1,5 +1,6 @@
 import type { Reducer } from "react"
-import type { TimePlaceStateType, TimePlaceActionType } from "../types/reducer"
+
+import type { TimePlaceActionType, TimePlaceStateType } from "../types/reducer"
 import { TOGGLE_DATE, TOGGLE_ROOM, TOGGLE_TIME } from "../utils/consts"
 
 export const timePlaceReducer: Reducer<

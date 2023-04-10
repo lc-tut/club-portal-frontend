@@ -9,17 +9,18 @@ import {
 } from "@chakra-ui/react"
 import { useReducer, useState } from "react"
 import { Link } from "react-router-dom"
+
 import { ClubCard } from "../components/common/Clubs/ClubCard"
-import { ClubSortOptionSelect } from "../components/common/Clubs/ClubSortOptionSelect"
 import { ClubFilter } from "../components/common/Clubs/ClubFilter"
+import { ClubSortOptionSelect } from "../components/common/Clubs/ClubSortOptionSelect"
 import { TitleArea } from "../components/global/Header/TitleArea"
 import { Loading } from "../components/global/LoadingPage"
 import { useAPI } from "../hooks/useAPI"
+import { useClubDisplay } from "../hooks/useClubDisplay"
+import { filterReducer } from "../reducer/filter"
 import type { ClubPageExternal } from "../types/api"
 import { PADDING_BEFORE_FOOTER } from "../utils/consts"
 import { getActivity, getCampus } from "../utils/functions"
-import { filterReducer } from "../reducer/filter"
-import { useClubDisplay } from "../hooks/useClubDisplay"
 
 const AnimatedClubs: React.FC<{}> = () => {
   const { data, isLoading } = useAPI<Array<ClubPageExternal>>(

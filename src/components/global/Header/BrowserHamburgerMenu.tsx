@@ -1,15 +1,16 @@
 import {
   Button,
   Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverCloseButton,
-  PopoverHeader,
   PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTrigger,
   Stack,
   useDisclosure,
 } from "@chakra-ui/react"
 import { Link } from "react-router-dom"
+
 import { HamburgerIcon, menuItems } from "./HamburgerMenu"
 
 export const BrowserHamburgerMenu: React.FC<{}> = () => {

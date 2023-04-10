@@ -18,6 +18,7 @@ import {
   BsQuestionCircle,
   BsTrophy,
 } from "react-icons/bs"
+
 import type {
   DetailInformationProps,
   RowComponentProps,

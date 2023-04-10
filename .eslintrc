@@ -9,6 +9,7 @@
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "prettier"
   ],
+  "plugins": ["simple-import-sort"],
   "parserOptions": {
     "project": "./tsconfig.json"
   },
@@ -41,7 +42,9 @@
           "attributes": false
         }
       }
-    ]
+    ],
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error"
   },
   "ignorePatterns": ["webpack.config.ts"]
 }

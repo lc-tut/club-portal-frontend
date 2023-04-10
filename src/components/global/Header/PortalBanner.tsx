@@ -1,4 +1,5 @@
-import { Center, Flex, Text, type BoxProps } from "@chakra-ui/react"
+import { type BoxProps, Center, Flex, Text } from "@chakra-ui/react"
+
 import { PortalLogo } from "../../common/Icon"
 
 type BannerProps = BoxProps & {

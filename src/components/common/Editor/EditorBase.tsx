@@ -1,4 +1,5 @@
 import { Flex, Stack, VStack, Wrap } from "@chakra-ui/react"
+
 import { EditorBackButton } from "./EditorBackButton"
 
 type EditorBaseProps = {

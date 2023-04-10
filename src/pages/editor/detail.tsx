@@ -1,11 +1,12 @@
 import { Grid, GridItem, VStack } from "@chakra-ui/react"
-import { TitleArea } from "../../components/global/Header/TitleArea"
-import { PADDING_BEFORE_FOOTER } from "../../utils/consts"
+
 import { AchievementEditor } from "../../components/common/Editor/AchievementEditor"
 import { ContentEditor } from "../../components/common/Editor/ContentEditor"
-import { TimePlaceEditor } from "../../components/common/Editor/TimePlaceEditor"
 import { DetailLinkEditor } from "../../components/common/Editor/DetailLinkEditor"
 import { EditorBase } from "../../components/common/Editor/EditorBase"
+import { TimePlaceEditor } from "../../components/common/Editor/TimePlaceEditor"
+import { TitleArea } from "../../components/global/Header/TitleArea"
+import { PADDING_BEFORE_FOOTER } from "../../utils/consts"
 
 export const DetailEditor: React.FC<{}> = () => {
   return (

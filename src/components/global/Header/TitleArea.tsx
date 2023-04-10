@@ -11,6 +11,7 @@ import {
 import type { IconType } from "react-icons"
 import { BsClockHistory, BsMegaphone, BsSearch, BsStar } from "react-icons/bs"
 import { Link } from "react-router-dom"
+
 import { PortalBanner } from "./PortalBanner"
 
 type BrowserGlobalNavItemProps = {

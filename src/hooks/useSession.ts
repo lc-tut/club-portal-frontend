@@ -1,6 +1,7 @@
 import type { AxiosError } from "axios"
 import { useEffect } from "react"
 import useSWR from "swr"
+
 import { useSetLoadingStateContext } from "../contexts/loading"
 import type { Session } from "../types/api"
 

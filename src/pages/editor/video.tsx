@@ -20,20 +20,21 @@ import {
   VStack,
   Wrap,
 } from "@chakra-ui/react"
+import type { AxiosRequestConfig } from "axios"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { BsQuestionCircle } from "react-icons/bs"
+
 import { PortalButton } from "../../components/common/Button"
 import { EditorBase } from "../../components/common/Editor/EditorBase"
 import { TitleArea } from "../../components/global/Header/TitleArea"
-import { PADDING_BEFORE_FOOTER } from "../../utils/consts"
-import type { Video } from "../../types/api"
-import { useErrorToast } from "../../hooks/useErrorToast"
-import type { AxiosRequestConfig } from "axios"
-import { useOutletUser } from "../../hooks/useOutletUser"
-import { axiosWithPayload } from "../../utils/axios"
 import { useAPI } from "../../hooks/useAPI"
+import { useErrorToast } from "../../hooks/useErrorToast"
+import { useOutletUser } from "../../hooks/useOutletUser"
 import { useSuccessToast } from "../../hooks/useSuccessToast"
+import type { Video } from "../../types/api"
+import { axiosWithPayload } from "../../utils/axios"
+import { PADDING_BEFORE_FOOTER } from "../../utils/consts"
 
 function parseVideoId(input: string): {
   success: boolean

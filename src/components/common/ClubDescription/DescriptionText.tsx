@@ -15,6 +15,7 @@ import {
   BsTwitter,
   BsYoutube,
 } from "react-icons/bs"
+
 import type { DescriptionProps, LinkType } from "../../../types/description"
 import { isRegisteredSNS } from "../../../utils/functions"
 

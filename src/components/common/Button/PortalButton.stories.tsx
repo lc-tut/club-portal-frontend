@@ -1,6 +1,6 @@
-import { PortalButton } from "."
+import type { ComponentMeta, ComponentStory } from "@storybook/react"
 
-import type { ComponentStory, ComponentMeta } from "@storybook/react"
+import { PortalButton } from "."
 
 export default {
   title: "Club Portal/Button/PortalButton",

@@ -1,6 +1,7 @@
 import {
   Flex,
   FormControl,
+  FormErrorMessage,
   HStack,
   NumberDecrementStepper,
   NumberIncrementStepper,
@@ -11,15 +12,15 @@ import {
   Stack,
   Switch,
   Wrap,
-  FormErrorMessage,
 } from "@chakra-ui/react"
-import { EditorLabel } from "./CommonEditor"
-import { BUILDING_ID_MAP, TOGGLE_ROOM } from "../../../utils/consts"
+import { useFormContext } from "react-hook-form"
+
 import type {
   EditorSelectOptionItem,
   TimePlaceInputProps,
 } from "../../../types/editor"
-import { useFormContext } from "react-hook-form"
+import { BUILDING_ID_MAP, TOGGLE_ROOM } from "../../../utils/consts"
+import { EditorLabel } from "./CommonEditor"
 
 type FormPlaceType = {
   place: {

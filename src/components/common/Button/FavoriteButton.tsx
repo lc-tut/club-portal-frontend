@@ -1,6 +1,7 @@
 import { Button } from "@chakra-ui/react"
-import type { FavoriteButtonProps } from "../../../types/button"
 import { BsStarFill } from "react-icons/bs"
+
+import type { FavoriteButtonProps } from "../../../types/button"
 
 export const FavoriteButton: React.FC<FavoriteButtonProps> = (props) => {
   const { isRegistered, isLoading } = props

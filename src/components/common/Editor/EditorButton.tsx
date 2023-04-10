@@ -1,6 +1,7 @@
 import { Button, Icon } from "@chakra-ui/react"
 import type { IconType } from "react-icons"
 import { BsCheck2Circle, BsPlusCircle, BsTrash } from "react-icons/bs"
+
 import type { EditorButtonProps } from "../../../types/editor"
 
 type MapKeys = "add" | "remove" | "check"

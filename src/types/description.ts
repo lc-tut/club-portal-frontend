@@ -1,4 +1,5 @@
 import type { IconType } from "react-icons"
+
 import type { ActivityDetail } from "./api"
 
 export type CarouselGalleryProps = {

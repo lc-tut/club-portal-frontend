@@ -9,23 +9,24 @@ import {
   VStack,
   Wrap,
 } from "@chakra-ui/react"
+import { zodResolver } from "@hookform/resolvers/zod"
+import type { AxiosRequestConfig } from "axios"
 import { ChangeEvent, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
+import * as z from "zod"
+
+import { EditorLabel } from "../../components/common/Editor/CommonEditor"
 import { EditorBase } from "../../components/common/Editor/EditorBase"
 import { EditorButton } from "../../components/common/Editor/EditorButton"
 import { TitleArea } from "../../components/global/Header/TitleArea"
-import { PADDING_BEFORE_FOOTER, VALID_SNS_LIST } from "../../utils/consts"
-import * as z from "zod"
-import type { LinkType } from "../../types/description"
 import { useAPI } from "../../hooks/useAPI"
-import type { Link } from "../../types/api"
-import { useOutletUser } from "../../hooks/useOutletUser"
-import type { AxiosRequestConfig } from "axios"
-import { axiosWithPayload } from "../../utils/axios"
 import { useErrorToast } from "../../hooks/useErrorToast"
-import { EditorLabel } from "../../components/common/Editor/CommonEditor"
+import { useOutletUser } from "../../hooks/useOutletUser"
 import { useSuccessToast } from "../../hooks/useSuccessToast"
+import type { Link } from "../../types/api"
+import type { LinkType } from "../../types/description"
+import { axiosWithPayload } from "../../utils/axios"
+import { PADDING_BEFORE_FOOTER, VALID_SNS_LIST } from "../../utils/consts"
 
 const schema = z.object({
   label: z

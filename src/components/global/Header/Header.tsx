@@ -1,4 +1,5 @@
 import { HStack } from "@chakra-ui/react"
+
 import type { HeaderProps } from "../../../types/header"
 import { HEADER_HEIGHT } from "../../../utils/consts"
 import { HamburgerMenu } from "./HamburgerMenu"

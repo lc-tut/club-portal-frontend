@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react"
 import { BsChevronRight } from "react-icons/bs"
 import { Link } from "react-router-dom"
+
 import { HEADER_HEIGHT } from "../../../utils/consts"
 import { HamburgerIcon, menuItems } from "./HamburgerMenu"
 

@@ -1,6 +1,7 @@
-import applyCaseMiddleware from "axios-case-converter"
-import axios from "axios"
 import type { AxiosRequestConfig, AxiosResponse } from "axios"
+import axios from "axios"
+import applyCaseMiddleware from "axios-case-converter"
+
 import type { APIPayload, APIResponse, Session } from "../types/api"
 
 const client = applyCaseMiddleware(axios.create())

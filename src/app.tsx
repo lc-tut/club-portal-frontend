@@ -1,11 +1,12 @@
-import { PortalRouter } from "./router"
 import { ChakraProvider } from "@chakra-ui/react"
-import { PortalTheme } from "./components/global/Theme"
 import { useState } from "react"
+import { SWRConfig } from "swr"
+
+import { PortalTheme } from "./components/global/Theme"
 import { LoadingStateContext, SetLoadingStateContext } from "./contexts/loading"
+import { PortalRouter } from "./router"
 import type { ErrorType } from "./types/utils"
 import { axiosFetcher } from "./utils/axios"
-import { SWRConfig } from "swr"
 
 const App: React.FC<{}> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)

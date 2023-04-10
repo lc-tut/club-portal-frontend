@@ -1,20 +1,21 @@
-import { AnimatePresence } from "framer-motion"
-import { Route, Routes, BrowserRouter, useLocation } from "react-router-dom"
-import { useSession } from "./hooks/useSession"
-import { useEffect } from "react"
-import * as page from "./pages"
-import { Loading } from "./components/global/LoadingPage"
-import { Header } from "./components/global/Header/Header"
-import { Footer } from "./components/global/Footer"
-import axios from "axios"
 import { Flex } from "@chakra-ui/react"
-import { UserRouteElement } from "./components/global/Route/UserRoute"
+import axios from "axios"
+import { AnimatePresence } from "framer-motion"
+import { useEffect } from "react"
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom"
+
+import { Footer } from "./components/global/Footer"
+import { Header } from "./components/global/Header/Header"
+import { Loading } from "./components/global/LoadingPage"
 import { ClubRouteElement } from "./components/global/Route/ClubRoute"
 import { DomainUserRouteElement } from "./components/global/Route/DomainUserRoute"
+import { UserRouteElement } from "./components/global/Route/UserRoute"
 import {
   useLoadingStateContext,
   useSetLoadingStateContext,
 } from "./contexts/loading"
+import { useSession } from "./hooks/useSession"
+import * as page from "./pages"
 
 // TODO: 存在しない clubSlug には NotFound を出す
 const AnimatedRouter: React.FC<{}> = () => {

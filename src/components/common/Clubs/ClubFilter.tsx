@@ -21,6 +21,7 @@ import {
 } from "@chakra-ui/react"
 import type { Dispatch } from "react"
 import { useForm } from "react-hook-form"
+
 import type { FilterActionType, FilterStateType } from "../../../types/reducer"
 import type { StateDispatch } from "../../../types/utils"
 import { PADDING_BEFORE_FOOTER } from "../../../utils/consts"

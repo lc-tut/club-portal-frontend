@@ -1,7 +1,8 @@
 import { centerCrop, makeAspectCrop } from "react-image-crop"
-import type { BadgeCampus, BadgeActivity } from "../types/badge"
+
+import type { BadgeActivity, BadgeCampus } from "../types/badge"
 import type { DateType, LinkType } from "../types/description"
-import { CAMPUS, ACTIVITY, DATE_NUMBER_MAP } from "./consts"
+import { ACTIVITY, CAMPUS, DATE_NUMBER_MAP } from "./consts"
 
 export function toAbsolutePath(path: string) {
   return path.startsWith("blob")

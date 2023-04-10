@@ -1,11 +1,12 @@
 import {
   Flex,
   HStack,
-  VStack,
-  Text,
   Image,
+  Text,
   useMediaQuery,
+  VStack,
 } from "@chakra-ui/react"
+
 import type { ClubCardProps } from "../../../types/clubs"
 import { toAbsolutePath } from "../../../utils/functions"
 import { ClubTypeBadge } from "./ClubTypeBadge"

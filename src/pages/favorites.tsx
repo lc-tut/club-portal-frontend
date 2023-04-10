@@ -1,17 +1,18 @@
 import { Flex, Grid, GridItem, useMediaQuery, VStack } from "@chakra-ui/react"
 import { useReducer } from "react"
 import { Link } from "react-router-dom"
+
 import { ClubCard } from "../components/common/Clubs/ClubCard"
 import { ClubSortOptionSelect } from "../components/common/Clubs/ClubSortOptionSelect"
 import { TitleArea } from "../components/global/Header/TitleArea"
 import { Loading } from "../components/global/LoadingPage"
 import { useAPI } from "../hooks/useAPI"
-import { useOutletUser } from "../hooks/useOutletUser"
-import { PADDING_BEFORE_FOOTER } from "../utils/consts"
-import type { ClubPageExternal } from "../types/api"
-import { getCampus, getActivity } from "../utils/functions"
-import { filterReducer } from "../reducer/filter"
 import { useClubDisplay } from "../hooks/useClubDisplay"
+import { useOutletUser } from "../hooks/useOutletUser"
+import { filterReducer } from "../reducer/filter"
+import type { ClubPageExternal } from "../types/api"
+import { PADDING_BEFORE_FOOTER } from "../utils/consts"
+import { getActivity, getCampus } from "../utils/functions"
 
 export const AnimatedFavorites: React.FC<{}> = () => {
   const { userUuid } = useOutletUser()

@@ -1,6 +1,7 @@
 import { Button, Grid, GridItem, Stack, Text } from "@chakra-ui/react"
 import { BsChevronRight } from "react-icons/bs"
 import { Link } from "react-router-dom"
+
 import type {
   EditorMenuButtonProps,
   EditorMenuProps,

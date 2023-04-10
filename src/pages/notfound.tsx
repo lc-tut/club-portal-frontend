@@ -1,6 +1,7 @@
 import { Heading, Text, VStack } from "@chakra-ui/react"
 import { motion } from "framer-motion"
 import { Link } from "react-router-dom"
+
 import { TitleArea } from "../components/global/Header/TitleArea"
 
 export const NotFound: React.FC<{}> = () => {

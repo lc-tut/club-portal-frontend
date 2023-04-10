@@ -1,8 +1,9 @@
 import { Icon } from "@chakra-ui/react"
 import { BsList } from "react-icons/bs"
-import { MobileHamburgerMenu } from "./MobileHamburgerMenu"
-import { BrowserHamburgerMenu } from "./BrowserHamburgerMenu"
+
 import { useMobileMediaQuery } from "../../../hooks/useMobileQuery"
+import { BrowserHamburgerMenu } from "./BrowserHamburgerMenu"
+import { MobileHamburgerMenu } from "./MobileHamburgerMenu"
 
 // label: url
 // TODO: ここの形式を変更する

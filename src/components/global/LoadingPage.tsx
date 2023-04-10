@@ -1,4 +1,4 @@
-import { Container, Flex, Center, Spinner, Box } from "@chakra-ui/react"
+import { Box, Center, Container, Flex, Spinner } from "@chakra-ui/react"
 import { motion } from "framer-motion"
 
 export const Loading: React.FC<{ fullScreen?: boolean }> = (props) => {

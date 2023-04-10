@@ -1,6 +1,7 @@
-import { GridItem, VStack, Grid, Text, HStack, Flex } from "@chakra-ui/react"
-import { MONTHS } from "../../../utils/consts"
+import { Flex, Grid, GridItem, HStack, Text, VStack } from "@chakra-ui/react"
+
 import type { AnnualPlanProps } from "../../../types/description"
+import { MONTHS } from "../../../utils/consts"
 import { Remark } from "./Remark"
 
 export const AnnualPlan: React.FC<AnnualPlanProps> = (props) => {

@@ -8,18 +8,19 @@ import {
   Text,
   Wrap,
 } from "@chakra-ui/react"
-import { useForm } from "react-hook-form"
-import { useAPI } from "../../../hooks/useAPI"
-import { useOutletUser } from "../../../hooks/useOutletUser"
-import type { Achievement } from "../../../types/api"
-import { EditorButton } from "./EditorButton"
-import * as z from "zod"
-import { useEffect, useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { AxiosRequestConfig } from "axios"
-import { axiosWithPayload } from "../../../utils/axios"
-import { useSuccessToast } from "../../../hooks/useSuccessToast"
+import { useEffect, useState } from "react"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
+
+import { useAPI } from "../../../hooks/useAPI"
 import { useErrorToast } from "../../../hooks/useErrorToast"
+import { useOutletUser } from "../../../hooks/useOutletUser"
+import { useSuccessToast } from "../../../hooks/useSuccessToast"
+import type { Achievement } from "../../../types/api"
+import { axiosWithPayload } from "../../../utils/axios"
+import { EditorButton } from "./EditorButton"
 
 const schema = z.object({
   achievement: z.string().nonempty(),

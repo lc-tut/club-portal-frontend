@@ -1,6 +1,6 @@
-import { MenuButton } from "."
+import type { ComponentMeta, ComponentStory } from "@storybook/react"
 
-import type { ComponentStory, ComponentMeta } from "@storybook/react"
+import { MenuButton } from "."
 
 export default {
   title: "Club Portal/Button/MenuButton",

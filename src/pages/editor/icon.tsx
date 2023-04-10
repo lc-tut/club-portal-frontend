@@ -1,3 +1,5 @@
+import "react-image-crop/dist/ReactCrop.css"
+
 import {
   HStack,
   Image as ChakraImage,
@@ -15,7 +17,7 @@ import {
 import type { AxiosRequestConfig } from "axios"
 import { useEffect, useRef, useState } from "react"
 import ReactCrop, { type Crop } from "react-image-crop"
-import "react-image-crop/dist/ReactCrop.css"
+
 import { PortalButton } from "../../components/common/Button"
 import { EditorBase } from "../../components/common/Editor/EditorBase"
 import { PortalLogo } from "../../components/common/Icon"
@@ -27,7 +29,7 @@ import { useSuccessToast } from "../../hooks/useSuccessToast"
 import type { Thumbnail } from "../../types/api"
 import type { StateDispatch } from "../../types/utils"
 import { axiosWithPayload } from "../../utils/axios"
-import { PADDING_BEFORE_FOOTER, ICON_SIZE } from "../../utils/consts"
+import { ICON_SIZE, PADDING_BEFORE_FOOTER } from "../../utils/consts"
 import { makeCenterCrop, toAbsolutePath } from "../../utils/functions"
 
 type ResizeModalProps = {

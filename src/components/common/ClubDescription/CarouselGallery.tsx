@@ -1,16 +1,18 @@
+import "swiper/css"
+import "swiper/css/navigation"
+import "swiper/css/pagination"
+
 import {
-  GridItem,
-  Image,
   AspectRatio,
   Center,
+  GridItem,
+  Image,
   useMediaQuery,
 } from "@chakra-ui/react"
 import { Navigation, Pagination } from "swiper"
 import { Swiper, SwiperSlide } from "swiper/react"
+
 import type { CarouselGalleryProps } from "../../../types/description"
-import "swiper/css"
-import "swiper/css/navigation"
-import "swiper/css/pagination"
 
 export const CarouselGallery: React.FC<CarouselGalleryProps> = (props) => {
   const numImages = props.imagePaths.length
