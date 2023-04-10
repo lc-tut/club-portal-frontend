@@ -24,7 +24,15 @@ import { useForm } from "react-hook-form"
 
 import type { FilterActionType, FilterStateType } from "../../../types/reducer"
 import type { StateDispatch } from "../../../types/utils"
-import { PADDING_BEFORE_FOOTER } from "../../../utils/consts"
+import {
+  PADDING_BEFORE_FOOTER,
+  RESET_FILTER,
+  TOGGLE_IS_COMMITTEE,
+  TOGGLE_IS_CULTURE_CLUB,
+  TOGGLE_IS_HACHIOJI_CAMPUS,
+  TOGGLE_IS_KAMATA_CAMPUS,
+  TOGGLE_IS_SPORTS_CLUB,
+} from "../../../utils/consts"
 import { PortalButton } from "../Button"
 
 type FilterSwitchProps = {
@@ -73,13 +81,13 @@ const FilterSwitch: React.FC<FilterSwitchProps> = (props) => {
       <FilterItem
         label="八王子"
         isChecked={props.filterValues.isHachiojiCampus}
-        action="TOGGLE_IS_HACHIOJI_CAMPUS"
+        action={TOGGLE_IS_HACHIOJI_CAMPUS}
         dispatcher={props.dispatchFilterValues}
       />
       <FilterItem
         label="蒲田"
         isChecked={props.filterValues.isKamataCampus}
-        action="TOGGLE_IS_KAMATA_CAMPUS"
+        action={TOGGLE_IS_KAMATA_CAMPUS}
         dispatcher={props.dispatchFilterValues}
       />
       <Text color="text.modal.sub" pb="0.5rem" pt="1rem">
@@ -88,19 +96,19 @@ const FilterSwitch: React.FC<FilterSwitchProps> = (props) => {
       <FilterItem
         label="文化系"
         isChecked={props.filterValues.isCultureClub}
-        action="TOGGLE_IS_CULTURE_CLUB"
+        action={TOGGLE_IS_CULTURE_CLUB}
         dispatcher={props.dispatchFilterValues}
       />
       <FilterItem
         label="体育系"
         isChecked={props.filterValues.isSportsClub}
-        action="TOGGLE_IS_SPORTS_CLUB"
+        action={TOGGLE_IS_SPORTS_CLUB}
         dispatcher={props.dispatchFilterValues}
       />
       <FilterItem
         label="委員会"
         isChecked={props.filterValues.isCommittee}
-        action="TOGGLE_IS_COMMITTEE"
+        action={TOGGLE_IS_COMMITTEE}
         dispatcher={props.dispatchFilterValues}
       />
     </Stack>
@@ -147,7 +155,7 @@ export const ClubFilter: React.FC<FilterAreaProps> = (props) => {
                 pbstyle="solid"
                 width="7rem"
                 onClick={() =>
-                  props.dispatchFilterValues({ type: "RESET_FILTER" })
+                  props.dispatchFilterValues({ type: RESET_FILTER })
                 }
               >
                 リセット
@@ -242,7 +250,7 @@ export const ClubFilter: React.FC<FilterAreaProps> = (props) => {
                         pbstyle="solid"
                         width="7rem"
                         onClick={() =>
-                          props.dispatchFilterValues({ type: "RESET_FILTER" })
+                          props.dispatchFilterValues({ type: RESET_FILTER })
                         }
                       >
                         リセット

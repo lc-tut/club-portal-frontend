@@ -7,6 +7,7 @@ import type {
   SET_NAME_ASC_ACTION,
   SET_NAME_DESC_ACTION,
 } from "../../../types/reducer"
+import { SET_NAME_ASC, SET_NAME_DESC } from "../../../utils/consts"
 
 type ClubSortOptionSelectProps = {
   isAscending: FilterStateType["isAscending"]
@@ -23,7 +24,7 @@ export const ClubSortOptionSelect: React.FC<ClubSortOptionSelectProps> = (
       color="text.main"
       borderColor="text.card.main"
       iconColor="text.card.main"
-      value={props.isAscending ? "SET_NAME_ASC" : "SET_NAME_DESC"}
+      value={props.isAscending ? SET_NAME_ASC : SET_NAME_DESC}
       onChange={(e) => {
         props.dispatchIsAscending({
           type: e.target.value as unknown as
@@ -32,8 +33,8 @@ export const ClubSortOptionSelect: React.FC<ClubSortOptionSelectProps> = (
         })
       }}
     >
-      <option value="SET_NAME_ASC">名前 - 昇順</option>
-      <option value="SET_NAME_DESC">名前 - 降順</option>
+      <option value={SET_NAME_ASC}>名前 - 昇順</option>
+      <option value={SET_NAME_DESC}>名前 - 降順</option>
     </Select>
   )
 }
