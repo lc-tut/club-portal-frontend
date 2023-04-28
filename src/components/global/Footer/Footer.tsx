@@ -13,7 +13,8 @@ import { Link } from "react-router-dom"
 
 import { PortalLogo } from "../../common/Icon"
 import { About } from "./About"
-import { FooterModal, FooterModalProps } from "./FooterModal"
+import type { FooterModalProps } from "./FooterModal"
+import { FooterModal } from "./FooterModal"
 import { Howto } from "./Howto"
 import { Policy } from "./Policy"
 

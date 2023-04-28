@@ -11,7 +11,8 @@ import {
 } from "@chakra-ui/react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { AxiosRequestConfig } from "axios"
-import { ChangeEvent, useEffect, useState } from "react"
+import type { ChangeEvent } from "react"
+import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 

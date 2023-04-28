@@ -7,7 +7,7 @@ import {
   VStack,
 } from "@chakra-ui/react"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { AxiosRequestConfig } from "axios"
+import type { AxiosRequestConfig } from "axios"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
