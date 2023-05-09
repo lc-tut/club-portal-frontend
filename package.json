@@ -38,7 +38,7 @@
     "react-hook-form": "7.43.9",
     "react-icons": "4.8.0",
     "react-image-crop": "10.0.9",
-    "react-router-dom": "6.10.0",
+    "react-router-dom": "6.11.1",
     "swiper": "9.3.0",
     "swr": "2.1.5",
     "zod": "3.21.4"
