@@ -39,7 +39,7 @@
     "react-icons": "4.8.0",
     "react-image-crop": "10.0.9",
     "react-router-dom": "6.11.1",
-    "swiper": "9.3.0",
+    "swiper": "9.3.1",
     "swr": "2.1.5",
     "zod": "3.21.4"
   },
