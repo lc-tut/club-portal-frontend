@@ -27,6 +27,7 @@ export function useAPI<R extends APIResponse | null>(
       : {}
   )
 
+  // XXX: Add dependency and testing.
   useEffect(() => {
     if (isLoading && !isNotUpdateLoadingState) {
       setIsLoading(true)

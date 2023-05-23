@@ -44,6 +44,7 @@
       }
     ],
     "@typescript-eslint/consistent-type-imports": "error",
+    "@typescript-eslint/consistent-indexed-object-style": "error",
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error"
   },

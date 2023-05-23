@@ -7,7 +7,7 @@ import { MobileHamburgerMenu } from "./MobileHamburgerMenu"
 
 // label: url
 // TODO: ここの形式を変更する
-export const menuItems: { [key: string]: string } = {
+export const menuItems: Record<string, string> = {
   TOP: "/",
   サークル検索: "/clubs",
   //  お知らせ:       "",
