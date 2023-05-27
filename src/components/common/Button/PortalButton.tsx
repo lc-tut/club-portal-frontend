@@ -17,13 +17,13 @@ function isRound(style: ButtonStyle): style is ButtonRoundStyle {
   return style === "round-fill" || style === "round-solid"
 }
 
-const sizeMap: { [key in ButtonSize]: string } = {
+const sizeMap: Record<ButtonSize, string> = {
   normal: "10rem",
   large: "16rem",
   "100%": "100%",
 }
 
-const colorMap: { [key in ButtonColor]: string } = {
+const colorMap: Record<ButtonColor, string> = {
   green: "green.600",
   orange: "button.orange",
   yellow: "button.yellow",

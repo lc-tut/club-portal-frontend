@@ -27,7 +27,7 @@ const elementKeysArray: ReadonlyArray<elementKeysType> = [
   "howto",
 ] as const
 
-const elements: { [key in elementKeysType]: elementValueType } = {
+const elements: Record<elementKeysType, elementValueType> = {
   about: {
     title: "このサイトについて",
     element: <About />,

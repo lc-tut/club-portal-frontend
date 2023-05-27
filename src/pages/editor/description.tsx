@@ -10,7 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import type { AxiosRequestConfig } from "axios"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
-import * as z from "zod"
+import { z } from "zod"
 
 import { PortalButton } from "../../components/common/Button"
 import { EditorBase } from "../../components/common/Editor/EditorBase"

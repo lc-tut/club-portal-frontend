@@ -24,7 +24,7 @@ export function isRegisteredSNS(label: string): label is LinkType {
     label === "YouTube" ||
     label === "LINE"
   )
-} // || label === "Blog"
+}
 
 export function toTimeID(
   date: DateType,

@@ -12,13 +12,14 @@ function isCampusContent(content: BadgeContent): content is BadgeCampus {
 }
 
 export const ClubTypeBadge: React.FC<ClubTypeBadgeProp> = (props) => {
-  const sizeMap: {
-    [key in BadgeSize]: {
+  const sizeMap: Record<
+    BadgeSize,
+    {
       height: string
       width: string
       fontSize: string
     }
-  } = {
+  > = {
     card: {
       height: "1rem",
       width: "3rem",
@@ -31,9 +32,7 @@ export const ClubTypeBadge: React.FC<ClubTypeBadgeProp> = (props) => {
     },
   }
 
-  const contentMap: {
-    [key in BadgeContent]: string
-  } = {
+  const contentMap: Record<BadgeContent, string> = {
     hachioji: "八王子",
     kamata: "蒲田",
     sports: "体育系",
@@ -45,10 +44,7 @@ export const ClubTypeBadge: React.FC<ClubTypeBadgeProp> = (props) => {
     foreground: string
     background: string
   }
-  const colorMap: {
-    // TODO: リファクタリングの余地有り
-    [key in "campus" | "activity"]: ColorType
-  } = {
+  const colorMap: Record<"campus" | "activity", ColorType> = {
     campus: {
       foreground: "badge.text.campus",
       background: "badge.background.campus",

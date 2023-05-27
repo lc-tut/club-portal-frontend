@@ -12,7 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import type { AxiosRequestConfig } from "axios"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
-import * as z from "zod"
+import { z } from "zod"
 
 import { useAPI } from "../../../hooks/useAPI"
 import { useErrorToast } from "../../../hooks/useErrorToast"

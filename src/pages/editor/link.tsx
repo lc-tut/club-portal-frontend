@@ -14,7 +14,7 @@ import type { AxiosRequestConfig } from "axios"
 import type { ChangeEvent } from "react"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
-import * as z from "zod"
+import { z } from "zod"
 
 import { EditorLabel } from "../../components/common/Editor/CommonEditor"
 import { EditorBase } from "../../components/common/Editor/EditorBase"
@@ -151,6 +151,7 @@ export const LinkEditor: React.FC<{}> = () => {
                           </option>
                         )
                       })}
+                      <option value="HP">HP</option>
                       <option value="other">その他</option>
                     </Select>
                     <Wrap h="1.2rem">

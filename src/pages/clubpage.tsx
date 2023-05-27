@@ -67,7 +67,7 @@ export const ClubPage: React.FC<ClubPageProps> = (props) => {
     ? updatedTimeArr[0] + " " + updatedTimeArr[1] + "/" + updatedTimeArr[2]
     : undefined
 
-  const schedule: { [key in number]: string } = {}
+  const schedule: Record<number, string> = {}
 
   if (session !== null) {
     data?.schedules.map((sch) => {

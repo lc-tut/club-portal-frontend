@@ -60,7 +60,7 @@ const MonthInputArea: React.FC<MonthInputAreaProps> = (props) => {
   )
 }
 
-type scheduleObjType = { [key in number]?: string }
+type scheduleObjType = Record<number, string>
 
 type FormScheduleType = {
   schedules: Array<Schedule>

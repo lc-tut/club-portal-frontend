@@ -19,7 +19,7 @@ import {
 import type { DescriptionProps, LinkType } from "../../../types/description"
 import { isRegisteredSNS } from "../../../utils/functions"
 
-const fgColorMap: { [key in LinkType]?: string } = {
+const fgColorMap: Record<LinkType, string> = {
   Twitter: "#fff",
   Instagram: "#fff",
   YouTube: "#fff",
@@ -27,7 +27,7 @@ const fgColorMap: { [key in LinkType]?: string } = {
   LINE: "#fff",
 }
 
-const bgColorMap: { [key in LinkType]?: string } = {
+const bgColorMap: Record<LinkType, string> = {
   Twitter: "#2E94DA",
   Instagram: "#D35CCA",
   YouTube: "#FF0000",
@@ -35,7 +35,7 @@ const bgColorMap: { [key in LinkType]?: string } = {
   LINE: "#29C755",
 }
 
-const iconMap: { [key in LinkType]?: JSX.Element } = {
+const iconMap: Record<LinkType, JSX.Element> = {
   Twitter: <BsTwitter />,
   Instagram: <BsInstagram />,
   YouTube: <BsYoutube />,

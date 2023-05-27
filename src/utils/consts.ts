@@ -20,9 +20,6 @@ export const VALID_SNS_LIST: ReadonlyArray<LinkType> = [
   "Instagram",
   "Discord",
   "LINE",
-  "YouTube",
-  "Blog",
-  "HP",
 ]
 export const CAMPUS: ReadonlyArray<BadgeCampus> = ["hachioji", "kamata"]
 export const ACTIVITY: ReadonlyArray<BadgeActivity> = [
@@ -34,7 +31,7 @@ export const MONTHS: ReadonlyArray<number> = [
   4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3,
 ]
 
-export const BUILDING_ID_MAP: { [key in number]: string } = {
+export const BUILDING_ID_MAP: Record<number, string> = {
   110: "講義棟A",
   111: "講義棟D",
   120: "研究棟A",
@@ -58,7 +55,7 @@ export const BUILDING_ID_MAP: { [key in number]: string } = {
   302: "未定",
 }
 
-export const DATE_MAP: { [key in DateType]: string } = {
+export const DATE_MAP: Record<DateType, string> = {
   Mon: "月",
   Tue: "火",
   Wed: "水",
@@ -70,7 +67,7 @@ export const DATE_MAP: { [key in DateType]: string } = {
   Etc: "その他",
 }
 
-export const DATE_NUMBER_MAP: { [key in DateType]: number } = {
+export const DATE_NUMBER_MAP: Record<DateType, number> = {
   Mon: 10,
   Tue: 11,
   Wed: 12,

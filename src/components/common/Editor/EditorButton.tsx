@@ -6,7 +6,7 @@ import type { EditorButtonProps } from "../../../types/editor"
 
 type MapKeys = "add" | "remove" | "check"
 
-const iconMap: { [key in MapKeys]: IconType } = {
+const iconMap: Record<MapKeys, IconType> = {
   add: BsPlusCircle,
   remove: BsTrash,
   check: BsCheck2Circle,

@@ -27,9 +27,7 @@ export type DetailInformationProps = {
 
 export type AnnualPlanProps = {
   remark?: string
-  schedules: {
-    [key in number]: string
-  }
+  schedules: Record<number, string>
 }
 
 export type RowComponentProps = {
@@ -42,14 +40,7 @@ export type ActivityRemarkButtonProps = {
   text: string
 }
 
-export type LinkType =
-  | "Twitter"
-  | "Instagram"
-  | "Discord"
-  | "LINE"
-  | "YouTube"
-  | "Blog"
-  | "HP"
+export type LinkType = "Twitter" | "Instagram" | "Discord" | "LINE" | "YouTube"
 
 export type RemarkProps = {
   text: string
