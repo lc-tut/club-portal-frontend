@@ -20,7 +20,7 @@ export const VALID_SNS_LIST: ReadonlyArray<LinkType> = [
   "Instagram",
   "Discord",
   "LINE",
-  "YouTube"
+  "YouTube",
 ]
 export const CAMPUS: ReadonlyArray<BadgeCampus> = ["hachioji", "kamata"]
 export const ACTIVITY: ReadonlyArray<BadgeActivity> = [
