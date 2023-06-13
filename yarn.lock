@@ -7683,7 +7683,7 @@ __metadata:
     react-image-crop: 10.1.4
     react-router-dom: 6.12.1
     style-loader: 3.3.3
-    swiper: 9.4.0
+    swiper: 9.4.1
     swr: 2.1.5
     ts-loader: 9.4.3
     ts-node: 10.9.1
@@ -15621,12 +15621,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"swiper@npm:9.4.0":
-  version: 9.4.0
-  resolution: "swiper@npm:9.4.0"
+"swiper@npm:9.4.1":
+  version: 9.4.1
+  resolution: "swiper@npm:9.4.1"
   dependencies:
     ssr-window: ^4.0.2
-  checksum: 6d4865a325880b093ebf757cc626a77de0cfaba7641cb3be0ffbf759dd272ea5c50f384b86e1456cd40e33ac0b7279c4f0665c88f1042f6ee5dc9f8f7d1c9a90
+  checksum: 1180b3b766f25cbe636fafbb56adbddf8a240077c504a335a62d1773f4452df1bd9ca09bccfe86478c3b9401879c4e8f7ed3824e74299f8b48953e8fc7f08bc3
   languageName: node
   linkType: hard
 
