@@ -1,11 +1,11 @@
 import { HStack } from "@chakra-ui/react"
 
-import type { HeaderProps } from "../../../types/header"
+import type { Session } from "../../../types/api"
 import { HEADER_HEIGHT } from "../../../utils/consts"
 import { HamburgerMenu } from "./HamburgerMenu"
 import { UserMenu } from "./UserMenu"
 
-export const Header: React.FC<HeaderProps> = (props) => {
+export const Header: React.FC<{ session: Session }> = ({ session }) => {
   return (
     <HStack
       px="1rem"
@@ -17,7 +17,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
       {/* <Center mr="1rem">
         <Icon as={BsBellFill} boxSize="2em" color="text.title.sub" />
       </Center> */}
-      <UserMenu session={props.session} />
+      <UserMenu session={session} />
     </HStack>
   )
 }

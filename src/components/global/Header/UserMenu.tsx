@@ -16,16 +16,15 @@ import { Link, useLocation } from "react-router-dom"
 import { useSetLoadingStateContext } from "../../../contexts/loading"
 import { useErrorToast } from "../../../hooks/useErrorToast"
 import { useSession } from "../../../hooks/useSession"
-import type { HeaderProps } from "../../../types/header"
+import type { Session } from "../../../types/api"
 import { axiosFetcher } from "../../../utils/axios"
 import { PortalButton } from "../../common/Button"
 import { DefaultUserIcon } from "../../common/Icon"
 
-export const UserMenu: React.FC<HeaderProps> = (props) => {
+export const UserMenu: React.FC<{ session: Session }> = ({ session }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const loc = useLocation()
   const { mutate } = useSession()
-  const { session } = props
   const [adjustPopoverWidth] = useMediaQuery("(max-width: 21em)")
   const { setIsLoading } = useSetLoadingStateContext()
   const errorToast = useErrorToast("正常にログアウトできませんでした")

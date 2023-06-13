@@ -101,3 +101,19 @@ export const RESET_FILTER: RESET_FILTER_ACTION = "RESET_FILTER"
 export const HEADER_HEIGHT = "3rem"
 
 export const ICON_SIZE = 400
+
+// XXX: 追加ラベル: [お知らせ, 履歴, 通知, プロフィール, 設定]
+export const HEADER_MENUS: ReadonlyArray<{ label: string; url: string }> = [
+  {
+    label: "TOP",
+    url: "/",
+  },
+  {
+    label: "サークル検索",
+    url: "/clubs",
+  },
+  {
+    label: "お気に入り",
+    url: "/users/favs",
+  },
+]
