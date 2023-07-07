@@ -18,6 +18,10 @@
       "extends": ["packages:linters"],
       "matchPackageNames": ["prettier"],
       "matchPackagePatterns": ["^@typescript-eslint/"]
+    },
+    {
+      "matchUpdateTypes": ["patch"],
+      "automerge": true
     }
   ]
 }
