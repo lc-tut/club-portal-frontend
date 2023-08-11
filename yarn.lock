@@ -3670,12 +3670,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hookform/resolvers@npm:3.1.1":
-  version: 3.1.1
-  resolution: "@hookform/resolvers@npm:3.1.1"
+"@hookform/resolvers@npm:3.2.0":
+  version: 3.2.0
+  resolution: "@hookform/resolvers@npm:3.2.0"
   peerDependencies:
     react-hook-form: ^7.0.0
-  checksum: 41da04f0995438364f129484011a84c0d4333ce1b4cb7815593f58ece51bbd88c87db9ea6b1f5d0b7ae3e47bfcdf1a3f8e2328c46800e884074048473b56d5b5
+  checksum: 041692117f1915ea23ab48f0eeaa4841ffb45f849b9743315ac4b05ae860a4ceb41adc55cf3c213aefe705b6b63b725d9a128c0ae7d15f5faca162e2a94a63d1
   languageName: node
   linkType: hard
 
@@ -8498,7 +8498,7 @@ __metadata:
     "@emotion/babel-preset-css-prop": 11.11.0
     "@emotion/react": 11.11.1
     "@emotion/styled": 11.11.0
-    "@hookform/resolvers": 3.1.1
+    "@hookform/resolvers": 3.2.0
     "@storybook/addon-actions": 7.2.2
     "@storybook/addon-essentials": 7.2.2
     "@storybook/addon-links": 7.2.2
