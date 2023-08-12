@@ -84,7 +84,8 @@ export const ClubPage: React.FC<ClubPageProps> = (props) => {
         method: "post",
         data: { clubUuid: data!.clubUuid },
       }
-      await favs.mutate(
+      // ? NOTE: This is a type bug of swr 2.2.1?
+      await favs.mutate<typeof favs.data>(
         async (data) => {
           await axiosWithPayload<RegisterFavoriteClubPayload, unknown>(
             requestConfig
