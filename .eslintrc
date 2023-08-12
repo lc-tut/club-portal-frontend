@@ -5,8 +5,7 @@
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
     "plugin:react/jsx-runtime",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:@typescript-eslint/recommended-type-checked",
     "prettier"
   ],
   "plugins": ["simple-import-sort"],
@@ -46,7 +45,10 @@
     "@typescript-eslint/consistent-type-imports": "error",
     "@typescript-eslint/consistent-indexed-object-style": "error",
     "simple-import-sort/imports": "error",
-    "simple-import-sort/exports": "error"
+    "simple-import-sort/exports": "error",
+    // v6 rules
+    "@typescript-eslint/no-duplicate-type-constituents": "off",
+    "@typescript-eslint/no-redundant-type-constituents": "off"
   },
   "ignorePatterns": ["webpack.config.ts"]
 }
