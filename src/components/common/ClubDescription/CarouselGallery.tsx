@@ -9,7 +9,7 @@ import {
   Image,
   useMediaQuery,
 } from "@chakra-ui/react"
-import { Navigation, Pagination } from "swiper"
+import { Navigation, Pagination } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
 
 import type { CarouselGalleryProps } from "../../../types/description"
