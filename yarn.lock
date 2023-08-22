@@ -8648,7 +8648,7 @@ __metadata:
     eslint-plugin-simple-import-sort: 10.0.0
     file-loader: 6.2.0
     fork-ts-checker-webpack-plugin: 8.0.0
-    framer-motion: 10.15.2
+    framer-motion: 10.16.1
     html-webpack-plugin: 5.5.3
     mini-css-extract-plugin: 2.7.6
     npm-run-all: 4.1.5
@@ -11024,9 +11024,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:10.15.2":
-  version: 10.15.2
-  resolution: "framer-motion@npm:10.15.2"
+"framer-motion@npm:10.16.1":
+  version: 10.16.1
+  resolution: "framer-motion@npm:10.16.1"
   dependencies:
     "@emotion/is-prop-valid": ^0.8.2
     tslib: ^2.4.0
@@ -11041,7 +11041,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 57dc428f11d140eddc4a6d2fd68489ae5613af21407d92afee0bd626ef284488a8d84decb68f07ea790882137c1587f6177bd322a25477cfbbda07d0949cb8fe
+  checksum: cce24975992020dbbdf426058a2a067ead262f7f264d28d2ed7570cb59e0f175267d7a05d0a1c1335c7bee486bc9dcf1f3940f474e4ba6fc47bb19eebb9f79d2
   languageName: node
   linkType: hard
 
