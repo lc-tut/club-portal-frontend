@@ -8676,13 +8676,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clsx@npm:^1.2.1":
-  version: 1.2.1
-  resolution: "clsx@npm:1.2.1"
-  checksum: 30befca8019b2eb7dbad38cff6266cf543091dae2825c856a62a8ccf2c3ab9c2907c4d12b288b73101196767f66812365400a227581484a05f968b0307cfaf12
-  languageName: node
-  linkType: hard
-
 "club-portal-frontend@workspace:.":
   version: 0.0.0-use.local
   resolution: "club-portal-frontend@workspace:."
@@ -8729,7 +8722,7 @@ __metadata:
     react-dom: 18.2.0
     react-hook-form: 7.45.4
     react-icons: 4.10.1
-    react-image-crop: 10.1.5
+    react-image-crop: 10.1.8
     react-router-dom: 6.15.0
     style-loader: 3.3.3
     swiper: 10.2.0
@@ -15566,14 +15559,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-image-crop@npm:10.1.5":
-  version: 10.1.5
-  resolution: "react-image-crop@npm:10.1.5"
-  dependencies:
-    clsx: ^1.2.1
+"react-image-crop@npm:10.1.8":
+  version: 10.1.8
+  resolution: "react-image-crop@npm:10.1.8"
   peerDependencies:
     react: ">=16.13.1"
-  checksum: dcff50c97d617b85ba40891e40a34de3cc53add8cff54418320156afdbf69fde3c511a3bfb3ebda72db994a3ed9858b4825dc66c292c47f717815e4d8bcde86b
+  checksum: c53c412f6cfdd1d80c0691a42c6c353afb4dd2dca3209e8c3ec64a9d01d1dc6a6940221be9a0adaee5f0c66276094aa6f3d4a24dcabeab2ca3ca78fc62531e24
   languageName: node
   linkType: hard
 
