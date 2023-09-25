@@ -40,7 +40,7 @@
     "react-image-crop": "10.1.8",
     "react-router-dom": "6.16.0",
     "swiper": "10.3.0",
-    "swr": "2.2.2",
+    "swr": "2.2.4",
     "zod": "3.22.2"
   },
   "devDependencies": {
