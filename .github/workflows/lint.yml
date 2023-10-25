@@ -27,7 +27,7 @@ jobs:
 
       - uses: bahmutov/npm-install@v1
 
-      - name: lint - ESLint
+      - name: lint (eslint, prettier)
         run: yarn run lint
 
   transpile:
