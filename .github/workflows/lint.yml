@@ -15,7 +15,7 @@ on:
 
 jobs:
   lint:
-    name: ESLint
+    name: lint
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
