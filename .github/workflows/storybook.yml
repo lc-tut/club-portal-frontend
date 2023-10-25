@@ -19,6 +19,7 @@ jobs:
         with:
           node-version: '18'
           cache: yarn
+
       - uses: bahmutov/npm-install@v1
 
       - name: build-storybook

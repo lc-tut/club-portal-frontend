@@ -28,22 +28,7 @@ jobs:
       - uses: bahmutov/npm-install@v1
 
       - name: lint - ESLint
-        run: yarn run lint:eslint
-
-  prettier:
-    name: prettier
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      - uses: bahmutov/npm-install@v1
-
-      - name: lint - Prettier
-        run: yarn run lint:prettier
+        run: yarn run lint
 
   transpile:
     name: transpile
@@ -54,6 +39,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
+          cache: yarn
 
       - uses: bahmutov/npm-install@v1
 
