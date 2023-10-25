@@ -1,10 +1,10 @@
 import path from "path"
-import webpack from "webpack"
+import type webpack from "webpack"
 import HtmlWebpackPlugin from "html-webpack-plugin"
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin"
 import { CleanWebpackPlugin } from "clean-webpack-plugin"
 import TerserWebpackPlugin from "terser-webpack-plugin"
-import { Configuration } from "webpack-dev-server"
+import type { Configuration } from "webpack-dev-server"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
 import CssMinimizerPlugin from "css-minimizer-webpack-plugin"
 
@@ -112,7 +112,7 @@ const config: webpack.Configuration = {
   },
 
   resolve: {
-    extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
+    extensions: [".ts", ".tsx", ".js", ".jsx", ".json", ".css"],
   },
 
   optimization: {

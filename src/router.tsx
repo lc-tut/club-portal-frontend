@@ -1,5 +1,5 @@
 import { Flex } from "@chakra-ui/react"
-import axios from "axios"
+import { isAxiosError } from "axios"
 import { AnimatePresence } from "framer-motion"
 import { useEffect } from "react"
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom"
@@ -30,7 +30,7 @@ const AnimatedRouter: React.FC<{}> = () => {
   }, [location, setError])
 
   if (error) {
-    if (axios.isAxiosError(error)) {
+    if (isAxiosError(error)) {
       return (
         <Flex direction="column" minH="100vh">
           <Header session={session} />

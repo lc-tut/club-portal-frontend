@@ -6,15 +6,26 @@
     "plugin:react-hooks/recommended",
     "plugin:react/jsx-runtime",
     "plugin:@typescript-eslint/recommended-type-checked",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
     "prettier"
   ],
-  "plugins": ["simple-import-sort"],
+  "plugins": ["import", "unused-imports"],
   "parserOptions": {
-    "project": "./tsconfig.json"
+    "project": "./tsconfig.eslint.json"
   },
   "settings": {
     "react": {
       "version": "detect"
+    },
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "node": {},
+      "webpack": {
+        "config": "webpack.config.ts"
+      }
     }
   },
   "rules": {
@@ -44,11 +55,11 @@
     ],
     "@typescript-eslint/consistent-type-imports": "error",
     "@typescript-eslint/consistent-indexed-object-style": "error",
-    "simple-import-sort/imports": "error",
-    "simple-import-sort/exports": "error",
     // v6 rules
     "@typescript-eslint/no-duplicate-type-constituents": "off",
-    "@typescript-eslint/no-redundant-type-constituents": "off"
-  },
-  "ignorePatterns": ["webpack.config.ts"]
+    "@typescript-eslint/no-redundant-type-constituents": "off",
+    // for eslint-plugin-unused-imports
+    "@typescript-eslint/no-unused-vars": "off",
+    "unused-imports/no-unused-imports": "error"
+  }
 }

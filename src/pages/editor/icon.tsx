@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react"
 import type { AxiosRequestConfig } from "axios"
 import { useEffect, useRef, useState } from "react"
-import ReactCrop, { type Crop } from "react-image-crop"
+import { ReactCrop, type Crop } from "react-image-crop"
 
 import { PortalButton } from "../../components/common/Button"
 import { EditorBase } from "../../components/common/Editor/EditorBase"
