@@ -6,6 +6,7 @@ import type {
   EditorMenuButtonProps,
   EditorMenuProps,
 } from "../../../types/editor"
+
 import { EditorBase } from "./EditorBase"
 
 const EditorMenuButton: React.FC<

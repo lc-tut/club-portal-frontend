@@ -2,6 +2,7 @@ import { centerCrop, makeAspectCrop } from "react-image-crop"
 
 import type { BadgeActivity, BadgeCampus } from "../types/badge"
 import type { DateType, LinkType } from "../types/description"
+
 import { ACTIVITY, CAMPUS, DATE_NUMBER_MAP } from "./consts"
 
 export function toAbsolutePath(path: string) {

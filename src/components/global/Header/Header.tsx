@@ -2,6 +2,7 @@ import { HStack } from "@chakra-ui/react"
 
 import type { Session } from "../../../types/api"
 import { HEADER_HEIGHT } from "../../../utils/consts"
+
 import { HamburgerMenu } from "./HamburgerMenu"
 import { UserMenu } from "./UserMenu"
 

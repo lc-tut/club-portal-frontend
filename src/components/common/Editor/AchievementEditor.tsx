@@ -20,6 +20,7 @@ import { useOutletUser } from "../../../hooks/useOutletUser"
 import { useSuccessToast } from "../../../hooks/useSuccessToast"
 import type { Achievement } from "../../../types/api"
 import { axiosWithPayload } from "../../../utils/axios"
+
 import { EditorButton } from "./EditorButton"
 
 const schema = z.object({

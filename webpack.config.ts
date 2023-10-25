@@ -1,12 +1,13 @@
 import path from "path"
-import type webpack from "webpack"
-import HtmlWebpackPlugin from "html-webpack-plugin"
-import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin"
+
 import { CleanWebpackPlugin } from "clean-webpack-plugin"
-import TerserWebpackPlugin from "terser-webpack-plugin"
-import type { Configuration } from "webpack-dev-server"
-import MiniCssExtractPlugin from "mini-css-extract-plugin"
 import CssMinimizerPlugin from "css-minimizer-webpack-plugin"
+import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin"
+import HtmlWebpackPlugin from "html-webpack-plugin"
+import MiniCssExtractPlugin from "mini-css-extract-plugin"
+import TerserWebpackPlugin from "terser-webpack-plugin"
+import type webpack from "webpack"
+import type { Configuration } from "webpack-dev-server"
 
 const isProduction = process.env.NODE_ENV === "production"
 

@@ -1,4 +1,5 @@
 import type { MenuButtonProps } from "../../../types/button"
+
 import { PortalButton } from "./PortalButton"
 
 export const MenuButton: React.FC<React.PropsWithChildren<MenuButtonProps>> = (

@@ -20,6 +20,7 @@ import type {
   TimePlaceInputProps,
 } from "../../../types/editor"
 import { BUILDING_ID_MAP, TOGGLE_ROOM } from "../../../utils/consts"
+
 import { EditorLabel } from "./CommonEditor"
 
 type FormPlaceType = {

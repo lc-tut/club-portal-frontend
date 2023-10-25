@@ -2,6 +2,7 @@ import { useMemo } from "react"
 
 import type { ClubPageExternal } from "../types/api"
 import type { FilterStateType } from "../types/reducer"
+
 import { useAPI } from "./useAPI"
 
 export function useClubDisplay(
