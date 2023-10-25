@@ -32,7 +32,7 @@ type TimePlaceType = {
   }
   timeRemark: string
   place: {
-    building: number
+    building: keyof typeof BUILDING_ID_MAP
     room: number
   }
   placeRemark: string

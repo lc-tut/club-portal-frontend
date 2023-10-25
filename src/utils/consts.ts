@@ -14,25 +14,28 @@ import type {
   TOGGLE_TIME_ACTION,
 } from "../types/reducer"
 
-export const PADDING_BEFORE_FOOTER = "6rem"
-export const VALID_SNS_LIST: ReadonlyArray<LinkType> = [
+export const PADDING_BEFORE_FOOTER = "6rem" as const
+export const VALID_SNS_LIST = [
   "Twitter",
   "Instagram",
   "Discord",
   "LINE",
   "YouTube",
-]
-export const CAMPUS: ReadonlyArray<BadgeCampus> = ["hachioji", "kamata"]
-export const ACTIVITY: ReadonlyArray<BadgeActivity> = [
+] as const satisfies ReadonlyArray<LinkType>
+export const CAMPUS = [
+  "hachioji",
+  "kamata",
+] as const satisfies ReadonlyArray<BadgeCampus>
+export const ACTIVITY = [
   "sports",
   "culture",
   "committee",
-]
-export const MONTHS: ReadonlyArray<number> = [
+] as const satisfies ReadonlyArray<BadgeActivity>
+export const MONTHS = [
   4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3,
-]
+] as const satisfies ReadonlyArray<number>
 
-export const BUILDING_ID_MAP: Record<number, string> = {
+export const BUILDING_ID_MAP = {
   110: "講義棟A",
   111: "講義棟D",
   120: "研究棟A",
@@ -54,9 +57,9 @@ export const BUILDING_ID_MAP: Record<number, string> = {
   182: "テニスコート",
   301: "外部",
   302: "未定",
-}
+} as const satisfies Record<number, string>
 
-export const DATE_MAP: Record<DateType, string> = {
+export const DATE_MAP = {
   Mon: "月",
   Tue: "火",
   Wed: "水",
@@ -66,9 +69,9 @@ export const DATE_MAP: Record<DateType, string> = {
   Sun: "日",
   Day: "平日",
   Etc: "その他",
-}
+} as const satisfies Record<DateType, string>
 
-export const DATE_NUMBER_MAP: Record<DateType, number> = {
+export const DATE_NUMBER_MAP = {
   Mon: 10,
   Tue: 11,
   Wed: 12,
@@ -78,7 +81,7 @@ export const DATE_NUMBER_MAP: Record<DateType, number> = {
   Sun: 16,
   Day: 17,
   Etc: 20,
-}
+} as const satisfies Record<DateType, number>
 
 export const TOGGLE_DATE: TOGGLE_DATE_ACITON = "TOGGLE_DATE"
 export const TOGGLE_TIME: TOGGLE_TIME_ACTION = "TOGGLE_TIME"
@@ -98,12 +101,12 @@ export const SET_NAME_ASC: SET_NAME_ASC_ACTION = "SET_NAME_ASC"
 export const SET_NAME_DESC: SET_NAME_DESC_ACTION = "SET_NAME_DESC"
 export const RESET_FILTER: RESET_FILTER_ACTION = "RESET_FILTER"
 
-export const HEADER_HEIGHT = "3rem"
+export const HEADER_HEIGHT = "3rem" as const
 
-export const ICON_SIZE = 400
+export const ICON_SIZE = 400 as const
 
 // XXX: 追加ラベル: [お知らせ, 履歴, 通知, プロフィール, 設定]
-export const HEADER_MENUS: ReadonlyArray<{ label: string; url: string }> = [
+export const HEADER_MENUS = [
   {
     label: "TOP",
     url: "/",
@@ -116,4 +119,4 @@ export const HEADER_MENUS: ReadonlyArray<{ label: string; url: string }> = [
     label: "お気に入り",
     url: "/users/favs",
   },
-]
+] as const satisfies ReadonlyArray<{ label: string; url: `/${string}` }>
