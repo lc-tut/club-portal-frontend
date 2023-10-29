@@ -8759,7 +8759,7 @@ __metadata:
     eslint-plugin-react-hooks: "npm:4.6.0"
     eslint-plugin-unused-imports: "npm:3.0.0"
     file-loader: "npm:6.2.0"
-    fork-ts-checker-webpack-plugin: "npm:9.0.0"
+    fork-ts-checker-webpack-plugin: "npm:9.0.1"
     framer-motion: "npm:10.16.4"
     html-webpack-plugin: "npm:5.5.3"
     mini-css-extract-plugin: "npm:2.7.6"
@@ -11238,9 +11238,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fork-ts-checker-webpack-plugin@npm:9.0.0":
-  version: 9.0.0
-  resolution: "fork-ts-checker-webpack-plugin@npm:9.0.0"
+"fork-ts-checker-webpack-plugin@npm:9.0.1":
+  version: 9.0.1
+  resolution: "fork-ts-checker-webpack-plugin@npm:9.0.1"
   dependencies:
     "@babel/code-frame": "npm:^7.16.7"
     chalk: "npm:^4.1.2"
@@ -11257,7 +11257,7 @@ __metadata:
   peerDependencies:
     typescript: ">3.6.0"
     webpack: ^5.11.0
-  checksum: f76b232cebc009b3087cd971d81697383578af3d293f70dde3148e67d212f4dfd5f1205b843686d7d1977340361b8e2bb7999b69ed1d82b7e16688656a3fca00
+  checksum: 4d0650bd8671147d5a3af438927c5f8d090dcfd8ce072428af55a146b4397c076f846ca59866f79e2e567383ee8924ecc3d8c88e5ea66751b6d0b0d60c248ab7
   languageName: node
   linkType: hard
 
