@@ -44,7 +44,7 @@
     "react-icons": "4.11.0",
     "react-image-crop": "10.1.8",
     "react-router-dom": "6.17.0",
-    "swiper": "11.0.3",
+    "swiper": "11.0.4",
     "swr": "2.2.4",
     "zod": "3.22.4"
   },
