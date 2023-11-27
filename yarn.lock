@@ -8855,7 +8855,7 @@ __metadata:
     prettier: "npm:3.0.3"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
-    react-hook-form: "npm:7.47.0"
+    react-hook-form: "npm:7.48.2"
     react-icons: "npm:4.11.0"
     react-image-crop: "npm:10.1.8"
     react-router-dom: "npm:6.17.0"
@@ -15987,12 +15987,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-hook-form@npm:7.47.0":
-  version: 7.47.0
-  resolution: "react-hook-form@npm:7.47.0"
+"react-hook-form@npm:7.48.2":
+  version: 7.48.2
+  resolution: "react-hook-form@npm:7.48.2"
   peerDependencies:
     react: ^16.8.0 || ^17 || ^18
-  checksum: 182a03afd2dedc31d6688481f01c0fed06c8440691b5d103df5007104aea5dc79f188c493730020bedac7781abc3327e51b432c605691beef44b0513bcadf51b
+  checksum: 6cb494f359675e78c14c49a33d1c568df1a03db4c750eab18d6554e622fd64e04195c57efa138db03f8988587d132c57d2a7f5f3dd9157be996cc9acd4362170
   languageName: node
   linkType: hard
 
