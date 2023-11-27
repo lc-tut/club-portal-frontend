@@ -8856,7 +8856,7 @@ __metadata:
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
     react-hook-form: "npm:7.48.2"
-    react-icons: "npm:4.11.0"
+    react-icons: "npm:4.12.0"
     react-image-crop: "npm:10.1.8"
     react-router-dom: "npm:6.20.0"
     style-loader: "npm:3.3.3"
@@ -15996,12 +15996,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-icons@npm:4.11.0":
-  version: 4.11.0
-  resolution: "react-icons@npm:4.11.0"
+"react-icons@npm:4.12.0":
+  version: 4.12.0
+  resolution: "react-icons@npm:4.12.0"
   peerDependencies:
     react: "*"
-  checksum: 61f84c7a3f59120659f984828cac72b11c4baf9b78fb71261ab1ab5b2a9df4debd9fa5e9c30ccca23e4f0d9c0713bb5a339390073a8a01f4fe72c024fc526b5f
+  checksum: 5cc20509ca0b182f1e7bf42c271846c48f688c8922e2439f48728805adc93ba18476a13588cbe91ee43a2d03b2787e0dc0b5cc4b9c4e4ae3426f4464b3c1b734
   languageName: node
   linkType: hard
 
