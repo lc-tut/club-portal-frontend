@@ -49,7 +49,7 @@
     "zod": "3.22.4"
   },
   "devDependencies": {
-    "@babel/core": "7.23.3",
+    "@babel/core": "7.23.5",
     "@emotion/babel-plugin": "11.11.0",
     "@emotion/babel-preset-css-prop": "11.11.0",
     "@storybook/addon-actions": "7.5.3",
