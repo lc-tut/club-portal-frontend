@@ -8887,7 +8887,7 @@ __metadata:
     eslint-plugin-unused-imports: "npm:3.0.0"
     file-loader: "npm:6.2.0"
     fork-ts-checker-webpack-plugin: "npm:9.0.2"
-    framer-motion: "npm:10.16.9"
+    framer-motion: "npm:10.16.10"
     html-webpack-plugin: "npm:5.5.3"
     mini-css-extract-plugin: "npm:2.7.6"
     npm-run-all: "npm:4.1.5"
@@ -11511,9 +11511,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:10.16.9":
-  version: 10.16.9
-  resolution: "framer-motion@npm:10.16.9"
+"framer-motion@npm:10.16.10":
+  version: 10.16.10
+  resolution: "framer-motion@npm:10.16.10"
   dependencies:
     "@emotion/is-prop-valid": "npm:^0.8.2"
     tslib: "npm:^2.4.0"
@@ -11528,7 +11528,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 1529da0488db7c7a636adb8fb57ee3d6363fd5d2ef235e036d873ce381cb1079cf1d2afab234646c2bba09d6f2eab9a20f8a90b83702d22356ac76c480f66427
+  checksum: f7d394bd35bd2836f94a9fea7bd6580ba2a2c8925e6ac666b07b471d7601425785b11d5905a99f7e47dd785e637abe91a399fad1d227e8d92774b3d1294b058a
   languageName: node
   linkType: hard
 
