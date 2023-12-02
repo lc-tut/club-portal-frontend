@@ -8692,7 +8692,7 @@ __metadata:
     react-dom: "npm:18.2.0"
     react-hook-form: "npm:7.48.2"
     react-icons: "npm:4.12.0"
-    react-image-crop: "npm:10.1.8"
+    react-image-crop: "npm:11.0.1"
     react-router-dom: "npm:6.20.0"
     style-loader: "npm:3.3.3"
     swiper: "npm:11.0.5"
@@ -15856,12 +15856,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-image-crop@npm:10.1.8":
-  version: 10.1.8
-  resolution: "react-image-crop@npm:10.1.8"
+"react-image-crop@npm:11.0.1":
+  version: 11.0.1
+  resolution: "react-image-crop@npm:11.0.1"
   peerDependencies:
     react: ">=16.13.1"
-  checksum: aa76a8fdaf8b3d733bbd208522fa63f0796bac5c1ec6fc63f0088288b4d98e0ec6c3506e143e2e068ecbee8de813a394397a4d282b19a26f29cab7b54a128b91
+  checksum: 62909cbe625c9acaa5eb9fadda204fe979487ea00ad02d0d1d82437ff3f8c7002729ea4e9b787c4a55931fa9b4d4a85d44c733055de757c8017ae5a350422bf9
   languageName: node
   linkType: hard
 
