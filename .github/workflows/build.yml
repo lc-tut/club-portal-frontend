@@ -23,7 +23,7 @@ jobs:
       - name: build - production
         run: yarn run build:prod
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: release-${{ github.event.release.tag_name }}
           path: dist/
