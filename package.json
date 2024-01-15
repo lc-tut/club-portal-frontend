@@ -59,7 +59,7 @@
     "@storybook/manager-webpack5": "6.5.16",
     "@storybook/react": "7.6.8",
     "@svgr/webpack": "8.1.0",
-    "@types/node": "20.11.1",
+    "@types/node": "20.11.2",
     "@types/react": "18.2.48",
     "@types/react-dom": "18.2.18",
     "@typescript-eslint/eslint-plugin": "6.13.1",
