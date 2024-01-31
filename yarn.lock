@@ -6455,12 +6455,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:20.11.5":
-  version: 20.11.5
-  resolution: "@types/node@npm:20.11.5"
+"@types/node@npm:20.11.13":
+  version: 20.11.13
+  resolution: "@types/node@npm:20.11.13"
   dependencies:
     undici-types: "npm:~5.26.4"
-  checksum: 9f31c471047d7b3e240ce7b77ff29b0d15e83be7e3feafb3d0b0d0931122b438b1eefa302a5a2e1e9849914ff3fd76aafbd8ccb372efb1331ba048da63bce6f8
+  checksum: ffe143dd5e52d0d29f5bcea165b752c5355eaff8b6b933441108b540419e14c0c7e0e7912783e914125ab957e30db93f9c827e8dd437ec7e5f03def995e9a5e6
   languageName: node
   linkType: hard
 
@@ -8883,7 +8883,7 @@ __metadata:
     "@storybook/manager-webpack5": "npm:6.5.16"
     "@storybook/react": "npm:7.6.9"
     "@svgr/webpack": "npm:8.1.0"
-    "@types/node": "npm:20.11.5"
+    "@types/node": "npm:20.11.13"
     "@types/react": "npm:18.2.48"
     "@types/react-dom": "npm:18.2.18"
     "@typescript-eslint/eslint-plugin": "npm:6.20.0"
