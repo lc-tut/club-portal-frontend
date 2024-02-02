@@ -7,7 +7,7 @@ import { useAPI } from "./useAPI"
 
 export function useClubDisplay(
   arr: Array<ClubPageExternal> | undefined,
-  state: FilterStateType,
+  state: FilterStateType
 ) {
   const [keyword, setKeyword] = useState<string>("")
   const { data } = useAPI<

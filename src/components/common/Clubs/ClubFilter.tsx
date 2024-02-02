@@ -155,12 +155,11 @@ export const ClubFilter: React.FC<FilterAreaProps> = (props) => {
               <PortalButton
                 pbstyle="solid"
                 width="7rem"
-                onClick={() =>
-                  {props.dispatchFilterValues({ type: RESET_FILTER })
+                onClick={() => {
+                  props.dispatchFilterValues({ type: RESET_FILTER })
                   props.setKeyword("")
                   setValue("keyword", "")
-                }
-                }
+                }}
               >
                 リセット
               </PortalButton>
@@ -255,8 +254,7 @@ export const ClubFilter: React.FC<FilterAreaProps> = (props) => {
                         width="7rem"
                         onClick={() => {
                           props.dispatchFilterValues({ type: RESET_FILTER })
-                        }
-                        }
+                        }}
                       >
                         リセット
                       </PortalButton>

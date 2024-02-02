@@ -24,11 +24,7 @@ import { PADDING_BEFORE_FOOTER } from "../utils/consts"
 import { getActivity, getCampus } from "../utils/functions"
 
 const AnimatedClubs: React.FC<{}> = () => {
-  const { data } = useAPI<Array<ClubPageExternal>>(
-    "/api/v1/clubs",
-    true,
-    true
-  )
+  const { data } = useAPI<Array<ClubPageExternal>>("/api/v1/clubs", true, true)
   const [state, dispatch] = useReducer(filterReducer, {
     isHachiojiCampus: true,
     isKamataCampus: true,

@@ -68,19 +68,19 @@ export const UserMenu: React.FC<{ session: Session | undefined }> = ({
       onClose={onClose}
       placement="bottom-end"
     >
-        {isLoading ? (
-          <Loading />
-        ) : (
-            <PopoverTrigger>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <PopoverTrigger>
           <Button p="0" backgroundColor="transparent">
             {session ? (
               <Avatar src={session.avatar} {...avatarProps} />
-              ) : (
+            ) : (
               <DefaultUserIcon {...avatarProps} />
-              )}
+            )}
           </Button>
-      </PopoverTrigger>
-        )}
+        </PopoverTrigger>
+      )}
       <PopoverContent w={adjustPopoverWidth ? "90vw" : "20em"}>
         <PopoverBody>
           {session ? (
