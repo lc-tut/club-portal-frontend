@@ -7,14 +7,14 @@ import type { APIResponse } from "../types/api"
 
 type EndpointArg<T> = T extends null ? null : string
 
-export function useAPI<R extends APIResponse | null>(
+export function useAPI<R extends APIResponse | null, S = R>(
   endpoint: EndpointArg<R> | (() => EndpointArg<R>),
   isImmutable?: boolean,
-  isNotUpdateLoadingState?: boolean
+  isInner?: boolean
 ) {
-  const { setIsLoading } = useSetLoadingStateContext()
+  const { setIsLoadingOuter, setIsLoadingInner } = useSetLoadingStateContext()
   const { data, error, isLoading, mutate } = useSWR<
-    R | undefined,
+    S | undefined,
     AxiosError | Error
   >(
     endpoint,
@@ -27,12 +27,15 @@ export function useAPI<R extends APIResponse | null>(
       : {}
   )
 
-  // XXX: Add dependency and testing.
   useEffect(() => {
-    if (isLoading && !isNotUpdateLoadingState) {
-      setIsLoading(true)
+    if (isLoading) {
+      if (isInner) {
+        setIsLoadingInner(true)
+      } else {
+        setIsLoadingOuter(true)
+      }
     }
-  })
+  }, [isInner, isLoading, setIsLoadingInner, setIsLoadingOuter])
 
   return {
     data: data,

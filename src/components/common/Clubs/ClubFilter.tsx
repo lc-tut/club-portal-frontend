@@ -41,6 +41,7 @@ type FilterSwitchProps = {
 }
 
 type FilterAreaProps = FilterSwitchProps & {
+  keyword: string
   setKeyword: StateDispatch<string>
   isMobileLayout: boolean
 }
@@ -117,7 +118,7 @@ const FilterSwitch: React.FC<FilterSwitchProps> = (props) => {
 
 export const ClubFilter: React.FC<FilterAreaProps> = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const { register, handleSubmit } = useForm<KeywordFormType>()
+  const { register, handleSubmit, setValue } = useForm<KeywordFormType>()
 
   const onSubmit = handleSubmit((data) => {
     props.setKeyword(data.keyword)
@@ -155,7 +156,10 @@ export const ClubFilter: React.FC<FilterAreaProps> = (props) => {
                 pbstyle="solid"
                 width="7rem"
                 onClick={() =>
-                  props.dispatchFilterValues({ type: RESET_FILTER })
+                  {props.dispatchFilterValues({ type: RESET_FILTER })
+                  props.setKeyword("")
+                  setValue("keyword", "")
+                }
                 }
               >
                 リセット
@@ -249,8 +253,9 @@ export const ClubFilter: React.FC<FilterAreaProps> = (props) => {
                       <PortalButton
                         pbstyle="solid"
                         width="7rem"
-                        onClick={() =>
+                        onClick={() => {
                           props.dispatchFilterValues({ type: RESET_FILTER })
+                        }
                         }
                       >
                         リセット

@@ -6,7 +6,7 @@ import { useSetLoadingStateContext } from "../contexts/loading"
 import type { Session } from "../types/api"
 
 export function useSession() {
-  const { setIsLoading } = useSetLoadingStateContext()
+  const { setIsLoadingInner } = useSetLoadingStateContext()
   const { data, error, isLoading, mutate } = useSWR<
     Session,
     Error | AxiosError
@@ -14,12 +14,12 @@ export function useSession() {
 
   useEffect(() => {
     if (isLoading) {
-      setIsLoading(true)
+      setIsLoadingInner(true)
     }
-  })
+  }, [isLoading, setIsLoadingInner])
 
   return {
-    session: data as Session,
+    session: data,
     isLoading: isLoading,
     error: error,
     mutate: mutate,

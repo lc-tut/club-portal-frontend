@@ -7,7 +7,7 @@ import {
   useMediaQuery,
   VStack,
 } from "@chakra-ui/react"
-import { useReducer, useState } from "react"
+import { useReducer } from "react"
 import { Link } from "react-router-dom"
 
 import { ClubCard } from "../components/common/Clubs/ClubCard"
@@ -15,6 +15,7 @@ import { ClubFilter } from "../components/common/Clubs/ClubFilter"
 import { ClubSortOptionSelect } from "../components/common/Clubs/ClubSortOptionSelect"
 import { TitleArea } from "../components/global/Header/TitleArea"
 import { Loading } from "../components/global/LoadingPage"
+import { useLoadingStateContext } from "../contexts/loading"
 import { useAPI } from "../hooks/useAPI"
 import { useClubDisplay } from "../hooks/useClubDisplay"
 import { filterReducer } from "../reducer/filter"
@@ -23,8 +24,9 @@ import { PADDING_BEFORE_FOOTER } from "../utils/consts"
 import { getActivity, getCampus } from "../utils/functions"
 
 const AnimatedClubs: React.FC<{}> = () => {
-  const { data, isLoading } = useAPI<Array<ClubPageExternal>>(
+  const { data } = useAPI<Array<ClubPageExternal>>(
     "/api/v1/clubs",
+    true,
     true
   )
   const [state, dispatch] = useReducer(filterReducer, {
@@ -35,10 +37,10 @@ const AnimatedClubs: React.FC<{}> = () => {
     isCommittee: true,
     isAscending: true,
   })
-  const [keyword, setKeyword] = useState<string>("")
   const [isMobileLayout] = useMediaQuery("(max-width: 62em)")
   const [isSmallPadding] = useMediaQuery("(max-width: 30em)")
-  const sortedClubs = useClubDisplay(data, state, keyword)
+  const { sortedClubs, keyword, setKeyword } = useClubDisplay(data, state)
+  const { isLoadingInner } = useLoadingStateContext()
 
   return (
     <VStack
@@ -58,6 +60,7 @@ const AnimatedClubs: React.FC<{}> = () => {
         <ClubFilter
           filterValues={state}
           dispatchFilterValues={dispatch}
+          keyword={keyword}
           setKeyword={setKeyword}
           isMobileLayout={isMobileLayout}
         />
@@ -75,7 +78,7 @@ const AnimatedClubs: React.FC<{}> = () => {
               isAscending={state.isAscending}
               dispatchIsAscending={dispatch}
             />
-            {!isLoading && sortedClubs ? (
+            {!isLoadingInner && sortedClubs ? (
               <>
                 <Grid
                   templateColumns={{

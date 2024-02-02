@@ -1,4 +1,4 @@
-import { useMemo } from "react"
+import { useMemo, useState } from "react"
 
 import type { ClubPageExternal } from "../types/api"
 import type { FilterStateType } from "../types/reducer"
@@ -8,9 +8,12 @@ import { useAPI } from "./useAPI"
 export function useClubDisplay(
   arr: Array<ClubPageExternal> | undefined,
   state: FilterStateType,
-  keyword: string
 ) {
-  const { data } = useAPI<Array<ClubPageExternal> | null>(
+  const [keyword, setKeyword] = useState<string>("")
+  const { data } = useAPI<
+    Array<ClubPageExternal> | null,
+    Array<ClubPageExternal>
+  >(
     keyword === "" ? null : `/api/v1/clubs/search?content=${keyword}`,
     false,
     true
@@ -37,7 +40,7 @@ export function useClubDisplay(
       return true
     })
   }, [arr, state])
-  const sortedClub = useMemo<typeof arr>(() => {
+  const sortedClubs = useMemo<typeof arr>(() => {
     return filteredClub?.sort((val1, val2) => {
       if (state.isAscending) {
         return val1.name.localeCompare(val2.name)
@@ -47,5 +50,5 @@ export function useClubDisplay(
     })
   }, [filteredClub, state.isAscending])
 
-  return sortedClub
+  return { sortedClubs, keyword, setKeyword }
 }
