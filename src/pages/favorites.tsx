@@ -38,7 +38,7 @@ export const AnimatedFavorites: React.FC<{}> = () => {
     isCommittee: true,
     isAscending: true,
   })
-  const sortedClubs = useClubDisplay(data, state, "")
+  const { sortedClubs } = useClubDisplay(data, state)
 
   return (
     <VStack flex="1" spacing="2rem">

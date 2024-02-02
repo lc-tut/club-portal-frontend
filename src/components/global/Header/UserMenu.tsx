@@ -20,17 +20,20 @@ import type { Session } from "../../../types/api"
 import { axiosFetcher } from "../../../utils/axios"
 import { PortalButton } from "../../common/Button"
 import { DefaultUserIcon } from "../../common/Icon"
+import { Loading } from "../LoadingPage"
 
-export const UserMenu: React.FC<{ session: Session }> = ({ session }) => {
+export const UserMenu: React.FC<{ session: Session | undefined }> = ({
+  session,
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const loc = useLocation()
-  const { mutate } = useSession()
+  const { isLoading, mutate } = useSession()
   const [adjustPopoverWidth] = useMediaQuery("(max-width: 21em)")
-  const { setIsLoading } = useSetLoadingStateContext()
+  const { setIsLoadingOuter } = useSetLoadingStateContext()
   const errorToast = useErrorToast("正常にログアウトできませんでした")
 
   const onLogout = async () => {
-    setIsLoading(true)
+    setIsLoadingOuter(true)
     try {
       await mutate(
         async () => {
@@ -45,7 +48,7 @@ export const UserMenu: React.FC<{ session: Session }> = ({ session }) => {
       console.error(e)
       errorToast()
     } finally {
-      setIsLoading(false)
+      setIsLoadingOuter(false)
     }
   }
 
@@ -65,15 +68,19 @@ export const UserMenu: React.FC<{ session: Session }> = ({ session }) => {
       onClose={onClose}
       placement="bottom-end"
     >
-      <PopoverTrigger>
-        <Button p="0" backgroundColor="transparent">
-          {session ? (
-            <Avatar src={session.avatar} {...avatarProps} />
-          ) : (
-            <DefaultUserIcon {...avatarProps} />
-          )}
-        </Button>
-      </PopoverTrigger>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <PopoverTrigger>
+          <Button p="0" backgroundColor="transparent">
+            {session ? (
+              <Avatar src={session.avatar} {...avatarProps} />
+            ) : (
+              <DefaultUserIcon {...avatarProps} />
+            )}
+          </Button>
+        </PopoverTrigger>
+      )}
       <PopoverContent w={adjustPopoverWidth ? "90vw" : "20em"}>
         <PopoverBody>
           {session ? (

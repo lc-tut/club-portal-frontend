@@ -6,7 +6,9 @@ import { HEADER_HEIGHT } from "../../../utils/consts"
 import { HamburgerMenu } from "./HamburgerMenu"
 import { UserMenu } from "./UserMenu"
 
-export const Header: React.FC<{ session: Session }> = ({ session }) => {
+export const Header: React.FC<{ session: Session | undefined }> = ({
+  session,
+}) => {
   return (
     <HStack
       px="1rem"

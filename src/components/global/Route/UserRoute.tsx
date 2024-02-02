@@ -6,7 +6,7 @@ import type { UserInfo } from "../../../types/api"
 
 export const UserRouteElement: React.FC<{}> = () => {
   const { data } = useAPI<UserInfo>("/api/v1/users")
-  const { isLoading } = useLoadingStateContext()
+  const { isLoadingOuter } = useLoadingStateContext()
 
-  return <>{!isLoading && data && <Outlet context={data} />}</>
+  return <>{!isLoadingOuter && data && <Outlet context={data} />}</>
 }
