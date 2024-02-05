@@ -8945,7 +8945,7 @@ __metadata:
     react-image-crop: "npm:11.0.5"
     react-router-dom: "npm:6.22.0"
     style-loader: "npm:3.3.4"
-    swiper: "npm:11.0.5"
+    swiper: "npm:11.0.6"
     swr: "npm:2.2.4"
     ts-loader: "npm:9.5.1"
     ts-node: "npm:10.9.2"
@@ -17939,10 +17939,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"swiper@npm:11.0.5":
-  version: 11.0.5
-  resolution: "swiper@npm:11.0.5"
-  checksum: 10/4a544e9551336ddbdd5f45ebdde0de5086f855e08b48eaa2bed7f5c16a27dd28ef9accdbb232de8639dea0c2588a3139f9865fdb6342e82850a62cdea69cdc4d
+"swiper@npm:11.0.6":
+  version: 11.0.6
+  resolution: "swiper@npm:11.0.6"
+  checksum: 10/bafec6085dab8f47d00b905c2dfa1332a3cf2007b8dc668a3195105dac8cbebbf119e3b95bef1f97cd91564a6b63bcf9b3491c3620bfcf4723cea3bd782b4d53
   languageName: node
   linkType: hard
 
