@@ -58,8 +58,7 @@ export const LinkEditor: React.FC<{}> = () => {
 
   useEffect(() => {
     if (data) {
-      const v = data.filter((d) => d.label !== "Email")
-      setLinks(v)
+      setLinks(data)
     }
   }, [data])
 
@@ -202,15 +201,17 @@ export const LinkEditor: React.FC<{}> = () => {
             <Stack w="100%">
               {links.map((item) => {
                 return (
-                  <HStack key={item.label + item.url} textColor="text.main">
-                    <EditorButton
-                      icon="remove"
-                      onClick={() => onRemove(item)}
-                      paddingTop="0"
-                    />
-                    <Text>{item.label + " - "}</Text>
-                    <Text>{item.url}</Text>
-                  </HStack>
+                  item.label !== "Email" && (
+                    <HStack key={item.label + item.url} textColor="text.main">
+                      <EditorButton
+                        icon="remove"
+                        onClick={() => onRemove(item)}
+                        paddingTop="0"
+                      />
+                      <Text>{item.label + " - "}</Text>
+                      <Text>{item.url}</Text>
+                    </HStack>
+                  )
                 )
               })}
             </Stack>
