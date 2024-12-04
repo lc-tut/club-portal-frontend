@@ -42,6 +42,7 @@ export const DetailLinkEditor: React.FC<{}> = () => {
   const { clubUuid } = useOutletUser()
   const { data } = useAPI<Array<Link>>(`/api/v1/clubs/uuid/${clubUuid!}/link`)
   const [email, setEmail] = useState<string>("")
+  const [storedLinks, setStoredLinks] = useState<Array<Link>>([])
   const errorToast = useErrorToast("データの保存に失敗しました。")
   const successToast = useSuccessToast("データの保存が完了しました！")
 
@@ -50,11 +51,12 @@ export const DetailLinkEditor: React.FC<{}> = () => {
       data.map((d) => {
         if (d.label === "Email") setEmail(d.url)
       })
+      setStoredLinks(data.filter((d) => d.label !== "Email"))
     }
   }, [data])
 
   const onSubmit = handleSubmit(async (data) => {
-    const links: Array<Link> = [{ label: "Email", url: data.email }]
+    const links: Array<Link> = [...storedLinks, { label: "Email", url: data.email }]
     const requestConfig: AxiosRequestConfig<Array<Link>> = {
       url: `/api/v1/clubs/uuid/${clubUuid!}/link`,
       method: "put",
@@ -63,12 +65,14 @@ export const DetailLinkEditor: React.FC<{}> = () => {
     try {
       await axiosWithPayload<Array<Link>, Array<Link>>(requestConfig)
       successToast()
-      setEmail(data.email)
+      links.map((d) => {
+        if (d.label === "Email") setEmail(d.url)
+      })
     } catch (e) {
       errorToast()
     }
   })
-
+  
   return (
     <Stack spacing="0" align="center">
       <form onSubmit={onSubmit}>
@@ -91,7 +95,7 @@ export const DetailLinkEditor: React.FC<{}> = () => {
                 placeholder={"メールアドレスを入力して下さい"}
                 backgroundColor="#fff"
                 textColor="text.main"
-                defaultValue={email}
+                defaultValue={"email"}
                 {...register("email", {
                   value: email,
                   required: {
