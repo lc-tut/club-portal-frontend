@@ -56,7 +56,10 @@ export const DetailLinkEditor: React.FC<{}> = () => {
   }, [data])
 
   const onSubmit = handleSubmit(async (data) => {
-    const links: Array<Link> = [...storedLinks, { label: "Email", url: data.email }]
+    const links: Array<Link> = [
+      ...storedLinks,
+      { label: "Email", url: data.email },
+    ]
     const requestConfig: AxiosRequestConfig<Array<Link>> = {
       url: `/api/v1/clubs/uuid/${clubUuid!}/link`,
       method: "put",
@@ -72,7 +75,7 @@ export const DetailLinkEditor: React.FC<{}> = () => {
       errorToast()
     }
   })
-  
+
   return (
     <Stack spacing="0" align="center">
       <form onSubmit={onSubmit}>

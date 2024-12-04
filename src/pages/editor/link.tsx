@@ -200,17 +200,19 @@ export const LinkEditor: React.FC<{}> = () => {
             </HStack>
             <Stack w="100%">
               {links.map((item) => {
-                return (item.label !== "Email" && (
-                  <HStack key={item.label + item.url} textColor="text.main">
-                    <EditorButton
-                      icon="remove"
-                      onClick={() => onRemove(item)}
-                      paddingTop="0"
-                    />
-                    <Text>{item.label + " - "}</Text>
-                    <Text>{item.url}</Text>
-                  </HStack>
-                ))
+                return (
+                  item.label !== "Email" && (
+                    <HStack key={item.label + item.url} textColor="text.main">
+                      <EditorButton
+                        icon="remove"
+                        onClick={() => onRemove(item)}
+                        paddingTop="0"
+                      />
+                      <Text>{item.label + " - "}</Text>
+                      <Text>{item.url}</Text>
+                    </HStack>
+                  )
+                )
               })}
             </Stack>
           </Stack>
