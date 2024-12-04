@@ -103,9 +103,7 @@ export const LinkEditor: React.FC<{}> = () => {
         clearErrors("otherLabel")
       }
     } else {
-      console.log("test")
       newData = { label: data.label, url: data.url }
-      console.log(newData)
     }
     const resultData = [newData, ...links]
     const requestConfig: AxiosRequestConfig<Array<Link>> = {
@@ -202,7 +200,7 @@ export const LinkEditor: React.FC<{}> = () => {
             </HStack>
             <Stack w="100%">
               {links.map((item) => {
-                const result = item.label !== "Email" ? (
+                return (item.label !== "Email" && (
                   <HStack key={item.label + item.url} textColor="text.main">
                     <EditorButton
                       icon="remove"
@@ -212,8 +210,7 @@ export const LinkEditor: React.FC<{}> = () => {
                     <Text>{item.label + " - "}</Text>
                     <Text>{item.url}</Text>
                   </HStack>
-                ) : (null)
-                return result
+                ))
               })}
             </Stack>
           </Stack>
