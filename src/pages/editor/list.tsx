@@ -48,6 +48,10 @@ export const EditorList: React.FC<{}> = () => {
             content: "サークルアイコンの変更",
             to: "icon",
           },
+          {
+            content: "サークル名の変更",
+            to: "name",
+          },
         ]}
       />
     </VStack>
