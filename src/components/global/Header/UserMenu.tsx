@@ -21,6 +21,7 @@ import { axiosFetcher } from "../../../utils/axios"
 import { PortalButton } from "../../common/Button"
 import { DefaultUserIcon } from "../../common/Icon"
 import { Loading } from "../LoadingPage"
+import { useOutletUser } from "../../../hooks/useOutletUser"
 
 export const UserMenu: React.FC<{ session: Session | undefined }> = ({
   session,
@@ -87,10 +88,16 @@ export const UserMenu: React.FC<{ session: Session | undefined }> = ({
             <VStack py="1rem">
               <Text>ログインしています</Text>
               <Text>{session.name}</Text>
-              {session.role == "general" && (
+              {session.role == "general" && useOutletUser()?.userUuid ? (
                 <Link to="/users/club/edit">
                   <PortalButton leftIcon={<BsPencil />}>
                     サークル編集
+                  </PortalButton>
+                </Link>
+              ) : (
+                <Link to="/users/club/init">
+                  <PortalButton leftIcon={<BsPencil />}>
+                    サークル登録
                   </PortalButton>
                 </Link>
               )}

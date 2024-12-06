@@ -71,6 +71,7 @@ const AnimatedRouter: React.FC<{}> = () => {
               <Route path="video" element={<page.VideoEditor />} />
               <Route path="icon" element={<page.IconEditor />} />
             </Route>
+            <Route path="init" element={<page.InitializeEditor />} />
           </Route>
           <Route path="favs" element={<DomainUserRouteElement />}>
             <Route index element={<page.Favorites />} />
