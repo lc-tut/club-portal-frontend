@@ -55,6 +55,10 @@ export type Video = {
   path: string
 }
 
+export type Name = {
+  name: string
+}
+
 export type ClubPageExternal = {
   clubUuid: string
   clubSlug: string
@@ -124,9 +128,10 @@ export type FavoriteClubResponse = ClubUUIDObject
 export type FavoriteClubStatus = { status: boolean }
 
 export type CreateClubPayload = {
-  name: string
   description: string
   shortDescription: string
+  name: string
+  shortName: string
   campus: number // 0, 1
   clubType: number // 0, 1, 2
   remark?: string
@@ -142,6 +147,8 @@ export type CreateClubPayload = {
 export type UpdateClubPayload = {
   description: string
   shortDescription: string
+  name: string
+  shortName: string
   remark?: string
   contents: Array<Content>
   links: Array<Link>
@@ -161,6 +168,7 @@ export type APIPayload =
   | CreateClubPayload
   | UpdateClubPayload
   | Description
+  | Name
   | Array<Link>
   | Array<Content>
   | Array<Schedule>
@@ -181,5 +189,6 @@ export type APIResponse =
   | Array<Video>
   | Array<ActivityDetail>
   | Description
+  | Name
   | FavoriteClubResponse
   | FavoriteClubStatus
