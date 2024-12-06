@@ -131,7 +131,6 @@ export type CreateClubPayload = {
   description: string
   shortDescription: string
   name: string
-  shortName: string
   campus: number // 0, 1
   clubType: number // 0, 1, 2
   remark?: string
@@ -148,7 +147,6 @@ export type UpdateClubPayload = {
   description: string
   shortDescription: string
   name: string
-  shortName: string
   remark?: string
   contents: Array<Content>
   links: Array<Link>
