@@ -70,6 +70,7 @@ const AnimatedRouter: React.FC<{}> = () => {
               <Route path="schedule" element={<page.ScheduleEditor />} />
               <Route path="video" element={<page.VideoEditor />} />
               <Route path="icon" element={<page.IconEditor />} />
+              <Route path="name" element={<page.NameEditor />} />
             </Route>
             <Route path="init" element={<page.InitializeEditor />} />
           </Route>
