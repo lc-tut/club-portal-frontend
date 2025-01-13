@@ -51,7 +51,7 @@ export function toPlaceID(buildingID: number, roomNumber: number) {
 
 export function makeCenterCrop(width: number, height: number) {
   return centerCrop(
-    makeAspectCrop({ unit: "%", width: 100 }, 1, width, height),
+    makeAspectCrop({ unit: "%", width: 50 }, 1, width, height),
     width,
     height
   )
