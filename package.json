@@ -37,7 +37,7 @@
     "@hookform/resolvers": "3.3.4",
     "axios": "1.5.1",
     "axios-case-converter": "1.1.1",
-    "framer-motion": "10.16.16",
+    "framer-motion": "10.18.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "7.50.1",
