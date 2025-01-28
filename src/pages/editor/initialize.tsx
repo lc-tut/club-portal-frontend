@@ -1,4 +1,4 @@
-import { FormControl, FormErrorMessage, FormLabel, Grid, GridItem, Stack, Textarea, VStack } from "@chakra-ui/react"
+import { FormControl, FormErrorMessage, FormLabel, Grid, GridItem, Input, Stack, Textarea, VStack } from "@chakra-ui/react"
 import { z } from "zod"
 
 import { AxiosRequestConfig } from "axios"
@@ -8,6 +8,7 @@ import { PADDING_BEFORE_FOOTER } from "../../utils/consts"
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
+import { PortalButton } from "../../components/common/Button"
 import { useErrorToast } from "../../hooks/useErrorToast"
 import { useSuccessToast } from "../../hooks/useSuccessToast"
 import { CreateClubPayload } from "../../types/api"
@@ -58,8 +59,26 @@ export const InitializeEditor: React.FC<{}> = () => {
                                 <FormControl isInvalid={errors.description !== undefined}>
                                     <FormLabel color="text.main"
                                         fontSize="1.6rem"
-                                        textAlign="center"
                                         m="0"
+                                        pb="2rem"
+                                    >
+                                        サークル名
+                                    </FormLabel>
+                                    <Input
+                                        backgroundColor="#fff"
+                                        color="text.main"
+                                        w="30rem"
+                                        h="3rem"
+                                        placeholder="サークル名を入力してください"
+                                        {...register("name", {
+                                            required: true,
+                                            minLength: 1,
+                                        })}
+                                    />
+                                    <FormLabel color="text.main"
+                                        fontSize="1.6rem"
+                                        m="0"
+                                        pt="4rem"
                                         pb="2rem"
                                     >
                                         サークルの説明文
@@ -83,6 +102,7 @@ export const InitializeEditor: React.FC<{}> = () => {
                             </GridItem>
                         </Grid>
                     </EditorBase>
+                    <PortalButton type="submit">登録</PortalButton>
                 </form>
             </Stack>
         </VStack>
