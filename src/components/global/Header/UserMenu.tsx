@@ -88,7 +88,7 @@ export const UserMenu: React.FC<{ session: Session | undefined }> = ({
             <VStack py="1rem">
               <Text>ログインしています</Text>
               <Text>{session.name}</Text>
-              {session.role == "general" && useOutletUser()?.userUuid ? (
+              {session.role == "general" && (useOutletUser()?.clubUuid ? (
                 <Link to="/users/club/edit">
                   <PortalButton leftIcon={<BsPencil />}>
                     サークル編集
@@ -100,7 +100,8 @@ export const UserMenu: React.FC<{ session: Session | undefined }> = ({
                     サークル登録
                   </PortalButton>
                 </Link>
-              )}
+              )
+            )}
               <PortalButton
                 onClick={onLogout}
                 pbstyle="solid"
