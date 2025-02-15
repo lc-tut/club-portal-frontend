@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom"
 
 import { Footer } from "./components/global/Footer"
 import { Header } from "./components/global/Header/Header"
+import { AdminRouteElement } from "./components/global/Route/AdminRoute"
 import { ClubRouteElement } from "./components/global/Route/ClubRoute"
 import { DomainUserRouteElement } from "./components/global/Route/DomainUserRoute"
 import { UserRouteElement } from "./components/global/Route/UserRoute"
@@ -22,6 +23,8 @@ const AnimatedRouter: React.FC<{}> = () => {
   const { session } = useSession()
   const { error } = useLoadingStateContext()
   const { setError } = useSetLoadingStateContext()
+
+  console.log(session)
 
   useEffect(() => {
     window.scrollTo(0, 0) // ページ遷移時にスクロールをトップに戻す
@@ -79,6 +82,14 @@ const AnimatedRouter: React.FC<{}> = () => {
           <Route path="edit" />
           <Route path=":uuid" />
         </Route>
+
+        <Route path="admin" element={<AdminRouteElement />} >
+          <Route index element={<page.AdminMenuList />} />
+          <Route path="add-club" element={<page.CreateNewClub />} />
+          <Route path="users" element={<page.UserLists />} />
+          {/* <Route path="users" element={<page.AdminUsers />} /> */}
+        </Route>
+
         <Route path="*" element={<page.NotFound />} />
       </Routes>
     </AnimatePresence>
