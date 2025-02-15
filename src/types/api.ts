@@ -190,3 +190,4 @@ export type APIResponse =
   | Name
   | FavoriteClubResponse
   | FavoriteClubStatus
+  | Array<UserInfo>
