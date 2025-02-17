@@ -12,12 +12,14 @@ export const AdminMenuList: React.FC<{}> = () => {
             <AdminMenu
                 items={[
                     {
-                        content: "サークルの追加",
-                        to: "add-club",
+                        content: "サークルアカウントの追加",
+                        to: "add-circle-account",
+                        remark: "新規サークルアカウントの名前・メールアドレスを追加します",
                     },
                     {
                         content: "ユーザ管理",
                         to: "users",
+                        remark: "サークル管理アカウントの名前・メールアドレスを変更します",
                     }
                 ]}
             />

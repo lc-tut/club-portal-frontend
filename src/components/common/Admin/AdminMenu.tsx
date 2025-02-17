@@ -22,7 +22,7 @@ const EditorMenuButton: React.FC<
     remarkColor = "text.main"
   } else if (props.remark !== undefined) {
     remark = props.remark
-    remarkColor = "button.orange"
+    remarkColor = "text.main"
   }
 
   return (
@@ -42,10 +42,9 @@ const EditorMenuButton: React.FC<
           <BsChevronRight />
         </Button>
       </Link>
-      <Text fontSize="0.8rem" color={remarkColor} pl="1em" minH="1.2rem">
-        {remark}
-        ああああ
-      </Text>
+      <Text fontSize="0.8rem" color={remarkColor} w={"15rem"} >
+          {remark}
+        </Text>
     </Stack>
   )
 }

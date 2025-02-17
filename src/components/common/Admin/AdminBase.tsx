@@ -1,6 +1,6 @@
 import { Flex, Stack, VStack, Wrap } from "@chakra-ui/react"
 
-import { BackButton } from "../Button/BackButton"
+import { AdminBackButton } from "./AdminBackButton"
 
 type EditorBaseProps = {
   noBackButton?: boolean
@@ -12,7 +12,7 @@ export const AdminBase: React.FC<React.PropsWithChildren<EditorBaseProps>> = (
   return (
     <Flex pt="1rem">
       <Stack>
-        <Wrap h="2rem">{!props.noBackButton && <BackButton to={"/admin"} />}</Wrap>
+        <Wrap h="2rem">{!props.noBackButton && <AdminBackButton />}</Wrap>
         <VStack
           backgroundColor="form.background"
           py="3rem"
