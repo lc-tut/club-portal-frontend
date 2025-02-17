@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom"
 
 import { Footer } from "./components/global/Footer"
 import { Header } from "./components/global/Header/Header"
+import { AdminRouteElement } from "./components/global/Route/AdminRoute"
 import { ClubRouteElement } from "./components/global/Route/ClubRoute"
 import { DomainUserRouteElement } from "./components/global/Route/DomainUserRoute"
 import { UserRouteElement } from "./components/global/Route/UserRoute"
@@ -79,6 +80,22 @@ const AnimatedRouter: React.FC<{}> = () => {
           <Route path="edit" />
           <Route path=":uuid" />
         </Route>
+
+        <Route path="admin" element={<AdminRouteElement />}>
+          <Route index element={<page.AdminMenuList />} />
+          <Route
+            path="add-circle-account"
+            element={<page.CreateNewUserAccount />}
+          />
+          <Route path="users">
+            <Route index element={<page.UserLists />} />
+            <Route path="edit">
+              <Route path=":uuid" element={<page.EditGeneralUser />} />
+            </Route>
+          </Route>
+          {/* <Route path="users" element={<page.AdminUsers />} /> */}
+        </Route>
+
         <Route path="*" element={<page.NotFound />} />
       </Routes>
     </AnimatePresence>
