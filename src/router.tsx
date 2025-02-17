@@ -23,7 +23,7 @@ const AnimatedRouter: React.FC<{}> = () => {
   const { session } = useSession()
   const { error } = useLoadingStateContext()
   const { setError } = useSetLoadingStateContext()
-  
+
   useEffect(() => {
     window.scrollTo(0, 0) // ページ遷移時にスクロールをトップに戻す
     setError(undefined)
@@ -81,9 +81,12 @@ const AnimatedRouter: React.FC<{}> = () => {
           <Route path=":uuid" />
         </Route>
 
-        <Route path="admin" element={<AdminRouteElement />} >
+        <Route path="admin" element={<AdminRouteElement />}>
           <Route index element={<page.AdminMenuList />} />
-          <Route path="add-circle-account" element={<page.CreateNewUserAccount />} />
+          <Route
+            path="add-circle-account"
+            element={<page.CreateNewUserAccount />}
+          />
           <Route path="users">
             <Route index element={<page.UserLists />} />
             <Route path="edit">

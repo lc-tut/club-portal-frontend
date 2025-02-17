@@ -94,15 +94,13 @@ export const UserMenu: React.FC<{ session: Session | undefined }> = ({
                   </PortalButton>
                 </Link>
               )}
-              {
-                session.role == "admin" && (
-                  <Link to="/admin">
-                    <PortalButton leftIcon={<BsGearFill />}>
-                      管理画面
-                    </PortalButton>
-                  </Link>
-                )
-              }
+              {session.role == "admin" && (
+                <Link to="/admin">
+                  <PortalButton leftIcon={<BsGearFill />}>
+                    管理画面
+                  </PortalButton>
+                </Link>
+              )}
               <PortalButton
                 onClick={onLogout}
                 pbstyle="solid"

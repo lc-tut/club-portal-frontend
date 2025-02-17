@@ -7,12 +7,7 @@ export const AdminBackButton: React.FC<{}> = () => {
   }
 
   return (
-    <ChakraLink
-      as={Link}
-      color="green.600"
-      fontSize="1.2rem"
-      onClick={onClick}
-    >
+    <ChakraLink as={Link} color="green.600" fontSize="1.2rem" onClick={onClick}>
       ←戻る
     </ChakraLink>
   )

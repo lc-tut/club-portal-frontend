@@ -42,9 +42,9 @@ const EditorMenuButton: React.FC<
           <BsChevronRight />
         </Button>
       </Link>
-      <Text fontSize="0.8rem" color={remarkColor} w={"15rem"} >
-          {remark}
-        </Text>
+      <Text fontSize="0.8rem" color={remarkColor} w={"15rem"}>
+        {remark}
+      </Text>
     </Stack>
   )
 }

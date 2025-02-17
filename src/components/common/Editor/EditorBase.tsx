@@ -12,7 +12,9 @@ export const EditorBase: React.FC<React.PropsWithChildren<EditorBaseProps>> = (
   return (
     <Flex pt="1rem">
       <Stack>
-        <Wrap h="2rem">{!props.noBackButton && <BackButton to={"/users/club/edit"} />}</Wrap>
+        <Wrap h="2rem">
+          {!props.noBackButton && <BackButton to={"/users/club/edit"} />}
+        </Wrap>
         <VStack
           backgroundColor="form.background"
           py="3rem"
