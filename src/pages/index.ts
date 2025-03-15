@@ -1,6 +1,7 @@
 export { ClubPage } from "./clubpage"
 export { Clubs } from "./clubs"
 export * from "./editor"
+export * from "./admin"
 export { ErrorPage } from "./error"
 export { Favorites } from "./favorites"
 export { NotFound } from "./notfound"

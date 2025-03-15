@@ -123,6 +123,11 @@ export type ChangeUserPayload = {
   clubUuid?: string
 }
 
+export type AddGeneralUserPayload = {
+  email: string
+  name: string
+}
+
 export type RegisterFavoriteClubPayload = ClubUUIDObject
 
 export type UnregisterFavoriteClubPayload = ClubUUIDObject
@@ -194,3 +199,4 @@ export type APIResponse =
   | Name
   | FavoriteClubResponse
   | FavoriteClubStatus
+  | Array<UserInfo>

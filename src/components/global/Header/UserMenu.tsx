@@ -10,7 +10,7 @@ import {
   useMediaQuery,
   VStack,
 } from "@chakra-ui/react"
-import { BsBoxArrowRight, BsPencil } from "react-icons/bs"
+import { BsBoxArrowRight, BsPencil, BsGearFill } from "react-icons/bs"
 import { Link, useLocation } from "react-router-dom"
 
 import { useSetLoadingStateContext } from "../../../contexts/loading"
@@ -105,6 +105,13 @@ export const UserMenu: React.FC<{ session: Session | undefined }> = ({
                     </PortalButton>
                   </Link>
                 ))}
+              {session.role == "admin" && (
+                <Link to="/admin">
+                  <PortalButton leftIcon={<BsGearFill />}>
+                    管理画面
+                  </PortalButton>
+                </Link>
+              )}
               <PortalButton
                 onClick={onLogout}
                 pbstyle="solid"
