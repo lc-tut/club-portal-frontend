@@ -32,7 +32,9 @@ export const UserMenu: React.FC<{ session: Session | undefined }> = ({
   const [adjustPopoverWidth] = useMediaQuery("(max-width: 21em)")
   const { setIsLoadingOuter } = useSetLoadingStateContext()
   const errorToast = useErrorToast("正常にログアウトできませんでした")
-  const { data } = useAPI<UserInfo | null>(session ? `/api/v1/users/${session.userUuid}` : null);
+  const { data } = useAPI<UserInfo | null>(
+    session ? `/api/v1/users/${session.userUuid}` : null
+  )
 
   const onLogout = async () => {
     setIsLoadingOuter(true)
@@ -89,20 +91,20 @@ export const UserMenu: React.FC<{ session: Session | undefined }> = ({
             <VStack py="1rem">
               <Text>ログインしています</Text>
               <Text>{session.name}</Text>
-              {session.role == "general" && (data && data.clubUuid ? (
-                <Link to="/users/club/edit">
-                  <PortalButton leftIcon={<BsPencil />}>
-                    サークル編集
-                  </PortalButton>
-                </Link>
-              ) : (
-                <Link to="/users/club/init">
-                  <PortalButton leftIcon={<BsPencil />}>
-                    サークル登録
-                  </PortalButton>
-                </Link>
-              )
-            )}
+              {session.role == "general" &&
+                (data && data.clubUuid ? (
+                  <Link to="/users/club/edit">
+                    <PortalButton leftIcon={<BsPencil />}>
+                      サークル編集
+                    </PortalButton>
+                  </Link>
+                ) : (
+                  <Link to="/users/club/init">
+                    <PortalButton leftIcon={<BsPencil />}>
+                      サークル登録
+                    </PortalButton>
+                  </Link>
+                ))}
               <PortalButton
                 onClick={onLogout}
                 pbstyle="solid"
