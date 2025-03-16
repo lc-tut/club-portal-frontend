@@ -1,4 +1,3 @@
-import React, { Fragment, useReducer, useState } from "react"
 import {
   FormControl,
   FormErrorMessage,
@@ -11,11 +10,9 @@ import {
   VStack,
   Radio,
   RadioGroup,
-  Wrap,
   HStack,
   Box,
   Select,
-  Text,
   Flex,
   NumberInput,
   NumberInputField,
@@ -24,11 +21,29 @@ import {
   NumberDecrementStepper,
   Switch,
 } from "@chakra-ui/react"
+import { zodResolver } from "@hookform/resolvers/zod"
+import type { AxiosRequestConfig } from "axios"
+import { Fragment, useReducer, useState } from "react"
+import type React from "react"
+import { useForm, useFieldArray, Controller } from "react-hook-form"
 import { string, z } from "zod"
 
-import { AxiosRequestConfig } from "axios"
+import { PortalButton } from "../../components/common/Button"
+import {
+  EditorLabel,
+  EditorText,
+} from "../../components/common/Editor/CommonEditor"
 import { EditorBase } from "../../components/common/Editor/EditorBase"
+import { EditorButton } from "../../components/common/Editor/EditorButton"
 import { TitleArea } from "../../components/global/Header/TitleArea"
+import { useErrorToast } from "../../hooks/useErrorToast"
+import { useOutletUser } from "../../hooks/useOutletUser"
+import { useSuccessToast } from "../../hooks/useSuccessToast"
+import { timePlaceReducer } from "../../reducer/timeplace"
+import type { CreateClubPayload } from "../../types/api"
+import type { DateType } from "../../types/description"
+import type { EditorSelectOptionItem } from "../../types/editor"
+import { axiosWithPayload } from "../../utils/axios"
 import {
   PADDING_BEFORE_FOOTER,
   VALID_SNS_LIST,
@@ -39,32 +54,7 @@ import {
   BUILDING_ID_MAP,
   TOGGLE_ROOM,
 } from "../../utils/consts"
-
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm, useFieldArray, Controller, set } from "react-hook-form"
-import { PortalButton } from "../../components/common/Button"
-import { useErrorToast } from "../../hooks/useErrorToast"
-import { useSuccessToast } from "../../hooks/useSuccessToast"
-import { CreateClubPayload } from "../../types/api"
-import { axiosWithPayload } from "../../utils/axios"
 import { toPlaceID, toTimeID } from "../../utils/functions"
-
-import { EditorButton } from "../../components/common/Editor/EditorButton"
-import { useOutletUser } from "../../hooks/useOutletUser"
-import { EditorSelectOptionItem } from "../../types/editor"
-import {
-  EditorLabel,
-  EditorText,
-} from "../../components/common/Editor/CommonEditor"
-import { timePlaceReducer } from "../../reducer/timeplace"
-import { DateType } from "../../types/description"
-
-// 型チェック用
-const schemaForType =
-  <T,>() =>
-  <S extends z.ZodType<T, any, any>>(arg: S) => {
-    return arg
-  }
 
 const schema = z.object({
   name: z.string().min(1, { message: "サークル名を入力してください" }),
@@ -247,7 +237,7 @@ export const InitializeEditor: React.FC<{}> = () => {
   const errorToast = useErrorToast("データの登録に失敗しました。")
   const successToast = useSuccessToast("データの登録が完了しました！")
 
-  const onSubmitError = (errors: any) => {
+  const onSubmitError = (errors: Record<string, unknown>) => {
     console.log(errors)
     const errorKeys = Object.keys(errors)
     if (errorKeys.length > 0) {
@@ -630,7 +620,7 @@ export const InitializeEditor: React.FC<{}> = () => {
                     <option value="" hidden>
                       -
                     </option>
-                    {MONTHS.map((item: Number, index) => (
+                    {MONTHS.map((item: number, index) => (
                       <option key={index} value={String(item)}>
                         {String(item)}
                       </option>
@@ -1019,8 +1009,9 @@ export const InitializeEditor: React.FC<{}> = () => {
                         borderRadius="md"
                         flex="1"
                       >
-                        {!field.date && `${field.date} - `}
-                        {!field.time && `${field.time} - `}
+                        {field.date && `${field.date} - `}
+                        {field.time &&
+                          `${field.time.replace(/\b(\d)\b/g, "0$1")} - `}
                         {field.place}
                       </Box>
                       <EditorButton
