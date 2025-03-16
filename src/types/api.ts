@@ -47,8 +47,12 @@ export type Achievement = {
 }
 
 export type Image = {
-  imageId: number
+  imageId: ImageID
   path: string
+}
+
+export type ImageID = {
+  imageId: number
 }
 
 export type Video = {
@@ -105,7 +109,7 @@ type ClubUUIDObject = {
 }
 
 export type UpdateImagePayload = Array<{
-  imageId: number
+  imageId: ImageID
 }>
 
 export type CreateGeneralUserPayload = {
@@ -136,15 +140,15 @@ export type CreateClubPayload = {
   description: string
   shortDescription: string
   name: string
-  campus: number // 0, 1
+  campus: number
   clubType: number // 0, 1, 2
   remark?: string
   contents: Array<Content>
   links: Array<Link>
   schedules: Array<Schedule>
   achievements: Array<Achievement>
-  images: Array<Image>
-  videos: Array<Video>
+  images: Array<ImageID>
+  videos?: Array<Video>
   activityDetails: Array<ActivityDetail>
 }
 
@@ -157,7 +161,7 @@ export type UpdateClubPayload = {
   links: Array<Link>
   schedules: Array<Schedule>
   achievements: Array<Achievement>
-  images: Array<Image>
+  images: Array<ImageID>
   videos: Array<Video>
   activityDetails: Array<ActivityDetail>
 }

@@ -192,7 +192,7 @@ export const ImageEditor: React.FC<{}> = () => {
                   item={image}
                   onPreviewClick={() => onPreviewClick(image.path)}
                   onRemove={onRemove}
-                  key={image.imageId}
+                  key={String(image.imageId)}
                 />
               ))}
               {newImages.map((image, index) => (

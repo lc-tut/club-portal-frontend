@@ -14,9 +14,10 @@ import { BsBoxArrowRight, BsPencil, BsGearFill } from "react-icons/bs"
 import { Link, useLocation } from "react-router-dom"
 
 import { useSetLoadingStateContext } from "../../../contexts/loading"
+import { useAPI } from "../../../hooks/useAPI"
 import { useErrorToast } from "../../../hooks/useErrorToast"
 import { useSession } from "../../../hooks/useSession"
-import type { Session } from "../../../types/api"
+import type { Session, UserInfo } from "../../../types/api"
 import { axiosFetcher } from "../../../utils/axios"
 import { PortalButton } from "../../common/Button"
 import { DefaultUserIcon } from "../../common/Icon"
@@ -31,6 +32,9 @@ export const UserMenu: React.FC<{ session: Session | undefined }> = ({
   const [adjustPopoverWidth] = useMediaQuery("(max-width: 21em)")
   const { setIsLoadingOuter } = useSetLoadingStateContext()
   const errorToast = useErrorToast("正常にログアウトできませんでした")
+  const { data } = useAPI<UserInfo | null>(
+    session ? `/api/v1/users/${session.userUuid}` : null
+  )
 
   const onLogout = async () => {
     setIsLoadingOuter(true)
@@ -87,13 +91,20 @@ export const UserMenu: React.FC<{ session: Session | undefined }> = ({
             <VStack py="1rem">
               <Text>ログインしています</Text>
               <Text>{session.name}</Text>
-              {session.role == "general" && (
-                <Link to="/users/club/edit">
-                  <PortalButton leftIcon={<BsPencil />}>
-                    サークル編集
-                  </PortalButton>
-                </Link>
-              )}
+              {session.role == "general" &&
+                (data && data.clubUuid ? (
+                  <Link to="/users/club/edit">
+                    <PortalButton leftIcon={<BsPencil />}>
+                      サークル編集
+                    </PortalButton>
+                  </Link>
+                ) : (
+                  <Link to="/users/club/init">
+                    <PortalButton leftIcon={<BsPencil />}>
+                      サークル登録
+                    </PortalButton>
+                  </Link>
+                ))}
               {session.role == "admin" && (
                 <Link to="/admin">
                   <PortalButton leftIcon={<BsGearFill />}>

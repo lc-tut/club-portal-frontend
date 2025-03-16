@@ -1,6 +1,7 @@
 export { DescriptionEditor } from "./description"
 export { DetailEditor } from "./detail"
 export { IconEditor } from "./icon"
+export { InitializeEditor } from "./initialize"
 export { ImageEditor } from "./image"
 export { LinkEditor } from "./link"
 export { EditorList } from "./list"

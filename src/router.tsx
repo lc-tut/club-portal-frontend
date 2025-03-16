@@ -73,6 +73,7 @@ const AnimatedRouter: React.FC<{}> = () => {
               <Route path="icon" element={<page.IconEditor />} />
               <Route path="name" element={<page.NameEditor />} />
             </Route>
+            <Route path="init" element={<page.InitializeEditor />} />
           </Route>
           <Route path="favs" element={<DomainUserRouteElement />}>
             <Route index element={<page.Favorites />} />
