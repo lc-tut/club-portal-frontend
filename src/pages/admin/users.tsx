@@ -31,7 +31,8 @@ export const UserLists: React.FC<{}> = () => {
 
   useEffect(() => {
     if (data) {
-      const users = data.filter((val) => val.role !== "admin")
+      // TODO: ユーザロールの絞込(generalとdomain)
+      const users = data.filter((val) => val.role === "general")
       setUsers(users)
       setTotalPages(Math.ceil(users.length / PER_PAGE))
     }
@@ -39,7 +40,7 @@ export const UserLists: React.FC<{}> = () => {
 
   return (
     <VStack flex="1" pb={PADDING_BEFORE_FOOTER}>
-      <TitleArea>ユーザ管理</TitleArea>
+      <TitleArea>サークル管理</TitleArea>
       <Stack w="100%" maxW={"1400px"} spacing={4} p={8}>
         <TableContainer>
           <Table>
