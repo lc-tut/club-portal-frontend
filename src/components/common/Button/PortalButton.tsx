@@ -27,6 +27,7 @@ const colorMap: Record<ButtonColor, string> = {
   green: "green.600",
   orange: "button.orange",
   yellow: "button.yellow",
+  red: "red.600",
 }
 
 export const PortalButton: React.FC<

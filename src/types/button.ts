@@ -2,7 +2,7 @@ import type { ButtonProps } from "@chakra-ui/react"
 
 export type ButtonSize = "normal" | "large" | "100%"
 export type ButtonStyle = "fill" | "solid" | "round-fill" | "round-solid"
-export type ButtonColor = "green" | "orange" | "yellow"
+export type ButtonColor = "green" | "orange" | "yellow" | "red"
 
 type CommonPickedProps = Pick<
   ButtonProps,

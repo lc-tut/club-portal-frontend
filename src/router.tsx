@@ -93,6 +93,9 @@ const AnimatedRouter: React.FC<{}> = () => {
             <Route path="edit">
               <Route path=":uuid" element={<page.EditGeneralUser />} />
             </Route>
+            <Route path="delete">
+              <Route path=":uuid" element={<page.DeleteGeneralUser />} />
+            </Route>
           </Route>
           {/* <Route path="users" element={<page.AdminUsers />} /> */}
         </Route>
