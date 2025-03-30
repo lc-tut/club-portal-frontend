@@ -61,11 +61,20 @@ export const UserLists: React.FC<{}> = () => {
                       <Td>{val.email}</Td>
                       <Td>
                         <Button
+                          m="1"
                           colorScheme="blue"
                           as={Link}
                           to={`/admin/users/edit/${val.userUuid}`}
                         >
                           編集
+                        </Button>
+                        <Button
+                          m="1"
+                          colorScheme="red"
+                          as={Link}
+                          to={`/admin/users/delete/${val.userUuid}`}
+                        >
+                          削除
                         </Button>
                       </Td>
                     </Tr>
