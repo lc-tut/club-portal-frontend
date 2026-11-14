@@ -33,7 +33,7 @@
   "dependencies": {
     "@chakra-ui/react": "2.8.2",
     "@emotion/react": "11.11.4",
-    "@emotion/styled": "11.11.0",
+    "@emotion/styled": "11.11.5",
     "@hookform/resolvers": "3.3.4",
     "axios": "1.5.1",
     "axios-case-converter": "1.1.1",
